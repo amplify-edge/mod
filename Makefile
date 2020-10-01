@@ -1,8 +1,6 @@
 
-# This make file uses composition to keep things KISS and easy.
-# In the boilerpalte make files dont do any includes, because you will create multi permutations of possibilities.
-
-BOILERPLATE_FSPATH=./boilerplate
+SHARED_FSPATH=./../shared
+BOILERPLATE_FSPATH=$(SHARED_FSPATH)/boilerplate
 
 include $(BOILERPLATE_FSPATH)/help.mk
 include $(BOILERPLATE_FSPATH)/os.mk
@@ -12,61 +10,58 @@ include $(BOILERPLATE_FSPATH)/flu.mk
 include $(BOILERPLATE_FSPATH)/go.mk
 
 
+
 # remove the "v" prefix
 VERSION ?= $(shell echo $(TAGGED_VERSION) | cut -c 2-)
 
 override FLU_SAMPLE_NAME =client
 override FLU_LIB_NAME =client
 
+this-all: this-print this-dep this-build this-print-end
 
 ## Print all settings
-this-print: ## print
+this-print: 
+	@echo
+	@echo "-- MOD : start --"
+	@echo
+
+## Print all settings
+this-print-all: ## print
 	
 	$(MAKE) os-print
 	
 	$(MAKE) gitr-print
+
+	$(MAKE) go-print
+
+	$(MAKE) tool-print
 	
 	$(MAKE) flu-print
 
 	$(MAKE) flu-gen-lang-print
 
-	$(MAKE) go-print
-
-this-dep:
-	# LOCAL DEVS: go to root make file and call this yourself to get all the tools !!!!
-	# install tools
-	cd ./tool && $(MAKE) this-build
-
-	# Install our grpc tools
-	#$(MAKE) grpc-all
-
-### CI
-
-## Build for CI. Does Big Gen !
-this-build: this-dep
-	# Does full gen and build (web)
-	cd ./maintemplate && $(MAKE) this-build
-
-## Build Desk For CI. Does Big Gen !
-this-flu-desk-build: this-dep
-	cd ./maintemplate && $(MAKE) flu-desk-build
-
-### Developers
-
-# NOTE: At dev time you only want to run long generators IF you know you need then.
-# So here are the make targets to use as you see fit.
-# Manaully do a "make this-dep" to get the golang tools yourself.
-# Manaully do a "make flu-config" to set to beta channnel yourself.
-# Manaully do a "make flu-gen-all" to gen all code yourself.
-# Manually do a "make flu-gen-lang-all" to gen all languages yourself.
-
-### For Local dev. Does NOT do big Gen !
-this-flu-desk-run:
-
-	cd ./maintemplate && $(MAKE) flu-desk-run
-
-### For Local dev. Does NOT do big Gen !
-this-flu-web-run:
+this-print-end:
+	@echo
+	@echo "-- MOD : end --"
+	@echo
+	@echo
 	
+this-dep:
+	cd $(SHARED_FSPATH) && $(MAKE) this-all
 
-	cd ./maintemplate && $(MAKE) flu-web-run
+
+this-build: mod-account mod-disco
+
+mod-account:
+	cd ./mod-account && $(MAKE) this-build
+
+mod-disco:
+	cd ./mod-disco && $(MAKE) this-build
+
+
+mod-account-flu-desk-run:
+	cd ./mod-account && $(MAKE) flu-desk-run
+
+
+mod-disco-flu-web-run:
+	cd ./mod-disco && $(MAKE) flu-web-run
