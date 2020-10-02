@@ -50,18 +50,17 @@ this-dep:
 	cd $(SHARED_FSPATH) && $(MAKE) this-all
 
 
-this-build: mod-account mod-disco
+this-build: mod-account-build mod-disco-build
 
-mod-account:
+mod-account-build:
 	cd ./mod-account && $(MAKE) this-build
 
-mod-disco:
+mod-disco-build:
 	cd ./mod-disco && $(MAKE) this-build
 
 
 mod-account-flu-desk-run:
 	cd ./mod-account && $(MAKE) flu-desk-run
-
 
 mod-disco-flu-web-run:
 	cd ./mod-disco && $(MAKE) flu-web-run
