@@ -1,5 +1,5 @@
-import 'package:mod_main/core/core.dart';
-import 'package:mod_main/modules/org_manager/orgs/data/org_model.dart';
+import 'package:mod_disco/core/core.dart';
+import 'package:mod_disco/modules/org_manager/orgs/data/org_model.dart';
 
 class OrgsViewModel extends BaseModel {
   // This all is to manage orgs, please change it to match the users data model.
@@ -8,7 +8,8 @@ class OrgsViewModel extends BaseModel {
   int _firstRowIndex = 0;
   int _sortColumnIndex;
   bool _sortAscending = true;
-  List<bool> _selected = List<bool>.generate(Org.mockOrgs.length, (index) => false);
+  List<bool> _selected =
+      List<bool>.generate(Org.mockOrgs.length, (index) => false);
 
   List<Org> get orgs => _orgs;
 

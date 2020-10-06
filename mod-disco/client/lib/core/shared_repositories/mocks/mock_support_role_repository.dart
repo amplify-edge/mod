@@ -1,6 +1,6 @@
-import 'package:mod_main/modules/support_roles/data/support_role_model.dart';
-import 'package:mod_main/core/shared_repositories/base_repository.dart';
-import 'package:mod_main/core/shared_repositories/support_role_repository.dart';
+import 'package:mod_disco/modules/support_roles/data/support_role_model.dart';
+import 'package:mod_disco/core/shared_repositories/base_repository.dart';
+import 'package:mod_disco/core/shared_repositories/support_role_repository.dart';
 
 class MockSupportRoleRepository extends BaseRepository
     implements SupportRoleRepository {
@@ -14,12 +14,15 @@ class MockSupportRoleRepository extends BaseRepository
   }
 
   SupportRole getById(String id) {
-    return _mockSupportRoles.singleWhere((_supportRole) => _supportRole.id == id);
+    return _mockSupportRoles
+        .singleWhere((_supportRole) => _supportRole.id == id);
   }
 
   // Returns a list of Orgs via a matching name
   List<SupportRole> getByOrgId(String orgId) {
-    return _mockSupportRoles.where((_supportRole) => _supportRole.refOrgId == orgId).toList();
+    return _mockSupportRoles
+        .where((_supportRole) => _supportRole.refOrgId == orgId)
+        .toList();
   }
 
   static List<SupportRole> _mockSupportRoles = [

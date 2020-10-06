@@ -1,5 +1,5 @@
 import '../data/user_need_answer_model.dart';
-import 'package:mod_main/core/shared_repositories/user_need_answer_repository.dart';
+import 'package:mod_disco/core/shared_repositories/user_need_answer_repository.dart';
 
 class UserNeedAnswerService {
   final UserNeedAnswerRepository _repository;

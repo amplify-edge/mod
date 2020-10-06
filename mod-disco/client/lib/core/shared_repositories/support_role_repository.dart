@@ -1,5 +1,5 @@
-import 'package:mod_main/modules/support_roles/data/support_role_model.dart';
-import 'package:mod_main/core/shared_repositories/base_repository.dart';
+import 'package:mod_disco/modules/support_roles/data/support_role_model.dart';
+import 'package:mod_disco/core/shared_repositories/base_repository.dart';
 
 class SupportRoleRepository extends BaseRepository {
   List<SupportRole> getAll() {

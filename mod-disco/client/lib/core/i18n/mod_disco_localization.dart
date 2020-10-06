@@ -8,15 +8,15 @@ import 'package:intl/intl.dart';
 import 'package:sys_core/sys_core.dart';
 import './translations.dart';
 
-class ModMainLocalizations extends Translations {
+class ModDiscoLocalizations extends Translations {
   final Locale locale;
   static Map<String, String> _localizedStrings;
 
-  ModMainLocalizations(this.locale);
+  ModDiscoLocalizations(this.locale);
 
   Future<bool> load() async {
     String jsonString = await rootBundle
-        .loadString('packages/mod_main/i18n/lang_${locale.languageCode}.json');
+        .loadString('packages/mod_disco/i18n/lang_${locale.languageCode}.json');
 
     Map<String, dynamic> jsonMap = Map.from(json.decode(jsonString))
       ..removeWhere((key, value) => key[0] == '@');
@@ -32,29 +32,30 @@ class ModMainLocalizations extends Translations {
     return _localizedStrings[key];
   }
 
-  static ModMainLocalizations of(BuildContext context) {
-    return Localizations.of<ModMainLocalizations>(
-        context, ModMainLocalizations);
+  static ModDiscoLocalizations of(BuildContext context) {
+    return Localizations.of<ModDiscoLocalizations>(
+        context, ModDiscoLocalizations);
   }
 }
 
-class ModMainLocalizationsDelegate
-    extends LocalizationsDelegate<ModMainLocalizations> {
+class ModDiscoLocalizationsDelegate
+    extends LocalizationsDelegate<ModDiscoLocalizations> {
   final Locale overriddenLocale;
 
-  ModMainLocalizationsDelegate(this.overriddenLocale);
+  ModDiscoLocalizationsDelegate(this.overriddenLocale);
 
   @override
-  bool shouldReload(ModMainLocalizationsDelegate old) => true;
+  bool shouldReload(ModDiscoLocalizationsDelegate old) => true;
 
   @override
   bool isSupported(Locale locale) {
-    return Languages.supportedLanguages.keys.contains(locale.languageCode.toString());
+    return Languages.supportedLanguages.keys
+        .contains(locale.languageCode.toString());
   }
 
   @override
-  Future<ModMainLocalizations> load(Locale locale) async {
-    ModMainLocalizations localizations = new ModMainLocalizations(locale);
+  Future<ModDiscoLocalizations> load(Locale locale) async {
+    ModDiscoLocalizations localizations = new ModDiscoLocalizations(locale);
     await localizations.load();
     return localizations;
   }
@@ -65,8 +66,8 @@ class FallbackCupertinoLocalisationsDelegate
   const FallbackCupertinoLocalisationsDelegate();
 
   @override
-  bool isSupported(Locale locale) =>
-      Languages.supportedLanguages.keys.contains(locale.languageCode.toString());
+  bool isSupported(Locale locale) => Languages.supportedLanguages.keys
+      .contains(locale.languageCode.toString());
 
   @override
   Future<CupertinoLocalizations> load(Locale locale) =>

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mod_main/core/core.dart';
+import 'package:mod_disco/core/core.dart';
 
-import 'package:mod_main/modules/main_module.dart';
+import 'package:mod_disco/modules/main_module.dart';
 import 'package:sys_core/sys_core.dart';
 
 void main() {
@@ -65,7 +65,7 @@ class App extends StatelessWidget {
           supportedLocales:
               Languages.supportedLanguages.keys.map((e) => Locale(e)).toList(),
           localizationsDelegates: [
-            ModMainLocalizationsDelegate(value.locale),
+            ModDiscoLocalizationsDelegate(value.locale),
             GlobalWidgetsLocalizations.delegate,
             GlobalMaterialLocalizations.delegate
           ]);

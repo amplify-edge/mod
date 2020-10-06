@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mod_main/core/core.dart';
-import 'package:mod_main/modules/splash/view_model/splash_view_model.dart';
+import 'package:mod_disco/core/core.dart';
+import 'package:mod_disco/modules/splash/view_model/splash_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
 class SplashView extends StatelessWidget {
@@ -16,15 +16,15 @@ class SplashView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               RaisedButton(
-                child: Text("Dashboard"),
-                onPressed: (){
-                  model.navigateToOrgManagement();
-              }),
-               RaisedButton(
-                child: Text("Main"),
-                onPressed: (){
-                 model.navigateToMain();
-              }),
+                  child: Text("Dashboard"),
+                  onPressed: () {
+                    model.navigateToOrgManagement();
+                  }),
+              RaisedButton(
+                  child: Text("Main"),
+                  onPressed: () {
+                    model.navigateToMain();
+                  }),
             ],
           ),
         ),

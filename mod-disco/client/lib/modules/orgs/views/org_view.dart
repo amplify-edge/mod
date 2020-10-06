@@ -1,11 +1,11 @@
 import 'package:floating_search_bar/ui/sliver_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mod_main/modules/orgs/data/org_model.dart';
-import 'package:mod_main/modules/orgs/view_model/org_view_model.dart';
+import 'package:mod_disco/modules/orgs/data/org_model.dart';
+import 'package:mod_disco/modules/orgs/view_model/org_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_scaffold/responsive_scaffold.dart';
-import 'package:mod_main/core/core.dart';
+import 'package:mod_disco/core/core.dart';
 import 'package:sys_core/sys_core.dart';
 
 import 'org_detail_view.dart';
@@ -31,15 +31,15 @@ class OrgView extends StatelessWidget {
               org: model.orgs[detailsId], showBackButton: isFullScreen),
           noItemsAvailable: Center(
             child: Text(
-              ModMainLocalizations.of(context).translate('noCampaigns'),
+              ModDiscoLocalizations.of(context).translate('noCampaigns'),
             ),
           ),
           noItemsSelected: Center(
-              child: Text(ModMainLocalizations.of(context)
+              child: Text(ModDiscoLocalizations.of(context)
                   .translate('noItemsSelected'))),
           disableBackButtonOnNoItemSelected: false,
           masterAppBarTitle: Text(
-              ModMainLocalizations.of(context).translate('selectCampaign')),
+              ModDiscoLocalizations.of(context).translate('selectCampaign')),
         ),
       ),
     );

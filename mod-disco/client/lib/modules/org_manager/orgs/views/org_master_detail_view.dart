@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mod_main/core/core.dart';
-import 'package:mod_main/modules/org_manager/orgs/data/org_model.dart';
-import 'package:mod_main/modules/org_manager/orgs/view_model/orgs_detail_page_view_model.dart';
-import 'package:mod_main/modules/org_manager/orgs/widgets/data_pane/data_pane.dart';
-import 'package:mod_main/modules/org_manager/orgs/widgets/filter_pane.dart';
+import 'package:mod_disco/core/core.dart';
+// import 'package:mod_disco/modules/org_manager/orgs/data/org_model.dart';
+import 'package:mod_disco/modules/org_manager/orgs/view_model/orgs_detail_page_view_model.dart';
+import 'package:mod_disco/modules/org_manager/orgs/widgets/data_pane/data_pane.dart';
+import 'package:mod_disco/modules/org_manager/orgs/widgets/filter_pane.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sys_core/sys_core.dart';
@@ -19,24 +19,26 @@ class OrgMasterDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
       viewModel: OrgsViewModel(),
-      builder:(context, OrgsViewModel model, child)=>
-      GetCourageMasterDetail<String>(
+      builder: (context, OrgsViewModel model, child) =>
+          GetCourageMasterDetail<String>(
         id: id,
         routeWithIdPlaceholder: Modular.get<Paths>().dashboardId,
-        detailsBuilder: (context, detailsId, isFullScreen) => _getDetailsView(context, detailsId, isFullScreen, model),
+        detailsBuilder: (context, detailsId, isFullScreen) =>
+            _getDetailsView(context, detailsId, isFullScreen, model),
         labelBuilder: (item) => item,
         items: model.masterOrgNames,
         enableSearchBar: true,
-        noItemsSelected: Center(child: Text(ModMainLocalizations.of(context).translate('noItemsSelected'))),
-
-        masterAppBarTitle: Text(
-            ModMainLocalizations.of(context).translate('selectCampaign')),
+        noItemsSelected: Center(
+            child: Text(ModDiscoLocalizations.of(context)
+                .translate('noItemsSelected'))),
+        masterAppBarTitle:
+            Text(ModDiscoLocalizations.of(context).translate('selectCampaign')),
       ),
     );
   }
 
-  Widget _getDetailsView(
-      BuildContext context, int detailsId, bool isFullScreen, OrgsViewModel model) {
+  Widget _getDetailsView(BuildContext context, int detailsId, bool isFullScreen,
+      OrgsViewModel model) {
     return ViewModelProvider.withConsumer(
       viewModel: OrgsViewModel(),
       builder: (context, OrgsViewModel model, child) => ResponsiveBuilder(

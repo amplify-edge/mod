@@ -1,8 +1,9 @@
-import 'package:mod_main/core/shared_repositories/base_repository.dart';
-import 'package:mod_main/core/shared_repositories/user_need_repository.dart';
-import 'package:mod_main/modules/user_needs/data/user_need_model.dart';
+import 'package:mod_disco/core/shared_repositories/base_repository.dart';
+import 'package:mod_disco/core/shared_repositories/user_need_repository.dart';
+import 'package:mod_disco/modules/user_needs/data/user_need_model.dart';
 
-class MockUserNeedRepository extends BaseRepository implements UserNeedRepository {
+class MockUserNeedRepository extends BaseRepository
+    implements UserNeedRepository {
   @override
   List<UserNeed> getAll() {
     return _mockUserNeeds;
@@ -13,7 +14,9 @@ class MockUserNeedRepository extends BaseRepository implements UserNeedRepositor
   }
 
   List<UserNeed> getByOrgId(String orgId) {
-    return _mockUserNeeds.where((_userNeed) => _userNeed.refOrgId == orgId).toList();
+    return _mockUserNeeds
+        .where((_userNeed) => _userNeed.refOrgId == orgId)
+        .toList();
   }
 
   // Because of the size of the data, I will put the attribute at the
@@ -26,7 +29,8 @@ class MockUserNeedRepository extends BaseRepository implements UserNeedRepositor
       group: '1',
       name: 'USER-DEMAND-RENT-5000',
       isTextBox: 'no',
-      description: 'I will commit to stop paying my rent once 5000 other people have also stopped paying their rent.',
+      description:
+          'I will commit to stop paying my rent once 5000 other people have also stopped paying their rent.',
     ),
     UserNeed(
       id: '002',
@@ -35,7 +39,8 @@ class MockUserNeedRepository extends BaseRepository implements UserNeedRepositor
       group: '1',
       name: 'USER-DEMAND-RENT-10000',
       isTextBox: 'no',
-      description: 'I will commit to stop paying my rent once 10000 other people have also stopped paying their rent.',
+      description:
+          'I will commit to stop paying my rent once 10000 other people have also stopped paying their rent.',
     ),
     UserNeed(
       id: '003',
@@ -44,7 +49,8 @@ class MockUserNeedRepository extends BaseRepository implements UserNeedRepositor
       group: '1',
       name: 'USER-DEMAND-RENT-15000',
       isTextBox: 'no',
-      description: 'I will commit to stop paying my rent once 15000 other people have also stopped paying their rent.',
+      description:
+          'I will commit to stop paying my rent once 15000 other people have also stopped paying their rent.',
     ),
     UserNeed(
       id: '004',
@@ -53,7 +59,8 @@ class MockUserNeedRepository extends BaseRepository implements UserNeedRepositor
       group: '2',
       name: 'USER-DEMAND-LEGAL',
       isTextBox: 'no',
-      description: 'I need to be more confident that I will be able to recieve the necessary legal defence if I am evicted from my home as a consequence of the rent strike.',
+      description:
+          'I need to be more confident that I will be able to recieve the necessary legal defence if I am evicted from my home as a consequence of the rent strike.',
     ),
     UserNeed(
       id: '005',
@@ -62,7 +69,8 @@ class MockUserNeedRepository extends BaseRepository implements UserNeedRepositor
       group: '2',
       name: 'USER-DEMAND-LEGAL',
       isTextBox: 'no',
-      description: 'I need to be more confident that I will be able to recieve the necessary legal defence if I am evicted from my home as a consequence of the rent strike.',
+      description:
+          'I need to be more confident that I will be able to recieve the necessary legal defence if I am evicted from my home as a consequence of the rent strike.',
     ),
     UserNeed(
       id: '006',

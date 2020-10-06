@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mod_main/core/shared_repositories/base_repository.dart';
-import 'package:mod_main/core/shared_repositories/user_need_answer_repository.dart';
-import 'package:mod_main/modules/user_needs/data/user_need_answer_model.dart';
+import 'package:mod_disco/core/shared_repositories/base_repository.dart';
+import 'package:mod_disco/core/shared_repositories/user_need_answer_repository.dart';
+import 'package:mod_disco/modules/user_needs/data/user_need_answer_model.dart';
 
 class MockUserNeedAnswerRepository extends BaseRepository
     implements UserNeedAnswerRepository {
@@ -11,14 +11,12 @@ class MockUserNeedAnswerRepository extends BaseRepository
   }
 
   UserNeedAnswer getById(String id) {
-    return
-        _mockUserNeedAnswers
+    return _mockUserNeedAnswers
         .singleWhere((_userNeedAnswer) => _userNeedAnswer.id == id);
   }
 
   List<UserNeedAnswer> getByQuestionId(String questionId) {
-    return
-        _mockUserNeedAnswers
+    return _mockUserNeedAnswers
         .where((_userNeedAnswer) => _userNeedAnswer.refQuestionId == questionId)
         .toList();
   }
@@ -29,9 +27,7 @@ class MockUserNeedAnswerRepository extends BaseRepository
       @required String refUserId,
       @required String answer,
       @required String comment}) {
-
-    UserNeedAnswer largestId = _mockUserNeedAnswers.reduce((value,
-            element) =>
+    UserNeedAnswer largestId = _mockUserNeedAnswers.reduce((value, element) =>
         value = int.parse(value.id) > int.parse(element.id) ? value : element);
 
     String newId = (int.parse(largestId.id) + 1).toString().padLeft(2, '0');
@@ -50,8 +46,7 @@ class MockUserNeedAnswerRepository extends BaseRepository
   }
 
   bool updateUserNeedAnswer(UserNeedAnswer userNeedAnswer) {
-    int index =
-        _mockUserNeedAnswers
+    int index = _mockUserNeedAnswers
         .indexWhere((_una) => _una.id == userNeedAnswer.id ? true : false);
 
     if (index < 0) {

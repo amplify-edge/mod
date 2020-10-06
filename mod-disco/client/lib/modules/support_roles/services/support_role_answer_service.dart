@@ -1,10 +1,10 @@
 import '../data/support_role_answer_model.dart';
-import 'package:mod_main/core/shared_repositories/support_role_answer_repository.dart';
+import 'package:mod_disco/core/shared_repositories/support_role_answer_repository.dart';
 
 class SupportRoleAnswerService {
   final SupportRoleAnswerRepository _repository;
 
-  SupportRoleAnswerService({repository}): this._repository = repository;
+  SupportRoleAnswerService({repository}) : this._repository = repository;
 
   SupportRoleAnswerRepository get repository => this._repository;
 
@@ -16,7 +16,7 @@ class SupportRoleAnswerService {
     return this._repository.getByQuestionId(questionId);
   }
 
-  List<SupportRoleAnswer> getAll(){
+  List<SupportRoleAnswer> getAll() {
     // TODO Pull data from go client
     return this._repository.getAll();
   }

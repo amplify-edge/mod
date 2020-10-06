@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mod_main/modules/support_roles/data/support_role_answer_model.dart';
-import 'package:mod_main/core/shared_repositories/base_repository.dart';
-import 'package:mod_main/core/shared_repositories/support_role_answer_repository.dart';
+import 'package:mod_disco/modules/support_roles/data/support_role_answer_model.dart';
+import 'package:mod_disco/core/shared_repositories/base_repository.dart';
+import 'package:mod_disco/core/shared_repositories/support_role_answer_repository.dart';
 
 class MockSupportRoleAnswerRepository extends BaseRepository
     implements SupportRoleAnswerRepository {
@@ -15,12 +15,14 @@ class MockSupportRoleAnswerRepository extends BaseRepository
   }
 
   SupportRoleAnswer getById(String id) {
-    return _mockSupportRoleAnswers.singleWhere((_supportRoleAnswer) => _supportRoleAnswer.id == id);
+    return _mockSupportRoleAnswers
+        .singleWhere((_supportRoleAnswer) => _supportRoleAnswer.id == id);
   }
 
   // Returns a list of Orgs via a matching name
   List<SupportRoleAnswer> getByQuestionId(String questionId) {
-    return _mockSupportRoleAnswers.where((_supportRoleAnswer) => _supportRoleAnswer.refQuestionId == questionId);
+    return _mockSupportRoleAnswers.where(
+        (_supportRoleAnswer) => _supportRoleAnswer.refQuestionId == questionId);
   }
 
   bool createSupportRoleAnswer(
@@ -29,7 +31,6 @@ class MockSupportRoleAnswerRepository extends BaseRepository
       @required String refUserId,
       @required String answer,
       @required String comment}) {
-
     SupportRoleAnswer largestId = _mockSupportRoleAnswers.reduce((value,
             element) =>
         value = int.parse(value.id) > int.parse(element.id) ? value : element);
@@ -49,8 +50,7 @@ class MockSupportRoleAnswerRepository extends BaseRepository
   }
 
   bool updateSupportRoleAnswer(SupportRoleAnswer supportRoleAnswer) {
-    int index =
-        _mockSupportRoleAnswers
+    int index = _mockSupportRoleAnswers
         .indexWhere((_spa) => _spa.id == supportRoleAnswer.id ? true : false);
 
     if (index < 0) {
