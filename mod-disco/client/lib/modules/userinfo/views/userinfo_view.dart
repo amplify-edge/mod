@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mod_main/core/core.dart';
-import 'package:mod_timespace/mod_timespace.dart';
+import 'package:mod_disco/core/core.dart';
+// import 'package:mod_timespace/mod_timespace.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
 import '../view_model/userinfo_view_model.dart';
@@ -12,8 +12,8 @@ class UserInfoView extends StatelessWidget {
       viewModel: UserInfoViewModel(),
       builder: (context, UserInfoViewModel model, child) => Scaffold(
           appBar: AppBar(
-              title:
-                  Text(ModMainLocalizations.of(context).translate('aboutYou'))),
+              title: Text(
+                  ModDiscoLocalizations.of(context).translate('aboutYou'))),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -22,7 +22,7 @@ class UserInfoView extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     '1. ' +
-                        ModMainLocalizations.of(context)
+                        ModDiscoLocalizations.of(context)
                             .translate("whereAreYou"),
                     style: Theme.of(context).textTheme.title,
                   ),
@@ -34,12 +34,12 @@ class UserInfoView extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Text(
-                    ModMainLocalizations.of(context).translate('country'),
+                    ModDiscoLocalizations.of(context).translate('country'),
                   ),
                   Spacer(),
                   CountryPickerWidget(onCountryChanged: (countryCode) {
                     model.changeCountry(countryCode.name);
-                    print(ModMainLocalizations.of(context)
+                    print(ModDiscoLocalizations.of(context)
                             .translate('newCountrySelected') +
                         ': ' +
                         countryCode.toString() +
@@ -54,35 +54,35 @@ class UserInfoView extends StatelessWidget {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   hintText:
-                      ModMainLocalizations.of(context).translate('zipCode'),
+                      ModDiscoLocalizations.of(context).translate('zipCode'),
                 ),
               ),
              ---------------
               */
-                  SearchLocationWidget(
-                    decoration: InputDecoration(
-                        hintText: ModMainLocalizations.of(context)
-                            .translate('location')),
-                    showDebugInformation: true,
-                    onLocationChanged: (value) {
-                      print("SearchLocationWidget picked : $value");
-                    },
-                  ),
+                  // SearchLocationWidget(
+                  //   decoration: InputDecoration(
+                  //       hintText: ModDiscoLocalizations.of(context)
+                  //           .translate('location')),
+                  //   showDebugInformation: true,
+                  //   onLocationChanged: (value) {
+                  //     print("SearchLocationWidget picked : $value");
+                  //   },
+                  // ),
                   const SizedBox(height: 48.0),
                   Text(
-                    '2. ${ModMainLocalizations.of(context).translate('travelDistance')}',
+                    '2. ${ModDiscoLocalizations.of(context).translate('travelDistance')}',
                     style: Theme.of(context).textTheme.title,
                   ),
                   const SizedBox(height: 8.0),
                   TextFormField(
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                        hintText: ModMainLocalizations.of(context)
+                        hintText: ModDiscoLocalizations.of(context)
                             .translate('distanceInKM')),
                   ),
                   const SizedBox(height: 48.0),
                   Text(
-                    '3. ${ModMainLocalizations.of(context).translate('howOldAreYou')}',
+                    '3. ${ModDiscoLocalizations.of(context).translate('howOldAreYou')}',
                     style: Theme.of(context).textTheme.title,
                   ),
                   const SizedBox(height: 8.0),
@@ -91,7 +91,7 @@ class UserInfoView extends StatelessWidget {
                   }, model.selectedAge, model.age),
                   const SizedBox(height: 48.0),
                   Text(
-                    '4. ${ModMainLocalizations.of(context).translate('campaignAffiliation')}',
+                    '4. ${ModDiscoLocalizations.of(context).translate('campaignAffiliation')}',
                     style: Theme.of(context).textTheme.title,
                   ),
                   const SizedBox(height: 8.0),
@@ -106,8 +106,8 @@ class UserInfoView extends StatelessWidget {
                         onPressed: () {
                           model.navigateNext();
                         },
-                        child: Text(ModMainLocalizations.of(context)
-                                .translate('next')),
+                        child: Text(ModDiscoLocalizations.of(context)
+                            .translate('next')),
                       ),
                     ],
                   ),

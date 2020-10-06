@@ -1,5 +1,5 @@
 import '../data/user_need_model.dart';
-import 'package:mod_main/core/shared_repositories/user_need_repository.dart';
+import 'package:mod_disco/core/shared_repositories/user_need_repository.dart';
 
 class UserNeedService {
   final UserNeedRepository _repository;
@@ -19,7 +19,7 @@ class UserNeedService {
     List<UserNeed> userNeeds = this.getUserNeedsByOrgId(orgId);
     // Get a deduped set of groupIds
     Set<String> groupIds = userNeeds.map((userNeed) => userNeed.group).toSet();
-    
+
     groupIds.forEach((groupId) {
       groupedUserNeeds.add(
           userNeeds.where((userNeed) => userNeed.group == groupId).toList());

@@ -1,22 +1,20 @@
-
-
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mod_main/core/core.dart';
+import 'package:mod_disco/core/core.dart';
 
-class SplashViewModel extends BaseModel{
-
-
+class SplashViewModel extends BaseModel {
   void handleStartUpLogic() {
     // Future.delayed(Duration(seconds: 5), (){
     //   Modular.to.pushReplacementNamed(Modular.get<Paths>())
     // });
   }
 
-  void navigateToMain(){
+  void navigateToMain() {
     Modular.to.pushNamed(Modular.get<Paths>().userInfo);
   }
 
-  void navigateToOrgManagement(){
-    Modular.to.pushNamed(Modular.get<Paths>().dashboard,);
+  void navigateToOrgManagement() {
+    Modular.to.pushNamed(
+      Modular.get<Paths>().dashboard,
+    );
   }
 }

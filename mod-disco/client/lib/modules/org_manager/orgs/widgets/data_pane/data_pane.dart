@@ -1,6 +1,6 @@
 import 'package:data_tables/data_tables.dart';
 import 'package:flutter/material.dart';
-import 'package:mod_main/modules/org_manager/orgs/view_model/orgs_detail_page_view_model.dart';
+import 'package:mod_disco/modules/org_manager/orgs/view_model/orgs_detail_page_view_model.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class DataPane extends StatelessWidget {

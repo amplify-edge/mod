@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mod_main/core/core.dart';
+import 'package:mod_disco/core/core.dart';
 
 class UserInfoViewModel extends BaseModel {
   String _selectedCountry;

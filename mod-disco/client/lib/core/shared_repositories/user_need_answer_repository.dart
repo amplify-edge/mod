@@ -1,6 +1,6 @@
-import 'package:mod_main/modules/user_needs/data/user_need_answer_model.dart';
-import 'package:mod_main/core/shared_repositories/base_repository.dart';
-import 'package:mod_main/modules/user_needs/data/user_need_model.dart';
+import 'package:mod_disco/modules/user_needs/data/user_need_answer_model.dart';
+import 'package:mod_disco/core/shared_repositories/base_repository.dart';
+import 'package:mod_disco/modules/user_needs/data/user_need_model.dart';
 
 class UserNeedAnswerRepository extends BaseRepository {
   List<UserNeedAnswer> getAll() {

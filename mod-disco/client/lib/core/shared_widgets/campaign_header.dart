@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mod_main/modules/orgs/data/org_model.dart';
+import 'package:mod_disco/modules/orgs/data/org_model.dart';
 
 class CampaignHeader extends StatelessWidget {
   final Org org;

@@ -1,5 +1,5 @@
-import 'package:mod_main/modules/user_needs/data/user_need_model.dart';
-import 'package:mod_main/core/shared_repositories/base_repository.dart';
+import 'package:mod_disco/modules/user_needs/data/user_need_model.dart';
+import 'package:mod_disco/core/shared_repositories/base_repository.dart';
 
 class UserNeedRepository extends BaseRepository {
   List<UserNeed> getAll() {

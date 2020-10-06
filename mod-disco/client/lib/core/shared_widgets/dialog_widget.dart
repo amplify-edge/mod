@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mod_main/core/core.dart';
+import 'package:mod_disco/core/core.dart';
 
 Future<void> showInfoDialogBox({
   @required String title,
@@ -67,7 +67,7 @@ Future<void> showActionDialogBox(
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         actions: <Widget>[
-           FlatButton(
+          FlatButton(
             // shape:
             //     RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Text(buttonTextCancel),
@@ -79,7 +79,6 @@ Future<void> showActionDialogBox(
               elevation: 0,
               child: Text(buttonText),
               onPressed: onPressedYes),
-         
         ],
         content: Padding(
           padding: const EdgeInsets.all(16.0),

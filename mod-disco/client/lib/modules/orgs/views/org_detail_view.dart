@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:mod_main/modules/orgs/data/org_model.dart';
-import 'package:mod_main/core/shared_widgets/campaign_header.dart';
+import 'package:mod_disco/modules/orgs/data/org_model.dart';
+import 'package:mod_disco/core/shared_widgets/campaign_header.dart';
 import '../../../core/core.dart';
 
 class OrgDetailView extends StatelessWidget {
@@ -17,8 +17,8 @@ class OrgDetailView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: showBackButton,
-        title:
-            Text(ModMainLocalizations.of(context).translate('campaignDetails')),
+        title: Text(
+            ModDiscoLocalizations.of(context).translate('campaignDetails')),
       ),
       body: Column(
         children: <Widget>[
@@ -32,7 +32,7 @@ class OrgDetailView extends StatelessWidget {
                 //   CarouselWithIndicator(imgList: campaign.videoURL),
                 ListTile(
                   title: Text(
-                    ModMainLocalizations.of(context).translate('campaignName'),
+                    ModDiscoLocalizations.of(context).translate('campaignName'),
                     style: Theme.of(context).textTheme.title,
                   ),
                   subtitle: Text(org.campaignName),
@@ -40,7 +40,7 @@ class OrgDetailView extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 ListTile(
                   title: Text(
-                    ModMainLocalizations.of(context).translate('category'),
+                    ModDiscoLocalizations.of(context).translate('category'),
                     style: Theme.of(context).textTheme.title,
                   ),
                   subtitle: Text(org.category),
@@ -48,7 +48,7 @@ class OrgDetailView extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 ListTile(
                   title: Text(
-                    ModMainLocalizations.of(context).translate('actionType'),
+                    ModDiscoLocalizations.of(context).translate('actionType'),
                     style: Theme.of(context).textTheme.title,
                   ),
                   subtitle: Text(org.actionType),
@@ -56,10 +56,10 @@ class OrgDetailView extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 ListTile(
                   title: Text(
-                    ModMainLocalizations.of(context)
+                    ModDiscoLocalizations.of(context)
                             .translate('actionLocation') +
                         ' / ' +
-                        ModMainLocalizations.of(context).translate('time'),
+                        ModDiscoLocalizations.of(context).translate('time'),
                     style: Theme.of(context).textTheme.title,
                   ),
                   subtitle: Text(
@@ -68,7 +68,7 @@ class OrgDetailView extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 ListTile(
                   title: Text(
-                    ModMainLocalizations.of(context)
+                    ModDiscoLocalizations.of(context)
                         .translate('lengthOfTheAction'),
                     style: Theme.of(context).textTheme.title,
                   ),
@@ -77,7 +77,7 @@ class OrgDetailView extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 ListTile(
                   title: Text(
-                    ModMainLocalizations.of(context).translate('goal'),
+                    ModDiscoLocalizations.of(context).translate('goal'),
                     style: Theme.of(context).textTheme.title,
                   ),
                   subtitle: Text(org.goal),
@@ -85,7 +85,7 @@ class OrgDetailView extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 ListTile(
                   title: Text(
-                    ModMainLocalizations.of(context).translate('strategy'),
+                    ModDiscoLocalizations.of(context).translate('strategy'),
                     style: Theme.of(context).textTheme.title,
                   ),
                   subtitle: Text(org.strategy),
@@ -93,7 +93,7 @@ class OrgDetailView extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 ListTile(
                   title: Text(
-                    ModMainLocalizations.of(context)
+                    ModDiscoLocalizations.of(context)
                         .translate('historicalPrecedents'),
                     style: Theme.of(context).textTheme.title,
                   ),
@@ -102,7 +102,7 @@ class OrgDetailView extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 ListTile(
                   title: Text(
-                    ModMainLocalizations.of(context)
+                    ModDiscoLocalizations.of(context)
                         .translate('backingEndorsingOrganizations'),
                     style: Theme.of(context).textTheme.title,
                   ),
@@ -111,7 +111,7 @@ class OrgDetailView extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 ListTile(
                   title: Text(
-                    ModMainLocalizations.of(context)
+                    ModDiscoLocalizations.of(context)
                         .translate('peopleAlreadyPledged'),
                     style: Theme.of(context).textTheme.title,
                   ),
@@ -127,19 +127,19 @@ class OrgDetailView extends StatelessWidget {
                         children: <Widget>[
                           ListTile(
                             title: Text(
-                              ModMainLocalizations.of(context)
+                              ModDiscoLocalizations.of(context)
                                       .translate('weNeed') +
                                   ' :',
                               style: Theme.of(context).textTheme.title,
                             ),
                             subtitle: Text(
-                              ModMainLocalizations.of(context)
+                              ModDiscoLocalizations.of(context)
                                   .translate('extrapolatedSimilarPastActions'),
                               style: TextStyle(fontStyle: FontStyle.italic),
                             ),
                           ),
                           ListTile(
-                            title: Text(ModMainLocalizations.of(context)
+                            title: Text(ModDiscoLocalizations.of(context)
                                 .translate('pioneersToStart')),
                             trailing: Text(
                               '${org.minPioneers}',
@@ -148,7 +148,7 @@ class OrgDetailView extends StatelessWidget {
                             ),
                           ),
                           ListTile(
-                            title: Text(ModMainLocalizations.of(context)
+                            title: Text(ModDiscoLocalizations.of(context)
                                 .translate('rebelsMedia')),
                             trailing: Text(
                               '${org.minRebelsForMedia}',
@@ -157,7 +157,7 @@ class OrgDetailView extends StatelessWidget {
                             ),
                           ),
                           ListTile(
-                            title: Text(ModMainLocalizations.of(context)
+                            title: Text(ModDiscoLocalizations.of(context)
                                 .translate('rebelsWin')),
                             trailing: Text(
                               '${org.minRebelsToWin}',
@@ -171,7 +171,7 @@ class OrgDetailView extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 ListTile(
                   title: Text(
-                    ModMainLocalizations.of(context)
+                    ModDiscoLocalizations.of(context)
                         .translate('contactDetails'),
                     style: Theme.of(context).textTheme.title,
                   ),
@@ -185,15 +185,15 @@ class OrgDetailView extends StatelessWidget {
                           .myNeeds
                           .replaceAll(':id', org.id));
                     },
-                    child: Text(
-                        ModMainLocalizations.of(context).translate("notReady")),
+                    child: Text(ModDiscoLocalizations.of(context)
+                        .translate("notReady")),
                   ),
                   RaisedButton(
                     onPressed: () {
                       Modular.to.pushNamed('/account/signup');
                     },
                     child: Text(
-                        ModMainLocalizations.of(context).translate("ready")),
+                        ModDiscoLocalizations.of(context).translate("ready")),
                   ),
                 ]),
                 const SizedBox(height: 8.0),

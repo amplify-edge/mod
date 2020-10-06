@@ -1,5 +1,5 @@
-import 'package:mod_main/modules/orgs/data/org_model.dart';
-import 'package:mod_main/core/shared_repositories/base_repository.dart';
+import 'package:mod_disco/modules/orgs/data/org_model.dart';
+import 'package:mod_disco/core/shared_repositories/base_repository.dart';
 
 class OrgRepository extends BaseRepository {
   List<Org> getAll() {
