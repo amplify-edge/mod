@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"context"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"golang.org/x/oauth2"
@@ -18,8 +19,8 @@ type SysAccountProxyService struct {
 }
 
 // Constructor for SysAccountProxyService
-func NewSysAccountProxyService(accountService AccountService, authService AuthService) *SysAccountProxyService {
-	sysAccountProxy := newSysAccountService(authService, accountService)
+func NewSysAccountProxyService(accountService AccountService) *SysAccountProxyService {
+	sysAccountProxy := newSysAccountService(accountService)
 	return &SysAccountProxyService{SysAccount: sysAccountProxy}
 }
 

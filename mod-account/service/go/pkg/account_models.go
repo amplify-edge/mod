@@ -123,14 +123,6 @@ func AccountFromProto(in *accountRpc.Account) *Account {
 	}
 }
 
-type GetAccountRequest struct {
-	Id string `json:"id,omitempty"`
-}
-
-func (gar *GetAccountRequest) ToProto() *accountRpc.GetAccountRequest {
-	return &accountRpc.GetAccountRequest{Id: gar.Id}
-}
-
 type ListAccountsRequest struct {
 	PerPageEntries int64  `json:"perPageEntries,omitempty"`
 	OrderBy        string `json:"orderBy,omitempty"`
@@ -183,56 +175,4 @@ func ListAccountsResponseFromProto(resp *accountRpc.ListAccountsResponse) *ListA
 		Accounts:   accs,
 		NextPageId: resp.GetNextPageId(),
 	}
-}
-
-type SearchAccountsRequest struct {
-	Query       string               `json:"query,omitempty"`
-	SearchParam *ListAccountsRequest `json:"searchParam,omitempty"`
-}
-
-func (sar *SearchAccountsRequest) ToProto() *accountRpc.SearchAccountsRequest {
-	searchParam := sar.SearchParam.ToProto()
-	return &accountRpc.SearchAccountsRequest{
-		Query:        sar.Query,
-		SearchParams: searchParam,
-	}
-}
-
-type SearchAccountsResponse struct {
-	SearchResponse *ListAccountsResponse `json:"listAccountsResponse,omitempty"`
-}
-
-func (saresp *SearchAccountsResponse) ToProto() (*accountRpc.SearchAccountsResponse, error) {
-	listResp, err := saresp.SearchResponse.ToProto()
-	if err != nil {
-		return nil, err
-	}
-	return &accountRpc.SearchAccountsResponse{SearchResponse: listResp}, nil
-}
-
-func SearchAccountResponseFromProto(in *accountRpc.SearchAccountsResponse) *SearchAccountsResponse {
-	return &SearchAccountsResponse{SearchResponse: ListAccountsResponseFromProto(in.GetSearchResponse())}
-}
-
-type AssignAccountToRoleRequest struct {
-	AssigneeAccountId string    `json:"assigneeAccountId,omitempty"`
-	AssignedAccountId string    `json:"assignedAccountId,omitempty"`
-	Role              UserRoles `json:"role,omitempty"`
-}
-
-func (aatr *AssignAccountToRoleRequest) ToProto() *accountRpc.AssignAccountToRoleRequest {
-	role := aatr.Role.ToProto()
-	return &accountRpc.AssignAccountToRoleRequest{
-		AssigneeAccountId: aatr.AssigneeAccountId,
-		AssignedAccountId: aatr.AssignedAccountId,
-		Role:              role,
-	}
-}
-
-type DisableAccountRequest struct {
-	AccountId string `json:"accountId,omitempty"`
-}
-
-func (dar *DisableAccountRequest) ToProto() *accountRpc.DisableAccountRequest {
-	return &accountRpc.DisableAccountRequest{AccountId: dar.AccountId}
 }
