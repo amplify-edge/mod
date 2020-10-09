@@ -4,7 +4,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	rpc "github.com/getcouragenow/sys-share/sys-account/server/rpc/v2"
+	rpc "github.com/getcouragenow/mod/mod-account/server/rpc/v2"
 )
 
 var rootCmd = &cobra.Command{
