@@ -1,17 +1,31 @@
 package pkg
 
 import (
-	"fmt"
-	// pkg "github.com/getcouragenow/sys/main/pkg"
-	pkg "github.com/getcouragenow/sys/main/pkg"
+	"log"
+
+	"github.com/spf13/cobra"
+
+	syspkg "github.com/getcouragenow/sys-share/sys-account/service/go/pkg"
+
+	modpkg "github.com/getcouragenow/mod/mod-account/service/go/pkg"
 )
 
 // Invoke ...
-func Invoke() string {
+func ProxyClient() *cobra.Command {
 	// load up the sub grpc Services proxy
 
-	fmt.Println("mod-pkg GRPC Services")
+	log.Println(" -- mod proxy cli -- ")
 
-	return "hello from mod-pkg GRPC Services"
+	// load up
+	log.Println(" -- Load Mod cli -- ")
+	spsc1 := modpkg.NewSysShareProxyClient()
+	rootCmd1 := spsc.CobraCommand()
+
+	// load up
+	log.Println(" -- Load Sys proxy cli -- ")
+	spsc := syspkg.NewSysShareProxyClient()
+	rootCmd := spsc.CobraCommand()
+
+	return rootCmd
 
 }
