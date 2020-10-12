@@ -5,10 +5,13 @@ import (
 
 	"github.com/spf13/cobra"
 
-	syspkg "github.com/getcouragenow/sys-share/sys-account/service/go/pkg"
-
 	modpkg "github.com/getcouragenow/mod/mod-account/service/go/pkg"
+	syspkg "github.com/getcouragenow/sys-share/sys-account/service/go/pkg"
 )
+
+var rootCmd = &cobra.Command{
+	Use: "mod-main",
+}
 
 // Invoke ...
 func ProxyClient() *cobra.Command {
@@ -16,15 +19,16 @@ func ProxyClient() *cobra.Command {
 
 	log.Println(" -- mod proxy cli -- ")
 
-	// load up
+	// load up mod-cli client
 	log.Println(" -- Load Mod cli -- ")
 	spsc1 := modpkg.NewSysShareProxyClient()
-	rootCmd1 := spsc.CobraCommand()
 
-	// load up
+	// load up sys-cli client
 	log.Println(" -- Load Sys proxy cli -- ")
 	spsc := syspkg.NewSysShareProxyClient()
-	rootCmd := spsc.CobraCommand()
+
+	// Add it to root cobra
+	rootCmd.AddCommand(spsc1.CobraCommand(), spsc.CobraCommand())
 
 	return rootCmd
 

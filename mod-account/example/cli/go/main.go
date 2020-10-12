@@ -5,8 +5,7 @@ import (
 	"github.com/spf13/cobra"
 
 	sysrpc "github.com/getcouragenow/sys-share/sys-account/service/go/rpc/v2"
-	//modrpc "github.com/getcouragenow/mod/mod-account/service/go/rpc/v2"
-	//modrpc "github.com/getcouragenow/mod/mod-account/service/go/rpc/v2"
+	// modrpc "github.com/getcouragenow/mod/mod-account/service/go/rpc/v2"
 )
 
 var rootCmd = &cobra.Command{
