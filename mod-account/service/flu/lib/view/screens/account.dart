@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:sys_share_sys_account_service/pkg/pkg.dart';
-import 'package:sys_share_sys_account_service/view/screens/account_view.dart';
+import 'package:mod_account/pkg/pkg.dart';
+import 'package:mod_account/view/screens/account_view.dart';
 
 class AccountModule extends ChildModule {
   static String baseRoute;
