@@ -3,7 +3,7 @@ syntax = "proto3";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";
 
-package v2.services;
+package v2.mod_services;
 
 option go_package = "github.com/getcouragenow/mod/mod-dummy/service/go/rpc/v2";
 

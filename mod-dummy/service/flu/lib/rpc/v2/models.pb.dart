@@ -18,7 +18,7 @@ import 'models.pbenum.dart';
 export 'models.pbenum.dart';
 
 class ErrorReason extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('ErrorReason', package: const $pb.PackageName('v2.services'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('ErrorReason', package: const $pb.PackageName('v2.mod_services'), createEmptyInstance: create)
     ..aOS(1, 'reason')
     ..hasRequiredFields = false
   ;
@@ -49,7 +49,7 @@ class ErrorReason extends $pb.GeneratedMessage {
 }
 
 class RegisterResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('RegisterResponse', package: const $pb.PackageName('v2.services'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('RegisterResponse', package: const $pb.PackageName('v2.mod_services'), createEmptyInstance: create)
     ..aOB(1, 'success')
     ..aOS(2, 'successMsg')
     ..aOM<ErrorReason>(3, 'errorReason', subBuilder: ErrorReason.create)
@@ -102,8 +102,8 @@ class RegisterResponse extends $pb.GeneratedMessage {
 }
 
 class UserDefinedFields extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UserDefinedFields', package: const $pb.PackageName('v2.services'), createEmptyInstance: create)
-    ..m<$core.String, $1.Value>(1, 'fields', entryClassName: 'UserDefinedFields.FieldsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $1.Value.create, packageName: const $pb.PackageName('v2.services'))
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UserDefinedFields', package: const $pb.PackageName('v2.mod_services'), createEmptyInstance: create)
+    ..m<$core.String, $1.Value>(1, 'fields', entryClassName: 'UserDefinedFields.FieldsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $1.Value.create, packageName: const $pb.PackageName('v2.mod_services'))
     ..hasRequiredFields = false
   ;
 
@@ -127,7 +127,7 @@ class UserDefinedFields extends $pb.GeneratedMessage {
 }
 
 class Project extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Project', package: const $pb.PackageName('v2.services'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Project', package: const $pb.PackageName('v2.mod_services'), createEmptyInstance: create)
     ..aOS(1, 'id')
     ..hasRequiredFields = false
   ;
@@ -158,7 +158,7 @@ class Project extends $pb.GeneratedMessage {
 }
 
 class Org extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Org', package: const $pb.PackageName('v2.services'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Org', package: const $pb.PackageName('v2.mod_services'), createEmptyInstance: create)
     ..aOS(1, 'id')
     ..hasRequiredFields = false
   ;
@@ -189,7 +189,7 @@ class Org extends $pb.GeneratedMessage {
 }
 
 class UserRoles extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UserRoles', package: const $pb.PackageName('v2.services'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UserRoles', package: const $pb.PackageName('v2.mod_services'), createEmptyInstance: create)
     ..e<Roles>(1, 'role', $pb.PbFieldType.OE, defaultOrMaker: Roles.INVALID, valueOf: Roles.valueOf, enumValues: Roles.values)
     ..aOM<Project>(2, 'project', subBuilder: Project.create)
     ..aOM<Org>(3, 'org', subBuilder: Org.create)
@@ -254,7 +254,7 @@ class UserRoles extends $pb.GeneratedMessage {
 }
 
 class Account extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Account', package: const $pb.PackageName('v2.services'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Account', package: const $pb.PackageName('v2.mod_services'), createEmptyInstance: create)
     ..aOS(1, 'id')
     ..aOS(2, 'email')
     ..aOS(3, 'password')
@@ -375,7 +375,7 @@ class Account extends $pb.GeneratedMessage {
 }
 
 class ListAccountsRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('ListAccountsRequest', package: const $pb.PackageName('v2.services'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('ListAccountsRequest', package: const $pb.PackageName('v2.mod_services'), createEmptyInstance: create)
     ..aInt64(1, 'perPageEntries')
     ..aOS(2, 'orderBy')
     ..aOS(3, 'currentPageId')
@@ -426,7 +426,7 @@ class ListAccountsRequest extends $pb.GeneratedMessage {
 }
 
 class ListAccountsResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('ListAccountsResponse', package: const $pb.PackageName('v2.services'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('ListAccountsResponse', package: const $pb.PackageName('v2.mod_services'), createEmptyInstance: create)
     ..pc<Account>(1, 'accounts', $pb.PbFieldType.PM, subBuilder: Account.create)
     ..aOS(2, 'nextPageId')
     ..hasRequiredFields = false

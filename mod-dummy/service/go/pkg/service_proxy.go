@@ -13,75 +13,54 @@ when v3
 */
 
 import (
-	"context"
-
 	"github.com/spf13/cobra"
-	"github.com/spf13/pflag"
-	"golang.org/x/oauth2"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/oauth"
 	"google.golang.org/grpc/reflection"
 
-	cliClient "github.com/getcouragenow/protoc-gen-cobra/client"
-	"github.com/getcouragenow/protoc-gen-cobra/naming"
+	sysSharePkg "github.com/getcouragenow/sys-share/sys-account/service/go/pkg"
 )
 
-type SysAccountProxyService struct {
-	// TODO: rename to ModDummy and modDummyService
-	SysAccount *sysAccountService
+type ModDummyProxyService struct {
+	modDummySvc *modDummyService
 }
 
-// Constructor for SysAccountProxyService
-func NewSysAccountProxyService(accountService AccountService) *SysAccountProxyService {
-	sysAccountProxy := newSysAccountService(accountService)
-	return &SysAccountProxyService{SysAccount: sysAccountProxy}
+// Constructor for ModDummyProxyService
+func NewModDummyProxyService(ds DummyService, accountSvc sysSharePkg.AccountService, authSvc sysSharePkg.AuthService) *ModDummyProxyService {
+	modDummyProxy := newModDummyService(ds, accountSvc, authSvc)
+	return &ModDummyProxyService{modDummySvc: modDummyProxy}
 }
 
-// SysAccountProxyService Register services to GRPC
-func (s *SysAccountProxyService) RegisterSvc(server *grpc.Server) {
-	s.SysAccount.registerSvc(server)
+// ModDummyProxyService Register services to GRPC
+func (s *ModDummyProxyService) RegisterSvc(server *grpc.Server) {
+	s.modDummySvc.registerSvc(server)
 	reflection.Register(server)
 }
 
-type SysAccountProxyClient struct {
+type ModDummyProxyClient struct {
 	// This is correct naming..
-	SysAccountClient *sysAccountClient
+	ModDummyClient *modDummyClient
 }
 
-func NewSysShareProxyClient() *SysAccountProxyClient {
-	cliClient.RegisterFlagBinder(func(fs *pflag.FlagSet, namer naming.Namer) {
-		fs.StringVar(&SysShareProxyClientConfig.AccessKey, namer("JWT Access Token"), SysShareProxyClientConfig.AccessKey, "JWT Access Token")
-	})
-	cliClient.RegisterPreDialer(func(_ context.Context, opts *[]grpc.DialOption) error {
-		cfg := SysShareProxyClientConfig
-		if cfg.AccessKey != "" {
-			cred := oauth.NewOauthAccess(&oauth2.Token{
-				AccessToken: cfg.AccessKey,
-				TokenType:   "Bearer",
-			})
-			*opts = append(*opts, grpc.WithPerRPCCredentials(cred))
-		}
-		return nil
-	})
-	sysAccountProxyClient := newSysAccountClient()
-	return &SysAccountProxyClient{
-		SysAccountClient: sysAccountProxyClient,
+func NewModDummyProxyClient() *ModDummyProxyClient {
+	modDummyProxyClient := newModDummyClient()
+	return &ModDummyProxyClient{
+		ModDummyClient: modDummyProxyClient,
 	}
 }
 
-type sysAccountProxyClientConfig struct {
+type modDummyProxyClientConfig struct {
 	AccessKey string
 }
 
-var SysShareProxyClientConfig = &sysAccountProxyClientConfig{}
+var ModDummyProxyClientConfig = &modDummyProxyClientConfig{}
 
 // Easy access to create CLI
-func (s *SysAccountProxyClient) CobraCommand() *cobra.Command {
+func (s *ModDummyProxyClient) CobraCommand() *cobra.Command {
 
 	rootCmd := &cobra.Command{
-		Use:   "sys-share proxy client",
-		Short: "sys-share proxy client cli",
+		Use:   "mod-dummy proxy client",
+		Short: "mod-dummy proxy client cli",
 	}
-	rootCmd.AddCommand(s.SysAccountClient.cobraCommand())
+	rootCmd.AddCommand(s.ModDummyClient.cobraCommand())
 	return rootCmd
 }

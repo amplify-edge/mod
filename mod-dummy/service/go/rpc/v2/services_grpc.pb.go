@@ -13,43 +13,43 @@ import (
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion7
 
-// AccountServiceClient is the client API for AccountService service.
+// DummyServiceClient is the client API for DummyService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type AccountServiceClient interface {
+type DummyServiceClient interface {
 	ListAccounts(ctx context.Context, in *ListAccountsRequest, opts ...grpc.CallOption) (*ListAccountsResponse, error)
 }
 
-type accountServiceClient struct {
+type dummyServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewAccountServiceClient(cc grpc.ClientConnInterface) AccountServiceClient {
-	return &accountServiceClient{cc}
+func NewDummyServiceClient(cc grpc.ClientConnInterface) DummyServiceClient {
+	return &dummyServiceClient{cc}
 }
 
-var accountServiceListAccountsStreamDesc = &grpc.StreamDesc{
+var dummyServiceListAccountsStreamDesc = &grpc.StreamDesc{
 	StreamName: "ListAccounts",
 }
 
-func (c *accountServiceClient) ListAccounts(ctx context.Context, in *ListAccountsRequest, opts ...grpc.CallOption) (*ListAccountsResponse, error) {
+func (c *dummyServiceClient) ListAccounts(ctx context.Context, in *ListAccountsRequest, opts ...grpc.CallOption) (*ListAccountsResponse, error) {
 	out := new(ListAccountsResponse)
-	err := c.cc.Invoke(ctx, "/v2.services.AccountService/ListAccounts", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/v2.mod_services.DummyService/ListAccounts", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// AccountServiceService is the service API for AccountService service.
+// DummyServiceService is the service API for DummyService service.
 // Fields should be assigned to their respective handler implementations only before
-// RegisterAccountServiceService is called.  Any unassigned fields will result in the
+// RegisterDummyServiceService is called.  Any unassigned fields will result in the
 // handler for that method returning an Unimplemented error.
-type AccountServiceService struct {
+type DummyServiceService struct {
 	ListAccounts func(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error)
 }
 
-func (s *AccountServiceService) listAccounts(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func (s *DummyServiceService) listAccounts(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	if s.ListAccounts == nil {
 		return nil, status.Errorf(codes.Unimplemented, "method ListAccounts not implemented")
 	}
@@ -62,7 +62,7 @@ func (s *AccountServiceService) listAccounts(_ interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     s,
-		FullMethod: "/v2.services.AccountService/ListAccounts",
+		FullMethod: "/v2.mod_services.DummyService/ListAccounts",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return s.ListAccounts(ctx, req.(*ListAccountsRequest))
@@ -70,10 +70,10 @@ func (s *AccountServiceService) listAccounts(_ interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
-// RegisterAccountServiceService registers a service implementation with a gRPC server.
-func RegisterAccountServiceService(s grpc.ServiceRegistrar, srv *AccountServiceService) {
+// RegisterDummyServiceService registers a service implementation with a gRPC server.
+func RegisterDummyServiceService(s grpc.ServiceRegistrar, srv *DummyServiceService) {
 	sd := grpc.ServiceDesc{
-		ServiceName: "v2.services.AccountService",
+		ServiceName: "v2.mod_services.DummyService",
 		Methods: []grpc.MethodDesc{
 			{
 				MethodName: "ListAccounts",
@@ -87,14 +87,14 @@ func RegisterAccountServiceService(s grpc.ServiceRegistrar, srv *AccountServiceS
 	s.RegisterService(&sd, nil)
 }
 
-// NewAccountServiceService creates a new AccountServiceService containing the
-// implemented methods of the AccountService service in s.  Any unimplemented
+// NewDummyServiceService creates a new DummyServiceService containing the
+// implemented methods of the DummyService service in s.  Any unimplemented
 // methods will result in the gRPC server returning an UNIMPLEMENTED status to the client.
 // This includes situations where the method handler is misspelled or has the wrong
 // signature.  For this reason, this function should be used with great care and
 // is not recommended to be used by most users.
-func NewAccountServiceService(s interface{}) *AccountServiceService {
-	ns := &AccountServiceService{}
+func NewDummyServiceService(s interface{}) *DummyServiceService {
+	ns := &DummyServiceService{}
 	if h, ok := s.(interface {
 		ListAccounts(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error)
 	}); ok {
@@ -103,10 +103,10 @@ func NewAccountServiceService(s interface{}) *AccountServiceService {
 	return ns
 }
 
-// UnstableAccountServiceService is the service API for AccountService service.
+// UnstableDummyServiceService is the service API for DummyService service.
 // New methods may be added to this interface if they are added to the service
 // definition, which is not a backward-compatible change.  For this reason,
 // use of this type is not recommended.
-type UnstableAccountServiceService interface {
+type UnstableDummyServiceService interface {
 	ListAccounts(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error)
 }
