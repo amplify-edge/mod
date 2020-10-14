@@ -13,57 +13,66 @@ import (
 	"google.golang.org/grpc"
 
 	rpc "github.com/getcouragenow/mod/mod-dummy/service/go/rpc/v2"
+	sysSharePkg "github.com/getcouragenow/sys-share/sys-account/service/go/pkg"
 )
 
-// SysAccountClient is just a stub
-type sysAccountClient struct {
-	auth    *cobra.Command
-	account *cobra.Command
+// ModDummyClient is just a stub
+type modDummyClient struct {
+	sysShareAccountClient *cobra.Command
+	dummyClient           *cobra.Command
 }
 
-func newSysAccountClient() *sysAccountClient {
+func newModDummyClient() *modDummyClient {
 
-	return &sysAccountClient{
-		account: rpc.AccountServiceClientCommand(),
+	return &modDummyClient{
+		sysShareAccountClient: sysSharePkg.NewSysShareProxyClient().CobraCommand(),
+		dummyClient:           rpc.DummyServiceClientCommand(),
 	}
 }
 
-func (sac *sysAccountClient) cobraCommand() *cobra.Command {
+func (mdc *modDummyClient) cobraCommand() *cobra.Command {
 	rootCmd := &cobra.Command{
-		Use:   "sys-account client",
-		Short: "sys-account client cli",
+		Use:   "mod-dummy client",
+		Short: "mod-dummy client cli",
 	}
-	rootCmd.AddCommand(sac.auth, sac.account)
+	rootCmd.AddCommand(mdc.dummyClient, mdc.sysShareAccountClient)
 	return rootCmd
 }
 
-// SysAccountService contains the account and auth service as defined by
+// ModDummyService contains the account and auth service as defined by
 // the protobuf in the sys-share/sys-account/proto/v2
-type sysAccountService struct {
-	account *accountService
+type modDummyService struct {
+	dummy              *dummyService
+	sysShareAccountSvc *sysSharePkg.SysAccountProxyService
 }
 
-// NewSysAccountService creates new SysAccountService object
+// NewModDummyService creates new ModDummyService object
 // it contains account and auth service as defined by the protobuf service definition
-func newSysAccountService(acc AccountService) *sysAccountService {
-	accountSvc := newAccountService(acc)
-	return &sysAccountService{
-		account: accountSvc,
+func newModDummyService(ds DummyService, accountSvc sysSharePkg.AccountService, authSvc sysSharePkg.AuthService) *modDummyService {
+	dummySvc := newDummyService(ds)
+	shareAccountSvc := sysSharePkg.NewSysAccountProxyService(accountSvc, authSvc)
+	return &modDummyService{
+		dummy:              dummySvc,
+		sysShareAccountSvc: shareAccountSvc,
 	}
 }
 
-// RegisterSvc will register all the services contained within SysAccountService
-func (sas *sysAccountService) registerSvc(server *grpc.Server) {
-	sas.account.registerSvc(server)
+// RegisterSvc will register all the services contained within ModDummyService
+// Essentially just
+// DummyService itself
+// and SysShareAccountService
+func (mds *modDummyService) registerSvc(server *grpc.Server) {
+	mds.dummy.registerSvc(server)
+	mds.sysShareAccountSvc.RegisterSvc(server)
 }
 
-// AccountService is the abstract contract needed to satisfy the
-// AccountServiceService defined in the protobuf v2.
-type AccountService interface {
+// DummyService is the abstract contract needed to satisfy the
+// DummyServiceService defined in the protobuf v2.
+type DummyService interface {
 	ListAccounts(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error)
 }
 
-func listAccountsProxy(as AccountService) func(context.Context, *rpc.ListAccountsRequest) (*rpc.ListAccountsResponse, error) {
+func listAccountsProxy(as DummyService) func(context.Context, *rpc.ListAccountsRequest) (*rpc.ListAccountsResponse, error) {
 	return func(ctx context.Context, lar *rpc.ListAccountsRequest) (*rpc.ListAccountsResponse, error) {
 		accounts, err := as.ListAccounts(ctx, ListAccountsRequestFromProto(lar))
 		if err != nil {
@@ -73,20 +82,18 @@ func listAccountsProxy(as AccountService) func(context.Context, *rpc.ListAccount
 	}
 }
 
-// Thin wrapper around rpc defined services
-type accountService struct {
-	svc *rpc.AccountServiceService
+type dummyService struct {
+	svc *rpc.DummyServiceService
 }
 
-func newAccountService(acc AccountService) *accountService {
-	return &accountService{
-		svc: &rpc.AccountServiceService{
-
-			ListAccounts: listAccountsProxy(acc),
+func newDummyService(ds DummyService) *dummyService {
+	return &dummyService{
+		svc: &rpc.DummyServiceService{
+			ListAccounts: listAccountsProxy(ds),
 		},
 	}
 }
 
-func (a *accountService) registerSvc(server *grpc.Server) {
-	rpc.RegisterAccountServiceService(server, a.svc)
+func (ds *dummyService) registerSvc(server *grpc.Server) {
+	rpc.RegisterDummyServiceService(server, ds.svc)
 }

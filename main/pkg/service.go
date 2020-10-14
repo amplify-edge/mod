@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	modpkg "github.com/getcouragenow/mod/mod-account/service/go/pkg"
+	modpkg "github.com/getcouragenow/mod/mod-dummy/service/go/pkg"
 	syspkg "github.com/getcouragenow/sys-share/sys-account/service/go/pkg"
 )
 
@@ -14,22 +14,21 @@ var rootCmd = &cobra.Command{
 }
 
 // Invoke ...
-func ProxyClient() *cobra.Command {
+func ProxyCli() *cobra.Command {
 	// load up the sub grpc Services proxy
 
 	log.Println(" -- mod proxy cli -- ")
 
 	// load up mod-cli client
 	log.Println(" -- Load Mod cli -- ")
-	spsc1 := modpkg.NewSysShareProxyClient()
+	dummyCliClient := modpkg.NewModDummyProxyClient()
 
 	// load up sys-cli client
 	log.Println(" -- Load Sys proxy cli -- ")
 	spsc := syspkg.NewSysShareProxyClient()
 
 	// Add it to root cobra
-	rootCmd.AddCommand(spsc1.CobraCommand(), spsc.CobraCommand())
+	rootCmd.AddCommand(dummyCliClient.CobraCommand(), spsc.CobraCommand())
 
 	return rootCmd
-
 }

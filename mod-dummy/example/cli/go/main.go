@@ -4,18 +4,19 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	modrpc "github.com/getcouragenow/mod/mod-dummy/service/go/rpc/v2"
-	sysrpc "github.com/getcouragenow/sys-share/sys-account/service/go/rpc/v2"
+	dummyPkg "github.com/getcouragenow/mod/mod-dummy/service/go/pkg"
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "auth",
-	Short: "auth cli",
+	Use:   "dummy",
+	Short: "dummy cli",
 }
 
 func main() {
 
-	rootCmd.AddCommand(sysrpc.AuthServiceClientCommand(), modrpc.AccountServiceClientCommand())
+	dummyProxyClient := dummyPkg.NewModDummyProxyClient()
+	rootCmd.AddCommand(dummyProxyClient.CobraCommand())
+
 	if err := rootCmd.Execute(); err != nil {
 		log.Fatalf("command failed: %v", err)
 	}

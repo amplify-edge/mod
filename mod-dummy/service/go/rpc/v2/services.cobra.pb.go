@@ -11,21 +11,21 @@ import (
 	proto "google.golang.org/protobuf/proto"
 )
 
-func AccountServiceClientCommand(options ...client.Option) *cobra.Command {
+func DummyServiceClientCommand(options ...client.Option) *cobra.Command {
 	cfg := client.NewConfig(options...)
 	cmd := &cobra.Command{
-		Use:   cfg.CommandNamer("AccountService"),
-		Short: "AccountService service client",
+		Use:   cfg.CommandNamer("DummyService"),
+		Short: "DummyService service client",
 		Long:  "",
 	}
 	cfg.BindFlags(cmd.PersistentFlags())
 	cmd.AddCommand(
-		_AccountServiceListAccountsCommand(cfg),
+		_DummyServiceListAccountsCommand(cfg),
 	)
 	return cmd
 }
 
-func _AccountServiceListAccountsCommand(cfg *client.Config) *cobra.Command {
+func _DummyServiceListAccountsCommand(cfg *client.Config) *cobra.Command {
 	req := &ListAccountsRequest{}
 
 	cmd := &cobra.Command{
@@ -34,15 +34,15 @@ func _AccountServiceListAccountsCommand(cfg *client.Config) *cobra.Command {
 		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
-				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "AccountService"); err != nil {
+				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "DummyService"); err != nil {
 					return err
 				}
-				if err := flag.SetFlagsFromEnv(cmd.PersistentFlags(), false, cfg.EnvVarNamer, cfg.EnvVarPrefix, "AccountService", "ListAccounts"); err != nil {
+				if err := flag.SetFlagsFromEnv(cmd.PersistentFlags(), false, cfg.EnvVarNamer, cfg.EnvVarPrefix, "DummyService", "ListAccounts"); err != nil {
 					return err
 				}
 			}
 			return client.RoundTrip(cmd.Context(), cfg, func(cc grpc.ClientConnInterface, in iocodec.Decoder, out iocodec.Encoder) error {
-				cli := NewAccountServiceClient(cc)
+				cli := NewDummyServiceClient(cc)
 				v := &ListAccountsRequest{}
 
 				if err := in(v); err != nil {

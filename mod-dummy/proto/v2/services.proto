@@ -6,7 +6,7 @@ package v2.services;
 
 option go_package = "github.com/getcouragenow/mod/mod-dummy/service/go/rpc/v2";
 
-service AccountService {
+service DummyService {
   rpc ListAccounts(v2.services.ListAccountsRequest) returns (v2.services.ListAccountsResponse) {};
  
 }
