@@ -14,7 +14,7 @@ var rootCmd = &cobra.Command{
 }
 
 // Invoke ...
-func ProxyCli() *cobra.Command {
+func ModProxyCli() *cobra.Command {
 	// load up the sub grpc Services proxy
 
 	log.Println(" -- mod proxy cli -- ")
@@ -32,3 +32,8 @@ func ProxyCli() *cobra.Command {
 
 	return rootCmd
 }
+
+type ModProxyService struct {
+
+}
+
