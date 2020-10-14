@@ -34,7 +34,7 @@ var dummyServiceListAccountsStreamDesc = &grpc.StreamDesc{
 
 func (c *dummyServiceClient) ListAccounts(ctx context.Context, in *ListAccountsRequest, opts ...grpc.CallOption) (*ListAccountsResponse, error) {
 	out := new(ListAccountsResponse)
-	err := c.cc.Invoke(ctx, "/v2.services.DummyService/ListAccounts", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/v2.mod_services.DummyService/ListAccounts", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func (s *DummyServiceService) listAccounts(_ interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     s,
-		FullMethod: "/v2.services.DummyService/ListAccounts",
+		FullMethod: "/v2.mod_services.DummyService/ListAccounts",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return s.ListAccounts(ctx, req.(*ListAccountsRequest))
@@ -73,7 +73,7 @@ func (s *DummyServiceService) listAccounts(_ interface{}, ctx context.Context, d
 // RegisterDummyServiceService registers a service implementation with a gRPC server.
 func RegisterDummyServiceService(s grpc.ServiceRegistrar, srv *DummyServiceService) {
 	sd := grpc.ServiceDesc{
-		ServiceName: "v2.services.DummyService",
+		ServiceName: "v2.mod_services.DummyService",
 		Methods: []grpc.MethodDesc{
 			{
 				MethodName: "ListAccounts",

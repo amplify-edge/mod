@@ -13,15 +13,15 @@ import 'package:grpc/service_api.dart' as $grpc;
 import 'models.pb.dart' as $0;
 export 'services.pb.dart';
 
-class AccountServiceClient extends $grpc.Client {
+class DummyServiceClient extends $grpc.Client {
   static final _$listAccounts =
       $grpc.ClientMethod<$0.ListAccountsRequest, $0.ListAccountsResponse>(
-          '/v2.services.AccountService/ListAccounts',
+          '/v2.mod_services.DummyService/ListAccounts',
           ($0.ListAccountsRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.ListAccountsResponse.fromBuffer(value));
 
-  AccountServiceClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
+  DummyServiceClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
       : super(channel, options: options);
 
   $grpc.ResponseFuture<$0.ListAccountsResponse> listAccounts(
@@ -34,10 +34,10 @@ class AccountServiceClient extends $grpc.Client {
   }
 }
 
-abstract class AccountServiceBase extends $grpc.Service {
-  $core.String get $name => 'v2.services.AccountService';
+abstract class DummyServiceBase extends $grpc.Service {
+  $core.String get $name => 'v2.mod_services.DummyService';
 
-  AccountServiceBase() {
+  DummyServiceBase() {
     $addMethod(
         $grpc.ServiceMethod<$0.ListAccountsRequest, $0.ListAccountsResponse>(
             'ListAccounts',
