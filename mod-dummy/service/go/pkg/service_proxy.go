@@ -1,5 +1,17 @@
 package pkg
 
+/*
+
+Used by mod-dummy to call into lower modules ...
+
+when v2
+- call sys-* over go.
+
+when v3
+- call sys-* over grpc.
+
+*/
+
 import (
 	"context"
 
@@ -15,6 +27,7 @@ import (
 )
 
 type SysAccountProxyService struct {
+	// TODO: rename to ModDummy and modDummyService
 	SysAccount *sysAccountService
 }
 
@@ -31,6 +44,7 @@ func (s *SysAccountProxyService) RegisterSvc(server *grpc.Server) {
 }
 
 type SysAccountProxyClient struct {
+	// This is correct naming..
 	SysAccountClient *sysAccountClient
 }
 
