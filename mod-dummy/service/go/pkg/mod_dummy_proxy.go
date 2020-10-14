@@ -1,5 +1,11 @@
 package pkg
 
+/*
+
+Used by higher up modules to reach mod-dummy ...
+
+*/
+
 import (
 	"context"
 
