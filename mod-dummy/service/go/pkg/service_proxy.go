@@ -17,7 +17,6 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	sysSharePkg "github.com/getcouragenow/sys-share/sys-account/service/go/pkg"
 )
 
 type ModDummyProxyService struct {
@@ -25,8 +24,8 @@ type ModDummyProxyService struct {
 }
 
 // Constructor for ModDummyProxyService
-func NewModDummyProxyService(ds DummyService, accountSvc sysSharePkg.AccountService, authSvc sysSharePkg.AuthService) *ModDummyProxyService {
-	modDummyProxy := newModDummyService(ds, accountSvc, authSvc)
+func NewModDummyProxyService(dr *ModDummyRepo) *ModDummyProxyService {
+	modDummyProxy := newModDummyService(dr)
 	return &ModDummyProxyService{modDummySvc: modDummyProxy}
 }
 

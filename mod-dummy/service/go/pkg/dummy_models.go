@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	sysSharePkg "github.com/getcouragenow/sys-share/sys-account/service/go/pkg"
 	"google.golang.org/protobuf/types/known/structpb"
 
 	accountRpc "github.com/getcouragenow/mod/mod-dummy/service/go/rpc/v2"
@@ -14,6 +15,10 @@ func (r Roles) ToProto() accountRpc.Roles {
 
 func RolesFromProto(r accountRpc.Roles) Roles {
 	return Roles(r.Number())
+}
+
+func RolesFromSys(r sysSharePkg.Roles) Roles {
+	return Roles(r)
 }
 
 type UserRoles struct {
@@ -30,6 +35,15 @@ func (ur *UserRoles) ToProto() *accountRpc.UserRoles {
 		Project: &accountRpc.Project{Id: ur.ProjectID},
 		Org:     &accountRpc.Org{Id: ur.OrgID},
 		All:     ur.All,
+	}
+}
+
+func UserRolesFromSys(in *sysSharePkg.UserRoles) *UserRoles {
+	return &UserRoles{
+		Role:      RolesFromSys(in.Role),
+		ProjectID: in.ProjectID,
+		OrgID:     in.OrgID,
+		All:       in.All,
 	}
 }
 
@@ -123,6 +137,22 @@ func AccountFromProto(in *accountRpc.Account) *Account {
 	}
 }
 
+func AccountFromSys(in *sysSharePkg.Account) *Account {
+	role := UserRolesFromSys(in.GetRole())
+	fields := UserDefinedFields{Fields: in.Fields.Fields}
+	return &Account{
+		Id:        in.Id,
+		Email:     in.GetEmail(),
+		Password:  in.Password,
+		Role:      role,
+		CreatedAt: in.CreatedAt,
+		UpdatedAt: in.UpdatedAt,
+		LastLogin: in.LastLogin,
+		Disabled:  in.Disabled,
+		Fields:    &fields,
+	}
+}
+
 type ListAccountsRequest struct {
 	PerPageEntries int64  `json:"perPageEntries,omitempty"`
 	OrderBy        string `json:"orderBy,omitempty"`
@@ -131,6 +161,14 @@ type ListAccountsRequest struct {
 
 func (lar *ListAccountsRequest) ToProto() *accountRpc.ListAccountsRequest {
 	return &accountRpc.ListAccountsRequest{
+		PerPageEntries: lar.PerPageEntries,
+		OrderBy:        lar.OrderBy,
+		CurrentPageId:  lar.CurrentPageId,
+	}
+}
+
+func (lar *ListAccountsRequest) ToSysShareProto() *sysSharePkg.ListAccountsRequest {
+	return &sysSharePkg.ListAccountsRequest{
 		PerPageEntries: lar.PerPageEntries,
 		OrderBy:        lar.OrderBy,
 		CurrentPageId:  lar.CurrentPageId,
@@ -174,5 +212,16 @@ func ListAccountsResponseFromProto(resp *accountRpc.ListAccountsResponse) *ListA
 	return &ListAccountsResponse{
 		Accounts:   accs,
 		NextPageId: resp.GetNextPageId(),
+	}
+}
+
+func ListAccountsResponseFromSys(resp *sysSharePkg.ListAccountsResponse) *ListAccountsResponse {
+	var accs []*Account
+	for _, acc := range resp.Accounts {
+		accs = append(accs, AccountFromSys(acc))
+	}
+	return &ListAccountsResponse{
+		Accounts:   accs,
+		NextPageId: resp.NextPageId,
 	}
 }
