@@ -49,7 +49,6 @@ func ModCli() *cobra.Command {
 }
 
 type ModService struct {
-	store             *genji.DB
 	port              int
 	logger            *logrus.Entry
 	serverInterceptor func(context.Context) (context.Context, error)
@@ -68,7 +67,6 @@ func NewModService(
 	}
 	dummySvc := dummypkg.NewModDummyProxyService(dummyRepo)
 	return &ModService{
-		store:             db,
 		port:              port,
 		logger:            l,
 		dummySvc:          dummySvc,
