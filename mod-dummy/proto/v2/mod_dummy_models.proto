@@ -11,13 +11,6 @@ message ErrorReason {
   string reason = 1;
 }
 
-message RegisterResponse {
-  bool success = 1;
-  string success_msg = 2;
-  ErrorReason error_reason = 3;
-}
-
-
 message UserDefinedFields {
   map<string, google.protobuf.Value> fields = 1;
 }
@@ -67,17 +60,7 @@ message Account {
   UserDefinedFields fields = 9;
 }
 
-message ListAccountsRequest {
-  // limit
-  int64 per_page_entries = 1;
-  string order_by = 2;
-  // number 3 => optional: current_page_token is the last id of the
-  // (current) listed Accounts for pagination purpose (cursor).
-  string current_page_id = 3;
+message GetAccountRequest {
+  string id = 1;
 }
 
-message ListAccountsResponse {
-  repeated Account accounts = 1;
-  // similarly, next_page token is the cursor for the next request
-  string next_page_id = 2;
-}

@@ -20,37 +20,37 @@ func DummyServiceClientCommand(options ...client.Option) *cobra.Command {
 	}
 	cfg.BindFlags(cmd.PersistentFlags())
 	cmd.AddCommand(
-		_DummyServiceListAccountsCommand(cfg),
+		_DummyServiceGetAccountCommand(cfg),
 	)
 	return cmd
 }
 
-func _DummyServiceListAccountsCommand(cfg *client.Config) *cobra.Command {
-	req := &ListAccountsRequest{}
+func _DummyServiceGetAccountCommand(cfg *client.Config) *cobra.Command {
+	req := &GetAccountRequest{}
 
 	cmd := &cobra.Command{
-		Use:   cfg.CommandNamer("ListAccounts"),
-		Short: "ListAccounts RPC client",
+		Use:   cfg.CommandNamer("GetAccount"),
+		Short: "GetAccount RPC client",
 		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "DummyService"); err != nil {
 					return err
 				}
-				if err := flag.SetFlagsFromEnv(cmd.PersistentFlags(), false, cfg.EnvVarNamer, cfg.EnvVarPrefix, "DummyService", "ListAccounts"); err != nil {
+				if err := flag.SetFlagsFromEnv(cmd.PersistentFlags(), false, cfg.EnvVarNamer, cfg.EnvVarPrefix, "DummyService", "GetAccount"); err != nil {
 					return err
 				}
 			}
 			return client.RoundTrip(cmd.Context(), cfg, func(cc grpc.ClientConnInterface, in iocodec.Decoder, out iocodec.Encoder) error {
 				cli := NewDummyServiceClient(cc)
-				v := &ListAccountsRequest{}
+				v := &GetAccountRequest{}
 
 				if err := in(v); err != nil {
 					return err
 				}
 				proto.Merge(v, req)
 
-				res, err := cli.ListAccounts(cmd.Context(), v)
+				res, err := cli.GetAccount(cmd.Context(), v)
 
 				if err != nil {
 					return err
@@ -62,9 +62,7 @@ func _DummyServiceListAccountsCommand(cfg *client.Config) *cobra.Command {
 		},
 	}
 
-	cmd.PersistentFlags().Int64Var(&req.PerPageEntries, cfg.FlagNamer("PerPageEntries"), 0, "limit")
-	cmd.PersistentFlags().StringVar(&req.OrderBy, cfg.FlagNamer("OrderBy"), "", "")
-	cmd.PersistentFlags().StringVar(&req.CurrentPageId, cfg.FlagNamer("CurrentPageId"), "", "number 3 => optional: current_page_token is the last id of the\n (current) listed Accounts for pagination purpose (cursor).")
+	cmd.PersistentFlags().StringVar(&req.Id, cfg.FlagNamer("Id"), "", "")
 
 	return cmd
 }

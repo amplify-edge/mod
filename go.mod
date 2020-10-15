@@ -4,7 +4,6 @@ go 1.15
 
 require (
 	github.com/desertbit/timer v0.0.0-20180107155436-c41aec40b27f // indirect
-	github.com/genjidb/genji v0.8.0
 	github.com/getcouragenow/protoc-gen-cobra v0.3.1-0.20201005114840-ccc8cd57bcdc
 	github.com/getcouragenow/sys-share v0.0.0-20201014211021-96b3c3299502
 	github.com/golang/protobuf v1.4.2

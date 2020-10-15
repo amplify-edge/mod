@@ -17,7 +17,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DummyServiceClient interface {
-	ListAccounts(ctx context.Context, in *ListAccountsRequest, opts ...grpc.CallOption) (*ListAccountsResponse, error)
+	GetAccount(ctx context.Context, in *GetAccountRequest, opts ...grpc.CallOption) (*Account, error)
 }
 
 type dummyServiceClient struct {
@@ -28,13 +28,13 @@ func NewDummyServiceClient(cc grpc.ClientConnInterface) DummyServiceClient {
 	return &dummyServiceClient{cc}
 }
 
-var dummyServiceListAccountsStreamDesc = &grpc.StreamDesc{
-	StreamName: "ListAccounts",
+var dummyServiceGetAccountStreamDesc = &grpc.StreamDesc{
+	StreamName: "GetAccount",
 }
 
-func (c *dummyServiceClient) ListAccounts(ctx context.Context, in *ListAccountsRequest, opts ...grpc.CallOption) (*ListAccountsResponse, error) {
-	out := new(ListAccountsResponse)
-	err := c.cc.Invoke(ctx, "/v2.mod_services.DummyService/ListAccounts", in, out, opts...)
+func (c *dummyServiceClient) GetAccount(ctx context.Context, in *GetAccountRequest, opts ...grpc.CallOption) (*Account, error) {
+	out := new(Account)
+	err := c.cc.Invoke(ctx, "/v2.mod_services.DummyService/GetAccount", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,26 +46,26 @@ func (c *dummyServiceClient) ListAccounts(ctx context.Context, in *ListAccountsR
 // RegisterDummyServiceService is called.  Any unassigned fields will result in the
 // handler for that method returning an Unimplemented error.
 type DummyServiceService struct {
-	ListAccounts func(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error)
+	GetAccount func(context.Context, *GetAccountRequest) (*Account, error)
 }
 
-func (s *DummyServiceService) listAccounts(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.ListAccounts == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method ListAccounts not implemented")
+func (s *DummyServiceService) getAccount(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.GetAccount == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method GetAccount not implemented")
 	}
-	in := new(ListAccountsRequest)
+	in := new(GetAccountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return s.ListAccounts(ctx, in)
+		return s.GetAccount(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     s,
-		FullMethod: "/v2.mod_services.DummyService/ListAccounts",
+		FullMethod: "/v2.mod_services.DummyService/GetAccount",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.ListAccounts(ctx, req.(*ListAccountsRequest))
+		return s.GetAccount(ctx, req.(*GetAccountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -76,12 +76,12 @@ func RegisterDummyServiceService(s grpc.ServiceRegistrar, srv *DummyServiceServi
 		ServiceName: "v2.mod_services.DummyService",
 		Methods: []grpc.MethodDesc{
 			{
-				MethodName: "ListAccounts",
-				Handler:    srv.listAccounts,
+				MethodName: "GetAccount",
+				Handler:    srv.getAccount,
 			},
 		},
 		Streams:  []grpc.StreamDesc{},
-		Metadata: "services.proto",
+		Metadata: "mod_dummy_services.proto",
 	}
 
 	s.RegisterService(&sd, nil)
@@ -96,9 +96,9 @@ func RegisterDummyServiceService(s grpc.ServiceRegistrar, srv *DummyServiceServi
 func NewDummyServiceService(s interface{}) *DummyServiceService {
 	ns := &DummyServiceService{}
 	if h, ok := s.(interface {
-		ListAccounts(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error)
+		GetAccount(context.Context, *GetAccountRequest) (*Account, error)
 	}); ok {
-		ns.ListAccounts = h.ListAccounts
+		ns.GetAccount = h.GetAccount
 	}
 	return ns
 }
@@ -108,5 +108,5 @@ func NewDummyServiceService(s interface{}) *DummyServiceService {
 // definition, which is not a backward-compatible change.  For this reason,
 // use of this type is not recommended.
 type UnstableDummyServiceService interface {
-	ListAccounts(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error)
+	GetAccount(context.Context, *GetAccountRequest) (*Account, error)
 }
