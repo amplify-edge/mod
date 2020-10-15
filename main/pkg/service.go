@@ -8,7 +8,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/genjidb/genji"
 	grpcAuth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
 	"github.com/sirupsen/logrus"
@@ -56,7 +55,7 @@ type ModService struct {
 }
 
 func NewModService(
-	l *logrus.Entry, db *genji.DB,
+	l *logrus.Entry,
 	port int, accountSvc syspkg.AccountService,
 	authSvc syspkg.AuthService, grpcConn grpc.ClientConnInterface,
 	interceptor func(context.Context) (context.Context, error),
