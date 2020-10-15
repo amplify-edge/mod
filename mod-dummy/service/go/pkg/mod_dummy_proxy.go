@@ -48,9 +48,9 @@ type modDummyService struct {
 
 // NewModDummyService creates new ModDummyService object
 // it contains account and auth service as defined by the protobuf service definition
-func newModDummyService(ds DummyService, accountSvc sysSharePkg.AccountService, authSvc sysSharePkg.AuthService) *modDummyService {
-	dummySvc := newDummyService(ds)
-	shareAccountSvc := sysSharePkg.NewSysAccountProxyService(accountSvc, authSvc)
+func newModDummyService(dr *ModDummyRepo) *modDummyService {
+	dummySvc := newDummyService(dr)
+	shareAccountSvc := sysSharePkg.NewSysAccountProxyService(dr.shareAccountSvc, dr.shareAuthSvc)
 	return &modDummyService{
 		dummy:              dummySvc,
 		sysShareAccountSvc: shareAccountSvc,
