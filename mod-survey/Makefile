@@ -38,6 +38,11 @@ this-build:
 	@mkdir -p service/{flu/lib,go}/rpc/v2
 	@go generate
 
-this-example-flutter-run:
-	@echo Running Example Flutter Client
+this-example-flutter-web-run:
+	@echo Running Example Flutter Web Client
 	$(MAKE) flu-web-run
+this-example-flutter-desk-run:
+	@echo Running Example Flutter Desk Client
+	# HAs a bug. Runs, but Desktop screen is black.
+	$(MAKE) flu-desk-build
+	
