@@ -1,29 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 // import 'package:intl/intl.dart';
-import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
+import 'package:mod_survey/mod_survey.dart';
 
 void main() => runApp(ModularApp(module: AppModule()));
-
-class AccountModule extends ChildModule {
-  static String baseRoute;
-
-  AccountModule(String baseRoute) {
-    if (baseRoute == '/') {
-      baseRoute = '';
-    }
-    assert(baseRoute != null);
-    AccountModule.baseRoute = baseRoute;
-  }
-  @override
-  List<Bind> get binds => [Bind((i) => baseRoute)];
-
-  @override
-  List<ModularRouter> get routers =>
-      [ModularRouter('/', child: (_, args) => AccountView())];
-
-  static Inject get to => Inject<AccountModule>.of();
-}
 
 class AppModule extends MainModule {
   // here will be any class you want to inject into your project (eg bloc, dependency)
@@ -33,7 +13,7 @@ class AppModule extends MainModule {
   // here will be the routes of your module
   @override
   List<ModularRouter> get routers => [
-        ModularRouter("/", module: AccountModule("/")),
+        ModularRouter("/", module: SurveyModule("/")),
       ];
 
 // add your main widget here
