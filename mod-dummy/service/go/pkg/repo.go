@@ -30,29 +30,29 @@ func NewModDummyRepo(grpcConn grpc.ClientConnInterface, accountSvc sysSharePkg.A
 	}, nil
 }
 
-func (mdr *ModDummyRepo) ListAccounts(ctx context.Context, in *ListAccountsRequest) (*ListAccountsResponse, error) {
+func (mdr *ModDummyRepo) GetAccount(ctx context.Context, in *GetAccountRequest) (*Account, error) {
 	if in == nil {
-		return nil, status.Error(codes.InvalidArgument, "cannot list accounts, invalid param")
+		return nil, status.Error(codes.InvalidArgument, "cannot get account, invalid param")
 	}
 	req := in.ToSysShareProto()
 	if mdr.shareClient != nil {
-		return mdr.listv2(ctx, req)
+		return mdr.getv3(ctx, req)
 	}
-	return mdr.listv3(ctx, req)
+	return mdr.getv2(ctx, req)
 }
 
-func (mdr *ModDummyRepo) listv2(ctx context.Context, req *sysSharePkg.ListAccountsRequest) (*ListAccountsResponse, error) {
-	resp, err := mdr.shareAccountSvc.ListAccounts(ctx, req)
+func (mdr *ModDummyRepo) getv2(ctx context.Context, req *sysSharePkg.GetAccountRequest) (*Account, error) {
+	resp, err := mdr.shareAccountSvc.GetAccount(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	return ListAccountsResponseFromSys(resp), nil
+	return AccountFromSys(resp), nil
 }
 
-func (mdr *ModDummyRepo) listv3(ctx context.Context, req *sysSharePkg.ListAccountsRequest) (*ListAccountsResponse, error) {
-	resp, err := mdr.shareClient.ListAccounts(ctx, req)
+func (mdr *ModDummyRepo) getv3(ctx context.Context, req *sysSharePkg.GetAccountRequest) (*Account, error) {
+	resp, err := mdr.shareClient.GetAccount(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	return ListAccountsResponseFromSys(resp), nil
+	return AccountFromSys(resp), nil
 }

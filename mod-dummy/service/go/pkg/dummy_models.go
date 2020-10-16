@@ -153,75 +153,14 @@ func AccountFromSys(in *sysSharePkg.Account) *Account {
 	}
 }
 
-type ListAccountsRequest struct {
-	PerPageEntries int64  `json:"perPageEntries,omitempty"`
-	OrderBy        string `json:"orderBy,omitempty"`
-	CurrentPageId  string `json:"currentPageId,omitempty"`
+type GetAccountRequest struct {
+	Id string `json:"id,omitempty"`
 }
 
-func (lar *ListAccountsRequest) ToProto() *accountRpc.ListAccountsRequest {
-	return &accountRpc.ListAccountsRequest{
-		PerPageEntries: lar.PerPageEntries,
-		OrderBy:        lar.OrderBy,
-		CurrentPageId:  lar.CurrentPageId,
-	}
+func (gar *GetAccountRequest) ToProto() *accountRpc.GetAccountRequest{
+	return &accountRpc.GetAccountRequest{Id: gar.Id}
 }
 
-func (lar *ListAccountsRequest) ToSysShareProto() *sysSharePkg.ListAccountsRequest {
-	return &sysSharePkg.ListAccountsRequest{
-		PerPageEntries: lar.PerPageEntries,
-		OrderBy:        lar.OrderBy,
-		CurrentPageId:  lar.CurrentPageId,
-	}
-}
-
-func ListAccountsRequestFromProto(in *accountRpc.ListAccountsRequest) *ListAccountsRequest {
-	return &ListAccountsRequest{
-		PerPageEntries: in.GetPerPageEntries(),
-		OrderBy:        in.GetOrderBy(),
-		CurrentPageId:  in.GetCurrentPageId(),
-	}
-}
-
-type ListAccountsResponse struct {
-	Accounts   []*Account `json:"accounts,omitempty"`
-	NextPageId string     `json:"nextPageId,omitempty"`
-}
-
-func (lsp *ListAccountsResponse) ToProto() (*accountRpc.ListAccountsResponse, error) {
-	var accs []*accountRpc.Account
-	for _, acc := range lsp.Accounts {
-		account, err := acc.ToProto()
-		if err != nil {
-			return nil, err
-		}
-		accs = append(accs, account)
-	}
-	return &accountRpc.ListAccountsResponse{
-		Accounts:   accs,
-		NextPageId: lsp.NextPageId,
-	}, nil
-}
-
-func ListAccountsResponseFromProto(resp *accountRpc.ListAccountsResponse) *ListAccountsResponse {
-	var accs []*Account
-	for _, acc := range resp.Accounts {
-		account := AccountFromProto(acc)
-		accs = append(accs, account)
-	}
-	return &ListAccountsResponse{
-		Accounts:   accs,
-		NextPageId: resp.GetNextPageId(),
-	}
-}
-
-func ListAccountsResponseFromSys(resp *sysSharePkg.ListAccountsResponse) *ListAccountsResponse {
-	var accs []*Account
-	for _, acc := range resp.Accounts {
-		accs = append(accs, AccountFromSys(acc))
-	}
-	return &ListAccountsResponse{
-		Accounts:   accs,
-		NextPageId: resp.NextPageId,
-	}
+func (gar *GetAccountRequest) ToSysShareProto() *sysSharePkg.GetAccountRequest {
+	return &sysSharePkg.GetAccountRequest{Id: gar.Id}
 }

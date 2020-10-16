@@ -63,24 +63,26 @@ func newModDummyService(dr *ModDummyRepo) *modDummyService {
 // and SysShareAccountService
 func (mds *modDummyService) registerSvc(server *grpc.Server) {
 	mds.dummy.registerSvc(server)
-	mds.sysShareAccountSvc.RegisterSvc(server)
+	//mds.sysShareAccountSvc.RegisterSvc(server)
 }
 
 // DummyService is the abstract contract needed to satisfy the
 // DummyServiceService defined in the protobuf v2.
 type DummyService interface {
-	ListAccounts(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error)
+	GetAccount(context.Context, *GetAccountRequest) (*Account, error)
+
 }
 
-func listAccountsProxy(as DummyService) func(context.Context, *rpc.ListAccountsRequest) (*rpc.ListAccountsResponse, error) {
-	return func(ctx context.Context, lar *rpc.ListAccountsRequest) (*rpc.ListAccountsResponse, error) {
-		accounts, err := as.ListAccounts(ctx, ListAccountsRequestFromProto(lar))
+func getAccountProxy(ds DummyService) func(context.Context, *rpc.GetAccountRequest) (*rpc.Account, error) {
+	return func(ctx context.Context, acc *rpc.GetAccountRequest) (*rpc.Account, error) {
+		account, err := ds.GetAccount(ctx, &GetAccountRequest{Id: acc.GetId()})
 		if err != nil {
 			return nil, err
 		}
-		return accounts.ToProto()
+		return account.ToProto()
 	}
 }
+
 
 type dummyService struct {
 	svc *rpc.DummyServiceService
@@ -89,7 +91,7 @@ type dummyService struct {
 func newDummyService(ds DummyService) *dummyService {
 	return &dummyService{
 		svc: &rpc.DummyServiceService{
-			ListAccounts: listAccountsProxy(ds),
+			GetAccount: getAccountProxy(ds),
 		},
 	}
 }

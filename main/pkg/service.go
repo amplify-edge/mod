@@ -8,7 +8,6 @@ import (
 	"log"
 	"net/http"
 
-	grpcAuth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -37,12 +36,8 @@ func ModCli() *cobra.Command {
 	log.Println(" -- Load Mod cli -- ")
 	dummyCliClient := dummypkg.NewModDummyProxyClient()
 
-	// load up sys-cli client
-	log.Println(" -- Load Sys proxy cli -- ")
-	spsc := syspkg.NewSysShareProxyClient()
-
 	// Add it to root cobra
-	rootCmd.AddCommand(dummyCliClient.CobraCommand(), spsc.CobraCommand())
+	rootCmd.AddCommand(dummyCliClient.CobraCommand())
 
 	return rootCmd
 }
@@ -74,9 +69,10 @@ func NewModService(
 }
 
 func (ms *ModService) InjectInterceptors(unaryInterceptors []grpc.UnaryServerInterceptor, streamInterceptors []grpc.StreamServerInterceptor) ([]grpc.UnaryServerInterceptor, []grpc.StreamServerInterceptor) {
-	unaryItc := append(unaryInterceptors, grpcAuth.UnaryServerInterceptor(ms.serverInterceptor))
-	streamItc := append(streamInterceptors, grpcAuth.StreamServerInterceptor(ms.serverInterceptor))
-	return unaryItc, streamItc
+	//unaryItc := append(unaryInterceptors, grpcAuth.UnaryServerInterceptor(ms.serverInterceptor))
+	//streamItc := append(streamInterceptors, grpcAuth.StreamServerInterceptor(ms.serverInterceptor))
+	//return unaryItc, streamItc
+	return unaryInterceptors, streamInterceptors
 }
 
 func (ms *ModService) RegisterServices(srv *grpc.Server) {
