@@ -44,7 +44,7 @@ dependencies:
 
   sys_core:
     git:
-      url: git://github.com/getcouragenow/sys
+      url: git://github.com/getcouragenow/sys-share
       path: sys-core/service/flu
 
   # mod_timespace:
