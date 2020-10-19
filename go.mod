@@ -5,7 +5,7 @@ go 1.15
 require (
 	github.com/desertbit/timer v0.0.0-20180107155436-c41aec40b27f // indirect
 	github.com/getcouragenow/protoc-gen-cobra v0.3.1-0.20201005114840-ccc8cd57bcdc
-	github.com/getcouragenow/sys-share v0.0.0-20201014211021-96b3c3299502
+	github.com/getcouragenow/sys-share v0.0.0-20201019065332-3ae732e3de93
 	github.com/golang/protobuf v1.4.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.0.0
 	github.com/improbable-eng/grpc-web v0.13.0
