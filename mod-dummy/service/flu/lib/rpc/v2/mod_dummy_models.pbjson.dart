@@ -76,6 +76,7 @@ const Account$json = const {
     const {'1': 'last_login', '3': 7, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'lastLogin'},
     const {'1': 'disabled', '3': 8, '4': 1, '5': 8, '10': 'disabled'},
     const {'1': 'fields', '3': 9, '4': 1, '5': 11, '6': '.v2.mod_services.UserDefinedFields', '10': 'fields'},
+    const {'1': 'survey', '3': 10, '4': 1, '5': 11, '6': '.v2.mod_services.UserDefinedFields', '10': 'survey'},
   ],
 };
 

@@ -210,6 +210,7 @@ class Account extends $pb.GeneratedMessage {
     ..aOM<$2.Timestamp>(7, 'lastLogin', subBuilder: $2.Timestamp.create)
     ..aOB(8, 'disabled')
     ..aOM<UserDefinedFields>(9, 'fields', subBuilder: UserDefinedFields.create)
+    ..aOM<UserDefinedFields>(10, 'survey', subBuilder: UserDefinedFields.create)
     ..hasRequiredFields = false
   ;
 
@@ -318,6 +319,17 @@ class Account extends $pb.GeneratedMessage {
   void clearFields() => clearField(9);
   @$pb.TagNumber(9)
   UserDefinedFields ensureFields() => $_ensure(8);
+
+  @$pb.TagNumber(10)
+  UserDefinedFields get survey => $_getN(9);
+  @$pb.TagNumber(10)
+  set survey(UserDefinedFields v) { setField(10, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasSurvey() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearSurvey() => clearField(10);
+  @$pb.TagNumber(10)
+  UserDefinedFields ensureSurvey() => $_ensure(9);
 }
 
 class GetAccountRequest extends $pb.GeneratedMessage {
