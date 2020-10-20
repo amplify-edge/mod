@@ -19,20 +19,38 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_modular: ^2.0.0+1
 
   research_package:
     git:
       url: git://github.com/getcouragenow/research.package
       ref: enter-consideration
+      
+  sys_core:
+    git:
+      url: git://github.com/getcouragenow/sys-share
+      path: sys-core/service/flu
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-
+  intl: ^0.16.1
+  intl_translation: ^0.17.9
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^1.7.1
+  hive_generator: ^0.5.2
+  json_serializable: ^3.2.3
+  flutter_launcher_icons: ^0.8.0
+  
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/placeholder.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

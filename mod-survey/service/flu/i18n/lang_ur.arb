@@ -1,0 +1,273 @@
+{
+  "@@last_modified": "2020-10-20T23:40:16.718312",
+  "feelHappy": "خوشی محسوس ہو رہی ہے",
+  "@feelHappy": {
+    "description": "feelHappy",
+    "placeholders": {},
+    "type": "text"
+  },
+  "feelVerySad": "بہت اداس لگ رہا ہے",
+  "@feelVerySad": {
+    "description": "feelVerySad",
+    "placeholders": {},
+    "type": "text"
+  },
+  "feelSad": "اداس محسوس",
+  "@feelSad": {
+    "description": "feelSad",
+    "placeholders": {},
+    "type": "text"
+  },
+  "feelOk": "ٹھیک ہو رہا ہے",
+  "@feelOk": {
+    "description": "feelOk",
+    "placeholders": {},
+    "type": "text"
+  },
+  "feelVeryHappy": "بہت خوشی محسوس ہورہی ہے",
+  "@feelVeryHappy": {
+    "description": "feelVeryHappy",
+    "placeholders": {},
+    "type": "text"
+  },
+  "playingGames": "کھیل کھیلنا",
+  "@playingGames": {
+    "description": "playingGames",
+    "placeholders": {},
+    "type": "text"
+  },
+  "jogging": "ٹہلنا",
+  "@jogging": {
+    "description": "jogging",
+    "placeholders": {},
+    "type": "text"
+  },
+  "playingInstrument": "آلہ بجانا",
+  "@playingInstrument": {
+    "description": "playingInstrument",
+    "placeholders": {},
+    "type": "text"
+  },
+  "familyAndFriends": "کنبہ اور دوست",
+  "@familyAndFriends": {
+    "description": "familyAndFriends",
+    "placeholders": {},
+    "type": "text"
+  },
+  "doingSports": "کھیل کھیلنا",
+  "@doingSports": {
+    "description": "doingSports",
+    "placeholders": {},
+    "type": "text"
+  },
+  "reading": "پڑھنا",
+  "@reading": {
+    "description": "reading",
+    "placeholders": {},
+    "type": "text"
+  },
+  "beingProductive": "نتیجہ خیز ہونا",
+  "@beingProductive": {
+    "description": "beingProductive",
+    "placeholders": {},
+    "type": "text"
+  },
+  "allOfTheTime": "ہر وقت",
+  "@allOfTheTime": {
+    "description": "allOfTheTime",
+    "placeholders": {},
+    "type": "text"
+  },
+  "mostOfTheTime": "زیادہ تر وقت",
+  "@mostOfTheTime": {
+    "description": "mostOfTheTime",
+    "placeholders": {},
+    "type": "text"
+  },
+  "moreThanHalfOfTheTime": "آدھے سے زیادہ وقت",
+  "@moreThanHalfOfTheTime": {
+    "description": "moreThanHalfOfTheTime",
+    "placeholders": {},
+    "type": "text"
+  },
+  "lessThanHalfOfTheTime": "نصف سے بھی کم وقت",
+  "@lessThanHalfOfTheTime": {
+    "description": "lessThanHalfOfTheTime",
+    "placeholders": {},
+    "type": "text"
+  },
+  "someOfTheTime": "کچھ وقت",
+  "@someOfTheTime": {
+    "description": "someOfTheTime",
+    "placeholders": {},
+    "type": "text"
+  },
+  "atNoTime": "بلا تاخیر",
+  "@atNoTime": {
+    "description": "atNoTime",
+    "placeholders": {},
+    "type": "text"
+  },
+  "piano": "پیانو",
+  "@piano": {
+    "description": "piano",
+    "placeholders": {},
+    "type": "text"
+  },
+  "guitar": "گٹار",
+  "@guitar": {
+    "description": "guitar",
+    "placeholders": {},
+    "type": "text"
+  },
+  "fun": "مزہ",
+  "@fun": {
+    "description": "fun",
+    "placeholders": {},
+    "type": "text"
+  },
+  "easyToPlay": "کھیلنا آسان ہے",
+  "@easyToPlay": {
+    "description": "easyToPlay",
+    "placeholders": {},
+    "type": "text"
+  },
+  "charming": "دلکش",
+  "@charming": {
+    "description": "charming",
+    "placeholders": {},
+    "type": "text"
+  },
+  "popular": "مقبول",
+  "@popular": {
+    "description": "popular",
+    "placeholders": {},
+    "type": "text"
+  },
+  "one": "ایک",
+  "@one": {
+    "description": "one",
+    "placeholders": {},
+    "type": "text"
+  },
+  "two": "دو",
+  "@two": {
+    "description": "two",
+    "placeholders": {},
+    "type": "text"
+  },
+  "three": "تین",
+  "@three": {
+    "description": "three",
+    "placeholders": {},
+    "type": "text"
+  },
+  "four": "چار",
+  "@four": {
+    "description": "four",
+    "placeholders": {},
+    "type": "text"
+  },
+  "smokingQuestion": "آپ تمباکو نوشی کرتے ہیں؟",
+  "@smokingQuestion": {
+    "description": "smokingQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "imageChoiceQuestion": "تصویر منتخب کرکے اپنے مزاج کی نشاندہی کریں!",
+  "@imageChoiceQuestion": {
+    "description": "imageChoiceQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "numberOfCigsQuestion": "ایک دن میں آپ کتنے سگریٹ پیتے ہیں",
+  "@numberOfCigsQuestion": {
+    "description": "numberOfCigsQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "instructionWelcome": "خوش آمدید!",
+  "@instructionWelcome": {
+    "description": "instructionWelcome",
+    "placeholders": {},
+    "type": "text"
+  },
+  "instructionDetails": "یقینا سائنس کی خاطر ...",
+  "@instructionDetails": {
+    "description": "instructionDetails",
+    "placeholders": {},
+    "type": "text"
+  },
+  "instructionText": "برائےکرم یہ سوالنامہ پُر کریں!\n\nاس سوالنامے میں کچھ سوالات کے جوابات سے طے ہوگا کہ آپ کو کیا دوسرے سوالات ہوں گے۔ آپ ان سوالات کو چھوڑ نہیں سکتے ہیں ، حالانکہ آپ دوسرے سوالات کو چھوڑنے کے لئے آزاد ہیں۔",
+  "@instructionText": {
+    "description": "instructionText",
+    "placeholders": {},
+    "type": "text"
+  },
+  "singleChoiceQuestion": "میں نے خوشگوار اور اچھی روحوں کو محسوس کیا ہے",
+  "@singleChoiceQuestion": {
+    "description": "singleChoiceQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "multiChoiceQuestionStep1": "کس چیز سے آپ خوش ہوں؟",
+  "@multiChoiceQuestionStep1": {
+    "description": "multiChoiceQuestionStep1",
+    "placeholders": {},
+    "type": "text"
+  },
+  "multiChoiceQuestionStep2": "(a) نمبر (زبانیں) منتخب کریں",
+  "@multiChoiceQuestionStep2": {
+    "description": "multiChoiceQuestionStep2",
+    "placeholders": {},
+    "type": "text"
+  },
+  "alphabetQuestion": "(ایک) خط (زبانیں) منتخب کریں",
+  "@alphabetQuestion": {
+    "description": "alphabetQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "alphabetDetail": "تفصیل",
+  "@alphabetDetail": {
+    "description": "alphabetDetail",
+    "placeholders": {},
+    "type": "text"
+  },
+  "instrumentQuestion": "آپ کون سا آلہ بجارہے ہیں؟",
+  "@instrumentQuestion": {
+    "description": "instrumentQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "instrumentMinutesQuestion": "آپ ایک ہفتے میں کتنے منٹ خرچ کرتے ہیں؟",
+  "@instrumentMinutesQuestion": {
+    "description": "instrumentMinutesQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "musicQuestion": "موسیقی سے متعلق سوالات",
+  "@musicQuestion": {
+    "description": "musicQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "guitarChoiceQuestion": "آپ نے گٹار بجانا کیوں شروع کیا؟",
+  "@guitarChoiceQuestion": {
+    "description": "guitarChoiceQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "completionFinished": "ختم",
+  "@completionFinished": {
+    "description": "completionFinished",
+    "placeholders": {},
+    "type": "text"
+  },
+  "completionText": "سروے کو پُر کرنے کا شکریہ",
+  "@completionText": {
+    "description": "completionText",
+    "placeholders": {},
+    "type": "text"
+  }
+}
