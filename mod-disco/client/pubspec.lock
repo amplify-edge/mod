@@ -684,8 +684,8 @@ packages:
     description:
       path: "sys-core/service/flu"
       ref: HEAD
-      resolved-ref: "61a0f13c421f91e33c1e63dc23de97d1463eaf73"
-      url: "git://github.com/getcouragenow/sys"
+      resolved-ref: "3ae732e3de932255e00558df9528bf87191915ac"
+      url: "git://github.com/getcouragenow/sys-share"
     source: git
     version: "0.0.1"
   term_glyph:
