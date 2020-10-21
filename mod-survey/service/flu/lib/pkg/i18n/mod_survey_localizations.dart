@@ -8,11 +8,21 @@ import 'package:flutter/services.dart';
 import 'package:sys_core/sys_core.dart';
 import 'translations.dart';
 
+String surveyTranslate(String key) {
+  return ModSurveyLocalizations.instance.translate(key);
+}
+
 class ModSurveyLocalizations extends Translations {
   final Locale locale;
   static Map<String, String> _localizedStrings;
 
   ModSurveyLocalizations(this.locale);
+
+  static const LocalizationsDelegate<ModSurveyLocalizations> delegate =
+      ModSurveyLocalizationsDelegate();
+
+  static ModSurveyLocalizations get instance =>
+      ModSurveyLocalizationsDelegate.instance;
 
   Future<bool> load() async {
     String jsonString = await rootBundle.loadString(
@@ -40,9 +50,11 @@ class ModSurveyLocalizations extends Translations {
 
 class ModSurveyLocalizationsDelegate
     extends LocalizationsDelegate<ModSurveyLocalizations> {
-  final Locale overriddenLocale;
-
-  ModSurveyLocalizationsDelegate(this.overriddenLocale);
+  // final Locale overriddenLocale;
+  // TODO @gutterbacon: temp workaround to translate without BuildContext
+  static ModSurveyLocalizations instance;
+  // workaround as const
+  const ModSurveyLocalizationsDelegate();
 
   @override
   bool shouldReload(ModSurveyLocalizationsDelegate old) => true;
@@ -57,6 +69,7 @@ class ModSurveyLocalizationsDelegate
   Future<ModSurveyLocalizations> load(Locale locale) async {
     ModSurveyLocalizations localizations = new ModSurveyLocalizations(locale);
     await localizations.load();
+    instance = localizations;
     return localizations;
   }
 }

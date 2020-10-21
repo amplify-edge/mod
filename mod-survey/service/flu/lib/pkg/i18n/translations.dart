@@ -4,6 +4,42 @@ import 'package:intl/intl.dart';
 class Translations {
   Locale locale;
 
+  String yes() {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: 'the word yes',
+      locale: locale.toString(),
+    );
+  }
+
+  String no() {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: 'the word no',
+      locale: locale.toString(),
+    );
+  }
+
+  String cigarettes() {
+    return Intl.message(
+      'cigarettes',
+      name: 'cigarettes',
+      desc: 'cigarettes',
+      locale: locale.toString(),
+    );
+  }
+
+  String minutes() {
+    return Intl.message(
+      'minutes',
+      name: 'minutes',
+      desc: 'minutes',
+      locale: locale.toString(),
+    );
+  }
+
   String feelHappy() {
     return Intl.message(
       'Feeling happy',
