@@ -1,0 +1,10 @@
+"modDummyConfig":
+  "cron":
+    "backupDir": "./db/backup"
+    "backupSchedule": "@daily"
+    "rotateSchedule": "@every 24h"
+  "db":
+    "dbDir": "./db"
+    "encryptKey": "somekey!@"
+    "name": "gcn.db"
+    "rotationDuration": 1

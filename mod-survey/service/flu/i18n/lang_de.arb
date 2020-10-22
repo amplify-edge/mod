@@ -1,0 +1,273 @@
+{
+  "@@last_modified": "2020-10-20T23:40:16.718312",
+  "feelHappy": "Glücklich fühlen",
+  "@feelHappy": {
+    "description": "feelHappy",
+    "placeholders": {},
+    "type": "text"
+  },
+  "feelVerySad": "Ich fühle mich sehr traurig",
+  "@feelVerySad": {
+    "description": "feelVerySad",
+    "placeholders": {},
+    "type": "text"
+  },
+  "feelSad": "Traurig fühlen",
+  "@feelSad": {
+    "description": "feelSad",
+    "placeholders": {},
+    "type": "text"
+  },
+  "feelOk": "Ich fühle mich in Ordnung",
+  "@feelOk": {
+    "description": "feelOk",
+    "placeholders": {},
+    "type": "text"
+  },
+  "feelVeryHappy": "Ich fühle mich sehr glücklich",
+  "@feelVeryHappy": {
+    "description": "feelVeryHappy",
+    "placeholders": {},
+    "type": "text"
+  },
+  "playingGames": "Spiele spielen",
+  "@playingGames": {
+    "description": "playingGames",
+    "placeholders": {},
+    "type": "text"
+  },
+  "jogging": "Joggen",
+  "@jogging": {
+    "description": "jogging",
+    "placeholders": {},
+    "type": "text"
+  },
+  "playingInstrument": "Ein Instrument spielen",
+  "@playingInstrument": {
+    "description": "playingInstrument",
+    "placeholders": {},
+    "type": "text"
+  },
+  "familyAndFriends": "Familie und Freunde",
+  "@familyAndFriends": {
+    "description": "familyAndFriends",
+    "placeholders": {},
+    "type": "text"
+  },
+  "doingSports": "Sport machen",
+  "@doingSports": {
+    "description": "doingSports",
+    "placeholders": {},
+    "type": "text"
+  },
+  "reading": "lesen",
+  "@reading": {
+    "description": "reading",
+    "placeholders": {},
+    "type": "text"
+  },
+  "beingProductive": "Produktiv sein",
+  "@beingProductive": {
+    "description": "beingProductive",
+    "placeholders": {},
+    "type": "text"
+  },
+  "allOfTheTime": "Die ganze Zeit",
+  "@allOfTheTime": {
+    "description": "allOfTheTime",
+    "placeholders": {},
+    "type": "text"
+  },
+  "mostOfTheTime": "Meistens",
+  "@mostOfTheTime": {
+    "description": "mostOfTheTime",
+    "placeholders": {},
+    "type": "text"
+  },
+  "moreThanHalfOfTheTime": "Mehr als die Hälfte der Zeit",
+  "@moreThanHalfOfTheTime": {
+    "description": "moreThanHalfOfTheTime",
+    "placeholders": {},
+    "type": "text"
+  },
+  "lessThanHalfOfTheTime": "Weniger als die Hälfte der Zeit",
+  "@lessThanHalfOfTheTime": {
+    "description": "lessThanHalfOfTheTime",
+    "placeholders": {},
+    "type": "text"
+  },
+  "someOfTheTime": "Einen Teil der Zeit",
+  "@someOfTheTime": {
+    "description": "someOfTheTime",
+    "placeholders": {},
+    "type": "text"
+  },
+  "atNoTime": "Zu keiner Zeit",
+  "@atNoTime": {
+    "description": "atNoTime",
+    "placeholders": {},
+    "type": "text"
+  },
+  "piano": "Klavier",
+  "@piano": {
+    "description": "piano",
+    "placeholders": {},
+    "type": "text"
+  },
+  "guitar": "Gitarre",
+  "@guitar": {
+    "description": "guitar",
+    "placeholders": {},
+    "type": "text"
+  },
+  "fun": "Spaß",
+  "@fun": {
+    "description": "fun",
+    "placeholders": {},
+    "type": "text"
+  },
+  "easyToPlay": "Einfach zu spielen",
+  "@easyToPlay": {
+    "description": "easyToPlay",
+    "placeholders": {},
+    "type": "text"
+  },
+  "charming": "Charmant",
+  "@charming": {
+    "description": "charming",
+    "placeholders": {},
+    "type": "text"
+  },
+  "popular": "Beliebt",
+  "@popular": {
+    "description": "popular",
+    "placeholders": {},
+    "type": "text"
+  },
+  "one": "Einer",
+  "@one": {
+    "description": "one",
+    "placeholders": {},
+    "type": "text"
+  },
+  "two": "Zwei",
+  "@two": {
+    "description": "two",
+    "placeholders": {},
+    "type": "text"
+  },
+  "three": "Drei",
+  "@three": {
+    "description": "three",
+    "placeholders": {},
+    "type": "text"
+  },
+  "four": "Vier",
+  "@four": {
+    "description": "four",
+    "placeholders": {},
+    "type": "text"
+  },
+  "smokingQuestion": "Rauchen Sie?",
+  "@smokingQuestion": {
+    "description": "smokingQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "imageChoiceQuestion": "Zeigen Sie Ihre Stimmung an, indem Sie ein Bild auswählen!",
+  "@imageChoiceQuestion": {
+    "description": "imageChoiceQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "numberOfCigsQuestion": "Wie viele Zigaretten rauchen Sie pro Tag?",
+  "@numberOfCigsQuestion": {
+    "description": "numberOfCigsQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "instructionWelcome": "Herzlich willkommen!",
+  "@instructionWelcome": {
+    "description": "instructionWelcome",
+    "placeholders": {},
+    "type": "text"
+  },
+  "instructionDetails": "Natürlich der Wissenschaft zuliebe ...",
+  "@instructionDetails": {
+    "description": "instructionDetails",
+    "placeholders": {},
+    "type": "text"
+  },
+  "instructionText": "Bitte füllen Sie diesen Fragebogen aus!\n\nIn diesem Fragebogen bestimmen Antworten auf einige Fragen, welche anderen Fragen Sie erhalten. Sie können diese Frage nicht überspringen, obwohl Sie die anderen Fragen überspringen können.",
+  "@instructionText": {
+    "description": "instructionText",
+    "placeholders": {},
+    "type": "text"
+  },
+  "singleChoiceQuestion": "Ich habe mich fröhlich und gut gelaunt gefühlt",
+  "@singleChoiceQuestion": {
+    "description": "singleChoiceQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "multiChoiceQuestionStep1": "Was dich glücklich macht?",
+  "@multiChoiceQuestionStep1": {
+    "description": "multiChoiceQuestionStep1",
+    "placeholders": {},
+    "type": "text"
+  },
+  "multiChoiceQuestionStep2": "Wählen Sie (a) Nummer (n)",
+  "@multiChoiceQuestionStep2": {
+    "description": "multiChoiceQuestionStep2",
+    "placeholders": {},
+    "type": "text"
+  },
+  "alphabetQuestion": "Wählen Sie (a) Buchstaben.",
+  "@alphabetQuestion": {
+    "description": "alphabetQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "alphabetDetail": "Detail",
+  "@alphabetDetail": {
+    "description": "alphabetDetail",
+    "placeholders": {},
+    "type": "text"
+  },
+  "instrumentQuestion": "Welches Instrument spielst du?",
+  "@instrumentQuestion": {
+    "description": "instrumentQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "instrumentMinutesQuestion": "Wie viele Minuten üben Sie pro Woche?",
+  "@instrumentMinutesQuestion": {
+    "description": "instrumentMinutesQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "musicQuestion": "Fragen zur Musik",
+  "@musicQuestion": {
+    "description": "musicQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "guitarChoiceQuestion": "Warum hast du angefangen Gitarre zu spielen?",
+  "@guitarChoiceQuestion": {
+    "description": "guitarChoiceQuestion",
+    "placeholders": {},
+    "type": "text"
+  },
+  "completionFinished": "Fertig",
+  "@completionFinished": {
+    "description": "completionFinished",
+    "placeholders": {},
+    "type": "text"
+  },
+  "completionText": "Vielen Dank für das Ausfüllen der Umfrage",
+  "@completionText": {
+    "description": "completionText",
+    "placeholders": {},
+    "type": "text"
+  }
+}

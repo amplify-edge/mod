@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:mod_survey/pkg/i18n/mod_survey_localizations.dart';
 import 'package:research_package/model.dart';
 
 ///
@@ -6,54 +7,54 @@ import 'package:research_package/model.dart';
 ///
 
 List<RPImageChoice> images = [
+  RPImageChoice.withParams(Image.asset('assets/images/very-sad.png'), 0,
+      surveyTranslate('feelVerySad')),
   RPImageChoice.withParams(
-      Image.asset('assets/images/very-sad.png'), 0, 'Feeling very sad'),
+      Image.asset('assets/images/sad.png'), 0, surveyTranslate('feelSad')),
   RPImageChoice.withParams(
-      Image.asset('assets/images/sad.png'), 0, 'Feeling sad'),
+      Image.asset('assets/images/ok.png'), 0, surveyTranslate('feelOk')),
   RPImageChoice.withParams(
-      Image.asset('assets/images/ok.png'), 0, 'Feeling ok'),
-  RPImageChoice.withParams(
-      Image.asset('assets/images/happy.png'), 0, 'Feeling happy'),
-  RPImageChoice.withParams(
-      Image.asset('assets/images/very-happy.png'), 0, 'Feeling very happy'),
+      Image.asset('assets/images/happy.png'), 0, surveyTranslate('feelHappy')),
+  RPImageChoice.withParams(Image.asset('assets/images/very-happy.png'), 0,
+      surveyTranslate('feelVeryHappy')),
 ];
 
 List<RPChoice> joyfulActivities = [
-  RPChoice.withParams("Playing games", 6),
-  RPChoice.withParams("Jogging", 5),
-  RPChoice.withParams("Playing an instrument", 4),
-  RPChoice.withParams("Family and friends", 3),
-  RPChoice.withParams("Doing sports", 2),
-  RPChoice.withParams("Reading", 1),
-  RPChoice.withParams("Being productive", 0),
+  RPChoice.withParams(surveyTranslate('playingGames'), 6),
+  RPChoice.withParams(surveyTranslate('jogging'), 5),
+  RPChoice.withParams(surveyTranslate('playingInstrument'), 4),
+  RPChoice.withParams(surveyTranslate('familyAndFriends'), 3),
+  RPChoice.withParams(surveyTranslate('doingSports'), 2),
+  RPChoice.withParams(surveyTranslate('reading'), 1),
+  RPChoice.withParams(surveyTranslate('beingProductive'), 0),
 ];
 
 List<RPChoice> who5Choices = [
-  RPChoice.withParams("All of the time", 5),
-  RPChoice.withParams("Most of the time", 4),
-  RPChoice.withParams("More than half of the time", 3),
-  RPChoice.withParams("Less than half of the time", 2),
-  RPChoice.withParams("Some of the time", 1),
-  RPChoice.withParams("At no time", 0),
+  RPChoice.withParams(surveyTranslate('allOfTheTime'), 5),
+  RPChoice.withParams(surveyTranslate('mostOfTheTime'), 4),
+  RPChoice.withParams(surveyTranslate('moreThanHalfOfTheTime'), 3),
+  RPChoice.withParams(surveyTranslate("lessThanHalfOfTheTime"), 2),
+  RPChoice.withParams(surveyTranslate("someOfTheTime"), 1),
+  RPChoice.withParams(surveyTranslate("atNoTime"), 0),
 ];
 
 List<RPChoice> instruments = [
-  RPChoice.withParams("Piano", 1),
-  RPChoice.withParams("Guitar", 0),
+  RPChoice.withParams(surveyTranslate("piano"), 1),
+  RPChoice.withParams(surveyTranslate("guitar"), 0),
 ];
 
 List<RPChoice> guitarReasons = [
-  RPChoice.withParams("Fun", 3),
-  RPChoice.withParams("Easy to play", 2),
-  RPChoice.withParams("Charming", 1),
-  RPChoice.withParams("Popular", 0),
+  RPChoice.withParams(surveyTranslate("fun"), 3),
+  RPChoice.withParams(surveyTranslate("easyToPlay"), 2),
+  RPChoice.withParams(surveyTranslate("charming"), 1),
+  RPChoice.withParams(surveyTranslate("popular"), 0),
 ];
 
 List<RPChoice> numbers = [
-  RPChoice.withParams("Four", 3),
-  RPChoice.withParams("Three", 2),
-  RPChoice.withParams("Two", 1),
-  RPChoice.withParams("One", 0),
+  RPChoice.withParams(surveyTranslate("four"), 3),
+  RPChoice.withParams(surveyTranslate("three"), 2),
+  RPChoice.withParams(surveyTranslate("two"), 1),
+  RPChoice.withParams(surveyTranslate("one"), 0),
 ];
 
 List<RPChoice> alphabet = [
@@ -67,12 +68,14 @@ List<RPChoice> alphabet = [
 /// ANSWER FORMATS
 ///
 
-RPBooleanAnswerFormat yesNoAnswerFormat =
-    RPBooleanAnswerFormat.withParams("Yes", "No");
+RPBooleanAnswerFormat yesNoAnswerFormat = RPBooleanAnswerFormat.withParams(
+  surveyTranslate("yes"),
+  surveyTranslate("no"),
+);
 RPImageChoiceAnswerFormat imageChoiceAnswerFormat =
     RPImageChoiceAnswerFormat.withParams(images);
 RPIntegerAnswerFormat nrOfCigarettesAnswerFormat =
-    RPIntegerAnswerFormat.withParams(0, 200, "cigarettes");
+    RPIntegerAnswerFormat.withParams(0, 200, surveyTranslate("cigarettes"));
 RPChoiceAnswerFormat who5AnswerFormat = RPChoiceAnswerFormat.withParams(
     ChoiceAnswerStyle.SingleChoice, who5Choices);
 RPChoiceAnswerFormat joyfulActivitiesAnswerFormat =
@@ -85,7 +88,7 @@ RPChoiceAnswerFormat alphabetAnswerFormat =
 RPChoiceAnswerFormat instrumentsAnswerFormat = RPChoiceAnswerFormat.withParams(
     ChoiceAnswerStyle.SingleChoice, instruments);
 RPIntegerAnswerFormat minutesIntegerAnswerFormat =
-    RPIntegerAnswerFormat.withParams(0, 10000, "minutes");
+    RPIntegerAnswerFormat.withParams(0, 10000, surveyTranslate("minutes"));
 RPChoiceAnswerFormat guitarAnswerFormat = RPChoiceAnswerFormat.withParams(
     ChoiceAnswerStyle.MultipleChoice, guitarReasons);
 
@@ -94,86 +97,93 @@ RPChoiceAnswerFormat guitarAnswerFormat = RPChoiceAnswerFormat.withParams(
 ///
 
 RPQuestionStep smokingQuestionStep = RPQuestionStep.withAnswerFormat(
-    "smokingQuestionId", "Do you smoke?", yesNoAnswerFormat);
+    "smokingQuestionId", surveyTranslate("smokingQuestion"), yesNoAnswerFormat);
 
 RPQuestionStep imageChoiceQuestionStep = RPQuestionStep.withAnswerFormat(
   "imageStepID",
-  "Indicate you mood by selecting a picture!",
+  surveyTranslate('imageChoiceQuestion'),
   imageChoiceAnswerFormat,
 );
 
 RPQuestionStep nrOfCigarettesQuestionStep = RPQuestionStep.withAnswerFormat(
     "nrOfCigarettesQuestionStepID",
-    "How many cigarettes do you smoke a day?",
+    surveyTranslate('numberOfCigarettesQuestion'),
     nrOfCigarettesAnswerFormat);
 
 RPInstructionStep instructionStep = RPInstructionStep(
   identifier: "instructionID",
-  title: "Welcome!",
-  detailText: "For the sake of science of course...",
-)..text =
-    "Please fill out this questionnaire!\n\nIn this questionnaire answers to some questions will determine what other questions you will get. You can not skip these question, although you are free to skip the other questions.";
+  title: surveyTranslate('instructionWelcome'),
+  detailText: surveyTranslate('instructionDetails'),
+)..text = surveyTranslate('instructionText');
 
 RPQuestionStep singleChoiceQuestionStep = RPQuestionStep.withAnswerFormat(
   "singleChoiceQuestionStepID",
-  "I have felt cheerful and in good spirits",
+  surveyTranslate('singleChoiceQuestion'),
   who5AnswerFormat,
 );
 
 RPQuestionStep multiChoiceQuestionStep1 = RPQuestionStep.withAnswerFormat(
   "multiChoiceQuestionStepID1",
-  "What makes you happy?",
+  surveyTranslate('multiChoiceQuestionStep1'),
   joyfulActivitiesAnswerFormat,
 );
 
 RPQuestionStep multiChoiceQuestionStep2 = RPQuestionStep.withAnswerFormat(
   "multiChoiceQuestionStepID2",
-  "Choose (a) number(s)",
+  surveyTranslate('multiChoiceQuestionStep2'),
   numbersAnswerFormat,
 );
 
 RPQuestionStep alphabetQuestionStep = RPQuestionStep.withAnswerFormat(
   "alphabetQuestionStepID",
-  "Choose (a) letter(s)",
+  surveyTranslate('alphabetQuestion'),
   alphabetAnswerFormat,
 );
 
 RPInstructionStep instructionStepA = RPInstructionStep(
-    identifier: "instructionStepAID", title: "A", detailText: "A detail")
+    identifier: "instructionStepAID",
+    title: "A",
+    detailText: "A " + surveyTranslate('alphabetDetail'))
   ..text = "text";
 RPInstructionStep instructionStepB = RPInstructionStep(
-    identifier: "instructionStepBID", title: "B", detailText: "B detail")
+    identifier: "instructionStepBID",
+    title: "B",
+    detailText: "B " + surveyTranslate('alphabetDetail'))
   ..text = "text";
 RPInstructionStep instructionStepC = RPInstructionStep(
-    identifier: "instructionStepCID", title: "C", detailText: "C detail")
+    identifier: "instructionStepCID",
+    title: "C",
+    detailText: "C " + surveyTranslate('alphabetDetail'))
   ..text = "text";
 RPInstructionStep instructionStepD = RPInstructionStep(
-    identifier: "instructionStepDID", title: "D", detailText: "D detail")
+    identifier: "instructionStepDID",
+    title: "D",
+    detailText: "D " + surveyTranslate('alphabetDetail'))
   ..text = "text";
 
 RPQuestionStep instrumentChoiceQuestionStep = RPQuestionStep.withAnswerFormat(
     "instrumentChoiceQuestionStepID",
-    "Which instrument are you playing?",
+    surveyTranslate('instrumentQuestion'),
     instrumentsAnswerFormat);
 RPQuestionStep minutesQuestionStep = RPQuestionStep.withAnswerFormat(
     "minutesQuestionStepID",
-    "How many minutes do you spend practicing a week?",
+    surveyTranslate('instrumentMinutesQuestion'),
     minutesIntegerAnswerFormat);
 RPFormStep formStep = RPFormStep.withTitle(
   "formstepID",
   [instrumentChoiceQuestionStep, minutesQuestionStep],
-  "Questions about music",
+  surveyTranslate('musicQuestion'),
   optional: true,
 );
 
 RPQuestionStep guitarChoiceQuestionStep = RPQuestionStep.withAnswerFormat(
     "guitarChoiceQuestionStepID",
-    "Why did you start playing the guitar?",
+    surveyTranslate('guitarChoiceQuestion'),
     guitarAnswerFormat);
 
 RPCompletionStep completionStep = RPCompletionStep("completionID")
-  ..title = "Finished"
-  ..text = "Thank you for filling out the survey!";
+  ..title = surveyTranslate('completionFinished')
+  ..text = surveyTranslate('completionText');
 
 ///
 /// PREDICATES

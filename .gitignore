@@ -1,0 +1,5 @@
+vendor
+.idea
+.vscode
+bin-all
+pubspec.lock

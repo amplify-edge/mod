@@ -92,6 +92,7 @@ type Account struct {
 	LastLogin int64              `json:"last_login,omitempty"`
 	Disabled  bool               `json:"disabled,omitempty"`
 	Fields    *UserDefinedFields `json:"fields,omitempty"`
+	Survey    *UserDefinedFields `json:"survey,omitempty"`
 }
 
 func (acc *Account) GetEmail() string {
@@ -124,6 +125,7 @@ func (acc *Account) ToProto() (*accountRpc.Account, error) {
 func AccountFromProto(in *accountRpc.Account) *Account {
 	role := UserRolesFromProto(in.GetRole())
 	fields := UserDefinedFieldsFromProto(in.Fields)
+	survey := UserDefinedFieldsFromProto(in.Survey)
 	return &Account{
 		Id:        in.GetId(),
 		Email:     in.GetEmail(),
@@ -134,6 +136,7 @@ func AccountFromProto(in *accountRpc.Account) *Account {
 		LastLogin: tsToUnixUTC(in.GetLastLogin()),
 		Disabled:  in.Disabled,
 		Fields:    fields,
+		Survey:    survey,
 	}
 }
 
@@ -157,7 +160,7 @@ type GetAccountRequest struct {
 	Id string `json:"id,omitempty"`
 }
 
-func (gar *GetAccountRequest) ToProto() *accountRpc.GetAccountRequest{
+func (gar *GetAccountRequest) ToProto() *accountRpc.GetAccountRequest {
 	return &accountRpc.GetAccountRequest{Id: gar.Id}
 }
 
