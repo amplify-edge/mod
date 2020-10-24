@@ -1,15 +1,11 @@
-# This make file uses composition to keep things KISS and easy.
-# In the boilerpalte make files dont do any includes, because you will create multi permutations of possibilities.
+SHARED_FSPATH=./../../shared
+BOILERPLATE_FSPATH=$(SHARED_FSPATH)/boilerplate
 
-# git include
-BOILERPLATE_FSPATH=./../../boilerplate
 include $(BOILERPLATE_FSPATH)/help.mk
 include $(BOILERPLATE_FSPATH)/os.mk
+include $(BOILERPLATE_FSPATH)/gitr.mk
 include $(BOILERPLATE_FSPATH)/tool.mk
-include $(BOILERPLATE_FSPATH)/go.mk
 include $(BOILERPLATE_FSPATH)/flu.mk
-include $(BOILERPLATE_FSPATH)/grpc.mk
-
 
 # flu build
 override FLU_SAMPLE_NAME =client/example
@@ -37,48 +33,38 @@ this-print: ## print
 
 	$(MAKE) flu-gen-lang-print
 
-
-## CI
-
-## This builds everything
-this-build: ##
-	# Only build what maintemplate needs
-
-	# FLU
-	$(MAKE) flu-gen-all
-	$(MAKE) flu-gen-lang-all
+this-build: this-build-delete
+	@echo 'Building example golang binaries (CLI and Server)'
+	@mkdir -p bin-all/{cli,client}/{go,flu}
+	@echo 'Building Golang binaries'
+	# Commented Out, Nothing there yet
+	# go build -v -o bin-all/cli/go/ ./example/cli/go/main.go
+	@echo 'Building flutter binary'
 	$(MAKE) flu-web-build
+	@cp -Rv ./example/client/flu/build ./bin-all/client/flu/
 
-	# GO
-	# Gen Test data
-	# Gen other... 
+this-build-delete:
+	@echo 'Removing built go and flutter binaries'
+	rm -rf bin-all/{cli,client,server}/{go,flu}/*
 
-## This builds this and all submodules
-this-build-all: ##
+this-gen-delete:
+	@echo 'Removing generated protobuf definition (GO and Flutter)'
+	rm -rf service/{flu/lib,go}/rpc/v2/*.{dart,go}
 
-	# DO bottom up so we get the embeddings i think.
-	# TODO @gutterbacon what to do with this?
-	# cd ../sys-core && make this-build
-	
-
-
-	# finally build the top :)
-	$(MAKE) this-build
-
-### DEV
-
-this-example-build:
-	## GO
-	$(MAKE) go-build
-
-	## FLU
+this-gen: this-gen-delete
+	@echo "Generating GRPC models and services for Go & Flutter"
+	@mkdir -p service/{flu/lib,go}/rpc/v2
+	@go generate
+	# Flutter langs
 	$(MAKE) flu-gen-all
-	$(MAKE) flu-gen-lang-all
-	$(MAKE) flu-web-build
+	$(MAKE) flu-gen-lang
 
-this-example-go-run:
-	$(MAKE) go-run
+this-example-flutter-web-run:
+	@echo Running Example Flutter Web Client
+	$(MAKE) flu-web-run
 
-this-example-flu-run:
-	# web is broken currently.
-	$(MAKE) flu-desk-run
+this-example-flutter-desk-run:
+	@echo Running Example Flutter Desk Client
+	# HAs a bug. Runs, but Desktop screen is black.
+	$(MAKE) flu-desk-build
+
