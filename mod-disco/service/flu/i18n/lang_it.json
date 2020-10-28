@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-09-22T18:03:12.709484",
+  "@@last_modified": "2020-10-28T04:39:14.540190",
   "country": "Nazione",
   "@country": {
     "description": "Country",
@@ -222,7 +222,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "provideSupportRole": "Se non siamo in grado di soddisfare le condizioni che hai scelto, considereresti di fornire un ruolo di supporto a coloro che desiderano scioperare?",
+  "provideSupportRole": "Se non siamo in grado di soddisfare le condizioni che hai scelto, valuteresti di fornire un ruolo di supporto a coloro che desiderano scioperare?",
   "@provideSupportRole": {
     "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
     "placeholders": {},

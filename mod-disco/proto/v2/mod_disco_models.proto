@@ -7,7 +7,7 @@ option go_package = "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2";
 
 message SurveyProject {
   string survey_project_id = 1;
-  string sys_account_project_id = 2;
+  string sys_account_project_ref_id = 2;
   bytes survey_schema_types = 3; // SurveySchemaType in JSON format
   bytes survey_filter_types = 4; // SurveyFilterType in JSON format
   google.protobuf.Timestamp created_at = 5;
@@ -16,8 +16,8 @@ message SurveyProject {
 
 message SurveyUser {
   string survey_user_id = 1;
-  string survey_project_id = 2;
-  string sys_account_account_id = 3;
+  string survey_project_ref_id = 2;
+  string sys_account_account_ref_id = 3;
   bytes survey_schema_values = 4;
   bytes survey_schema_filters = 5; // serialized to strongly typed stuff in DB
   google.protobuf.Timestamp created_at = 6;
@@ -26,8 +26,9 @@ message SurveyUser {
 
 message IdRequest {
   string survey_user_id = 1;
-  string sys_account_id = 2;
+  string sys_account_project_id = 2;
   string survey_project_id = 3;
+  string sys_account_account_id = 4;
 }
 
 message ListRequest {
@@ -45,26 +46,26 @@ message ListResponse {
 }
 
 message NewSurveyProjectRequest {
-  string sys_account_project_id = 1;
+  string sys_account_project_ref_id = 1;
   bytes survey_schema_types = 2;
   bytes survey_filter_types = 3;
 }
 
 message NewSurveyUserRequest {
-  string survey_project_id = 1;
-  string sys_account_user_id = 2;
+  string survey_project_ref_id = 1;
+  string sys_account_user_ref_id = 2;
   bytes survey_schema_types = 3;
   bytes survey_filter_types = 4;
 }
 
 message UpdateSurveyProjectRequest {
-  string survey_project_id = 1;
+  string survey_project_ref_id = 1;
   bytes survey_schema_types = 2;
   bytes survey_filter_types = 3;
 }
 
 message UpdateSurveyUserRequest {
-  string survey_user_id = 1;
+  string survey_user_ref_id = 1;
   bytes survey_schema_types = 2;
   bytes survey_filter_types = 3;
 }

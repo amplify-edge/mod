@@ -24,10 +24,10 @@ dependencies:
 
   flutter_modular: ^2.0.0+1
   mod_disco:
-    path: ../
+    path: ../../../service/flu
   sys_core:
     git:
-      url: git://github.com/getcouragenow/sys
+      url: git://github.com/getcouragenow/sys-share
       path: sys-core/service/flu
 
   # The following adds the Cupertino Icons font to your application.

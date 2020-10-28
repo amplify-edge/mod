@@ -9,11 +9,11 @@ const SurveyProject$json = const {
   '1': 'SurveyProject',
   '2': const [
     const {'1': 'survey_project_id', '3': 1, '4': 1, '5': 9, '10': 'surveyProjectId'},
-    const {'1': 'sys_account_project_id', '3': 2, '4': 1, '5': 9, '10': 'sysAccountProjectId'},
-    const {'1': 'survey_schema_types', '3': 4, '4': 1, '5': 12, '10': 'surveySchemaTypes'},
-    const {'1': 'survey_filter_types', '3': 5, '4': 1, '5': 12, '10': 'surveyFilterTypes'},
-    const {'1': 'created_at', '3': 6, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
-    const {'1': 'updated_at', '3': 7, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updatedAt'},
+    const {'1': 'sys_account_project_ref_id', '3': 2, '4': 1, '5': 9, '10': 'sysAccountProjectRefId'},
+    const {'1': 'survey_schema_types', '3': 3, '4': 1, '5': 12, '10': 'surveySchemaTypes'},
+    const {'1': 'survey_filter_types', '3': 4, '4': 1, '5': 12, '10': 'surveyFilterTypes'},
+    const {'1': 'created_at', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
+    const {'1': 'updated_at', '3': 6, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updatedAt'},
   ],
 };
 
@@ -21,8 +21,8 @@ const SurveyUser$json = const {
   '1': 'SurveyUser',
   '2': const [
     const {'1': 'survey_user_id', '3': 1, '4': 1, '5': 9, '10': 'surveyUserId'},
-    const {'1': 'survey_project_id', '3': 2, '4': 1, '5': 9, '10': 'surveyProjectId'},
-    const {'1': 'sys_account_account_id', '3': 3, '4': 1, '5': 9, '10': 'sysAccountAccountId'},
+    const {'1': 'survey_project_ref_id', '3': 2, '4': 1, '5': 9, '10': 'surveyProjectRefId'},
+    const {'1': 'sys_account_account_ref_id', '3': 3, '4': 1, '5': 9, '10': 'sysAccountAccountRefId'},
     const {'1': 'survey_schema_values', '3': 4, '4': 1, '5': 12, '10': 'surveySchemaValues'},
     const {'1': 'survey_schema_filters', '3': 5, '4': 1, '5': 12, '10': 'surveySchemaFilters'},
     const {'1': 'created_at', '3': 6, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
@@ -34,8 +34,9 @@ const IdRequest$json = const {
   '1': 'IdRequest',
   '2': const [
     const {'1': 'survey_user_id', '3': 1, '4': 1, '5': 9, '10': 'surveyUserId'},
-    const {'1': 'sys_account_id', '3': 2, '4': 1, '5': 9, '10': 'sysAccountId'},
+    const {'1': 'sys_account_project_id', '3': 2, '4': 1, '5': 9, '10': 'sysAccountProjectId'},
     const {'1': 'survey_project_id', '3': 3, '4': 1, '5': 9, '10': 'surveyProjectId'},
+    const {'1': 'sys_account_account_id', '3': 4, '4': 1, '5': 9, '10': 'sysAccountAccountId'},
   ],
 };
 
@@ -62,7 +63,7 @@ const ListResponse$json = const {
 const NewSurveyProjectRequest$json = const {
   '1': 'NewSurveyProjectRequest',
   '2': const [
-    const {'1': 'sys_account_project_id', '3': 1, '4': 1, '5': 9, '10': 'sysAccountProjectId'},
+    const {'1': 'sys_account_project_ref_id', '3': 1, '4': 1, '5': 9, '10': 'sysAccountProjectRefId'},
     const {'1': 'survey_schema_types', '3': 2, '4': 1, '5': 12, '10': 'surveySchemaTypes'},
     const {'1': 'survey_filter_types', '3': 3, '4': 1, '5': 12, '10': 'surveyFilterTypes'},
   ],
@@ -71,8 +72,8 @@ const NewSurveyProjectRequest$json = const {
 const NewSurveyUserRequest$json = const {
   '1': 'NewSurveyUserRequest',
   '2': const [
-    const {'1': 'survey_project_id', '3': 1, '4': 1, '5': 9, '10': 'surveyProjectId'},
-    const {'1': 'sys_account_user_id', '3': 2, '4': 1, '5': 9, '10': 'sysAccountUserId'},
+    const {'1': 'survey_project_ref_id', '3': 1, '4': 1, '5': 9, '10': 'surveyProjectRefId'},
+    const {'1': 'sys_account_user_ref_id', '3': 2, '4': 1, '5': 9, '10': 'sysAccountUserRefId'},
     const {'1': 'survey_schema_types', '3': 3, '4': 1, '5': 12, '10': 'surveySchemaTypes'},
     const {'1': 'survey_filter_types', '3': 4, '4': 1, '5': 12, '10': 'surveyFilterTypes'},
   ],
@@ -81,7 +82,7 @@ const NewSurveyUserRequest$json = const {
 const UpdateSurveyProjectRequest$json = const {
   '1': 'UpdateSurveyProjectRequest',
   '2': const [
-    const {'1': 'survey_project_id', '3': 1, '4': 1, '5': 9, '10': 'surveyProjectId'},
+    const {'1': 'survey_project_ref_id', '3': 1, '4': 1, '5': 9, '10': 'surveyProjectRefId'},
     const {'1': 'survey_schema_types', '3': 2, '4': 1, '5': 12, '10': 'surveySchemaTypes'},
     const {'1': 'survey_filter_types', '3': 3, '4': 1, '5': 12, '10': 'surveyFilterTypes'},
   ],
@@ -90,7 +91,7 @@ const UpdateSurveyProjectRequest$json = const {
 const UpdateSurveyUserRequest$json = const {
   '1': 'UpdateSurveyUserRequest',
   '2': const [
-    const {'1': 'survey_user_id', '3': 1, '4': 1, '5': 9, '10': 'surveyUserId'},
+    const {'1': 'survey_user_ref_id', '3': 1, '4': 1, '5': 9, '10': 'surveyUserRefId'},
     const {'1': 'survey_schema_types', '3': 2, '4': 1, '5': 12, '10': 'surveySchemaTypes'},
     const {'1': 'survey_filter_types', '3': 3, '4': 1, '5': 12, '10': 'surveyFilterTypes'},
   ],

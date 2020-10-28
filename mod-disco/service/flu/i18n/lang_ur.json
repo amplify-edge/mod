@@ -1,12 +1,12 @@
 {
-  "@@last_modified": "2020-09-22T18:03:12.709484",
+  "@@last_modified": "2020-10-28T04:39:14.540190",
   "country": "ملک",
   "@country": {
     "description": "Country",
     "placeholders": {},
     "type": "text"
   },
-  "aboutYou": "اپ کے بارے میں",
+  "aboutYou": "تمھارے بارے میں",
   "@aboutYou": {
     "description": "About You",
     "placeholders": {},
@@ -24,7 +24,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "whereAreYou": "اپ کہاں ہیں؟",
+  "whereAreYou": "تم کہاں ہو؟",
   "@whereAreYou": {
     "description": "Where are you?",
     "placeholders": {},
@@ -156,7 +156,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "باغیوں کو جیتنے کی ضرورت ہے",
+  "rebelsWin": "باغیوں کو جیتنے کی ضرورت تھی",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
@@ -204,7 +204,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "needsSatisifiedRequirement": "براہ کرم زیادہ سے زیادہ حمایت یا ضرورت کو منتخب کریں تاکہ آپ کو اس عمل میں شامل ہونے کے لئے مطمئن درکار ہو۔",
+  "needsSatisifiedRequirement": "براہ کرم اس عمل میں شامل ہونے کے ل as زیادہ سے زیادہ سپورٹ یا ضروریات کا انتخاب کریں جو آپ کو مطمئن درکار ہیں۔",
   "@needsSatisifiedRequirement": {
     "description": "Please choose as many supports or needs you need satisfied to join the action.",
     "placeholders": {},
@@ -222,7 +222,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "provideSupportRole": "اگر ہم آپ کے منتخب کردہ شرائط کو پورا نہیں کرسکتے ہیں ، تو کیا آپ ہڑتال پر جانے کے خواہشمند افراد کو مدد فراہم کرنے پر غور کریں گے؟",
+  "provideSupportRole": "اگر ہم آپ کے منتخب کردہ شرائط کو پورا نہیں کرسکتے ہیں ، تو کیا آپ ہڑتال پر جانے کے خواہشمند افراد کو معاون کردار فراہم کرنے پر غور کریں گے؟",
   "@provideSupportRole": {
     "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
     "placeholders": {},

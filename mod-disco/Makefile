@@ -8,8 +8,10 @@ include $(BOILERPLATE_FSPATH)/tool.mk
 include $(BOILERPLATE_FSPATH)/flu.mk
 
 # flu build
-override FLU_SAMPLE_NAME =client/example
-override FLU_LIB_NAME =client
+override FLU_SAMPLE_NAME =example
+override FLU_SAMPLE_FSPATH = $(PWD)/example/client/flu
+override FLU_LIB_NAME = mod_disco
+override FLU_LIB_FSPATH = $(PWD)/service/flu
 
 # go build
 override GO_FSPATH:=${PWD}/server/cmd
@@ -56,7 +58,7 @@ this-gen: this-gen-delete
 	@mkdir -p service/{flu/lib,go}/rpc/v2
 	@go generate
 	# Flutter langs
-	$(MAKE) flu-gen-all
+	# $(MAKE) flu-gen-all
 	$(MAKE) flu-gen-lang
 
 this-example-flutter-web-run:

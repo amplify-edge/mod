@@ -71,7 +71,7 @@ func _SurveyServiceNewSurveyProjectCommand(cfg *client.Config) *cobra.Command {
 		},
 	}
 
-	cmd.PersistentFlags().StringVar(&req.SysAccountProjectId, cfg.FlagNamer("SysAccountProjectId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefId, cfg.FlagNamer("SysAccountProjectRefId"), "", "")
 	flag.BytesBase64Var(cmd.PersistentFlags(), &req.SurveySchemaTypes, cfg.FlagNamer("SurveySchemaTypes"), "")
 	flag.BytesBase64Var(cmd.PersistentFlags(), &req.SurveyFilterTypes, cfg.FlagNamer("SurveyFilterTypes"), "")
 
@@ -116,8 +116,9 @@ func _SurveyServiceGetSurveyProjectCommand(cfg *client.Config) *cobra.Command {
 	}
 
 	cmd.PersistentFlags().StringVar(&req.SurveyUserId, cfg.FlagNamer("SurveyUserId"), "", "")
-	cmd.PersistentFlags().StringVar(&req.SysAccountId, cfg.FlagNamer("SysAccountId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectId, cfg.FlagNamer("SysAccountProjectId"), "", "")
 	cmd.PersistentFlags().StringVar(&req.SurveyProjectId, cfg.FlagNamer("SurveyProjectId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SysAccountAccountId, cfg.FlagNamer("SysAccountAccountId"), "", "")
 
 	return cmd
 }
@@ -162,8 +163,9 @@ func _SurveyServiceListSurveyProjectCommand(cfg *client.Config) *cobra.Command {
 	}
 
 	cmd.PersistentFlags().StringVar(&req.IdRequest.SurveyUserId, cfg.FlagNamer("IdRequest SurveyUserId"), "", "")
-	cmd.PersistentFlags().StringVar(&req.IdRequest.SysAccountId, cfg.FlagNamer("IdRequest SysAccountId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.IdRequest.SysAccountProjectId, cfg.FlagNamer("IdRequest SysAccountProjectId"), "", "")
 	cmd.PersistentFlags().StringVar(&req.IdRequest.SurveyProjectId, cfg.FlagNamer("IdRequest SurveyProjectId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.IdRequest.SysAccountAccountId, cfg.FlagNamer("IdRequest SysAccountAccountId"), "", "")
 	cmd.PersistentFlags().Int64Var(&req.PerPageEntries, cfg.FlagNamer("PerPageEntries"), 0, "")
 	cmd.PersistentFlags().StringVar(&req.OrderBy, cfg.FlagNamer("OrderBy"), "", "")
 	cmd.PersistentFlags().StringVar(&req.CurrentPageId, cfg.FlagNamer("CurrentPageId"), "", "")
@@ -209,7 +211,7 @@ func _SurveyServiceUpdateSurveyProjectCommand(cfg *client.Config) *cobra.Command
 		},
 	}
 
-	cmd.PersistentFlags().StringVar(&req.SurveyProjectId, cfg.FlagNamer("SurveyProjectId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SurveyProjectRefId, cfg.FlagNamer("SurveyProjectRefId"), "", "")
 	flag.BytesBase64Var(cmd.PersistentFlags(), &req.SurveySchemaTypes, cfg.FlagNamer("SurveySchemaTypes"), "")
 	flag.BytesBase64Var(cmd.PersistentFlags(), &req.SurveyFilterTypes, cfg.FlagNamer("SurveyFilterTypes"), "")
 
@@ -254,8 +256,9 @@ func _SurveyServiceDeleteSurveyProjectCommand(cfg *client.Config) *cobra.Command
 	}
 
 	cmd.PersistentFlags().StringVar(&req.SurveyUserId, cfg.FlagNamer("SurveyUserId"), "", "")
-	cmd.PersistentFlags().StringVar(&req.SysAccountId, cfg.FlagNamer("SysAccountId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectId, cfg.FlagNamer("SysAccountProjectId"), "", "")
 	cmd.PersistentFlags().StringVar(&req.SurveyProjectId, cfg.FlagNamer("SurveyProjectId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SysAccountAccountId, cfg.FlagNamer("SysAccountAccountId"), "", "")
 
 	return cmd
 }
@@ -297,8 +300,8 @@ func _SurveyServiceNewSurveyUserCommand(cfg *client.Config) *cobra.Command {
 		},
 	}
 
-	cmd.PersistentFlags().StringVar(&req.SurveyProjectId, cfg.FlagNamer("SurveyProjectId"), "", "")
-	cmd.PersistentFlags().StringVar(&req.SysAccountUserId, cfg.FlagNamer("SysAccountUserId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SurveyProjectRefId, cfg.FlagNamer("SurveyProjectRefId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SysAccountUserRefId, cfg.FlagNamer("SysAccountUserRefId"), "", "")
 	flag.BytesBase64Var(cmd.PersistentFlags(), &req.SurveySchemaTypes, cfg.FlagNamer("SurveySchemaTypes"), "")
 	flag.BytesBase64Var(cmd.PersistentFlags(), &req.SurveyFilterTypes, cfg.FlagNamer("SurveyFilterTypes"), "")
 
@@ -343,8 +346,9 @@ func _SurveyServiceGetSurveyUserCommand(cfg *client.Config) *cobra.Command {
 	}
 
 	cmd.PersistentFlags().StringVar(&req.SurveyUserId, cfg.FlagNamer("SurveyUserId"), "", "")
-	cmd.PersistentFlags().StringVar(&req.SysAccountId, cfg.FlagNamer("SysAccountId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectId, cfg.FlagNamer("SysAccountProjectId"), "", "")
 	cmd.PersistentFlags().StringVar(&req.SurveyProjectId, cfg.FlagNamer("SurveyProjectId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SysAccountAccountId, cfg.FlagNamer("SysAccountAccountId"), "", "")
 
 	return cmd
 }
@@ -389,8 +393,9 @@ func _SurveyServiceListSurveyUserCommand(cfg *client.Config) *cobra.Command {
 	}
 
 	cmd.PersistentFlags().StringVar(&req.IdRequest.SurveyUserId, cfg.FlagNamer("IdRequest SurveyUserId"), "", "")
-	cmd.PersistentFlags().StringVar(&req.IdRequest.SysAccountId, cfg.FlagNamer("IdRequest SysAccountId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.IdRequest.SysAccountProjectId, cfg.FlagNamer("IdRequest SysAccountProjectId"), "", "")
 	cmd.PersistentFlags().StringVar(&req.IdRequest.SurveyProjectId, cfg.FlagNamer("IdRequest SurveyProjectId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.IdRequest.SysAccountAccountId, cfg.FlagNamer("IdRequest SysAccountAccountId"), "", "")
 	cmd.PersistentFlags().Int64Var(&req.PerPageEntries, cfg.FlagNamer("PerPageEntries"), 0, "")
 	cmd.PersistentFlags().StringVar(&req.OrderBy, cfg.FlagNamer("OrderBy"), "", "")
 	cmd.PersistentFlags().StringVar(&req.CurrentPageId, cfg.FlagNamer("CurrentPageId"), "", "")
@@ -436,7 +441,7 @@ func _SurveyServiceUpdateSurveyUserCommand(cfg *client.Config) *cobra.Command {
 		},
 	}
 
-	cmd.PersistentFlags().StringVar(&req.SurveyUserId, cfg.FlagNamer("SurveyUserId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SurveyUserRefId, cfg.FlagNamer("SurveyUserRefId"), "", "")
 	flag.BytesBase64Var(cmd.PersistentFlags(), &req.SurveySchemaTypes, cfg.FlagNamer("SurveySchemaTypes"), "")
 	flag.BytesBase64Var(cmd.PersistentFlags(), &req.SurveyFilterTypes, cfg.FlagNamer("SurveyFilterTypes"), "")
 
@@ -481,8 +486,9 @@ func _SurveyServiceDeleteSurveyUserCommand(cfg *client.Config) *cobra.Command {
 	}
 
 	cmd.PersistentFlags().StringVar(&req.SurveyUserId, cfg.FlagNamer("SurveyUserId"), "", "")
-	cmd.PersistentFlags().StringVar(&req.SysAccountId, cfg.FlagNamer("SysAccountId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectId, cfg.FlagNamer("SysAccountProjectId"), "", "")
 	cmd.PersistentFlags().StringVar(&req.SurveyProjectId, cfg.FlagNamer("SurveyProjectId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SysAccountAccountId, cfg.FlagNamer("SysAccountAccountId"), "", "")
 
 	return cmd
 }
