@@ -3,3 +3,4 @@ vendor
 .vscode
 bin-all
 pubspec.lock
+db

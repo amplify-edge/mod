@@ -27,7 +27,7 @@ type SurveyFilter struct {
 }
 
 var (
-	surveyProjectUniqueIndex = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_sys_account_ref ON %s(SysAccountProjectRefId)", SurveyProjectTableName, SurveyProjectTableName)
+	surveyProjectUniqueIndex = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_sys_account_ref ON %s(sys_account_project_ref_id)", SurveyProjectTableName, SurveyProjectTableName)
 )
 
 func (m *ModDiscoDB) FromPkgSurveyProject(sp *discoRpc.SurveyProject) (*SurveyProject, error) {
@@ -49,8 +49,8 @@ func (m *ModDiscoDB) FromPkgSurveyProject(sp *discoRpc.SurveyProject) (*SurveyPr
 		SysAccountProjectRefId: sp.SysAccountProjectRefId,
 		SurveySchemaTypes:      schemaType,
 		SurveyFilterTypes:      sfilter,
-		CreatedAt:              sysCoreSvc.CurrentTimestamp(),
-		UpdatedAt:              sysCoreSvc.CurrentTimestamp(),
+		CreatedAt:              sp.CreatedAt.Seconds,
+		UpdatedAt:              sp.UpdatedAt.Seconds,
 	}, nil
 }
 
@@ -194,6 +194,8 @@ func (m *ModDiscoDB) UpdateSurveyProject(usp *discoRpc.UpdateSurveyProjectReques
 	}
 	delete(filterParam.Params, "survey_project_id")
 	delete(filterParam.Params, "sys_account_project_ref_id")
+	delete(filterParam.Params, "updated_at")
+	filterParam.Params["updated_at"] = sysCoreSvc.CurrentTimestamp()
 	stmt, args, err := sq.Update(SurveyProjectTableName).SetMap(filterParam.Params).
 		Where(sq.Eq{"survey_project_id": sp.SurveyProjectId}).ToSql()
 	if err != nil {

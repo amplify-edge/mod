@@ -1,0 +1,11 @@
+"sysCoreConfig":
+  "cron":
+    "backupDir": "./db/backup"
+    "backupSchedule": "@daily"
+    "rotateSchedule": "@every 24h"
+  "db":
+    "dbDir": "./db"
+    "encryptKey": "yYz8Xjb4HBn4irGQpBWulURjQk2XmwES"
+    "name": "discoDao.db"
+    "rotationDuration": 1
+    "deletePrevious": true

@@ -15,6 +15,7 @@ func NewModDiscoDB(db *sysCoreSvc.CoreDB, l *log.Entry) (*ModDiscoDB, error) {
 	err := db.RegisterModels(map[string]sysCoreSvc.DbModel{
 		SurveyProjectTableName: SurveyProject{},
 		SurveyUsersTableName:   SurveyUser{},
+		DiscoProjectTableName:  DiscoProject{},
 	})
 	if err != nil {
 		return nil, err
