@@ -211,7 +211,7 @@ func _SurveyServiceUpdateSurveyProjectCommand(cfg *client.Config) *cobra.Command
 		},
 	}
 
-	cmd.PersistentFlags().StringVar(&req.SurveyProjectRefId, cfg.FlagNamer("SurveyProjectRefId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SurveyProjectId, cfg.FlagNamer("SurveyProjectId"), "", "")
 	flag.BytesBase64Var(cmd.PersistentFlags(), &req.SurveySchemaTypes, cfg.FlagNamer("SurveySchemaTypes"), "")
 	flag.BytesBase64Var(cmd.PersistentFlags(), &req.SurveyFilterTypes, cfg.FlagNamer("SurveyFilterTypes"), "")
 
@@ -441,9 +441,9 @@ func _SurveyServiceUpdateSurveyUserCommand(cfg *client.Config) *cobra.Command {
 		},
 	}
 
-	cmd.PersistentFlags().StringVar(&req.SurveyUserRefId, cfg.FlagNamer("SurveyUserRefId"), "", "")
-	flag.BytesBase64Var(cmd.PersistentFlags(), &req.SurveySchemaTypes, cfg.FlagNamer("SurveySchemaTypes"), "")
-	flag.BytesBase64Var(cmd.PersistentFlags(), &req.SurveyFilterTypes, cfg.FlagNamer("SurveyFilterTypes"), "")
+	cmd.PersistentFlags().StringVar(&req.SurveyUserId, cfg.FlagNamer("SurveyUserId"), "", "")
+	flag.BytesBase64Var(cmd.PersistentFlags(), &req.SurveySchemaValues, cfg.FlagNamer("SurveySchemaValues"), "")
+	flag.BytesBase64Var(cmd.PersistentFlags(), &req.SurveyFilterValues, cfg.FlagNamer("SurveyFilterValues"), "")
 
 	return cmd
 }

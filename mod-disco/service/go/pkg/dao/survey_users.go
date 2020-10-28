@@ -1,0 +1,211 @@
+package dao
+
+import (
+	"fmt"
+	sq "github.com/Masterminds/squirrel"
+	"github.com/genjidb/genji/document"
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
+	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
+	"github.com/segmentio/encoding/json"
+	log "github.com/sirupsen/logrus"
+)
+
+type SurveyUser struct {
+	SurveyUserId           string                 `json:"surveyUserId" genji:"survey_user_id"`
+	SurveyProjectRefId     string                 `json:"surveyProjectRefId" genji:"survey_project_ref_id"`
+	SysAccountAccountRefId string                 `json:"sysAccountAccountRefId" genji:"sys_account_account_ref_id"`
+	SurveySchemaValues     map[string]interface{} `json:"surveySchemaValues" genji:"survey_schema_values"`
+	SurveySchemaFilters    map[string]interface{} `json:"surveySchemaFilters" genji:"survey_schema_filters"`
+	CreatedAt              int64                  `json:"createdAt" genji:"created_at"`
+	UpdatedAt              int64                  `json:"updatedAt" genji:"updated_at"`
+}
+
+func (m *ModDiscoDB) FromPkgSurveyUser(sp *discoRpc.SurveyUser) (*SurveyUser, error) {
+	schemaValues, err := sysCoreSvc.UnmarshalToMap(sp.SurveySchemaValues)
+	if err != nil {
+		return nil, err
+	}
+	sfilter, err := sysCoreSvc.UnmarshalToMap(sp.SurveySchemaFilters)
+	if err != nil {
+		return nil, err
+	}
+	surveyUserId := sp.SurveyUserId
+	if surveyUserId == "" {
+		surveyUserId = sysCoreSvc.NewID()
+	}
+	return &SurveyUser{
+		SurveyUserId:           surveyUserId,
+		SurveyProjectRefId:     sp.SurveyProjectRefId,
+		SysAccountAccountRefId: sp.SysAccountAccountRefId,
+		SurveySchemaValues:     schemaValues,
+		SurveySchemaFilters:    sfilter,
+		CreatedAt:              sysCoreSvc.CurrentTimestamp(),
+		UpdatedAt:              sysCoreSvc.CurrentTimestamp(),
+	}, nil
+}
+
+func (sp *SurveyUser) ToPkgSurveyUser() (*discoRpc.SurveyUser, error) {
+	surveyFiltersBytes, err := sysCoreSvc.MarshalToBytes(sp.SurveySchemaFilters)
+	if err != nil {
+		return nil, err
+	}
+	schemaValuesBytes, err := sysCoreSvc.MarshalToBytes(sp.SurveySchemaValues)
+	if err != nil {
+		return nil, err
+	}
+	return &discoRpc.SurveyUser{
+		SurveyUserId:           sp.SurveyUserId,
+		SurveyProjectRefId:     sp.SurveyProjectRefId,
+		SysAccountAccountRefId: sp.SysAccountAccountRefId,
+		SurveySchemaValues:     schemaValuesBytes,
+		SurveySchemaFilters:    surveyFiltersBytes,
+		CreatedAt:              sharedConfig.UnixToUtcTS(sp.CreatedAt),
+		UpdatedAt:              sharedConfig.UnixToUtcTS(sp.UpdatedAt),
+	}, nil
+}
+
+func (sp SurveyUser) CreateSQL() []string {
+	fields := initFields(SurveyUsersColumns, SurveyUsersColumnsType)
+	tbl := sysCoreSvc.NewTable(SurveyUsersTableName, fields, []string{})
+	return tbl.CreateTable()
+}
+
+func (m *ModDiscoDB) SurveyUserQueryFilter(filter map[string]interface{}) sq.SelectBuilder {
+	baseStmt := sq.Select(SurveyUsersColumns).From(SurveyUsersTableName)
+	if filter != nil {
+		for k, v := range filter {
+			baseStmt = baseStmt.Where(sq.Eq{k: v})
+		}
+	}
+	return baseStmt
+}
+
+func (m *ModDiscoDB) GetSurveyUser(filters map[string]interface{}) (*SurveyUser, error) {
+	var sp SurveyUser
+	selectStmt, args, err := m.SurveyUserQueryFilter(filters).ToSql()
+	if err != nil {
+		return nil, err
+	}
+	doc, err := m.db.QueryOne(selectStmt, args...)
+	if err != nil {
+		return nil, err
+	}
+	m.log.WithFields(log.Fields{
+		"queryStatement": selectStmt,
+		"arguments":      args,
+	}).Debugf("GetSurveyUser %s", SurveyUsersTableName)
+	err = doc.StructScan(&sp)
+	if err != nil {
+		return nil, err
+	}
+	return &sp, nil
+}
+
+func (m *ModDiscoDB) ListSurveyUser(filters map[string]interface{}, orderBy string, limit, cursor int64) ([]*SurveyUser, *int64, error) {
+	var surveyUsers []*SurveyUser
+	baseStmt := m.SurveyUserQueryFilter(filters)
+	selectStmt, args, err := m.listSelectStatement(baseStmt, orderBy, limit, &cursor)
+	if err != nil {
+		return nil, nil, err
+	}
+	res, err := m.db.Query(selectStmt, args...)
+	if err != nil {
+		return nil, nil, err
+	}
+	err = res.Iterate(func(d document.Document) error {
+		var surveyUser SurveyUser
+		if err = document.StructScan(d, &surveyUser); err != nil {
+			return err
+		}
+		surveyUsers = append(surveyUsers, &surveyUser)
+		return nil
+	})
+	if err != nil {
+		return nil, nil, err
+	}
+	return surveyUsers, &surveyUsers[len(surveyUsers)-1].CreatedAt, nil
+}
+
+func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) error {
+	newPkgSurveyUser := &discoRpc.SurveyUser{
+		SurveyUserId:           sysCoreSvc.NewID(),
+		SysAccountAccountRefId: sp.SysAccountUserRefId,
+		SurveyProjectRefId:     sp.SurveyProjectRefId,
+		SurveySchemaValues:     sp.SurveySchemaTypes,
+		SurveySchemaFilters:    sp.SurveyFilterTypes,
+	}
+	sproj, err := m.FromPkgSurveyUser(newPkgSurveyUser)
+	if err != nil {
+		return err
+	}
+	queryParam, err := sysCoreSvc.AnyToQueryParam(sproj, true)
+	if err != nil {
+		return err
+	}
+	columns, values := queryParam.ColumnsAndValues()
+	if len(columns) != len(values) {
+		return fmt.Errorf("error: length mismatch: cols: %d, vals: %d", len(columns), len(values))
+	}
+	stmt, args, err := sq.Insert(SurveyUsersTableName).
+		Columns(columns...).
+		Values(values...).
+		ToSql()
+	if err != nil {
+		return err
+	}
+	m.log.WithFields(log.Fields{
+		"statement": stmt,
+		"args":      args,
+	}).Debugf("insert to %s table", SurveyUsersTableName)
+	return m.db.Exec(stmt, args...)
+}
+
+func (m *ModDiscoDB) UpdateSurveyUser(usp *discoRpc.UpdateSurveyUserRequest) error {
+	sp, err := m.GetSurveyUser(map[string]interface{}{"survey_project_id": usp.SurveyUserId})
+	if err != nil {
+		return err
+	}
+	if usp.SurveySchemaTypes != nil {
+		schemaType, err := sysCoreSvc.UnmarshalToMap(usp.SurveySchemaTypes)
+		if err != nil {
+			return err
+		}
+		sp.SurveySchemaTypes = schemaType
+	}
+	if usp.SurveyFilterTypes != nil {
+		var sfilter SurveyFilter
+		err = json.Unmarshal(usp.SurveyFilterTypes, &sfilter)
+		if err != nil {
+			return err
+		}
+		sp.SurveyFilterTypes = sfilter
+	}
+	filterParam, err := sysCoreSvc.AnyToQueryParam(sp, true)
+	if err != nil {
+		return err
+	}
+	delete(filterParam.Params, "survey_project_id")
+	delete(filterParam.Params, "sys_account_project_ref_id")
+	stmt, args, err := sq.Update(SurveyUsersTableName).SetMap(filterParam.Params).
+		Where(sq.Eq{"survey_project_id": sp.SurveyUserId}).ToSql()
+	if err != nil {
+		return err
+	}
+	return m.db.Exec(stmt, args...)
+}
+
+func (m *ModDiscoDB) DeleteSurveyUser(id string) error {
+	stmt, args, err := sq.Delete(SurveyUsersTableName).Where("survey_project_id = ?", id).ToSql()
+	if err != nil {
+		return err
+	}
+	pstmt, pargs, err := sq.Delete(SurveyUsersTableName).Where("survey_project_ref_id = ?", id).ToSql()
+	if err != nil {
+		return err
+	}
+	return m.db.BulkExec(map[string][]interface{}{
+		stmt:  args,
+		pstmt: pargs,
+	})
+}

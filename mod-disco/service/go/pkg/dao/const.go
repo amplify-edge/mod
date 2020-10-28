@@ -12,7 +12,7 @@ const (
 	SurveyProjectColumns     = `survey_project_id, sys_account_project_ref_id, survey_schema_types, survey_filter_types, created_at, updated_at`
 	SurveyProjectColumnsType = `TEXT, TEXT, BLOB, BLOB, INT, INT`
 	SurveyUsersColumns       = `survey_user_id, survey_project_ref_id, sys_account_account_ref_id, survey_schema_values, survey_schema_filters, created_at, updated_at`
-	SurveyUsersColumnsType   = ``
+	SurveyUsersColumnsType   = `TEXT, TEXT, TEXT, BLOB, BLOB, INT, INT`
 	DefaultLimit             = 50
 	DefaultCursor            = `created_at`
 )

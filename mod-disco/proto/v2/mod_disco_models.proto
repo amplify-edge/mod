@@ -59,13 +59,13 @@ message NewSurveyUserRequest {
 }
 
 message UpdateSurveyProjectRequest {
-  string survey_project_ref_id = 1;
+  string survey_project_id = 1;
   bytes survey_schema_types = 2;
   bytes survey_filter_types = 3;
 }
 
 message UpdateSurveyUserRequest {
-  string survey_user_ref_id = 1;
-  bytes survey_schema_types = 2;
-  bytes survey_filter_types = 3;
+  string survey_user_id = 1;
+  bytes survey_schema_values = 2;
+  bytes survey_filter_values = 3;
 }
