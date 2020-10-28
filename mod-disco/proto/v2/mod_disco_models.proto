@@ -8,10 +8,10 @@ option go_package = "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2";
 message SurveyProject {
   string survey_project_id = 1;
   string sys_account_project_id = 2;
-  bytes survey_schema_types = 4; // SurveySchemaType in JSON format
-  bytes survey_filter_types = 5; // SurveyFilterType in JSON format
-  google.protobuf.Timestamp created_at = 6;
-  google.protobuf.Timestamp updated_at = 7;
+  bytes survey_schema_types = 3; // SurveySchemaType in JSON format
+  bytes survey_filter_types = 4; // SurveyFilterType in JSON format
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
 }
 
 message SurveyUser {
