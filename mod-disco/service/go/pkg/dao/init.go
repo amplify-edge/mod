@@ -17,9 +17,11 @@ func NewModDiscoDB(db *sysCoreSvc.CoreDB, l *log.Entry) (*ModDiscoDB, error) {
 		SurveyUsersTableName:   SurveyUser{},
 		DiscoProjectTableName:  DiscoProject{},
 	})
+	l.Debug("Registered models")
 	if err != nil {
 		return nil, err
 	}
+	l.Debug("Making mod-disco schema")
 	if err = db.MakeSchema(); err != nil {
 		return nil, err
 	}

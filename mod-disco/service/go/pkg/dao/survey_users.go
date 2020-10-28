@@ -8,6 +8,7 @@ import (
 	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	log "github.com/sirupsen/logrus"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type SurveyUser struct {
@@ -21,13 +22,20 @@ type SurveyUser struct {
 }
 
 func (m *ModDiscoDB) FromPkgSurveyUser(sp *discoRpc.SurveyUser) (*SurveyUser, error) {
-	schemaValues, err := sysCoreSvc.UnmarshalToMap(sp.SurveySchemaValues)
-	if err != nil {
-		return nil, err
+	var err error
+	schemaValues := map[string]interface{}{}
+	if sp.SurveySchemaValues != nil && len(sp.SurveySchemaValues) != 0 {
+		schemaValues, err = sysCoreSvc.UnmarshalToMap(sp.SurveySchemaValues)
+		if err != nil {
+			return nil, err
+		}
 	}
-	sfilter, err := sysCoreSvc.UnmarshalToMap(sp.SurveySchemaFilters)
-	if err != nil {
-		return nil, err
+	sfilter := map[string]interface{}{}
+	if sp.SurveySchemaFilters != nil && len(sp.SurveySchemaFilters) != 0 {
+		sfilter, err = sysCoreSvc.UnmarshalToMap(sp.SurveySchemaFilters)
+		if err != nil {
+			return nil, err
+		}
 	}
 	surveyUserId := sp.SurveyUserId
 	if surveyUserId == "" {
@@ -45,20 +53,28 @@ func (m *ModDiscoDB) FromPkgSurveyUser(sp *discoRpc.SurveyUser) (*SurveyUser, er
 }
 
 func (sp *SurveyUser) ToPkgSurveyUser() (*discoRpc.SurveyUser, error) {
-	surveyFiltersBytes, err := sysCoreSvc.MarshalToBytes(sp.SurveySchemaFilters)
-	if err != nil {
-		return nil, err
+	var surveyFilterBytes, schemaValuesBytes []byte
+	var err error
+	if sp.SurveySchemaFilters != nil && len(sp.SurveySchemaFilters) != 0 {
+		surveyFilterBytes, err = sysCoreSvc.MarshalToBytes(sp.SurveySchemaFilters)
+		if err != nil {
+			return nil, err
+		}
+		fmt.Printf("SURVEY FILTER BYTES: %s", string(surveyFilterBytes))
 	}
-	schemaValuesBytes, err := sysCoreSvc.MarshalToBytes(sp.SurveySchemaValues)
-	if err != nil {
-		return nil, err
+	if sp.SurveySchemaValues != nil && len(sp.SurveySchemaValues) != 0 {
+		schemaValuesBytes, err = sysCoreSvc.MarshalToBytes(sp.SurveySchemaValues)
+		if err != nil {
+			return nil, err
+		}
+		fmt.Printf("SURVEY SCHEMA VALUE BYTES: %s", string(surveyFilterBytes))
 	}
 	return &discoRpc.SurveyUser{
 		SurveyUserId:           sp.SurveyUserId,
 		SurveyProjectRefId:     sp.SurveyProjectRefId,
 		SysAccountAccountRefId: sp.SysAccountAccountRefId,
 		SurveySchemaValues:     schemaValuesBytes,
-		SurveySchemaFilters:    surveyFiltersBytes,
+		SurveySchemaFilters:    surveyFilterBytes,
 		CreatedAt:              sharedConfig.UnixToUtcTS(sp.CreatedAt),
 		UpdatedAt:              sharedConfig.UnixToUtcTS(sp.UpdatedAt),
 	}, nil
@@ -67,7 +83,6 @@ func (sp *SurveyUser) ToPkgSurveyUser() (*discoRpc.SurveyUser, error) {
 func (sp SurveyUser) CreateSQL() []string {
 	fields := initFields(SurveyUsersColumns, SurveyUsersColumnsType)
 	tbl := sysCoreSvc.NewTable(SurveyUsersTableName, fields, []string{})
-	fmt.Println(tbl.CreateTable())
 	return tbl.CreateTable()
 }
 
@@ -134,6 +149,8 @@ func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) error {
 		SurveyProjectRefId:     sp.SurveyProjectRefId,
 		SurveySchemaValues:     sp.SurveySchemaTypes,
 		SurveySchemaFilters:    sp.SurveyFilterTypes,
+		CreatedAt:              timestamppb.Now(),
+		UpdatedAt:              timestamppb.Now(),
 	}
 	sproj, err := m.FromPkgSurveyUser(newPkgSurveyUser)
 	if err != nil {
@@ -162,7 +179,7 @@ func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) error {
 }
 
 func (m *ModDiscoDB) UpdateSurveyUser(usp *discoRpc.UpdateSurveyUserRequest) error {
-	sp, err := m.GetSurveyUser(map[string]interface{}{"survey_project_id": usp.SurveyUserId})
+	sp, err := m.GetSurveyUser(map[string]interface{}{"survey_user_id": usp.SurveyUserId})
 	if err != nil {
 		return err
 	}
@@ -184,12 +201,12 @@ func (m *ModDiscoDB) UpdateSurveyUser(usp *discoRpc.UpdateSurveyUserRequest) err
 	if err != nil {
 		return err
 	}
-	delete(filterParam.Params, "survey_project_id")
-	delete(filterParam.Params, "sys_account_project_ref_id")
+	delete(filterParam.Params, "survey_user_id")
+	delete(filterParam.Params, "sys_account_account_ref_id")
 	delete(filterParam.Params, "updated_at")
 	filterParam.Params["updated_at"] = sysCoreSvc.CurrentTimestamp()
 	stmt, args, err := sq.Update(SurveyUsersTableName).SetMap(filterParam.Params).
-		Where(sq.Eq{"survey_project_id": sp.SurveyUserId}).ToSql()
+		Where(sq.Eq{"survey_user_id": sp.SurveyUserId}).ToSql()
 	if err != nil {
 		return err
 	}

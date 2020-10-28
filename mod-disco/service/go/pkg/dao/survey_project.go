@@ -9,21 +9,22 @@ import (
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	"github.com/segmentio/encoding/json"
 	log "github.com/sirupsen/logrus"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type SurveyProject struct {
 	SurveyProjectId        string                 `json:"surveyProjectId" genji:"survey_project_id"`
 	SysAccountProjectRefId string                 `json:"sysAccountProjectRefId" genji:"sys_account_project_ref_id"`
-	SurveySchemaTypes      map[string]interface{} `json:"surveySchemaType" genji:"survey_schema_types"`
-	SurveyFilterTypes      SurveyFilter           `json:"surveyFilterType" genji:"survey_filter_types"`
+	SurveySchemaTypes      map[string]interface{} `json:"surveySchemaTypes" genji:"survey_schema_types"`
+	SurveyFilterTypes      SurveyFilter           `json:"surveyFilterTypes" genji:"survey_filter_types"`
 	CreatedAt              int64                  `json:"createdAt" genji:"created_at"`
 	UpdatedAt              int64                  `json:"updatedAt" genji:"updated_at"`
 }
 
 type SurveyFilter struct {
-	Condition    []string               `json:"condition,omitempty" genji:"condition"`
-	SupportRoles []string               `json:"supportRoles,omitempty" genji:"supportRoles"`
-	Others       map[string]interface{} `json:"others,omitempty" genji:"others"`
+	Conditions   map[string]string      `json:"conditions,omitempty"`
+	SupportRoles map[string][]string    `json:"supportRoles,omitempty"`
+	Others       map[string]interface{} `json:"others,omitempty"`
 }
 
 var (
@@ -31,14 +32,20 @@ var (
 )
 
 func (m *ModDiscoDB) FromPkgSurveyProject(sp *discoRpc.SurveyProject) (*SurveyProject, error) {
-	schemaType, err := sysCoreSvc.UnmarshalToMap(sp.SurveySchemaTypes)
-	if err != nil {
-		return nil, err
+	var err error
+	schemaType := map[string]interface{}{}
+	if sp.SurveySchemaTypes != nil && len(sp.SurveySchemaTypes) != 0 {
+		schemaType, err = sysCoreSvc.UnmarshalToMap(sp.SurveySchemaTypes)
+		if err != nil {
+			return nil, err
+		}
 	}
-	var sfilter SurveyFilter
-	err = json.Unmarshal(sp.SurveyFilterTypes, &sfilter)
-	if err != nil {
-		return nil, err
+	sfilter := SurveyFilter{}
+	if sp.SurveyFilterTypes != nil && len(sp.SurveyFilterTypes) != 0 {
+		err = json.Unmarshal(sp.SurveyFilterTypes, &sfilter)
+		if err != nil {
+			return nil, err
+		}
 	}
 	surveyProjectId := sp.SurveyProjectId
 	if surveyProjectId == "" {
@@ -95,16 +102,19 @@ func (m *ModDiscoDB) GetSurveyProject(filters map[string]interface{}) (*SurveyPr
 	if err != nil {
 		return nil, err
 	}
-	doc, err := m.db.QueryOne(selectStmt, args...)
-	if err != nil {
-		return nil, err
-	}
 	m.log.WithFields(log.Fields{
 		"queryStatement": selectStmt,
 		"arguments":      args,
 	}).Debugf("GetSurveyProject %s", SurveyProjectTableName)
-	err = doc.StructScan(&sp)
+	doc, err := m.db.Query(selectStmt, args...)
 	if err != nil {
+		return nil, err
+	}
+	d, err := doc.First()
+	if err != nil {
+		return nil, err
+	}
+	if err = document.StructScan(d, &sp); err != nil {
 		return nil, err
 	}
 	return &sp, nil
@@ -141,6 +151,8 @@ func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) e
 		SysAccountProjectRefId: sp.SysAccountProjectRefId,
 		SurveySchemaTypes:      sp.SurveySchemaTypes,
 		SurveyFilterTypes:      sp.SurveyFilterTypes,
+		CreatedAt:              timestamppb.Now(),
+		UpdatedAt:              timestamppb.Now(),
 	}
 	sproj, err := m.FromPkgSurveyProject(newPkgSurveyProject)
 	if err != nil {

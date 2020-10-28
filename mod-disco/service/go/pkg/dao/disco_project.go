@@ -120,7 +120,6 @@ func (dp *DiscoProject) ToPkgDiscoProject() (*discoRpc.DiscoProject, error) {
 func (dp DiscoProject) CreateSQL() []string {
 	fields := initFields(DiscoProjectColumns, DiscoProjectColumnsType)
 	tbl := sysCoreSvc.NewTable(DiscoProjectTableName, fields, []string{discoProjectUniqueKey1, discoProjectUniqueKey2})
-	fmt.Println(tbl.CreateTable())
 	return tbl.CreateTable()
 }
 

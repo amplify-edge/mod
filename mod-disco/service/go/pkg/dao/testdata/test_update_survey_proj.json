@@ -1,0 +1,15 @@
+{
+  "conditions": {
+    "minimum_people_involved": "50"
+  },
+  "supportRoles": {
+    "lawyer": [
+      "Help lawyering",
+      "doesn't have to be Harvard grad"
+    ],
+    "paralegal": [
+      "Help lawyer",
+      "requires knowledge of legal procedures"
+    ]
+  }
+}
