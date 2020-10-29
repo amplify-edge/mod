@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-10-29T06:59:40.857515",
+  "@@last_modified": "2020-10-29T07:36:29.555977",
   "country": "ملک",
   "@country": {
     "description": "Country",
@@ -138,7 +138,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "extrapolatedSimilarPastActions": "مندرجہ ذیل اعداد و شمار ماضی کی اسی طرح کی کارروائیوں سے مایوس کن ہیں جو کامیاب اور ناکام رہے",
+  "extrapolatedSimilarPastActions": "مندرجہ ذیل اعداد و شمار ماضی کی اسی طرح کی کارروائیوں سے مایوس ہیں جو کامیاب اور ناکام رہے",
   "@extrapolatedSimilarPastActions": {
     "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
     "placeholders": {},

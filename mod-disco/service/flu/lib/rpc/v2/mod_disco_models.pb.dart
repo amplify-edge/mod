@@ -789,6 +789,7 @@ class IdRequest extends $pb.GeneratedMessage {
     ..aOS(2, 'sysAccountProjectId')
     ..aOS(3, 'surveyProjectId')
     ..aOS(4, 'sysAccountAccountId')
+    ..aOS(5, 'discoProjectId')
     ..hasRequiredFields = false
   ;
 
@@ -842,6 +843,15 @@ class IdRequest extends $pb.GeneratedMessage {
   $core.bool hasSysAccountAccountId() => $_has(3);
   @$pb.TagNumber(4)
   void clearSysAccountAccountId() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get discoProjectId => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set discoProjectId($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasDiscoProjectId() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearDiscoProjectId() => clearField(5);
 }
 
 class ListRequest extends $pb.GeneratedMessage {
@@ -932,6 +942,7 @@ class ListResponse extends $pb.GeneratedMessage {
     ..pc<SurveyProject>(1, 'surveyProjects', $pb.PbFieldType.PM, subBuilder: SurveyProject.create)
     ..pc<SurveyUser>(2, 'surveyUsers', $pb.PbFieldType.PM, subBuilder: SurveyUser.create)
     ..aInt64(3, 'nextPageId')
+    ..pc<DiscoProject>(4, 'discoProjects', $pb.PbFieldType.PM, subBuilder: DiscoProject.create)
     ..hasRequiredFields = false
   ;
 
@@ -964,6 +975,9 @@ class ListResponse extends $pb.GeneratedMessage {
   $core.bool hasNextPageId() => $_has(2);
   @$pb.TagNumber(3)
   void clearNextPageId() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.List<DiscoProject> get discoProjects => $_getList(3);
 }
 
 class NewSurveyProjectRequest extends $pb.GeneratedMessage {

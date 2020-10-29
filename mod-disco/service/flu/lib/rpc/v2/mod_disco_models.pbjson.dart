@@ -108,6 +108,7 @@ const IdRequest$json = const {
     const {'1': 'sys_account_project_id', '3': 2, '4': 1, '5': 9, '10': 'sysAccountProjectId'},
     const {'1': 'survey_project_id', '3': 3, '4': 1, '5': 9, '10': 'surveyProjectId'},
     const {'1': 'sys_account_account_id', '3': 4, '4': 1, '5': 9, '10': 'sysAccountAccountId'},
+    const {'1': 'disco_project_id', '3': 5, '4': 1, '5': 9, '10': 'discoProjectId'},
   ],
 };
 
@@ -129,6 +130,7 @@ const ListResponse$json = const {
     const {'1': 'survey_projects', '3': 1, '4': 3, '5': 11, '6': '.v2.mod_disco.services.SurveyProject', '10': 'surveyProjects'},
     const {'1': 'survey_users', '3': 2, '4': 3, '5': 11, '6': '.v2.mod_disco.services.SurveyUser', '10': 'surveyUsers'},
     const {'1': 'next_page_id', '3': 3, '4': 1, '5': 3, '10': 'nextPageId'},
+    const {'1': 'disco_projects', '3': 4, '4': 3, '5': 11, '6': '.v2.mod_disco.services.DiscoProject', '10': 'discoProjects'},
   ],
 };
 

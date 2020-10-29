@@ -91,6 +91,7 @@ message IdRequest {
   string sys_account_project_id = 2;
   string survey_project_id = 3;
   string sys_account_account_id = 4;
+  string disco_project_id = 5;
 }
 
 message ListRequest {
@@ -106,6 +107,7 @@ message ListResponse {
   repeated SurveyProject survey_projects = 1;
   repeated SurveyUser survey_users = 2;
   int64 next_page_id = 3;
+  repeated DiscoProject disco_projects = 4;
 }
 
 message NewSurveyProjectRequest {
