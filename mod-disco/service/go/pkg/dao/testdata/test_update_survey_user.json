@@ -1,0 +1,10 @@
+{
+  "conditions": {
+    "involved": "1"
+  },
+  "supportRoles": {
+    "lawyer": [
+      "Help lawyering"
+   ]
+  }
+}

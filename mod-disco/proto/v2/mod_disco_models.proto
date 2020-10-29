@@ -1,0 +1,136 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+package v2.mod_disco.services;
+
+option go_package = "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2";
+
+message SurveyProject {
+  string survey_project_id = 1;
+  string sys_account_project_ref_id = 2;
+  bytes survey_schema_types = 3; // SurveySchemaType in JSON format
+  bytes survey_filter_types = 4; // SurveyFilterType in JSON format
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+message SurveyUser {
+  string survey_user_id = 1;
+  string survey_project_ref_id = 2;
+  string sys_account_account_ref_id = 3;
+  bytes survey_schema_values = 4;
+  bytes survey_schema_filters = 5; // serialized to strongly typed stuff in DB
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+message DiscoProject {
+  string project_id = 1;
+  string sys_account_project_ref_id = 2; // account project id
+  string sys_account_org_ref_id = 3; // account org id
+  string goal = 4;
+  uint64 already_pledged = 5;
+  google.protobuf.Timestamp action_time = 6;
+  string action_location = 7;
+  uint64 min_pioneers = 8;
+  uint64 min_rebels_media = 9;
+  uint64 min_rebels_to_win = 10;
+  string action_length = 11;
+  string action_type = 12;
+  string category = 14;
+  string contact = 15;
+  string hist_precedents = 16;
+  string strategy = 17;
+  repeated string video_url = 18;
+  string unit_of_measures = 19;
+  google.protobuf.Timestamp created_at = 20;
+  google.protobuf.Timestamp updated_at = 21;
+}
+
+message NewDiscoProjectRequest {
+  string sys_account_project_ref_id = 1; // account project id
+  string sys_account_org_ref_id = 2; // account org id
+  string goal = 3;
+  uint64 already_pledged = 4;
+  google.protobuf.Timestamp action_time = 5;
+  string action_location = 6;
+  uint64 min_pioneers = 7;
+  uint64 min_rebels_media = 8;
+  uint64 min_rebels_to_win = 9;
+  string action_length = 10;
+  string action_type = 11;
+  string category = 12;
+  string contact = 13;
+  string hist_precedents = 14;
+  string strategy = 15;
+  repeated string video_url = 16;
+  string unit_of_measures = 17;
+}
+
+message UpdateDiscoProjectRequest {
+  string project_id = 1;
+  string goal = 2;
+  uint64 already_pledged = 3;
+  google.protobuf.Timestamp action_time = 4;
+  string action_location = 5;
+  uint64 min_pioneers = 6;
+  uint64 min_rebels_media = 7;
+  uint64 min_rebels_to_win = 8;
+  string action_length = 9;
+  string action_type = 10;
+  string category = 11;
+  string contact = 12;
+  string hist_precedents = 13;
+  string strategy = 14;
+  string video_url = 15;
+  string unit_of_measures = 16;
+}
+
+message IdRequest {
+  string survey_user_id = 1;
+  string sys_account_project_id = 2;
+  string survey_project_id = 3;
+  string sys_account_account_id = 4;
+  string disco_project_id = 5;
+}
+
+message ListRequest {
+  IdRequest id_request = 1;
+  int64 per_page_entries = 2;
+  string order_by = 3;
+  string current_page_id = 4;
+  bytes filters = 5;
+  bool isDescending = 6;
+}
+
+message ListResponse {
+  repeated SurveyProject survey_projects = 1;
+  repeated SurveyUser survey_users = 2;
+  int64 next_page_id = 3;
+  repeated DiscoProject disco_projects = 4;
+}
+
+message NewSurveyProjectRequest {
+  string sys_account_project_ref_id = 1;
+  bytes survey_schema_types = 2;
+  bytes survey_filter_types = 3;
+}
+
+message NewSurveyUserRequest {
+  string survey_project_ref_id = 1;
+  string sys_account_user_ref_id = 2;
+  bytes survey_schema_types = 3;
+  bytes survey_filter_types = 4;
+}
+
+message UpdateSurveyProjectRequest {
+  string survey_project_id = 1;
+  bytes survey_schema_types = 2;
+  bytes survey_filter_types = 3;
+}
+
+message UpdateSurveyUserRequest {
+  string survey_user_id = 1;
+  bytes survey_schema_values = 2;
+  bytes survey_filter_values = 3;
+}
