@@ -14,7 +14,7 @@ const (
 	SurveyProjectColumnsType = `TEXT, TEXT, TEXT, TEXT, INTEGER, INTEGER`
 	SurveyUsersColumns       = `survey_user_id, survey_project_ref_id, sys_account_account_ref_id, survey_schema_values, survey_schema_filters, created_at, updated_at`
 	SurveyUsersColumnsType   = `TEXT, TEXT, TEXT, TEXT, TEXT, INTEGER, INTEGER`
-	DiscoProjectColumns      = `project_id, sys_account_project_ref_id, sys_account_project_org_id, goal, already_pledged, action_time, action_location, min_pioneers, min_rebels_media, min_rebels_to_win, action_length, action_type, category, contact, hist_precedents, strategy, video_url, unit_of_measures, created_at, updated_at `
+	DiscoProjectColumns      = `project_id, sys_account_project_ref_id, sys_account_org_ref_id, goal, already_pledged, action_time, action_location, min_pioneers, min_rebels_media, min_rebels_to_win, action_length, action_type, category, contact, hist_precedents, strategy, video_url, unit_of_measures, created_at, updated_at `
 	DiscoProjectColumnsType  = `TEXT, TEXT, TEXT, TEXT, INTEGER, INTEGER, TEXT, INTEGER, INTEGER, INTEGER, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, INTEGER, INTEGER`
 	DefaultLimit             = 50
 	DefaultCursor            = `created_at`

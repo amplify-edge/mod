@@ -13,7 +13,7 @@ import (
 type DiscoProject struct {
 	ProjectId              string   `json:"projectId" genji:"project_id"`
 	SysAccountProjectRefId string   `json:"sysAccountProjectRefId" genji:"sys_account_project_ref_id"`
-	SysAccountProjectOrgId string   `json:"sysAccountProjectOrgId" genji:"sys_account_project_org_id"`
+	SysAccountOrgRefId     string   `json:"SysAccountOrgRefId" genji:"sys_account_org_ref_id"`
 	Goal                   string   `json:"goal" genji:"goal"`
 	AlreadyPledged         uint64   `json:"alreadyPledged" genji:"already_pledged"`
 	ActionTime             int64    `json:"actionTime" genji:"action_time"`
@@ -46,7 +46,7 @@ func (m *ModDiscoDB) FromPkgDiscoProject(dp *discoRpc.DiscoProject) (*DiscoProje
 	return &DiscoProject{
 		ProjectId:              projectId,
 		SysAccountProjectRefId: dp.SysAccountProjectRefId,
-		SysAccountProjectOrgId: dp.SysAccountProjectOrgId,
+		SysAccountOrgRefId:     dp.SysAccountOrgRefId,
 		Goal:                   dp.Goal,
 		AlreadyPledged:         dp.AlreadyPledged,
 		ActionTime:             dp.ActionTime.Seconds,
@@ -71,7 +71,7 @@ func (m *ModDiscoDB) FromNewPkgDiscoProject(dp *discoRpc.NewDiscoProjectRequest)
 	return &DiscoProject{
 		ProjectId:              sysCoreSvc.NewID(),
 		SysAccountProjectRefId: dp.SysAccountProjectRefId,
-		SysAccountProjectOrgId: dp.SysAccountProjectOrgId,
+		SysAccountOrgRefId:     dp.SysAccountOrgRefId,
 		Goal:                   dp.Goal,
 		AlreadyPledged:         dp.AlreadyPledged,
 		ActionTime:             dp.ActionTime.Seconds,
@@ -96,7 +96,7 @@ func (dp *DiscoProject) ToPkgDiscoProject() (*discoRpc.DiscoProject, error) {
 	return &discoRpc.DiscoProject{
 		ProjectId:              dp.ProjectId,
 		SysAccountProjectRefId: dp.SysAccountProjectRefId,
-		SysAccountProjectOrgId: dp.SysAccountProjectOrgId,
+		SysAccountOrgRefId:     dp.SysAccountOrgRefId,
 		Goal:                   dp.Goal,
 		AlreadyPledged:         dp.AlreadyPledged,
 		ActionTime:             sharedConfig.UnixToUtcTS(dp.ActionTime),
@@ -135,11 +135,11 @@ func (m *ModDiscoDB) discoProjectQueryFilter(filter map[string]interface{}) sq.S
 
 func (m *ModDiscoDB) GetDiscoProject(filters map[string]interface{}) (*DiscoProject, error) {
 	var dp DiscoProject
-	selectStmt, args, err := m.surveyProjectQueryFilter(filters).ToSql()
+	selectStmt, args, err := m.discoProjectQueryFilter(filters).ToSql()
 	if err != nil {
 		return nil, err
 	}
-	doc, err := m.db.QueryOne(selectStmt, args...)
+	res, err := m.db.QueryOne(selectStmt, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +147,7 @@ func (m *ModDiscoDB) GetDiscoProject(filters map[string]interface{}) (*DiscoProj
 		"queryStatement": selectStmt,
 		"arguments":      args,
 	}).Debugf("GetDiscoProject %s", DiscoProjectTableName)
-	err = doc.StructScan(&dp)
+	err = res.StructScan(&dp)
 	if err != nil {
 		return nil, err
 	}
@@ -179,35 +179,44 @@ func (m *ModDiscoDB) ListDiscoProject(filters map[string]interface{}, orderBy st
 	return discoProjects, &discoProjects[len(discoProjects)-1].CreatedAt, nil
 }
 
-func (m *ModDiscoDB) InsertDiscoProject(dp *discoRpc.NewDiscoProjectRequest) error {
+func (m *ModDiscoDB) InsertDiscoProject(dp *discoRpc.NewDiscoProjectRequest) (*discoRpc.DiscoProject, error) {
 	newPkgDiscoReq, err := m.FromNewPkgDiscoProject(dp)
 	if err != nil {
-		return err
+		return nil, err
 	}
+	m.log.Warnf("CURRENT DISCO ID: %s", newPkgDiscoReq.ProjectId)
 	queryParam, err := sysCoreSvc.AnyToQueryParam(newPkgDiscoReq, true)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	columns, values := queryParam.ColumnsAndValues()
 	if len(columns) != len(values) {
-		return fmt.Errorf("error: length mismatch: cols: %d, vals: %d", len(columns), len(values))
+		return nil, fmt.Errorf("error: length mismatch: cols: %d, vals: %d", len(columns), len(values))
 	}
 	stmt, args, err := sq.Insert(DiscoProjectTableName).
 		Columns(columns...).
 		Values(values...).
 		ToSql()
 	if err != nil {
-		return err
+		return nil, err
 	}
 	m.log.WithFields(log.Fields{
 		"statement": stmt,
 		"args":      args,
 	}).Debugf("insert to %s table", DiscoProjectTableName)
-	return m.db.Exec(stmt, args...)
+	err = m.db.Exec(stmt, args...)
+	if err != nil {
+		return nil, err
+	}
+	daoDP, err := m.GetDiscoProject(map[string]interface{}{"project_id": newPkgDiscoReq.ProjectId})
+	if err != nil {
+		return nil, err
+	}
+	return daoDP.ToPkgDiscoProject()
 }
 
 func (m *ModDiscoDB) UpdateDiscoProject(udp *discoRpc.UpdateDiscoProjectRequest) error {
-	dp, err := m.GetDiscoProject(map[string]interface{}{"disco_project_id": udp.ProjectId})
+	dp, err := m.GetDiscoProject(map[string]interface{}{"project_id": udp.ProjectId})
 	if err != nil {
 		return err
 	}
@@ -215,10 +224,55 @@ func (m *ModDiscoDB) UpdateDiscoProject(udp *discoRpc.UpdateDiscoProjectRequest)
 	if err != nil {
 		return err
 	}
-	delete(filterParam.Params, "survey_project_id")
+	delete(filterParam.Params, "project_id")
 	delete(filterParam.Params, "sys_account_project_ref_id")
 	delete(filterParam.Params, "updated_at")
 	filterParam.Params["updated_at"] = sysCoreSvc.CurrentTimestamp()
+	if filterParam.Params["goal"] == "" {
+		delete(filterParam.Params, "goal")
+	}
+	if filterParam.Params["already_pledged"] == 0 {
+		delete(filterParam.Params, "already_pledged")
+	}
+	if udp.GetActionTime() == nil {
+		delete(filterParam.Params, "action_time")
+	}
+	if filterParam.Params["action_location"] == "" {
+		delete(filterParam.Params, "action_location")
+	}
+	if udp.GetMinPioneers() == 0 {
+		delete(filterParam.Params, "min_pioneers")
+	}
+	if udp.GetMinRebelsMedia() == 0 {
+		delete(filterParam.Params, "min_rebels_media")
+	}
+	if udp.GetActionLength() == "" {
+		delete(filterParam.Params, "action_length")
+	}
+	if udp.GetActionType() == "" {
+		delete(filterParam.Params, "action_type")
+	}
+	if udp.GetCategory() == "" {
+		delete(filterParam.Params, "category")
+	}
+	if udp.GetContact() == "" {
+		delete(filterParam.Params, "contact")
+	}
+	if udp.GetHistPrecedents() == "" {
+		delete(filterParam.Params, "hist_precedents")
+	}
+	if udp.GetStrategy() == "" {
+		delete(filterParam.Params, "strategy")
+	}
+	if udp.GetVideoUrl() == "" {
+		delete(filterParam.Params, "video_url")
+	} else {
+		dp.VideoUrl = append(dp.VideoUrl, udp.GetVideoUrl())
+		filterParam.Params["video_url"] = dp.VideoUrl
+	}
+	if udp.GetUnitOfMeasures() == "" {
+		delete(filterParam.Params, "unit_of_measures")
+	}
 	stmt, args, err := sq.Update(DiscoProjectTableName).SetMap(filterParam.Params).
 		Where(sq.Eq{"project_id": dp.ProjectId}).ToSql()
 	if err != nil {

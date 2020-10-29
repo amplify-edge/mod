@@ -142,7 +142,7 @@ func (m *ModDiscoDB) ListSurveyUser(filters map[string]interface{}, orderBy stri
 	return surveyUsers, &surveyUsers[len(surveyUsers)-1].CreatedAt, nil
 }
 
-func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) error {
+func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*discoRpc.SurveyUser, error) {
 	newPkgSurveyUser := &discoRpc.SurveyUser{
 		SurveyUserId:           sysCoreSvc.NewID(),
 		SysAccountAccountRefId: sp.SysAccountUserRefId,
@@ -154,28 +154,40 @@ func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) error {
 	}
 	sproj, err := m.FromPkgSurveyUser(newPkgSurveyUser)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	queryParam, err := sysCoreSvc.AnyToQueryParam(sproj, true)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	columns, values := queryParam.ColumnsAndValues()
 	if len(columns) != len(values) {
-		return fmt.Errorf("error: length mismatch: cols: %d, vals: %d", len(columns), len(values))
+		return nil, fmt.Errorf("error: length mismatch: cols: %d, vals: %d", len(columns), len(values))
 	}
 	stmt, args, err := sq.Insert(SurveyUsersTableName).
 		Columns(columns...).
 		Values(values...).
 		ToSql()
 	if err != nil {
-		return err
+		return nil, err
 	}
 	m.log.WithFields(log.Fields{
 		"statement": stmt,
 		"args":      args,
 	}).Debugf("insert to %s table", SurveyUsersTableName)
-	return m.db.Exec(stmt, args...)
+	err = m.db.Exec(stmt, args...)
+	if err != nil {
+		return nil, err
+	}
+	daoSurvey, err := m.GetSurveyUser(map[string]interface{}{"survey_user_id": newPkgSurveyUser.SurveyUserId})
+	if err != nil {
+		return nil, err
+	}
+	surveyUser, err := daoSurvey.ToPkgSurveyUser()
+	if err != nil {
+		return nil, err
+	}
+	return surveyUser, nil
 }
 
 func (m *ModDiscoDB) UpdateSurveyUser(usp *discoRpc.UpdateSurveyUserRequest) error {

@@ -32,13 +32,13 @@ var (
 	}
 
 	surveyProjects []*discoRpc.SurveyProject
-	surveyUsers []*discoRpc.SurveyUser
+	surveyUsers    []*discoRpc.SurveyUser
 )
 
 func testInsertSurveyProjects(t *testing.T) {
 	t.Log("on inserting survey projects")
 	for _, newSurveyProject := range newSurveyProjects {
-		err = mdb.InsertSurveyProject(newSurveyProject)
+		_, err = mdb.InsertSurveyProject(newSurveyProject)
 		assert.NoError(t, err)
 	}
 }
@@ -83,9 +83,17 @@ func testUpdateSurveyProject(t *testing.T) {
 		assert.NoError(t, err)
 	}
 	sp, err := mdb.GetSurveyProject(map[string]interface{}{"survey_project_id": surveyProjects[0].SurveyProjectId})
-	assert.NoError(t,err)
+	assert.NoError(t, err)
 	t.Logf("Survey Project: %v", sp)
-	//assert.Equal(t, sp.SurveyFilterTypes, cond)
+	// assert.Equal(t, sp.SurveyFilterTypes, cond)
+}
+
+func testDeleteSurveyProject(t *testing.T) {
+	err = mdb.DeleteSurveyProject(surveyProjects[0].SurveyProjectId)
+	assert.NoError(t, err)
+	_, err = mdb.GetSurveyProject(map[string]interface{}{"survey_project_id": surveyProjects[0].SurveyProjectId})
+	assert.Error(t, err)
+	assert.Equal(t, "document not found", err.Error())
 }
 
 func testInsertSurveyUser(t *testing.T) {
@@ -104,7 +112,7 @@ func testInsertSurveyUser(t *testing.T) {
 		},
 	}
 	for _, nsu := range newSurveyUsers {
-		err = mdb.InsertSurveyUser(nsu)
+		_, err = mdb.InsertSurveyUser(nsu)
 		assert.NoError(t, err)
 	}
 }
@@ -139,19 +147,19 @@ func testUpdateSurveyUser(t *testing.T) {
 	t.Logf(string(condBytes))
 	updateSurveyUsers := []*discoRpc.UpdateSurveyUserRequest{
 		{
-			SurveyUserId:   surveyUsers[0].SurveyUserId,
+			SurveyUserId:       surveyUsers[0].SurveyUserId,
 			SurveySchemaValues: condBytes,
 			SurveyFilterValues: condBytes,
 		},
 	}
-	for _, usp := range updateSurveyUsers{
+	for _, usp := range updateSurveyUsers {
 		err = mdb.UpdateSurveyUser(usp)
 		assert.NoError(t, err)
 	}
 	sp, err := mdb.GetSurveyUser(map[string]interface{}{"survey_user_id": surveyUsers[0].SurveyUserId})
-	assert.NoError(t,err)
+	assert.NoError(t, err)
 	t.Logf("Survey User: %v", *sp)
-	pkgSurveyUser, err  := sp.ToPkgSurveyUser()
+	pkgSurveyUser, err := sp.ToPkgSurveyUser()
 	assert.NoError(t, err)
 	assert.Equal(t, condBytes, pkgSurveyUser.SurveySchemaFilters)
 }

@@ -114,10 +114,13 @@ func (m *ModDiscoDB) GetSurveyProject(filters map[string]interface{}) (*SurveyPr
 	if err != nil {
 		return nil, err
 	}
-	if err = document.StructScan(d, &sp); err != nil {
-		return nil, err
+	if d != nil {
+		if err = document.StructScan(d, &sp); err != nil {
+			return nil, err
+		}
+		return &sp, nil
 	}
-	return &sp, nil
+	return nil, fmt.Errorf("document not found")
 }
 
 func (m *ModDiscoDB) ListSurveyProject(filters map[string]interface{}, orderBy string, limit, cursor int64) ([]*SurveyProject, *int64, error) {
@@ -145,7 +148,7 @@ func (m *ModDiscoDB) ListSurveyProject(filters map[string]interface{}, orderBy s
 	return surveyProjects, &surveyProjects[len(surveyProjects)-1].CreatedAt, nil
 }
 
-func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) error {
+func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (*discoRpc.SurveyProject, error) {
 	newPkgSurveyProject := &discoRpc.SurveyProject{
 		SurveyProjectId:        sysCoreSvc.NewID(),
 		SysAccountProjectRefId: sp.SysAccountProjectRefId,
@@ -156,28 +159,39 @@ func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) e
 	}
 	sproj, err := m.FromPkgSurveyProject(newPkgSurveyProject)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	queryParam, err := sysCoreSvc.AnyToQueryParam(sproj, true)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	columns, values := queryParam.ColumnsAndValues()
 	if len(columns) != len(values) {
-		return fmt.Errorf("error: length mismatch: cols: %d, vals: %d", len(columns), len(values))
+		return nil, fmt.Errorf("error: length mismatch: cols: %d, vals: %d", len(columns), len(values))
 	}
 	stmt, args, err := sq.Insert(SurveyProjectTableName).
 		Columns(columns...).
 		Values(values...).
 		ToSql()
 	if err != nil {
-		return err
+		return nil, err
 	}
 	m.log.WithFields(log.Fields{
 		"statement": stmt,
 		"args":      args,
 	}).Debugf("insert to %s table", SurveyProjectTableName)
-	return m.db.Exec(stmt, args...)
+	if err := m.db.Exec(stmt, args...); err != nil {
+		return nil, err
+	}
+	dsp, err := m.GetSurveyProject(map[string]interface{}{"survey_project_id": newPkgSurveyProject.SurveyProjectId})
+	if err != nil {
+		return nil, err
+	}
+	surveyProj, err := dsp.ToPkgSurveyProject()
+	if err != nil {
+		return nil, err
+	}
+	return surveyProj, nil
 }
 
 func (m *ModDiscoDB) UpdateSurveyProject(usp *discoRpc.UpdateSurveyProjectRequest) error {

@@ -15,8 +15,8 @@ var (
 
 	project1ID = coresvc.NewID()
 	project2ID = coresvc.NewID()
-	//org1ID     = coresvc.NewID()
-	//org2ID     = coresvc.NewID()
+	org1ID     = coresvc.NewID()
+	org2ID     = coresvc.NewID()
 	account1ID = coresvc.NewID()
 	account2ID = coresvc.NewID()
 )
@@ -50,4 +50,10 @@ func TestAll(t *testing.T) {
 	t.Run("Test Survey User List", testListSurveyUsers)
 	t.Run("Test Survey User Get", testGetSurveyUser)
 	t.Run("Test Survey User Update", testUpdateSurveyUser)
+	t.Run("Test Disco Project Insert", testInsertDiscoProject)
+	t.Run("Test Disco Project Get", testGetDiscoProject)
+	t.Run("Test Disco Project List", testListDiscoProject)
+	t.Run("Test Disco Project Update", testUpdateDiscoProject)
+	t.Run("Test Disco Project Delete", testDeleteDiscoProject)
+	t.Run("Test Survey Project Delete", testDeleteSurveyProject)
 }

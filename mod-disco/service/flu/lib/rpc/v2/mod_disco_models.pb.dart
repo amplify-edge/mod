@@ -196,7 +196,7 @@ class DiscoProject extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('DiscoProject', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
     ..aOS(1, 'projectId')
     ..aOS(2, 'sysAccountProjectRefId')
-    ..aOS(3, 'sysAccountProjectOrgId')
+    ..aOS(3, 'sysAccountOrgRefId')
     ..aOS(4, 'goal')
     ..a<$fixnum.Int64>(5, 'alreadyPledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..aOM<$2.Timestamp>(6, 'actionTime', subBuilder: $2.Timestamp.create)
@@ -251,13 +251,13 @@ class DiscoProject extends $pb.GeneratedMessage {
   void clearSysAccountProjectRefId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get sysAccountProjectOrgId => $_getSZ(2);
+  $core.String get sysAccountOrgRefId => $_getSZ(2);
   @$pb.TagNumber(3)
-  set sysAccountProjectOrgId($core.String v) { $_setString(2, v); }
+  set sysAccountOrgRefId($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasSysAccountProjectOrgId() => $_has(2);
+  $core.bool hasSysAccountOrgRefId() => $_has(2);
   @$pb.TagNumber(3)
-  void clearSysAccountProjectOrgId() => clearField(3);
+  void clearSysAccountOrgRefId() => clearField(3);
 
   @$pb.TagNumber(4)
   $core.String get goal => $_getSZ(3);
@@ -416,7 +416,7 @@ class DiscoProject extends $pb.GeneratedMessage {
 class NewDiscoProjectRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('NewDiscoProjectRequest', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
     ..aOS(1, 'sysAccountProjectRefId')
-    ..aOS(2, 'sysAccountProjectOrgId')
+    ..aOS(2, 'sysAccountOrgRefId')
     ..aOS(3, 'goal')
     ..a<$fixnum.Int64>(4, 'alreadyPledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..aOM<$2.Timestamp>(5, 'actionTime', subBuilder: $2.Timestamp.create)
@@ -460,13 +460,13 @@ class NewDiscoProjectRequest extends $pb.GeneratedMessage {
   void clearSysAccountProjectRefId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get sysAccountProjectOrgId => $_getSZ(1);
+  $core.String get sysAccountOrgRefId => $_getSZ(1);
   @$pb.TagNumber(2)
-  set sysAccountProjectOrgId($core.String v) { $_setString(1, v); }
+  set sysAccountOrgRefId($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasSysAccountProjectOrgId() => $_has(1);
+  $core.bool hasSysAccountOrgRefId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearSysAccountProjectOrgId() => clearField(2);
+  void clearSysAccountOrgRefId() => clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get goal => $_getSZ(2);
@@ -616,7 +616,7 @@ class UpdateDiscoProjectRequest extends $pb.GeneratedMessage {
     ..aOS(12, 'contact')
     ..aOS(13, 'histPrecedents')
     ..aOS(14, 'strategy')
-    ..pPS(15, 'videoUrl')
+    ..aOS(15, 'videoUrl')
     ..aOS(16, 'unitOfMeasures')
     ..hasRequiredFields = false
   ;
@@ -765,7 +765,13 @@ class UpdateDiscoProjectRequest extends $pb.GeneratedMessage {
   void clearStrategy() => clearField(14);
 
   @$pb.TagNumber(15)
-  $core.List<$core.String> get videoUrl => $_getList(14);
+  $core.String get videoUrl => $_getSZ(14);
+  @$pb.TagNumber(15)
+  set videoUrl($core.String v) { $_setString(14, v); }
+  @$pb.TagNumber(15)
+  $core.bool hasVideoUrl() => $_has(14);
+  @$pb.TagNumber(15)
+  void clearVideoUrl() => clearField(15);
 
   @$pb.TagNumber(16)
   $core.String get unitOfMeasures => $_getSZ(15);
@@ -845,6 +851,7 @@ class ListRequest extends $pb.GeneratedMessage {
     ..aOS(3, 'orderBy')
     ..aOS(4, 'currentPageId')
     ..a<$core.List<$core.int>>(5, 'filters', $pb.PbFieldType.OY)
+    ..aOB(6, 'isDescending', protoName: 'isDescending')
     ..hasRequiredFields = false
   ;
 
@@ -909,6 +916,15 @@ class ListRequest extends $pb.GeneratedMessage {
   $core.bool hasFilters() => $_has(4);
   @$pb.TagNumber(5)
   void clearFilters() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.bool get isDescending => $_getBF(5);
+  @$pb.TagNumber(6)
+  set isDescending($core.bool v) { $_setBool(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasIsDescending() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearIsDescending() => clearField(6);
 }
 
 class ListResponse extends $pb.GeneratedMessage {

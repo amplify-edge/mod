@@ -35,7 +35,7 @@ const DiscoProject$json = const {
   '2': const [
     const {'1': 'project_id', '3': 1, '4': 1, '5': 9, '10': 'projectId'},
     const {'1': 'sys_account_project_ref_id', '3': 2, '4': 1, '5': 9, '10': 'sysAccountProjectRefId'},
-    const {'1': 'sys_account_project_org_id', '3': 3, '4': 1, '5': 9, '10': 'sysAccountProjectOrgId'},
+    const {'1': 'sys_account_org_ref_id', '3': 3, '4': 1, '5': 9, '10': 'sysAccountOrgRefId'},
     const {'1': 'goal', '3': 4, '4': 1, '5': 9, '10': 'goal'},
     const {'1': 'already_pledged', '3': 5, '4': 1, '5': 4, '10': 'alreadyPledged'},
     const {'1': 'action_time', '3': 6, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'actionTime'},
@@ -60,7 +60,7 @@ const NewDiscoProjectRequest$json = const {
   '1': 'NewDiscoProjectRequest',
   '2': const [
     const {'1': 'sys_account_project_ref_id', '3': 1, '4': 1, '5': 9, '10': 'sysAccountProjectRefId'},
-    const {'1': 'sys_account_project_org_id', '3': 2, '4': 1, '5': 9, '10': 'sysAccountProjectOrgId'},
+    const {'1': 'sys_account_org_ref_id', '3': 2, '4': 1, '5': 9, '10': 'sysAccountOrgRefId'},
     const {'1': 'goal', '3': 3, '4': 1, '5': 9, '10': 'goal'},
     const {'1': 'already_pledged', '3': 4, '4': 1, '5': 4, '10': 'alreadyPledged'},
     const {'1': 'action_time', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'actionTime'},
@@ -96,7 +96,7 @@ const UpdateDiscoProjectRequest$json = const {
     const {'1': 'contact', '3': 12, '4': 1, '5': 9, '10': 'contact'},
     const {'1': 'hist_precedents', '3': 13, '4': 1, '5': 9, '10': 'histPrecedents'},
     const {'1': 'strategy', '3': 14, '4': 1, '5': 9, '10': 'strategy'},
-    const {'1': 'video_url', '3': 15, '4': 3, '5': 9, '10': 'videoUrl'},
+    const {'1': 'video_url', '3': 15, '4': 1, '5': 9, '10': 'videoUrl'},
     const {'1': 'unit_of_measures', '3': 16, '4': 1, '5': 9, '10': 'unitOfMeasures'},
   ],
 };
@@ -119,6 +119,7 @@ const ListRequest$json = const {
     const {'1': 'order_by', '3': 3, '4': 1, '5': 9, '10': 'orderBy'},
     const {'1': 'current_page_id', '3': 4, '4': 1, '5': 9, '10': 'currentPageId'},
     const {'1': 'filters', '3': 5, '4': 1, '5': 12, '10': 'filters'},
+    const {'1': 'isDescending', '3': 6, '4': 1, '5': 8, '10': 'isDescending'},
   ],
 };
 
