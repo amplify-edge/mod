@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-10-30T05:57:44.318473",
+  "@@last_modified": "2020-10-30T15:22:03.912168",
   "country": "ملک",
   "@country": {
     "description": "Country",
@@ -138,7 +138,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "extrapolatedSimilarPastActions": "مندرجہ ذیل اعداد و شمار ماضی کی اسی طرح کی کارروائیوں سے مایوس ہیں جو کامیاب اور ناکام رہے",
+  "extrapolatedSimilarPastActions": "مندرجہ ذیل اعداد و شمار ماضی کی اسی طرح کی کارروائیوں سے مایوس کن ہیں جو کامیاب اور ناکام رہے",
   "@extrapolatedSimilarPastActions": {
     "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
     "placeholders": {},
@@ -222,7 +222,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "provideSupportRole": "اگر ہم آپ کے منتخب کردہ شرائط کو پورا نہیں کرسکتے ہیں ، تو کیا آپ ہڑتال پر جانے کے خواہشمند افراد کو معاون کردار فراہم کرنے پر غور کریں گے؟",
+  "provideSupportRole": "اگر ہم آپ کے منتخب کردہ شرائط کو پورا نہیں کرسکتے ہیں ، تو کیا آپ ہڑتال پر جانے کے خواہشمند افراد کو مدد فراہم کرنے پر غور کریں گے؟",
   "@provideSupportRole": {
     "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
     "placeholders": {},

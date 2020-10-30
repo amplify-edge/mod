@@ -4,11 +4,46 @@ import (
 	"context"
 	"fmt"
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	"github.com/getcouragenow/sys-share/sys-account/service/go/pkg/interceptor"
 
 	sharedCore "github.com/getcouragenow/sys-share/sys-core/service/go/pkg"
 	sharedBus "github.com/getcouragenow/sys-share/sys-core/service/go/pkg/bus"
 	"github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
+
+func (md *ModDiscoRepo) newClientInterceptor(ctx context.Context, in *sharedCore.EventRequest) (map[string]interface{}, error) {
+	const emailKey = "email"
+	const passwordKey = "password"
+	rmap, err := coredb.UnmarshalToMap(in.JsonPayload)
+	if err != nil {
+		return nil, err
+	}
+	if rmap[emailKey] == nil || rmap[emailKey].(string) == "" || rmap[passwordKey] == nil || rmap[passwordKey] == "" {
+		return nil, sharedBus.Error{
+			Reason: sharedBus.ErrInvalidEventPayload,
+			Err:    fmt.Errorf("no valid %s or %s found", emailKey, passwordKey),
+		}
+	}
+	md.clientInterceptor, err = interceptor.NewClientSideInterceptor(md.accountClient, rmap[emailKey].(string), rmap[passwordKey].(string))
+	if err != nil {
+		return nil, sharedBus.Error{
+			Reason: sharedBus.ErrInvalidEventPayload,
+			Err:    fmt.Errorf("valid creating client side interceptor: %v", err),
+		}
+	}
+	return map[string]interface{}{
+		"success":    true,
+		"successMsg": "successfully created client interceptor",
+	}, nil
+}
+
+func (md *ModDiscoRepo) removeClientInterceptor(_ context.Context, _ *sharedCore.EventRequest) (map[string]interface{}, error) {
+	md.clientInterceptor = nil
+	return map[string]interface{}{
+		"success":    true,
+		"successMsg": "successfully deleted client interceptor",
+	}, nil
+}
 
 func (md *ModDiscoRepo) onDeleteDiscoProject(ctx context.Context, in *sharedCore.EventRequest) (map[string]interface{}, error) {
 	const sysAccountProjectIdKey = "sys_account_project_ref_id"

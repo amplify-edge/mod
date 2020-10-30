@@ -11,7 +11,7 @@ import (
 )
 
 type DiscoProject struct {
-	ProjectId              string   `json:"projectId" genji:"project_id"`
+	ProjectId              string   `json:"projectId" genji:"project_id" coredb:"primary"`
 	SysAccountProjectRefId string   `json:"sysAccountProjectRefId" genji:"sys_account_project_ref_id"`
 	SysAccountOrgRefId     string   `json:"SysAccountOrgRefId" genji:"sys_account_org_ref_id"`
 	Goal                   string   `json:"goal" genji:"goal"`
@@ -118,13 +118,13 @@ func (dp *DiscoProject) ToPkgDiscoProject() (*discoRpc.DiscoProject, error) {
 }
 
 func (dp DiscoProject) CreateSQL() []string {
-	fields := initFields(DiscoProjectColumns, DiscoProjectColumnsType)
+	fields := sysCoreSvc.GetStructTags(dp)
 	tbl := sysCoreSvc.NewTable(DiscoProjectTableName, fields, []string{discoProjectUniqueKey1, discoProjectUniqueKey2})
 	return tbl.CreateTable()
 }
 
 func (m *ModDiscoDB) discoProjectQueryFilter(filter map[string]interface{}) sq.SelectBuilder {
-	baseStmt := sq.Select(DiscoProjectColumns).From(DiscoProjectTableName)
+	baseStmt := sq.Select(m.discoProjectColumns).From(DiscoProjectTableName)
 	if filter != nil {
 		for k, v := range filter {
 			baseStmt = baseStmt.Where(sq.Eq{k: v})
@@ -176,6 +176,7 @@ func (m *ModDiscoDB) ListDiscoProject(filters map[string]interface{}, orderBy st
 	if err != nil {
 		return nil, nil, err
 	}
+	res.Close()
 	return discoProjects, &discoProjects[len(discoProjects)-1].CreatedAt, nil
 }
 
@@ -184,7 +185,6 @@ func (m *ModDiscoDB) InsertDiscoProject(dp *discoRpc.NewDiscoProjectRequest) (*d
 	if err != nil {
 		return nil, err
 	}
-	m.log.Warnf("CURRENT DISCO ID: %s", newPkgDiscoReq.ProjectId)
 	queryParam, err := sysCoreSvc.AnyToQueryParam(newPkgDiscoReq, true)
 	if err != nil {
 		return nil, err

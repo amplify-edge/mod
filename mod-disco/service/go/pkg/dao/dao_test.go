@@ -5,6 +5,7 @@ import (
 	corecfg "github.com/getcouragenow/sys/sys-core/service/go"
 	coresvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	log "github.com/sirupsen/logrus"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -49,11 +50,18 @@ func TestAll(t *testing.T) {
 	t.Run("Test Survey User Insert", testInsertSurveyUser)
 	t.Run("Test Survey User List", testListSurveyUsers)
 	t.Run("Test Survey User Get", testGetSurveyUser)
-	t.Run("Test Survey User Update", testUpdateSurveyUser)
 	t.Run("Test Disco Project Insert", testInsertDiscoProject)
 	t.Run("Test Disco Project Get", testGetDiscoProject)
 	t.Run("Test Disco Project List", testListDiscoProject)
 	t.Run("Test Disco Project Update", testUpdateDiscoProject)
 	t.Run("Test Disco Project Delete", testDeleteDiscoProject)
+	t.Run("Test Survey User Update", testUpdateSurveyUser)
+	t.Run("Test Counting Lawyers", testCountLawyers)
 	t.Run("Test Survey Project Delete", testDeleteSurveyProject)
+}
+
+func testCountLawyers(t *testing.T) {
+	lawyers, err := mdb.CountRecords()
+	assert.NoError(t, err)
+	t.Logf("Lawyers: %v", lawyers)
 }

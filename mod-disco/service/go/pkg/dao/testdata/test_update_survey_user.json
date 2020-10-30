@@ -1,10 +1,17 @@
-{
-  "conditions": {
-    "involved": "1"
+[
+  {
+    "id": "1jbhmWLOZBEmduALLf74eQvIMAa",
+    "pledged": 12,
+    "comment": "some comment"
   },
-  "supportRoles": {
-    "lawyer": [
-      "Help lawyering"
-   ]
+  {
+    "id": "1jbmDK10iTreWfUgbiazVKiu2fD",
+    "pledged": 13,
+    "comment": "some comment"
+  },
+  {
+    "id": "1jbmBzGFQzk0sA7beZgTXroshMj",
+    "pledged": 8,
+    "comment": "some comment"
   }
-}
+]

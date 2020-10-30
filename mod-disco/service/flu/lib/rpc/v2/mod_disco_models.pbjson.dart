@@ -10,8 +10,8 @@ const SurveyProject$json = const {
   '2': const [
     const {'1': 'survey_project_id', '3': 1, '4': 1, '5': 9, '10': 'surveyProjectId'},
     const {'1': 'sys_account_project_ref_id', '3': 2, '4': 1, '5': 9, '10': 'sysAccountProjectRefId'},
-    const {'1': 'survey_schema_types', '3': 3, '4': 1, '5': 12, '10': 'surveySchemaTypes'},
-    const {'1': 'survey_filter_types', '3': 4, '4': 1, '5': 12, '10': 'surveyFilterTypes'},
+    const {'1': 'support_role_types', '3': 3, '4': 1, '5': 12, '10': 'supportRoleTypes'},
+    const {'1': 'user_need_types', '3': 4, '4': 1, '5': 12, '10': 'userNeedTypes'},
     const {'1': 'created_at', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
     const {'1': 'updated_at', '3': 6, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updatedAt'},
   ],
@@ -23,8 +23,8 @@ const SurveyUser$json = const {
     const {'1': 'survey_user_id', '3': 1, '4': 1, '5': 9, '10': 'surveyUserId'},
     const {'1': 'survey_project_ref_id', '3': 2, '4': 1, '5': 9, '10': 'surveyProjectRefId'},
     const {'1': 'sys_account_account_ref_id', '3': 3, '4': 1, '5': 9, '10': 'sysAccountAccountRefId'},
-    const {'1': 'survey_schema_values', '3': 4, '4': 1, '5': 12, '10': 'surveySchemaValues'},
-    const {'1': 'survey_schema_filters', '3': 5, '4': 1, '5': 12, '10': 'surveySchemaFilters'},
+    const {'1': 'support_role_values', '3': 4, '4': 1, '5': 12, '10': 'supportRoleValues'},
+    const {'1': 'user_need_values', '3': 5, '4': 1, '5': 12, '10': 'userNeedValues'},
     const {'1': 'created_at', '3': 6, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
     const {'1': 'updated_at', '3': 7, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updatedAt'},
   ],
@@ -139,8 +139,8 @@ const NewSurveyProjectRequest$json = const {
   '1': 'NewSurveyProjectRequest',
   '2': const [
     const {'1': 'sys_account_project_ref_id', '3': 1, '4': 1, '5': 9, '10': 'sysAccountProjectRefId'},
-    const {'1': 'survey_schema_types', '3': 2, '4': 1, '5': 12, '10': 'surveySchemaTypes'},
-    const {'1': 'survey_filter_types', '3': 3, '4': 1, '5': 12, '10': 'surveyFilterTypes'},
+    const {'1': 'support_role_types', '3': 2, '4': 3, '5': 12, '10': 'supportRoleTypes'},
+    const {'1': 'user_need_types', '3': 3, '4': 3, '5': 12, '10': 'userNeedTypes'},
   ],
 };
 
@@ -149,8 +149,8 @@ const NewSurveyUserRequest$json = const {
   '2': const [
     const {'1': 'survey_project_ref_id', '3': 1, '4': 1, '5': 9, '10': 'surveyProjectRefId'},
     const {'1': 'sys_account_user_ref_id', '3': 2, '4': 1, '5': 9, '10': 'sysAccountUserRefId'},
-    const {'1': 'survey_schema_types', '3': 3, '4': 1, '5': 12, '10': 'surveySchemaTypes'},
-    const {'1': 'survey_filter_types', '3': 4, '4': 1, '5': 12, '10': 'surveyFilterTypes'},
+    const {'1': 'support_role_values', '3': 3, '4': 3, '5': 12, '10': 'supportRoleValues'},
+    const {'1': 'user_need_values', '3': 4, '4': 3, '5': 12, '10': 'userNeedValues'},
   ],
 };
 
@@ -158,8 +158,8 @@ const UpdateSurveyProjectRequest$json = const {
   '1': 'UpdateSurveyProjectRequest',
   '2': const [
     const {'1': 'survey_project_id', '3': 1, '4': 1, '5': 9, '10': 'surveyProjectId'},
-    const {'1': 'survey_schema_types', '3': 2, '4': 1, '5': 12, '10': 'surveySchemaTypes'},
-    const {'1': 'survey_filter_types', '3': 3, '4': 1, '5': 12, '10': 'surveyFilterTypes'},
+    const {'1': 'support_role_types', '3': 2, '4': 3, '5': 12, '10': 'supportRoleTypes'},
+    const {'1': 'user_need_types', '3': 3, '4': 3, '5': 12, '10': 'userNeedTypes'},
   ],
 };
 
@@ -167,8 +167,8 @@ const UpdateSurveyUserRequest$json = const {
   '1': 'UpdateSurveyUserRequest',
   '2': const [
     const {'1': 'survey_user_id', '3': 1, '4': 1, '5': 9, '10': 'surveyUserId'},
-    const {'1': 'survey_schema_values', '3': 2, '4': 1, '5': 12, '10': 'surveySchemaValues'},
-    const {'1': 'survey_filter_values', '3': 3, '4': 1, '5': 12, '10': 'surveyFilterValues'},
+    const {'1': 'support_role_values', '3': 2, '4': 3, '5': 12, '10': 'supportRoleValues'},
+    const {'1': 'user_need_values', '3': 3, '4': 3, '5': 12, '10': 'userNeedValues'},
   ],
 };
 
