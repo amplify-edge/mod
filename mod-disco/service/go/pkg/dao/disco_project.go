@@ -11,26 +11,26 @@ import (
 )
 
 type DiscoProject struct {
-	ProjectId              string   `json:"projectId" genji:"project_id" coredb:"primary"`
-	SysAccountProjectRefId string   `json:"sysAccountProjectRefId" genji:"sys_account_project_ref_id"`
-	SysAccountOrgRefId     string   `json:"SysAccountOrgRefId" genji:"sys_account_org_ref_id"`
-	Goal                   string   `json:"goal" genji:"goal"`
-	AlreadyPledged         uint64   `json:"alreadyPledged" genji:"already_pledged"`
-	ActionTime             int64    `json:"actionTime" genji:"action_time"`
-	ActionLocation         string   `json:"actionLocation" genji:"action_location"`
-	MinPioneers            uint64   `json:"minPioneers" genji:"min_pioneers"`
-	MinRebelsMedia         uint64   `json:"minRebelsMedia" genji:"min_rebels_media"`
-	MinRebelsToWin         uint64   `json:"minRebelsToWin" genji:"min_rebels_to_win"`
-	ActionLength           string   `json:"actionLength" genji:"action_length"`
-	ActionType             string   `json:"actionType" genji:"action_type"`
-	Category               string   `json:"category" genji:"category"`
-	Contact                string   `json:"contact" genji:"contact"`
-	HistPrecedents         string   `json:"histPrecedents" genji:"hist_precedents"`
-	Strategy               string   `json:"strategy" genji:"strategy"`
-	VideoUrl               []string `json:"videoUrl" genji:"video_url"`
-	UnitOfMeasures         string   `json:"unitOfMeasures" genji:"unit_of_measures"`
-	CreatedAt              int64    `json:"createdAt" genji:"created_at"`
-	UpdatedAt              int64    `json:"updatedAt" genji:"updated_at"`
+	ProjectId              string   `json:"projectId,omitempty" genji:"project_id" coredb:"primary"`
+	SysAccountProjectRefId string   `json:"sysAccountProjectRefId,omitempty" genji:"sys_account_project_ref_id"`
+	SysAccountOrgRefId     string   `json:"SysAccountOrgRefId,omitempty" genji:"sys_account_org_ref_id"`
+	Goal                   string   `json:"goal,omitempty" genji:"goal"`
+	AlreadyPledged         uint64   `json:"alreadyPledged,omitempty" genji:"already_pledged"`
+	ActionTime             int64    `json:"actionTime,omitempty" genji:"action_time"`
+	ActionLocation         string   `json:"actionLocation,omitempty" genji:"action_location"`
+	MinPioneers            uint64   `json:"minPioneers,omitempty" genji:"min_pioneers"`
+	MinRebelsMedia         uint64   `json:"minRebelsMedia,omitempty" genji:"min_rebels_media"`
+	MinRebelsToWin         uint64   `json:"minRebelsToWin,omitempty" genji:"min_rebels_to_win"`
+	ActionLength           string   `json:"actionLength,omitempty" genji:"action_length"`
+	ActionType             string   `json:"actionType,omitempty" genji:"action_type"`
+	Category               string   `json:"category,omitempty" genji:"category"`
+	Contact                string   `json:"contact,omitempty" genji:"contact"`
+	HistPrecedents         string   `json:"histPrecedents,omitempty" genji:"hist_precedents"`
+	Strategy               string   `json:"strategy,omitempty" genji:"strategy"`
+	VideoUrl               []string `json:"videoUrl,omitempty" genji:"video_url"`
+	UnitOfMeasures         string   `json:"unitOfMeasures,omitempty" genji:"unit_of_measures"`
+	CreatedAt              int64    `json:"createdAt,omitempty" genji:"created_at"`
+	UpdatedAt              int64    `json:"updatedAt,omitempty" genji:"updated_at"`
 }
 
 var (

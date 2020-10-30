@@ -8,12 +8,12 @@ import (
 )
 
 type SupportRoleType struct {
-	Id                 string `json:"id" genji:"id" coredb:"primary"`
-	SurveyProjectRefId string `json:"surveyProjectRefId" genji:"survey_project_ref_id"`
-	Name               string `json:"name" genji:"name"`
-	Comment            string `json:"comment" genji:"comment"`
-	Description        string `json:"description" genji:"description"`
-	UnitOfMeasures     string `json:"unitOfMeasures" genji:"unit_of_measures"`
+	Id                 string `json:"id,omitempty" genji:"id" coredb:"primary"`
+	SurveyProjectRefId string `json:"surveyProjectRefId,omitempty" genji:"survey_project_ref_id"`
+	Name               string `json:"name,omitempty" genji:"name"`
+	Comment            string `json:"comment,omitempty" genji:"comment"`
+	Description        string `json:"description,omitempty" genji:"description"`
+	UnitOfMeasures     string `json:"unitOfMeasures,omitempty" genji:"unit_of_measures"`
 }
 
 var (

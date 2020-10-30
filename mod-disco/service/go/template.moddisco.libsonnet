@@ -19,8 +19,10 @@ local tokencfg = import "vendor/github.com/getcouragenow/sys-share/sys-core/serv
     },
     modDiscoConfig: {
         unauthenticatedRoutes: cfg.UnauthenticatedRoutes,
-        db: self.CoreDB,
-        cron: self.CoreCron,
+        sysCoreConfig: {
+         db: cfg.CoreDB,
+         cron: cfg.CoreCron,
+        },
         jwt: {
             access: cfg.AccessToken,
             refresh: cfg.RefreshToken,

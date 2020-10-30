@@ -14,25 +14,25 @@ const (
 )
 
 type ModDiscoConfig struct {
-	ModDiscoConfig Config                      `yaml:"modDiscoConfig" mapstructure:"modDiscoConfig"`
-	SysCoreConfig  sysCoreConfig.SysCoreConfig `yaml:"sysCoreConfig" mapstructure:"sysCoreConfig"`
+	ModDiscoConfig Config `yaml:"modDiscoConfig" mapstructure:"modDiscoConfig"`
 }
 
 func (m *ModDiscoConfig) Validate() error {
-	if err := m.ModDiscoConfig.validate(); err != nil {
-		return err
-	}
-	return m.SysCoreConfig.Validate()
+	return m.ModDiscoConfig.validate()
 }
 
 type Config struct {
-	UnauthenticatedRoutes []string  `json:"unauthenticatedRoutes" yaml:"unauthenticatedRoutes"`
-	JWTConfig             JWTConfig `json:"jwtConfig" yaml:"jwtConfig"`
+	SysCoreConfig         sysCoreConfig.SysCoreConfig `yaml:"sysCoreConfig" mapstructure:"sysCoreConfig"`
+	UnauthenticatedRoutes []string                    `json:"unauthenticatedRoutes" yaml:"unauthenticatedRoutes"`
+	JWTConfig             JWTConfig                   `json:"jwtConfig" yaml:"jwtConfig"`
 }
 
 func (c Config) validate() error {
 	if len(c.UnauthenticatedRoutes) == 0 {
 		return fmt.Errorf(errNoUnauthenticatedRoutes)
+	}
+	if err := c.SysCoreConfig.Validate(); err != nil {
+		return err
 	}
 	return c.JWTConfig.Validate()
 }

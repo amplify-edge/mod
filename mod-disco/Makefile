@@ -19,6 +19,14 @@ override GO_BIN_NAME=mod-main
 override GO_BUILD_OUT_FSPATH:=${GOPATH}/bin/$(GO_BIN_NAME)
 override GO_BUILD_OUT_ALL_FSPATH=${PWD}/server/assets
 
+EXAMPLE_CFG_DIR = ./config
+EXAMPLE_SYS_CORE_DB_ENCRYPT_KEY = mostSuperSecretKeyPlausible34@
+EXAMPLE_MOD_DISCO_CFG_PATH = $(EXAMPLE_CFG_DIR)/moddisco.yml
+
+EXAMPLE_SRC_DIR = ./example
+SERVER_DIR = $(EXAMPLE_SRC_DIR)/server/go
+CLI_DIR =  $(EXAMPLE_SRC_DIR)/cli/go
+
 
 ## Print all settings
 this-print: ## print
@@ -53,7 +61,7 @@ this-gen-delete:
 	@echo 'Removing generated protobuf definition (GO and Flutter)'
 	rm -rf service/{flu/lib,go}/rpc/v2/*.{dart,go}
 
-this-gen: this-gen-delete
+this-gen: this-gen-delete this-config-gen
 	@echo "Generating GRPC models and services for Go & Flutter"
 	@mkdir -p service/{flu/lib,go}/rpc/v2
 	@go generate
@@ -70,3 +78,15 @@ this-example-flutter-desk-run:
 	# HAs a bug. Runs, but Desktop screen is black.
 	$(MAKE) flu-desk-build
 
+this-config-gen: this-config-clean this-config-dep
+	@echo Generating Config
+	@mkdir -p $(EXAMPLE_CFG_DIR)
+	jsonnet -S $(SERVER_DIR)/moddisco.jsonnet > $(EXAMPLE_MOD_DISCO_CFG_PATH)
+
+this-config-clean:
+	@echo Deleting previously generated config
+	rm -rf $(EXAMPLE_MOD_DISCO_CFG_PATH)
+
+this-config-dep:
+	cd $(SERVER_DIR) && jb install && jb update
+	cd service/go && jb install && jb update

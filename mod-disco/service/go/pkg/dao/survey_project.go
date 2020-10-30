@@ -287,8 +287,18 @@ func (m *ModDiscoDB) DeleteSurveyProject(id string) error {
 	if err != nil {
 		return err
 	}
+	srtStmt, srtArgs, err := sq.Delete(SupportRoleTypesTable).Where("survey_project_ref_id = ?", id).ToSql()
+	if err != nil {
+		return err
+	}
+	untStmt, untArgs, err := sq.Delete(UserNeedTypesTable).Where("survey_project_ref_id = ?", id).ToSql()
+	if err != nil {
+		return err
+	}
 	return m.db.BulkExec(map[string][]interface{}{
-		stmt:  args,
-		pstmt: pargs,
+		stmt:    args,
+		pstmt:   pargs,
+		srtStmt: srtArgs,
+		untStmt: untArgs,
 	})
 }
