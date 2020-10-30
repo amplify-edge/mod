@@ -5,7 +5,7 @@ import (
 	service "github.com/getcouragenow/mod/mod-disco/service/go"
 	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
 	"github.com/getcouragenow/sys-share/sys-account/service/go/pkg/interceptor"
-	"github.com/getcouragenow/sys-share/sys-core/service/go/pkg"
+	corebus "github.com/getcouragenow/sys-share/sys-core/service/go/pkg/bus"
 	"github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	l "github.com/sirupsen/logrus"
 )
@@ -16,7 +16,7 @@ type (
 		log                   *l.Entry
 		serverInterceptor     func(context.Context) (context.Context, error)
 		clientInterceptor     *interceptor.ClientSide
-		busClient             *pkg.SysBusProxyServiceClient
+		busClient             *corebus.CoreBus
 		unauthenticatedRoutes []string
 	}
 )
@@ -26,7 +26,7 @@ func NewDiscoRepo(
 	cfg *service.ModDiscoConfig,
 	serverInterceptor func(context.Context) (context.Context, error),
 	clientInterceptor *interceptor.ClientSide,
-	busClient *pkg.SysBusProxyServiceClient,
+	busClient *corebus.CoreBus,
 ) (*ModDiscoRepo, error) {
 	discodb, err := dao.NewModDiscoDB(db, l)
 	if err != nil {

@@ -281,11 +281,29 @@ func (m *ModDiscoDB) UpdateDiscoProject(udp *discoRpc.UpdateDiscoProjectRequest)
 	return m.db.Exec(stmt, args...)
 }
 
-func (m *ModDiscoDB) DeleteDiscoProject(id string) error {
-	stmt, args, err := sq.Delete(DiscoProjectTableName).Where("project_id = ?", id).ToSql()
-	if err != nil {
-		return err
+func (m *ModDiscoDB) DeleteDiscoProject(id, accountProjectId, accountOrgId string) error {
+	var stmt string
+	var args []interface{}
+	var err error
+	if id != "" {
+		stmt, args, err = sq.Delete(DiscoProjectTableName).Where("project_id = ?", id).ToSql()
+		if err != nil {
+			return err
+		}
 	}
+	if accountProjectId != "" {
+		stmt, args, err = sq.Delete(DiscoProjectTableName).Where("sys_account_project_ref_id", accountProjectId).ToSql()
+		if err != nil {
+			return err
+		}
+	}
+	if accountOrgId != "" {
+		stmt, args, err = sq.Delete(DiscoProjectTableName).Where("sys_account_org_ref_id", accountOrgId).ToSql()
+		if err != nil {
+			return err
+		}
+	}
+
 	return m.db.BulkExec(map[string][]interface{}{
 		stmt: args,
 	})

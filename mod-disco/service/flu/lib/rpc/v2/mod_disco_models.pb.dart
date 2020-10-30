@@ -790,6 +790,7 @@ class IdRequest extends $pb.GeneratedMessage {
     ..aOS(3, 'surveyProjectId')
     ..aOS(4, 'sysAccountAccountId')
     ..aOS(5, 'discoProjectId')
+    ..aOS(6, 'sysAccountOrgId')
     ..hasRequiredFields = false
   ;
 
@@ -852,6 +853,15 @@ class IdRequest extends $pb.GeneratedMessage {
   $core.bool hasDiscoProjectId() => $_has(4);
   @$pb.TagNumber(5)
   void clearDiscoProjectId() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get sysAccountOrgId => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set sysAccountOrgId($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasSysAccountOrgId() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearSysAccountOrgId() => clearField(6);
 }
 
 class ListRequest extends $pb.GeneratedMessage {
