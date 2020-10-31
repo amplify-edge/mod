@@ -9,8 +9,6 @@ include $(BOILERPLATE_FSPATH)/tool.mk
 include $(BOILERPLATE_FSPATH)/flu.mk
 include $(BOILERPLATE_FSPATH)/go.mk
 
-
-
 # remove the "v" prefix
 VERSION ?= $(shell echo $(TAGGED_VERSION) | cut -c 2-)
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	service "github.com/getcouragenow/mod/mod-disco/service/go"
 	pkg "github.com/getcouragenow/mod/mod-disco/service/go/pkg"
 	corebus "github.com/getcouragenow/sys-share/sys-core/service/go/pkg/bus"
@@ -11,6 +12,8 @@ import (
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
 	"google.golang.org/grpc"
 	"net/http"
 )

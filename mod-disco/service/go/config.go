@@ -24,7 +24,7 @@ func (m *ModDiscoConfig) Validate() error {
 type Config struct {
 	SysCoreConfig         sysCoreConfig.SysCoreConfig `yaml:"sysCoreConfig" mapstructure:"sysCoreConfig"`
 	UnauthenticatedRoutes []string                    `json:"unauthenticatedRoutes" yaml:"unauthenticatedRoutes"`
-	JWTConfig             JWTConfig                   `json:"jwtConfig" yaml:"jwtConfig"`
+	JWTConfig             JWTConfig                   `json:"jwt" yaml:"jwt"`
 }
 
 func (c Config) validate() error {

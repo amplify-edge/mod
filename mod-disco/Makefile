@@ -45,13 +45,14 @@ this-print: ## print
 
 this-build: this-build-delete
 	@echo 'Building example golang binaries (CLI and Server)'
-	@mkdir -p bin-all/{cli,client}/{go,flu}
+	@mkdir -p bin-all/{cli,client,server}/{go,flu}
 	@echo 'Building Golang binaries'
 	# Commented Out, Nothing there yet
 	# go build -v -o bin-all/cli/go/ ./example/cli/go/main.go
+	go build -v -o bin-all/server/go/ ./example/server/go/main.go
 	@echo 'Building flutter binary'
-	$(MAKE) flu-web-build
-	@cp -Rv ./example/client/flu/build ./bin-all/client/flu/
+	#$(MAKE) flu-web-build
+	@#cp -Rv ./example/client/flu/build ./bin-all/client/flu/
 
 this-build-delete:
 	@echo 'Removing built go and flutter binaries'
