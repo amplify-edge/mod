@@ -43,7 +43,9 @@ func recoveryHandler(l *logrus.Entry) func(panic interface{}) error {
 func main() {
 	rootCmd.PersistentFlags().StringVarP(&discoCfgPath, "mod-disco-config-path", "c", defaultModDiscoConfigPath, "mod-disco config path to use")
 
-	log := logrus.New().WithField("svc", "mod-disco")
+	logr := logrus.New()
+	logr.SetLevel(logrus.DebugLevel)
+	log := logr.WithField("mod", "disco")
 
 	rootCmd.RunE = func(cmd *cobra.Command, args []string) error {
 		discoCfg, err := service.NewConfig(discoCfgPath)
@@ -51,6 +53,7 @@ func main() {
 			log.Fatalf(errSourcingConfig, err)
 		}
 
+		log.Warnf("DB Config: %v", discoCfg.ModDiscoConfig.SysCoreConfig)
 		gdb, err := coredb.NewCoreDB(log, &discoCfg.ModDiscoConfig.SysCoreConfig, nil)
 		if err != nil {
 			log.Fatalf(errSourcingConfig, err)
