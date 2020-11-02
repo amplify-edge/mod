@@ -19,8 +19,8 @@ override GO_BIN_NAME=mod-main
 override GO_BUILD_OUT_FSPATH:=${GOPATH}/bin/$(GO_BIN_NAME)
 override GO_BUILD_OUT_ALL_FSPATH=${PWD}/server/assets
 
-EXAMPLE_CFG_DIR = ./config
-EXAMPLE_SYS_CORE_DB_ENCRYPT_KEY = mostSuperSecretKeyPlausible34@
+EXAMPLE_CFG_DIR = ./bin-all/config
+EXAMPLE_MOD_DISCO_DB_ENCRYPT_KEY = mostSuperSecretKeyPlausible34@
 EXAMPLE_MOD_DISCO_CFG_PATH = $(EXAMPLE_CFG_DIR)/moddisco.yml
 
 EXAMPLE_SRC_DIR = ./example
@@ -70,6 +70,9 @@ this-gen: this-gen-delete this-config-gen
 	# $(MAKE) flu-gen-all
 	$(MAKE) flu-gen-lang
 
+this-ex-server-run:
+	./bin-all/server/go/main
+
 this-example-flutter-web-run:
 	@echo Running Example Flutter Web Client
 	$(MAKE) flu-web-run
@@ -82,7 +85,7 @@ this-example-flutter-desk-run:
 this-config-gen: this-config-clean this-config-dep
 	@echo Generating Config
 	@mkdir -p $(EXAMPLE_CFG_DIR)
-	jsonnet -S $(SERVER_DIR)/moddisco.jsonnet > $(EXAMPLE_MOD_DISCO_CFG_PATH)
+	jsonnet -S $(SERVER_DIR)/moddisco.jsonnet -V MOD_DISCO_DB_ENCRYPT_KEY=$(EXAMPLE_MOD_DISCO_DB_ENCRYPT_KEY) > $(EXAMPLE_MOD_DISCO_CFG_PATH)
 
 this-config-clean:
 	@echo Deleting previously generated config

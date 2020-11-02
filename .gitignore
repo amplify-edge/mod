@@ -6,3 +6,5 @@ pubspec.lock
 jsonnetfile.lock.json
 db
 /mod-disco/config/
+example
+/mod-disco/db/

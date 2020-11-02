@@ -6,6 +6,7 @@ import (
 	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/repo"
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sharedAccountPkg "github.com/getcouragenow/sys-share/sys-account/service/go/pkg"
+	"github.com/getcouragenow/sys-share/sys-account/service/go/pkg/interceptor"
 	sharedBus "github.com/getcouragenow/sys-share/sys-core/service/go/pkg/bus"
 	"github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	"github.com/sirupsen/logrus"
@@ -13,7 +14,8 @@ import (
 )
 
 type ModDiscoService struct {
-	proxyService *discoRpc.SurveyServiceService
+	proxyService      *discoRpc.SurveyServiceService
+	ClientInterceptor *interceptor.ClientSide
 }
 
 type ModDiscoServiceConfig struct {
@@ -24,7 +26,7 @@ type ModDiscoServiceConfig struct {
 	logger          *logrus.Entry
 }
 
-func NewModDiscoServiceConfig(l *logrus.Entry, db *coredb.CoreDB, filepath string, bus *sharedBus.CoreBus) (*ModDiscoServiceConfig, error) {
+func NewModDiscoServiceConfig(l *logrus.Entry, db *coredb.CoreDB, filepath string, bus *sharedBus.CoreBus, grpcClientOpts grpc.ClientConnInterface) (*ModDiscoServiceConfig, error) {
 	var err error
 	if db == nil {
 		return nil, fmt.Errorf("error creating mod disco service: database is null")
@@ -36,25 +38,27 @@ func NewModDiscoServiceConfig(l *logrus.Entry, db *coredb.CoreDB, filepath strin
 	if err != nil {
 		return nil, err
 	}
+	newAuthProxyClient := sharedAccountPkg.NewSysAccountProxyServiceClient(grpcClientOpts)
 	mdsc := &ModDiscoServiceConfig{
-		store:  db,
-		Cfg:    discoCfg,
-		bus:    bus,
-		logger: modDiscoLogger,
+		store:           db,
+		Cfg:             discoCfg,
+		bus:             bus,
+		logger:          modDiscoLogger,
+		authProxyClient: newAuthProxyClient,
 	}
 	return mdsc, nil
 }
 
 func NewModDiscoService(cfg *ModDiscoServiceConfig) (*ModDiscoService, error) {
 	cfg.logger.Infoln("Initializing Mod-Disco Service")
-
 	discoRepo, err := repo.NewDiscoRepo(cfg.logger, cfg.store, cfg.Cfg, cfg.bus, cfg.authProxyClient)
 	if err != nil {
 		return nil, err
 	}
 	discoService := discoRpc.NewSurveyServiceService(discoRepo)
 	return &ModDiscoService{
-		proxyService: discoService,
+		proxyService:      discoService,
+		ClientInterceptor: discoRepo.ClientInterceptor,
 	}, nil
 }
 

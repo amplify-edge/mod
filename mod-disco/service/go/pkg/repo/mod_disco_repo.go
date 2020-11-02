@@ -16,9 +16,10 @@ type (
 		store                 *dao.ModDiscoDB
 		log                   *l.Entry
 		serverInterceptor     func(context.Context) (context.Context, error)
-		clientInterceptor     *interceptor.ClientSide
+		ClientInterceptor     *interceptor.ClientSide
 		busClient             *corebus.CoreBus
 		unauthenticatedRoutes []string
+		busClientRoutes       []string
 		accountClient         *sharedAccountPkg.SysAccountProxyServiceClient
 	}
 )
@@ -37,6 +38,7 @@ func NewDiscoRepo(
 		store:                 discodb,
 		log:                   l,
 		unauthenticatedRoutes: cfg.ModDiscoConfig.UnauthenticatedRoutes,
+		busClientRoutes:       cfg.ModDiscoConfig.BusClientRoutes,
 		busClient:             busClient,
 		accountClient:         accountClient,
 	}

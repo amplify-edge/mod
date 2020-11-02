@@ -11,6 +11,7 @@ import (
 const (
 	errParsingConfig           = "error parsing %s config: %v\n"
 	errNoUnauthenticatedRoutes = "error: no unauthenticated routes defined"
+	errNoBusClientRoutes       = "error: no bus client routes defined"
 )
 
 type ModDiscoConfig struct {
@@ -25,11 +26,15 @@ type Config struct {
 	SysCoreConfig         sysCoreConfig.SysCoreConfig `yaml:"sysCoreConfig" mapstructure:"sysCoreConfig"`
 	UnauthenticatedRoutes []string                    `json:"unauthenticatedRoutes" yaml:"unauthenticatedRoutes"`
 	JWTConfig             JWTConfig                   `json:"jwt" yaml:"jwt"`
+	BusClientRoutes       []string                    `json:"busClientRoutes" yaml:"busClientRoutes"`
 }
 
 func (c Config) validate() error {
 	if len(c.UnauthenticatedRoutes) == 0 {
 		return fmt.Errorf(errNoUnauthenticatedRoutes)
+	}
+	if len(c.BusClientRoutes) == 0 {
+		return fmt.Errorf(errNoBusClientRoutes)
 	}
 	if err := c.SysCoreConfig.Validate(); err != nil {
 		return err

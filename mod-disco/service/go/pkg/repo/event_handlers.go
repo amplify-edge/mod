@@ -12,19 +12,19 @@ import (
 )
 
 func (md *ModDiscoRepo) newClientInterceptor(ctx context.Context, in *sharedCore.EventRequest) (map[string]interface{}, error) {
-	const emailKey = "email"
-	const passwordKey = "password"
+	const accessKey = "accessToken"
+	const refreshKey = "refreshToken"
 	rmap, err := coredb.UnmarshalToMap(in.JsonPayload)
 	if err != nil {
 		return nil, err
 	}
-	if rmap[emailKey] == nil || rmap[emailKey].(string) == "" || rmap[passwordKey] == nil || rmap[passwordKey] == "" {
+	if rmap[accessKey] == nil || rmap[accessKey].(string) == "" || rmap[refreshKey] == nil || rmap[refreshKey] == "" {
 		return nil, sharedBus.Error{
 			Reason: sharedBus.ErrInvalidEventPayload,
-			Err:    fmt.Errorf("no valid %s or %s found", emailKey, passwordKey),
+			Err:    fmt.Errorf("no valid %s or %s found", accessKey, refreshKey),
 		}
 	}
-	md.clientInterceptor, err = interceptor.NewClientSideInterceptor(md.accountClient, rmap[emailKey].(string), rmap[passwordKey].(string))
+	md.ClientInterceptor, err = interceptor.NewClientSideInterceptor(md.accountClient, rmap[accessKey].(string), rmap[refreshKey].(string), md.busClientRoutes)
 	if err != nil {
 		return nil, sharedBus.Error{
 			Reason: sharedBus.ErrInvalidEventPayload,
@@ -38,7 +38,7 @@ func (md *ModDiscoRepo) newClientInterceptor(ctx context.Context, in *sharedCore
 }
 
 func (md *ModDiscoRepo) removeClientInterceptor(_ context.Context, _ *sharedCore.EventRequest) (map[string]interface{}, error) {
-	md.clientInterceptor = nil
+	md.ClientInterceptor = nil
 	return map[string]interface{}{
 		"success":    true,
 		"successMsg": "successfully deleted client interceptor",
