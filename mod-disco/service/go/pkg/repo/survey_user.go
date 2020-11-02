@@ -33,7 +33,7 @@ func (md *ModDiscoRepo) GetSurveyUser(ctx context.Context, in *discoRpc.IdReques
 	if err != nil {
 		return nil, err
 	}
-	return sp.ToPkgSurveyUser()
+	return md.store.ToPkgSurveyUser(sp)
 }
 
 func (md *ModDiscoRepo) ListSurveyUser(ctx context.Context, in *discoRpc.ListRequest) (*discoRpc.ListResponse, error) {
@@ -83,7 +83,7 @@ func (md *ModDiscoRepo) ListSurveyUser(ctx context.Context, in *discoRpc.ListReq
 	}
 	var pkgSurveyUsers []*discoRpc.SurveyUser
 	for _, su := range daoSurveyUsers {
-		surveyUser, err := su.ToPkgSurveyUser()
+		surveyUser, err := md.store.ToPkgSurveyUser(su)
 		if err != nil {
 			return nil, err
 		}
@@ -106,7 +106,7 @@ func (md *ModDiscoRepo) UpdateSurveyUser(ctx context.Context, in *discoRpc.Updat
 	if err != nil {
 		return nil, err
 	}
-	return daoSurveyUser.ToPkgSurveyUser()
+	return md.store.ToPkgSurveyUser(daoSurveyUser)
 }
 
 func (md *ModDiscoRepo) DeleteSurveyUser(ctx context.Context, in *discoRpc.IdRequest) (*emptypb.Empty, error) {

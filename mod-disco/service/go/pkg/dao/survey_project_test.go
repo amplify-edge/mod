@@ -16,18 +16,18 @@ var (
 	newSurveyProjects = []*discoRpc.NewSurveyProjectRequest{
 		{
 			SysAccountProjectRefId: project1ID,
-			SurveySchemaTypes:      []byte{},
-			SurveyFilterTypes:      []byte{},
+			SupportRoleTypes:       [][]byte{},
+			UserNeedTypes:          [][]byte{},
 		},
 		{
 			SysAccountProjectRefId: project2ID,
-			SurveySchemaTypes:      []byte{},
-			SurveyFilterTypes:      []byte{},
+			SupportRoleTypes:       [][]byte{},
+			UserNeedTypes:          [][]byte{},
 		},
 		{
 			SysAccountProjectRefId: coresvc.NewID(),
-			SurveySchemaTypes:      []byte{},
-			SurveyFilterTypes:      []byte{},
+			SupportRoleTypes:       [][]byte{},
+			UserNeedTypes:          [][]byte{},
 		},
 	}
 
@@ -48,7 +48,7 @@ func testListtSurveyProjects(t *testing.T) {
 	sps, _, err := mdb.ListSurveyProject(map[string]interface{}{}, dao.DefaultCursor, 10, 0)
 	assert.NoError(t, err)
 	for _, sp := range sps {
-		surveyProject, err := sp.ToPkgSurveyProject()
+		surveyProject, err := mdb.ToPkgSurveyProject(sp)
 		assert.NoError(t, err)
 		surveyProjects = append(surveyProjects, surveyProject)
 	}
@@ -66,16 +66,16 @@ func testGetSurveyProject(t *testing.T) {
 func testUpdateSurveyProject(t *testing.T) {
 	f, err := ioutil.ReadFile("testdata/test_update_survey_proj.json")
 	assert.NoError(t, err)
-	var sfilter dao.SurveyFilter
-	assert.NoError(t, json.Unmarshal(f, &sfilter))
-	condBytes, err := json.Marshal(&sfilter)
+	var sroletype dao.SupportRoleType
+	assert.NoError(t, json.Unmarshal(f, &sroletype))
+	sroletype.SurveyProjectRefId = surveyProjects[0].SurveyProjectId
+	condBytes, err := json.Marshal(&sroletype)
 	assert.NoError(t, err)
 	t.Logf(string(condBytes))
 	updateSurveyProjects := []*discoRpc.UpdateSurveyProjectRequest{
 		{
-			SurveyProjectId:   surveyProjects[0].SurveyProjectId,
-			SurveySchemaTypes: nil,
-			SurveyFilterTypes: condBytes,
+			SurveyProjectId:  surveyProjects[0].SurveyProjectId,
+			SupportRoleTypes: [][]byte{condBytes},
 		},
 	}
 	for _, usp := range updateSurveyProjects {
@@ -85,7 +85,10 @@ func testUpdateSurveyProject(t *testing.T) {
 	sp, err := mdb.GetSurveyProject(map[string]interface{}{"survey_project_id": surveyProjects[0].SurveyProjectId})
 	assert.NoError(t, err)
 	t.Logf("Survey Project: %v", sp)
-	// assert.Equal(t, sp.SurveyFilterTypes, cond)
+	surveyProject, err := mdb.ToPkgSurveyProject(sp)
+	assert.NoError(t, err)
+	t.Logf("Survey Project Becomes: %v", surveyProject)
+	// assert.Equal(t, [][]byte{condBytes}, surveyProject.SupportRoleTypes)
 }
 
 func testDeleteSurveyProject(t *testing.T) {
@@ -101,14 +104,12 @@ func testInsertSurveyUser(t *testing.T) {
 		{
 			SurveyProjectRefId:  surveyProjects[0].SurveyProjectId,
 			SysAccountUserRefId: account1ID,
-			SurveySchemaTypes:   []byte{},
-			SurveyFilterTypes:   []byte{},
+			SupportRoleValues:   [][]byte{},
+			UserNeedValues:      [][]byte{},
 		},
 		{
 			SurveyProjectRefId:  surveyProjects[1].SurveyProjectId,
 			SysAccountUserRefId: account2ID,
-			SurveySchemaTypes:   nil,
-			SurveyFilterTypes:   nil,
 		},
 	}
 	for _, nsu := range newSurveyUsers {
@@ -122,7 +123,7 @@ func testListSurveyUsers(t *testing.T) {
 	sps, _, err := mdb.ListSurveyUser(map[string]interface{}{}, dao.DefaultCursor, 10, 0)
 	assert.NoError(t, err)
 	for _, sp := range sps {
-		surveyUser, err := sp.ToPkgSurveyUser()
+		surveyUser, err := mdb.ToPkgSurveyUser(sp)
 		assert.NoError(t, err)
 		surveyUsers = append(surveyUsers, surveyUser)
 	}
@@ -140,16 +141,20 @@ func testGetSurveyUser(t *testing.T) {
 func testUpdateSurveyUser(t *testing.T) {
 	f, err := ioutil.ReadFile("testdata/test_update_survey_user.json")
 	assert.NoError(t, err)
-	var sfilter dao.SurveyFilter
+	var sfilter []*dao.SupportRoleValue
 	assert.NoError(t, json.Unmarshal(f, &sfilter))
-	condBytes, err := json.Marshal(&sfilter)
-	assert.NoError(t, err)
-	t.Logf(string(condBytes))
+	var condBytesArray [][]byte
+	for _, sf := range sfilter {
+		sf.SurveyUserRefId = surveyUsers[0].SurveyUserId
+		condBytes, err := json.Marshal(&sf)
+		assert.NoError(t, err)
+		t.Logf(string(condBytes))
+		condBytesArray = append(condBytesArray, condBytes)
+	}
 	updateSurveyUsers := []*discoRpc.UpdateSurveyUserRequest{
 		{
-			SurveyUserId:       surveyUsers[0].SurveyUserId,
-			SurveySchemaValues: condBytes,
-			SurveyFilterValues: condBytes,
+			SurveyUserId:      surveyUsers[0].SurveyUserId,
+			SupportRoleValues: condBytesArray,
 		},
 	}
 	for _, usp := range updateSurveyUsers {
@@ -159,7 +164,8 @@ func testUpdateSurveyUser(t *testing.T) {
 	sp, err := mdb.GetSurveyUser(map[string]interface{}{"survey_user_id": surveyUsers[0].SurveyUserId})
 	assert.NoError(t, err)
 	t.Logf("Survey User: %v", *sp)
-	pkgSurveyUser, err := sp.ToPkgSurveyUser()
+	pkgSurveyUser, err := mdb.ToPkgSurveyUser(sp)
 	assert.NoError(t, err)
-	assert.Equal(t, condBytes, pkgSurveyUser.SurveySchemaFilters)
+	t.Logf("Survey User becomes: %v\n", pkgSurveyUser)
+	// assert.Equal(t, string(condBytesArray), string(pkgSurveyUser.SupportRoleValues))
 }

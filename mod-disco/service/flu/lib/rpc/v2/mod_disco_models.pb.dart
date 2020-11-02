@@ -16,8 +16,8 @@ class SurveyProject extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('SurveyProject', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
     ..aOS(1, 'surveyProjectId')
     ..aOS(2, 'sysAccountProjectRefId')
-    ..a<$core.List<$core.int>>(3, 'surveySchemaTypes', $pb.PbFieldType.OY)
-    ..a<$core.List<$core.int>>(4, 'surveyFilterTypes', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(3, 'supportRoleTypes', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(4, 'userNeedTypes', $pb.PbFieldType.OY)
     ..aOM<$2.Timestamp>(5, 'createdAt', subBuilder: $2.Timestamp.create)
     ..aOM<$2.Timestamp>(6, 'updatedAt', subBuilder: $2.Timestamp.create)
     ..hasRequiredFields = false
@@ -57,22 +57,22 @@ class SurveyProject extends $pb.GeneratedMessage {
   void clearSysAccountProjectRefId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.List<$core.int> get surveySchemaTypes => $_getN(2);
+  $core.List<$core.int> get supportRoleTypes => $_getN(2);
   @$pb.TagNumber(3)
-  set surveySchemaTypes($core.List<$core.int> v) { $_setBytes(2, v); }
+  set supportRoleTypes($core.List<$core.int> v) { $_setBytes(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasSurveySchemaTypes() => $_has(2);
+  $core.bool hasSupportRoleTypes() => $_has(2);
   @$pb.TagNumber(3)
-  void clearSurveySchemaTypes() => clearField(3);
+  void clearSupportRoleTypes() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.List<$core.int> get surveyFilterTypes => $_getN(3);
+  $core.List<$core.int> get userNeedTypes => $_getN(3);
   @$pb.TagNumber(4)
-  set surveyFilterTypes($core.List<$core.int> v) { $_setBytes(3, v); }
+  set userNeedTypes($core.List<$core.int> v) { $_setBytes(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasSurveyFilterTypes() => $_has(3);
+  $core.bool hasUserNeedTypes() => $_has(3);
   @$pb.TagNumber(4)
-  void clearSurveyFilterTypes() => clearField(4);
+  void clearUserNeedTypes() => clearField(4);
 
   @$pb.TagNumber(5)
   $2.Timestamp get createdAt => $_getN(4);
@@ -102,8 +102,8 @@ class SurveyUser extends $pb.GeneratedMessage {
     ..aOS(1, 'surveyUserId')
     ..aOS(2, 'surveyProjectRefId')
     ..aOS(3, 'sysAccountAccountRefId')
-    ..a<$core.List<$core.int>>(4, 'surveySchemaValues', $pb.PbFieldType.OY)
-    ..a<$core.List<$core.int>>(5, 'surveySchemaFilters', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(4, 'supportRoleValues', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(5, 'userNeedValues', $pb.PbFieldType.OY)
     ..aOM<$2.Timestamp>(6, 'createdAt', subBuilder: $2.Timestamp.create)
     ..aOM<$2.Timestamp>(7, 'updatedAt', subBuilder: $2.Timestamp.create)
     ..hasRequiredFields = false
@@ -152,22 +152,22 @@ class SurveyUser extends $pb.GeneratedMessage {
   void clearSysAccountAccountRefId() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.List<$core.int> get surveySchemaValues => $_getN(3);
+  $core.List<$core.int> get supportRoleValues => $_getN(3);
   @$pb.TagNumber(4)
-  set surveySchemaValues($core.List<$core.int> v) { $_setBytes(3, v); }
+  set supportRoleValues($core.List<$core.int> v) { $_setBytes(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasSurveySchemaValues() => $_has(3);
+  $core.bool hasSupportRoleValues() => $_has(3);
   @$pb.TagNumber(4)
-  void clearSurveySchemaValues() => clearField(4);
+  void clearSupportRoleValues() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.List<$core.int> get surveySchemaFilters => $_getN(4);
+  $core.List<$core.int> get userNeedValues => $_getN(4);
   @$pb.TagNumber(5)
-  set surveySchemaFilters($core.List<$core.int> v) { $_setBytes(4, v); }
+  set userNeedValues($core.List<$core.int> v) { $_setBytes(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasSurveySchemaFilters() => $_has(4);
+  $core.bool hasUserNeedValues() => $_has(4);
   @$pb.TagNumber(5)
-  void clearSurveySchemaFilters() => clearField(5);
+  void clearUserNeedValues() => clearField(5);
 
   @$pb.TagNumber(6)
   $2.Timestamp get createdAt => $_getN(5);
@@ -790,6 +790,7 @@ class IdRequest extends $pb.GeneratedMessage {
     ..aOS(3, 'surveyProjectId')
     ..aOS(4, 'sysAccountAccountId')
     ..aOS(5, 'discoProjectId')
+    ..aOS(6, 'sysAccountOrgId')
     ..hasRequiredFields = false
   ;
 
@@ -852,6 +853,15 @@ class IdRequest extends $pb.GeneratedMessage {
   $core.bool hasDiscoProjectId() => $_has(4);
   @$pb.TagNumber(5)
   void clearDiscoProjectId() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get sysAccountOrgId => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set sysAccountOrgId($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasSysAccountOrgId() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearSysAccountOrgId() => clearField(6);
 }
 
 class ListRequest extends $pb.GeneratedMessage {
@@ -983,8 +993,8 @@ class ListResponse extends $pb.GeneratedMessage {
 class NewSurveyProjectRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('NewSurveyProjectRequest', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
     ..aOS(1, 'sysAccountProjectRefId')
-    ..a<$core.List<$core.int>>(2, 'surveySchemaTypes', $pb.PbFieldType.OY)
-    ..a<$core.List<$core.int>>(3, 'surveyFilterTypes', $pb.PbFieldType.OY)
+    ..p<$core.List<$core.int>>(2, 'supportRoleTypes', $pb.PbFieldType.PY)
+    ..p<$core.List<$core.int>>(3, 'userNeedTypes', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -1013,30 +1023,18 @@ class NewSurveyProjectRequest extends $pb.GeneratedMessage {
   void clearSysAccountProjectRefId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.List<$core.int> get surveySchemaTypes => $_getN(1);
-  @$pb.TagNumber(2)
-  set surveySchemaTypes($core.List<$core.int> v) { $_setBytes(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasSurveySchemaTypes() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearSurveySchemaTypes() => clearField(2);
+  $core.List<$core.List<$core.int>> get supportRoleTypes => $_getList(1);
 
   @$pb.TagNumber(3)
-  $core.List<$core.int> get surveyFilterTypes => $_getN(2);
-  @$pb.TagNumber(3)
-  set surveyFilterTypes($core.List<$core.int> v) { $_setBytes(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasSurveyFilterTypes() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearSurveyFilterTypes() => clearField(3);
+  $core.List<$core.List<$core.int>> get userNeedTypes => $_getList(2);
 }
 
 class NewSurveyUserRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('NewSurveyUserRequest', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
     ..aOS(1, 'surveyProjectRefId')
     ..aOS(2, 'sysAccountUserRefId')
-    ..a<$core.List<$core.int>>(3, 'surveySchemaTypes', $pb.PbFieldType.OY)
-    ..a<$core.List<$core.int>>(4, 'surveyFilterTypes', $pb.PbFieldType.OY)
+    ..p<$core.List<$core.int>>(3, 'supportRoleValues', $pb.PbFieldType.PY)
+    ..p<$core.List<$core.int>>(4, 'userNeedValues', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -1074,29 +1072,17 @@ class NewSurveyUserRequest extends $pb.GeneratedMessage {
   void clearSysAccountUserRefId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.List<$core.int> get surveySchemaTypes => $_getN(2);
-  @$pb.TagNumber(3)
-  set surveySchemaTypes($core.List<$core.int> v) { $_setBytes(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasSurveySchemaTypes() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearSurveySchemaTypes() => clearField(3);
+  $core.List<$core.List<$core.int>> get supportRoleValues => $_getList(2);
 
   @$pb.TagNumber(4)
-  $core.List<$core.int> get surveyFilterTypes => $_getN(3);
-  @$pb.TagNumber(4)
-  set surveyFilterTypes($core.List<$core.int> v) { $_setBytes(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasSurveyFilterTypes() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearSurveyFilterTypes() => clearField(4);
+  $core.List<$core.List<$core.int>> get userNeedValues => $_getList(3);
 }
 
 class UpdateSurveyProjectRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateSurveyProjectRequest', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
     ..aOS(1, 'surveyProjectId')
-    ..a<$core.List<$core.int>>(2, 'surveySchemaTypes', $pb.PbFieldType.OY)
-    ..a<$core.List<$core.int>>(3, 'surveyFilterTypes', $pb.PbFieldType.OY)
+    ..p<$core.List<$core.int>>(2, 'supportRoleTypes', $pb.PbFieldType.PY)
+    ..p<$core.List<$core.int>>(3, 'userNeedTypes', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -1125,29 +1111,17 @@ class UpdateSurveyProjectRequest extends $pb.GeneratedMessage {
   void clearSurveyProjectId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.List<$core.int> get surveySchemaTypes => $_getN(1);
-  @$pb.TagNumber(2)
-  set surveySchemaTypes($core.List<$core.int> v) { $_setBytes(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasSurveySchemaTypes() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearSurveySchemaTypes() => clearField(2);
+  $core.List<$core.List<$core.int>> get supportRoleTypes => $_getList(1);
 
   @$pb.TagNumber(3)
-  $core.List<$core.int> get surveyFilterTypes => $_getN(2);
-  @$pb.TagNumber(3)
-  set surveyFilterTypes($core.List<$core.int> v) { $_setBytes(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasSurveyFilterTypes() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearSurveyFilterTypes() => clearField(3);
+  $core.List<$core.List<$core.int>> get userNeedTypes => $_getList(2);
 }
 
 class UpdateSurveyUserRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateSurveyUserRequest', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
     ..aOS(1, 'surveyUserId')
-    ..a<$core.List<$core.int>>(2, 'surveySchemaValues', $pb.PbFieldType.OY)
-    ..a<$core.List<$core.int>>(3, 'surveyFilterValues', $pb.PbFieldType.OY)
+    ..p<$core.List<$core.int>>(2, 'supportRoleValues', $pb.PbFieldType.PY)
+    ..p<$core.List<$core.int>>(3, 'userNeedValues', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -1176,21 +1150,9 @@ class UpdateSurveyUserRequest extends $pb.GeneratedMessage {
   void clearSurveyUserId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.List<$core.int> get surveySchemaValues => $_getN(1);
-  @$pb.TagNumber(2)
-  set surveySchemaValues($core.List<$core.int> v) { $_setBytes(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasSurveySchemaValues() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearSurveySchemaValues() => clearField(2);
+  $core.List<$core.List<$core.int>> get supportRoleValues => $_getList(1);
 
   @$pb.TagNumber(3)
-  $core.List<$core.int> get surveyFilterValues => $_getN(2);
-  @$pb.TagNumber(3)
-  set surveyFilterValues($core.List<$core.int> v) { $_setBytes(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasSurveyFilterValues() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearSurveyFilterValues() => clearField(3);
+  $core.List<$core.List<$core.int>> get userNeedValues => $_getList(2);
 }
 

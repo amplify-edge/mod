@@ -3,4 +3,8 @@ vendor
 .vscode
 bin-all
 pubspec.lock
+jsonnetfile.lock.json
 db
+/mod-disco/config/
+/mod-disco/db/
+/example/

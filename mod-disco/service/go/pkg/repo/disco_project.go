@@ -101,10 +101,10 @@ func (md *ModDiscoRepo) UpdateDiscoProject(ctx context.Context, in *discoRpc.Upd
 }
 
 func (md *ModDiscoRepo) DeleteDiscoProject(ctx context.Context, in *discoRpc.IdRequest) (*emptypb.Empty, error) {
-	if in == nil || in.DiscoProjectId == "" {
+	if in == nil || (in.DiscoProjectId == "" && in.SysAccountProjectId == "" && in.SysAccountOrgId == "") {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot delete disco project: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
-	err := md.store.DeleteDiscoProject(in.DiscoProjectId)
+	err := md.store.DeleteDiscoProject(in.DiscoProjectId, in.SysAccountProjectId, in.SysAccountOrgId)
 	if err != nil {
 		return nil, err
 	}

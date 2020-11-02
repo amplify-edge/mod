@@ -1,15 +1,8 @@
 {
-  "conditions": {
-    "minimum_people_involved": "50"
-  },
-  "supportRoles": {
-    "lawyer": [
-      "Help lawyering",
-      "doesn't have to be Harvard grad"
-    ],
-    "paralegal": [
-      "Help lawyer",
-      "requires knowledge of legal procedures"
-    ]
-  }
+  "id": "1jbiIqDTOQHd8jzcCfXN0cRN0GD",
+  "surveyProjectRefId": "",
+  "name": "lawyer",
+  "comment": "Helping NVDA leaders on legal standing",
+  "description": "Helping NVDA leaders on legal standing, does not have to be Harvard graduate.",
+  "unitOfMeasures": "weeks"
 }

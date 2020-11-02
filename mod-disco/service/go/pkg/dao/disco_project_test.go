@@ -111,7 +111,7 @@ func testUpdateDiscoProject(t *testing.T) {
 }
 
 func testDeleteDiscoProject(t *testing.T) {
-	err = mdb.DeleteDiscoProject(discoProjects[0].ProjectId)
+	err = mdb.DeleteDiscoProject(discoProjects[0].ProjectId, "", "")
 	assert.NoError(t, err)
 	_, err = mdb.GetDiscoProject(map[string]interface{}{"project_id": discoProjects[0].ProjectId})
 	assert.Error(t, err)

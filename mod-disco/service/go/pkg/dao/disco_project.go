@@ -11,26 +11,26 @@ import (
 )
 
 type DiscoProject struct {
-	ProjectId              string   `json:"projectId" genji:"project_id"`
-	SysAccountProjectRefId string   `json:"sysAccountProjectRefId" genji:"sys_account_project_ref_id"`
-	SysAccountOrgRefId     string   `json:"SysAccountOrgRefId" genji:"sys_account_org_ref_id"`
-	Goal                   string   `json:"goal" genji:"goal"`
-	AlreadyPledged         uint64   `json:"alreadyPledged" genji:"already_pledged"`
-	ActionTime             int64    `json:"actionTime" genji:"action_time"`
-	ActionLocation         string   `json:"actionLocation" genji:"action_location"`
-	MinPioneers            uint64   `json:"minPioneers" genji:"min_pioneers"`
-	MinRebelsMedia         uint64   `json:"minRebelsMedia" genji:"min_rebels_media"`
-	MinRebelsToWin         uint64   `json:"minRebelsToWin" genji:"min_rebels_to_win"`
-	ActionLength           string   `json:"actionLength" genji:"action_length"`
-	ActionType             string   `json:"actionType" genji:"action_type"`
-	Category               string   `json:"category" genji:"category"`
-	Contact                string   `json:"contact" genji:"contact"`
-	HistPrecedents         string   `json:"histPrecedents" genji:"hist_precedents"`
-	Strategy               string   `json:"strategy" genji:"strategy"`
-	VideoUrl               []string `json:"videoUrl" genji:"video_url"`
-	UnitOfMeasures         string   `json:"unitOfMeasures" genji:"unit_of_measures"`
-	CreatedAt              int64    `json:"createdAt" genji:"created_at"`
-	UpdatedAt              int64    `json:"updatedAt" genji:"updated_at"`
+	ProjectId              string   `json:"projectId,omitempty" genji:"project_id" coredb:"primary"`
+	SysAccountProjectRefId string   `json:"sysAccountProjectRefId,omitempty" genji:"sys_account_project_ref_id"`
+	SysAccountOrgRefId     string   `json:"SysAccountOrgRefId,omitempty" genji:"sys_account_org_ref_id"`
+	Goal                   string   `json:"goal,omitempty" genji:"goal"`
+	AlreadyPledged         uint64   `json:"alreadyPledged,omitempty" genji:"already_pledged"`
+	ActionTime             int64    `json:"actionTime,omitempty" genji:"action_time"`
+	ActionLocation         string   `json:"actionLocation,omitempty" genji:"action_location"`
+	MinPioneers            uint64   `json:"minPioneers,omitempty" genji:"min_pioneers"`
+	MinRebelsMedia         uint64   `json:"minRebelsMedia,omitempty" genji:"min_rebels_media"`
+	MinRebelsToWin         uint64   `json:"minRebelsToWin,omitempty" genji:"min_rebels_to_win"`
+	ActionLength           string   `json:"actionLength,omitempty" genji:"action_length"`
+	ActionType             string   `json:"actionType,omitempty" genji:"action_type"`
+	Category               string   `json:"category,omitempty" genji:"category"`
+	Contact                string   `json:"contact,omitempty" genji:"contact"`
+	HistPrecedents         string   `json:"histPrecedents,omitempty" genji:"hist_precedents"`
+	Strategy               string   `json:"strategy,omitempty" genji:"strategy"`
+	VideoUrl               []string `json:"videoUrl,omitempty" genji:"video_url"`
+	UnitOfMeasures         string   `json:"unitOfMeasures,omitempty" genji:"unit_of_measures"`
+	CreatedAt              int64    `json:"createdAt,omitempty" genji:"created_at"`
+	UpdatedAt              int64    `json:"updatedAt,omitempty" genji:"updated_at"`
 }
 
 var (
@@ -118,13 +118,13 @@ func (dp *DiscoProject) ToPkgDiscoProject() (*discoRpc.DiscoProject, error) {
 }
 
 func (dp DiscoProject) CreateSQL() []string {
-	fields := initFields(DiscoProjectColumns, DiscoProjectColumnsType)
+	fields := sysCoreSvc.GetStructTags(dp)
 	tbl := sysCoreSvc.NewTable(DiscoProjectTableName, fields, []string{discoProjectUniqueKey1, discoProjectUniqueKey2})
 	return tbl.CreateTable()
 }
 
 func (m *ModDiscoDB) discoProjectQueryFilter(filter map[string]interface{}) sq.SelectBuilder {
-	baseStmt := sq.Select(DiscoProjectColumns).From(DiscoProjectTableName)
+	baseStmt := sq.Select(m.discoProjectColumns).From(DiscoProjectTableName)
 	if filter != nil {
 		for k, v := range filter {
 			baseStmt = baseStmt.Where(sq.Eq{k: v})
@@ -176,6 +176,7 @@ func (m *ModDiscoDB) ListDiscoProject(filters map[string]interface{}, orderBy st
 	if err != nil {
 		return nil, nil, err
 	}
+	res.Close()
 	return discoProjects, &discoProjects[len(discoProjects)-1].CreatedAt, nil
 }
 
@@ -184,7 +185,6 @@ func (m *ModDiscoDB) InsertDiscoProject(dp *discoRpc.NewDiscoProjectRequest) (*d
 	if err != nil {
 		return nil, err
 	}
-	m.log.Warnf("CURRENT DISCO ID: %s", newPkgDiscoReq.ProjectId)
 	queryParam, err := sysCoreSvc.AnyToQueryParam(newPkgDiscoReq, true)
 	if err != nil {
 		return nil, err
@@ -281,11 +281,29 @@ func (m *ModDiscoDB) UpdateDiscoProject(udp *discoRpc.UpdateDiscoProjectRequest)
 	return m.db.Exec(stmt, args...)
 }
 
-func (m *ModDiscoDB) DeleteDiscoProject(id string) error {
-	stmt, args, err := sq.Delete(DiscoProjectTableName).Where("project_id = ?", id).ToSql()
-	if err != nil {
-		return err
+func (m *ModDiscoDB) DeleteDiscoProject(id, accountProjectId, accountOrgId string) error {
+	var stmt string
+	var args []interface{}
+	var err error
+	if id != "" {
+		stmt, args, err = sq.Delete(DiscoProjectTableName).Where("project_id = ?", id).ToSql()
+		if err != nil {
+			return err
+		}
 	}
+	if accountProjectId != "" {
+		stmt, args, err = sq.Delete(DiscoProjectTableName).Where("sys_account_project_ref_id", accountProjectId).ToSql()
+		if err != nil {
+			return err
+		}
+	}
+	if accountOrgId != "" {
+		stmt, args, err = sq.Delete(DiscoProjectTableName).Where("sys_account_org_ref_id", accountOrgId).ToSql()
+		if err != nil {
+			return err
+		}
+	}
+
 	return m.db.BulkExec(map[string][]interface{}{
 		stmt: args,
 	})

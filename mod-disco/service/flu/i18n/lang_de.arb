@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-10-29T07:36:29.555977",
+  "@@last_modified": "2020-11-02T06:27:59.787612",
   "country": "Land",
   "@country": {
     "description": "Country",
@@ -36,7 +36,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "howOldAreYou": "Wie alt sind Sie?",
+  "howOldAreYou": "Wie alt bist du?",
   "@howOldAreYou": {
     "description": "How old are you?",
     "placeholders": {},
