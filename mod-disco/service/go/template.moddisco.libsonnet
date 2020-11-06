@@ -36,11 +36,9 @@ local tokencfg = import "vendor/github.com/getcouragenow/sys-share/sys-core/serv
         unauthenticatedRoutes: cfg.UnauthenticatedRoutes,
         busClientRoutes: cfg.BusClientRoutes,
         sysCoreConfig: {
-            sysCoreConfig: {
-                db: cfg.CoreDB,
-        cron: cfg.CoreCron,
-            }
-        },
+            db: cfg.CoreDB,
+            cron: cfg.CoreCron,
+       },
         jwt: {
             access: cfg.AccessToken,
             refresh: cfg.RefreshToken,
