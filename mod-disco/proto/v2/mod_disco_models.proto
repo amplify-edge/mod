@@ -5,11 +5,82 @@ package v2.mod_disco.services;
 
 option go_package = "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2";
 
+message SupportRoleType {
+  string id = 1;
+  string survey_project_ref_id = 2;
+  string name = 3;
+  string comment = 4;
+  string description = 5;
+  string unit_of_measures = 6;
+}
+
+message NewSupportRoleType {
+  string survey_project_ref_id = 1;
+  string survey_project_ref_name = 2;
+  string name = 3;
+  string comment = 4;
+  string description = 5;
+  string unit_of_measures = 6;
+}
+
+message SupportRoleValue {
+  string id = 1;
+  string survey_user_ref_id = 2;
+  string support_role_type_ref_id = 3;
+  string pledged = 4;
+  string comment = 5;
+}
+
+message NewSupportRoleValue {
+  string id = 1;
+  string survey_user_ref_id = 2;
+  string survey_user_ref_name = 3;
+  string support_role_type_ref_id = 4;
+  string support_role_type_ref_name = 5;
+  string pledged = 6;
+  string comment = 7;
+}
+
+message UserNeedsType {
+  string id = 1;
+  string survey_project_ref_id = 2;
+  string name = 3;
+  string comment = 4;
+  string description = 5;
+  string unit_of_measures = 6;
+}
+
+message NewUserNeedsType {
+  string id = 1;
+  string survey_project_ref_id = 2;
+  string name = 3;
+  string comment = 4;
+  string description = 5;
+  string unit_of_measures = 6;
+}
+
+message UserNeedsValue {
+  string id = 1;
+  string survey_user_ref_id = 2;
+  string user_needs_type_ref_id = 3;
+  string comments = 4;
+  string pledged = 5;
+}
+
+message NewUserNeedsValue {
+  string survey_user_ref_name = 1;
+  string survey_user_ref_id = 2;
+  string user_needs_type_ref_id = 3;
+  string user_needs_type_ref_name = 4;
+  string comments = 5;
+  string pledged = 6;
+}
+
 message SurveyProject {
   string survey_project_id = 1;
   string sys_account_project_ref_id = 2;
-  bytes support_role_types = 3; // SurveySchemaType in JSON format
-  bytes user_need_types = 4; // SurveyFilterType in JSON format
+  SupportRoleType support_role_types = 3;
+  UserNeedsType user_need_types = 4; // SurveyFilterType in JSON format
   google.protobuf.Timestamp created_at = 5;
   google.protobuf.Timestamp updated_at = 6;
 }
@@ -18,8 +89,8 @@ message SurveyUser {
   string survey_user_id = 1;
   string survey_project_ref_id = 2;
   string sys_account_account_ref_id = 3;
-  bytes support_role_values = 4;
-  bytes user_need_values = 5; // serialized to strongly typed stuff in DB
+  SupportRoleValue support_role_values = 4;
+  UserNeedsValue user_need_values = 5; // serialized to strongly typed stuff in DB
   google.protobuf.Timestamp created_at = 6;
   google.protobuf.Timestamp updated_at = 7;
 }
@@ -65,6 +136,8 @@ message NewDiscoProjectRequest {
   string strategy = 15;
   repeated string video_url = 16;
   string unit_of_measures = 17;
+  string sys_account_project_ref_name = 18;
+  string sys_account_org_ref_name = 19;
 }
 
 message UpdateDiscoProjectRequest {
@@ -113,26 +186,29 @@ message ListResponse {
 
 message NewSurveyProjectRequest {
   string sys_account_project_ref_id = 1;
-  repeated bytes support_role_types = 2;
-  repeated bytes user_need_types = 3;
+  repeated NewSupportRoleType support_role_types = 2;
+  repeated NewUserNeedsType user_need_types = 3;
+  string sys_account_project_ref_name = 4;
 }
 
 message NewSurveyUserRequest {
   string survey_project_ref_id = 1;
   string sys_account_user_ref_id = 2;
-  repeated bytes support_role_values = 3;
-  repeated bytes user_need_values = 4;
+  repeated NewSupportRoleValue support_role_values = 3;
+  repeated NewUserNeedsValue user_need_values = 4;
+  string survey_project_ref_name = 5;
+  string sys_account_user_ref_name = 6;
 }
 
 message UpdateSurveyProjectRequest {
   string survey_project_id = 1;
-  repeated bytes support_role_types = 2;
-  repeated bytes user_need_types = 3;
+  repeated SupportRoleType support_role_types = 2;
+  repeated UserNeedsType user_need_types = 3;
 }
 
 message UpdateSurveyUserRequest {
   string survey_user_id = 1;
-  repeated bytes support_role_values = 2;
-  repeated bytes user_need_values = 3;
+  repeated SupportRoleValue support_role_values = 2;
+  repeated UserNeedsValue user_need_values = 3;
 }
 
