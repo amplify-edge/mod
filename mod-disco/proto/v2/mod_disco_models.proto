@@ -46,11 +46,11 @@ message NewSupportRoleValue {
   string survey_user_ref_name = 3;
   // @inject_tag: fake:"skip"
   string support_role_type_ref_id = 4;
-  // @inject_tag: fake:"{randomstring:[srt_one,srt_two,srt_three}"
+  // @inject_tag: fake:"{randomstring:[srt_one,srt_two,srt_three]}"
   string support_role_type_ref_name = 5;
   // @inject_tag: fake:"{number:1,100}"
   uint64 pledged = 6;
-  // @inject_tag: fake:"{sentence:8}"
+  // @inject_tag: fake:"{sentence:4}"
   string comment = 7;
 }
 
