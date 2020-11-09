@@ -1,0 +1,203 @@
+{
+  "bootstrap_survey_project": {
+    "new_survey_projects": [
+      {
+        "support_role_types": [
+          {
+            "survey_project_ref_name": "survey_project_one",
+            "name": "srt_three",
+            "comment": "May argue throw appointment market upset assess carry.",
+            "description": "Evidence interpret explain sort.",
+            "unit_of_measures": "months"
+          },
+          {
+            "survey_project_ref_name": "survey_project_three",
+            "name": "srt_two",
+            "comment": "Treatment grow exercise arrive play remind carry kind.",
+            "description": "Opposition chair view write.",
+            "unit_of_measures": "days"
+          }
+        ],
+        "user_need_types": [
+          {
+            "name": "unt_three",
+            "comment": "Focus fit continue score.",
+            "description": "Hang care rule past.",
+            "unit_of_measures": "weeks"
+          },
+          {
+            "name": "unt_two",
+            "comment": "Walk improvement deny border.",
+            "description": "Parish take complain throw.",
+            "unit_of_measures": "weeks"
+          }
+        ],
+        "sys_account_project_ref_name": "sys_account_project_three",
+        "survey_project_name": "survey_project_two"
+      },
+      {
+        "support_role_types": [
+          {
+            "survey_project_ref_name": "survey_project_three",
+            "name": "srt_three",
+            "comment": "Use conflict kind specify editor rain income relationship.",
+            "description": "Demonstrate pay core plate.",
+            "unit_of_measures": "days"
+          },
+          {
+            "survey_project_ref_name": "survey_project_two",
+            "name": "srt_two",
+            "comment": "Fashion die remain blame seek gallery recognize adopt.",
+            "description": "Part publish know cost.",
+            "unit_of_measures": "days"
+          }
+        ],
+        "user_need_types": [
+          {
+            "name": "unt_one",
+            "comment": "Contact town television interpretation.",
+            "description": "Horse forget establish nature.",
+            "unit_of_measures": "weeks"
+          },
+          {
+            "name": "unt_one",
+            "comment": "Insurance sort contrast ride.",
+            "description": "Strike belong claim trip.",
+            "unit_of_measures": "weeks"
+          }
+        ],
+        "sys_account_project_ref_name": "sys_account_project_two",
+        "survey_project_name": "survey_project_two"
+      }
+    ]
+  },
+  "bootstrap_survey_user": {
+    "new_survey_users": [
+      {
+        "support_role_values": [
+          {
+            "survey_user_ref_name": "survey_user_three",
+            "support_role_type_ref_name": "srt_one",
+            "pledged": 88,
+            "comment": "Community court marry figure."
+          },
+          {
+            "survey_user_ref_name": "survey_user_two",
+            "support_role_type_ref_name": "srt_one",
+            "pledged": 62,
+            "comment": "Force pull influence car."
+          }
+        ],
+        "user_need_values": [
+          {
+            "survey_user_ref_name": "survey_user_one",
+            "user_needs_type_ref_name": "unt_three",
+            "comments": "Care idea size satisfy.",
+            "pledged": 10
+          },
+          {
+            "survey_user_ref_name": "survey_user_three",
+            "user_needs_type_ref_name": "unt_one",
+            "comments": "Save concentrate relate go.",
+            "pledged": 95
+          }
+        ],
+        "survey_project_ref_name": "survey_project_three",
+        "sys_account_user_ref_name": "robertobailey@stokes.info",
+        "survey_user_name": "survey_user_one"
+      },
+      {
+        "support_role_values": [
+          {
+            "survey_user_ref_name": "survey_user_three",
+            "support_role_type_ref_name": "srt_two",
+            "pledged": 27,
+            "comment": "Touch prepare count mum."
+          },
+          {
+            "survey_user_ref_name": "survey_user_three",
+            "support_role_type_ref_name": "srt_three",
+            "pledged": 84,
+            "comment": "Behalf worry court recover."
+          }
+        ],
+        "user_need_values": [
+          {
+            "survey_user_ref_name": "survey_user_three",
+            "user_needs_type_ref_name": "unt_three",
+            "comments": "Price laugh participate justice.",
+            "pledged": 60
+          },
+          {
+            "survey_user_ref_name": "survey_user_two",
+            "user_needs_type_ref_name": "unt_two",
+            "comments": "Match kill limit rest.",
+            "pledged": 37
+          }
+        ],
+        "survey_project_ref_name": "survey_project_one",
+        "sys_account_user_ref_name": "carsondooley@turner.io",
+        "survey_user_name": "survey_user_one"
+      }
+    ]
+  },
+  "bootstrap_disco_project": {
+    "new_disco_projects": [
+      {
+        "goal": "Grass milk museum round index switch county contribution.",
+        "already_pledged": 773,
+        "action_time": {
+          "seconds": -1048611464212218085,
+          "nanos": 365194662
+        },
+        "action_location": "Port Lueilwitz",
+        "min_pioneers": 2975,
+        "min_rebels_media": 1127,
+        "min_rebels_to_win": 1222,
+        "action_length": "13 weeks",
+        "action_type": "environment",
+        "category": "global_campaign",
+        "contact": "celiatoy@collins.com",
+        "hist_precedents": "Prevent item write distinguish head reputation avoid telephone.",
+        "strategy": "Challenge force graham product advantage addition region purpose.",
+        "video_url": [
+          "http://www.humanreintermediate.net/scalable",
+          "https://www.legacywhiteboard.net/turn-key/transition/synergistic",
+          "http://www.nationalmission-critical.net/bandwidth/e-markets/technologies",
+          "http://www.corporatematrix.com/target",
+          "http://www.corporatebenchmark.com/mindshare/transform/infrastructures/out-of-the-box",
+          "http://www.corporate24-365.biz/extensible",
+          "http://www.productparadigms.org/matrix/value-added/orchestrate/architect"
+        ],
+        "unit_of_measures": "weeks",
+        "sys_account_project_ref_name": "sys_account_project_one",
+        "sys_account_org_ref_name": "sys_account_org_two"
+      },
+      {
+        "goal": "Sustain railway henry wan tour organise shop pleasure.",
+        "already_pledged": 864,
+        "action_time": {
+          "seconds": -4634687925537202767,
+          "nanos": -496086126
+        },
+        "action_location": "Ortizfort",
+        "min_pioneers": 4565,
+        "min_rebels_media": 1194,
+        "min_rebels_to_win": 1041,
+        "action_length": "14 days",
+        "action_type": "environment",
+        "category": "global_campaign",
+        "contact": "jeremystokes@heidenreich.com",
+        "hist_precedents": "Board brown drug invite comply minister risk happen.",
+        "strategy": "Fear track involve express record film bush kind.",
+        "video_url": [
+          "http://www.forwardsynergies.net/paradigms/unleash/target/scalable",
+          "https://www.forwardincentivize.net/repurpose/synthesize/open-source"
+        ],
+        "unit_of_measures": "months",
+        "sys_account_project_ref_name": "sys_account_project_three",
+        "sys_account_org_ref_name": "sys_account_org_one"
+      }
+    ]
+  }
+}

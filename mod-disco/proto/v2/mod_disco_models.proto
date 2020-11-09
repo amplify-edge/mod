@@ -233,9 +233,9 @@ message ListResponse {
 message NewSurveyProjectRequest {
   // @inject_tag: fake:"skip"
   string sys_account_project_ref_id = 1;
-  // @inject_tag: fakesize:"2"
+  // @inject_tag: fakesize:"1"
   repeated NewSupportRoleType support_role_types = 2;
-  // @inject_tag: fakesize:"2"
+  // @inject_tag: fakesize:"1"
   repeated NewUserNeedsType user_need_types = 3;
   // @inject_tag: fake:"{randomstring:[sys_account_project_one,sys_account_project_two,sys_account_project_three]}"
   string sys_account_project_ref_name = 4;

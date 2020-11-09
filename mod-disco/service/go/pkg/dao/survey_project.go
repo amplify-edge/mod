@@ -35,6 +35,7 @@ func (m *ModDiscoDB) FromPkgSurveyProject(sp *discoRpc.SurveyProject) (*SurveyPr
 	}
 	return &SurveyProject{
 		SurveyProjectId:        surveyProjectId,
+		SurveyProjectName:      sp.SurveyProjectName,
 		SysAccountProjectRefId: sp.SysAccountProjectRefId,
 		CreatedAt:              sp.CreatedAt.Seconds,
 		UpdatedAt:              sp.UpdatedAt.Seconds,
@@ -60,6 +61,7 @@ func (m *ModDiscoDB) ToPkgSurveyProject(sp *SurveyProject) (*discoRpc.SurveyProj
 	}
 	return &discoRpc.SurveyProject{
 		SurveyProjectId:        sp.SurveyProjectId,
+		SurveyProjectName:      sp.SurveyProjectName,
 		SysAccountProjectRefId: sp.SysAccountProjectRefId,
 		SupportRoleTypes:       srts,
 		UserNeedTypes:          unts,
@@ -140,6 +142,7 @@ func (m *ModDiscoDB) ListSurveyProject(filters map[string]interface{}, orderBy s
 func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (*discoRpc.SurveyProject, error) {
 	newPkgSurveyProject := &discoRpc.SurveyProject{
 		SurveyProjectId:        sysCoreSvc.NewID(),
+		SurveyProjectName:      sp.GetSurveyProjectName(),
 		SysAccountProjectRefId: sp.SysAccountProjectRefId,
 		CreatedAt:              timestamppb.Now(),
 		UpdatedAt:              timestamppb.Now(),

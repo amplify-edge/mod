@@ -1772,10 +1772,10 @@ type NewSurveyProjectRequest struct {
 
 	// @inject_tag: fake:"skip"
 	SysAccountProjectRefId string `protobuf:"bytes,1,opt,name=sys_account_project_ref_id,json=sysAccountProjectRefId,proto3" json:"sys_account_project_ref_id,omitempty" fake:"skip"`
-	// @inject_tag: fakesize:"2"
-	SupportRoleTypes []*NewSupportRoleType `protobuf:"bytes,2,rep,name=support_role_types,json=supportRoleTypes,proto3" json:"support_role_types,omitempty" fakesize:"2"`
-	// @inject_tag: fakesize:"2"
-	UserNeedTypes []*NewUserNeedsType `protobuf:"bytes,3,rep,name=user_need_types,json=userNeedTypes,proto3" json:"user_need_types,omitempty" fakesize:"2"`
+	// @inject_tag: fakesize:"1"
+	SupportRoleTypes []*NewSupportRoleType `protobuf:"bytes,2,rep,name=support_role_types,json=supportRoleTypes,proto3" json:"support_role_types,omitempty" fakesize:"1"`
+	// @inject_tag: fakesize:"1"
+	UserNeedTypes []*NewUserNeedsType `protobuf:"bytes,3,rep,name=user_need_types,json=userNeedTypes,proto3" json:"user_need_types,omitempty" fakesize:"1"`
 	// @inject_tag: fake:"{randomstring:[sys_account_project_one,sys_account_project_two,sys_account_project_three]}"
 	SysAccountProjectRefName string `protobuf:"bytes,4,opt,name=sys_account_project_ref_name,json=sysAccountProjectRefName,proto3" json:"sys_account_project_ref_name,omitempty" fake:"{randomstring:[sys_account_project_one,sys_account_project_two,sys_account_project_three]}"`
 	// @inject_tag: fake:"{randomstring:[survey_project_one,survey_project_two,survey_project_three]}"

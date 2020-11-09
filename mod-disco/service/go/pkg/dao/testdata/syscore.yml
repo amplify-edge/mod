@@ -1,3 +1,11 @@
+"mailConfig":
+  "copyright": "SOME_COPYRIGHT_MSG"
+  "logoUrl": "https://via.placeholder.com/500x500?text=YOUR+LOGO+HERE"
+  "productName": "SOME_PRODUCT"
+  "senderMail": "gutterbacon@example.com"
+  "senderName": "gutterbacon"
+  "sendgridApiKey": "BLAHBLAH"
+  "troubleContact": "SOME_TROUBLESHOOT_CONTACT_HERE"
 "sysCoreConfig":
   "cron":
     "backupDir": "./db/backup"
@@ -5,7 +13,7 @@
     "rotateSchedule": "@every 24h"
   "db":
     "dbDir": "./db"
-    "encryptKey": "yYz8Xjb4HBn4irGQpBWulURjQk2XmwES"
-    "name": "discoDao.db"
-    "rotationDuration": 1
     "deletePrevious": true
+    "encryptKey": "yYz8Xjb4HBn4irGQpBWulURjQk2XmwES"
+    "name": "gcn.db"
+    "rotationDuration": 1
