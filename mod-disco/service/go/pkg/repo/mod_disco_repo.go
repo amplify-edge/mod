@@ -11,6 +11,10 @@ import (
 	l "github.com/sirupsen/logrus"
 )
 
+const (
+	moduleName = "mod-disco"
+)
+
 type (
 	ModDiscoRepo struct {
 		store                 *dao.ModDiscoDB

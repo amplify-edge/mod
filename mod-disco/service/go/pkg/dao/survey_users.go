@@ -138,6 +138,7 @@ func (m *ModDiscoDB) ListSurveyUser(filters map[string]interface{}, orderBy stri
 func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*discoRpc.SurveyUser, error) {
 	newPkgSurveyUser := &discoRpc.SurveyUser{
 		SurveyUserId:           sysCoreSvc.NewID(),
+		SurveyUserName:         sp.GetSurveyUserName(),
 		SysAccountAccountRefId: sp.SysAccountUserRefId,
 		SurveyProjectRefId:     sp.SurveyProjectRefId,
 		CreatedAt:              timestamppb.Now(),

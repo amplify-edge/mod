@@ -16,6 +16,10 @@ func (md *ModDiscoRepo) NewSurveyUser(ctx context.Context, in *discoRpc.NewSurve
 	if in == nil {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot insert survey user: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
+	surveyProjectExists := md.surveyProjectExists(in.SurveyProjectRefId, in.SurveyProjectRefName)
+	if !surveyProjectExists {
+		return nil, status.Errorf(codes.InvalidArgument, "no survey project exists with id: %s or name: %s", in.SurveyProjectRefId, in.SurveyProjectRefName)
+	}
 	sp, err := md.store.InsertSurveyUser(in)
 	if err != nil {
 		return nil, err
