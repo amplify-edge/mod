@@ -179,7 +179,7 @@ class SupportRoleValue extends $pb.GeneratedMessage {
     ..aOS(1, 'id')
     ..aOS(2, 'surveyUserRefId')
     ..aOS(3, 'supportRoleTypeRefId')
-    ..aOS(4, 'pledged')
+    ..a<$fixnum.Int64>(4, 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..aOS(5, 'comment')
     ..hasRequiredFields = false
   ;
@@ -227,9 +227,9 @@ class SupportRoleValue extends $pb.GeneratedMessage {
   void clearSupportRoleTypeRefId() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get pledged => $_getSZ(3);
+  $fixnum.Int64 get pledged => $_getI64(3);
   @$pb.TagNumber(4)
-  set pledged($core.String v) { $_setString(3, v); }
+  set pledged($fixnum.Int64 v) { $_setInt64(3, v); }
   @$pb.TagNumber(4)
   $core.bool hasPledged() => $_has(3);
   @$pb.TagNumber(4)
@@ -252,7 +252,7 @@ class NewSupportRoleValue extends $pb.GeneratedMessage {
     ..aOS(3, 'surveyUserRefName')
     ..aOS(4, 'supportRoleTypeRefId')
     ..aOS(5, 'supportRoleTypeRefName')
-    ..aOS(6, 'pledged')
+    ..a<$fixnum.Int64>(6, 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..aOS(7, 'comment')
     ..hasRequiredFields = false
   ;
@@ -318,9 +318,9 @@ class NewSupportRoleValue extends $pb.GeneratedMessage {
   void clearSupportRoleTypeRefName() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.String get pledged => $_getSZ(5);
+  $fixnum.Int64 get pledged => $_getI64(5);
   @$pb.TagNumber(6)
-  set pledged($core.String v) { $_setString(5, v); }
+  set pledged($fixnum.Int64 v) { $_setInt64(5, v); }
   @$pb.TagNumber(6)
   $core.bool hasPledged() => $_has(5);
   @$pb.TagNumber(6)
@@ -504,7 +504,7 @@ class UserNeedsValue extends $pb.GeneratedMessage {
     ..aOS(2, 'surveyUserRefId')
     ..aOS(3, 'userNeedsTypeRefId')
     ..aOS(4, 'comments')
-    ..aOS(5, 'pledged')
+    ..a<$fixnum.Int64>(5, 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
@@ -560,9 +560,9 @@ class UserNeedsValue extends $pb.GeneratedMessage {
   void clearComments() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get pledged => $_getSZ(4);
+  $fixnum.Int64 get pledged => $_getI64(4);
   @$pb.TagNumber(5)
-  set pledged($core.String v) { $_setString(4, v); }
+  set pledged($fixnum.Int64 v) { $_setInt64(4, v); }
   @$pb.TagNumber(5)
   $core.bool hasPledged() => $_has(4);
   @$pb.TagNumber(5)
@@ -576,7 +576,7 @@ class NewUserNeedsValue extends $pb.GeneratedMessage {
     ..aOS(3, 'userNeedsTypeRefId')
     ..aOS(4, 'userNeedsTypeRefName')
     ..aOS(5, 'comments')
-    ..aOS(6, 'pledged')
+    ..a<$fixnum.Int64>(6, 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
@@ -641,9 +641,9 @@ class NewUserNeedsValue extends $pb.GeneratedMessage {
   void clearComments() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.String get pledged => $_getSZ(5);
+  $fixnum.Int64 get pledged => $_getI64(5);
   @$pb.TagNumber(6)
-  set pledged($core.String v) { $_setString(5, v); }
+  set pledged($fixnum.Int64 v) { $_setInt64(5, v); }
   @$pb.TagNumber(6)
   $core.bool hasPledged() => $_has(5);
   @$pb.TagNumber(6)
@@ -654,10 +654,11 @@ class SurveyProject extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('SurveyProject', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
     ..aOS(1, 'surveyProjectId')
     ..aOS(2, 'sysAccountProjectRefId')
-    ..aOM<SupportRoleType>(3, 'supportRoleTypes', subBuilder: SupportRoleType.create)
-    ..aOM<UserNeedsType>(4, 'userNeedTypes', subBuilder: UserNeedsType.create)
+    ..pc<SupportRoleType>(3, 'supportRoleTypes', $pb.PbFieldType.PM, subBuilder: SupportRoleType.create)
+    ..pc<UserNeedsType>(4, 'userNeedTypes', $pb.PbFieldType.PM, subBuilder: UserNeedsType.create)
     ..aOM<$2.Timestamp>(5, 'createdAt', subBuilder: $2.Timestamp.create)
     ..aOM<$2.Timestamp>(6, 'updatedAt', subBuilder: $2.Timestamp.create)
+    ..aOS(7, 'surveyProjectName')
     ..hasRequiredFields = false
   ;
 
@@ -695,26 +696,10 @@ class SurveyProject extends $pb.GeneratedMessage {
   void clearSysAccountProjectRefId() => clearField(2);
 
   @$pb.TagNumber(3)
-  SupportRoleType get supportRoleTypes => $_getN(2);
-  @$pb.TagNumber(3)
-  set supportRoleTypes(SupportRoleType v) { setField(3, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasSupportRoleTypes() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearSupportRoleTypes() => clearField(3);
-  @$pb.TagNumber(3)
-  SupportRoleType ensureSupportRoleTypes() => $_ensure(2);
+  $core.List<SupportRoleType> get supportRoleTypes => $_getList(2);
 
   @$pb.TagNumber(4)
-  UserNeedsType get userNeedTypes => $_getN(3);
-  @$pb.TagNumber(4)
-  set userNeedTypes(UserNeedsType v) { setField(4, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasUserNeedTypes() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearUserNeedTypes() => clearField(4);
-  @$pb.TagNumber(4)
-  UserNeedsType ensureUserNeedTypes() => $_ensure(3);
+  $core.List<UserNeedsType> get userNeedTypes => $_getList(3);
 
   @$pb.TagNumber(5)
   $2.Timestamp get createdAt => $_getN(4);
@@ -737,6 +722,15 @@ class SurveyProject extends $pb.GeneratedMessage {
   void clearUpdatedAt() => clearField(6);
   @$pb.TagNumber(6)
   $2.Timestamp ensureUpdatedAt() => $_ensure(5);
+
+  @$pb.TagNumber(7)
+  $core.String get surveyProjectName => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set surveyProjectName($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasSurveyProjectName() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearSurveyProjectName() => clearField(7);
 }
 
 class SurveyUser extends $pb.GeneratedMessage {
@@ -744,10 +738,12 @@ class SurveyUser extends $pb.GeneratedMessage {
     ..aOS(1, 'surveyUserId')
     ..aOS(2, 'surveyProjectRefId')
     ..aOS(3, 'sysAccountAccountRefId')
-    ..aOM<SupportRoleValue>(4, 'supportRoleValues', subBuilder: SupportRoleValue.create)
-    ..aOM<UserNeedsValue>(5, 'userNeedValues', subBuilder: UserNeedsValue.create)
+    ..pc<SupportRoleValue>(4, 'supportRoleValues', $pb.PbFieldType.PM, subBuilder: SupportRoleValue.create)
+    ..pc<UserNeedsValue>(5, 'userNeedValues', $pb.PbFieldType.PM, subBuilder: UserNeedsValue.create)
     ..aOM<$2.Timestamp>(6, 'createdAt', subBuilder: $2.Timestamp.create)
     ..aOM<$2.Timestamp>(7, 'updatedAt', subBuilder: $2.Timestamp.create)
+    ..aOS(8, 'surveyProjectRefName')
+    ..aOS(9, 'surveyUserName')
     ..hasRequiredFields = false
   ;
 
@@ -794,26 +790,10 @@ class SurveyUser extends $pb.GeneratedMessage {
   void clearSysAccountAccountRefId() => clearField(3);
 
   @$pb.TagNumber(4)
-  SupportRoleValue get supportRoleValues => $_getN(3);
-  @$pb.TagNumber(4)
-  set supportRoleValues(SupportRoleValue v) { setField(4, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasSupportRoleValues() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearSupportRoleValues() => clearField(4);
-  @$pb.TagNumber(4)
-  SupportRoleValue ensureSupportRoleValues() => $_ensure(3);
+  $core.List<SupportRoleValue> get supportRoleValues => $_getList(3);
 
   @$pb.TagNumber(5)
-  UserNeedsValue get userNeedValues => $_getN(4);
-  @$pb.TagNumber(5)
-  set userNeedValues(UserNeedsValue v) { setField(5, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasUserNeedValues() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearUserNeedValues() => clearField(5);
-  @$pb.TagNumber(5)
-  UserNeedsValue ensureUserNeedValues() => $_ensure(4);
+  $core.List<UserNeedsValue> get userNeedValues => $_getList(4);
 
   @$pb.TagNumber(6)
   $2.Timestamp get createdAt => $_getN(5);
@@ -836,6 +816,24 @@ class SurveyUser extends $pb.GeneratedMessage {
   void clearUpdatedAt() => clearField(7);
   @$pb.TagNumber(7)
   $2.Timestamp ensureUpdatedAt() => $_ensure(6);
+
+  @$pb.TagNumber(8)
+  $core.String get surveyProjectRefName => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set surveyProjectRefName($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasSurveyProjectRefName() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearSurveyProjectRefName() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.String get surveyUserName => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set surveyUserName($core.String v) { $_setString(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasSurveyUserName() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearSurveyUserName() => clearField(9);
 }
 
 class DiscoProject extends $pb.GeneratedMessage {
@@ -1661,6 +1659,8 @@ class NewSurveyProjectRequest extends $pb.GeneratedMessage {
     ..aOS(1, 'sysAccountProjectRefId')
     ..pc<NewSupportRoleType>(2, 'supportRoleTypes', $pb.PbFieldType.PM, subBuilder: NewSupportRoleType.create)
     ..pc<NewUserNeedsType>(3, 'userNeedTypes', $pb.PbFieldType.PM, subBuilder: NewUserNeedsType.create)
+    ..aOS(4, 'sysAccountProjectRefName')
+    ..aOS(5, 'surveyProjectName')
     ..hasRequiredFields = false
   ;
 
@@ -1693,6 +1693,24 @@ class NewSurveyProjectRequest extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(3)
   $core.List<NewUserNeedsType> get userNeedTypes => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.String get sysAccountProjectRefName => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set sysAccountProjectRefName($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasSysAccountProjectRefName() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearSysAccountProjectRefName() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get surveyProjectName => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set surveyProjectName($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasSurveyProjectName() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearSurveyProjectName() => clearField(5);
 }
 
 class NewSurveyUserRequest extends $pb.GeneratedMessage {
@@ -1701,6 +1719,9 @@ class NewSurveyUserRequest extends $pb.GeneratedMessage {
     ..aOS(2, 'sysAccountUserRefId')
     ..pc<NewSupportRoleValue>(3, 'supportRoleValues', $pb.PbFieldType.PM, subBuilder: NewSupportRoleValue.create)
     ..pc<NewUserNeedsValue>(4, 'userNeedValues', $pb.PbFieldType.PM, subBuilder: NewUserNeedsValue.create)
+    ..aOS(5, 'surveyProjectRefName')
+    ..aOS(6, 'sysAccountUserRefName')
+    ..aOS(7, 'surveyUserName')
     ..hasRequiredFields = false
   ;
 
@@ -1742,6 +1763,33 @@ class NewSurveyUserRequest extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(4)
   $core.List<NewUserNeedsValue> get userNeedValues => $_getList(3);
+
+  @$pb.TagNumber(5)
+  $core.String get surveyProjectRefName => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set surveyProjectRefName($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasSurveyProjectRefName() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearSurveyProjectRefName() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get sysAccountUserRefName => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set sysAccountUserRefName($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasSysAccountUserRefName() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearSysAccountUserRefName() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get surveyUserName => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set surveyUserName($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasSurveyUserName() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearSurveyUserName() => clearField(7);
 }
 
 class UpdateSurveyProjectRequest extends $pb.GeneratedMessage {

@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-11-07T18:48:33.984332",
+  "@@last_modified": "2020-11-09T13:54:47.167179",
   "country": "ملک",
   "@country": {
     "description": "Country",
@@ -156,7 +156,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "باغیوں کو جیتنے کی ضرورت تھی",
+  "rebelsWin": "باغیوں کو جیتنے کی ضرورت ہے",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
@@ -222,7 +222,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "provideSupportRole": "اگر ہم آپ کے منتخب کردہ شرائط کو پورا نہیں کرسکتے ہیں ، تو کیا آپ ہڑتال پر جانے کے خواہشمند افراد کو مدد فراہم کرنے پر غور کریں گے؟",
+  "provideSupportRole": "اگر ہم آپ کے منتخب کردہ شرائط کو پورا نہیں کرسکتے ہیں ، تو کیا آپ ہڑتال پر جانے کے خواہشمند افراد کو معاون کردار فراہم کرنے پر غور کریں گے؟",
   "@provideSupportRole": {
     "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
     "placeholders": {},

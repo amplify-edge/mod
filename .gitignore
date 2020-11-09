@@ -8,3 +8,5 @@ db
 /mod-disco/config/
 /mod-disco/db/
 /example/
+/mod-disco/service/go/pkg/fakedata/fdata
+/mod-disco/service/go/pkg/fakedata/bs-mod-disco.json

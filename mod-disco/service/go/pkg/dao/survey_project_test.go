@@ -16,7 +16,16 @@ var (
 	newSurveyProjects = []*discoRpc.NewSurveyProjectRequest{
 		{
 			SysAccountProjectRefId: project1ID,
-			SupportRoleTypes:       [][]byte{},
+			SupportRoleTypes:       []*discoRpc.NewSupportRoleType{
+				{
+					SurveyProjectRefId:   "",
+					SurveyProjectRefName: "",
+					Name:                 "",
+					Comment:              "",
+					Description:          "",
+					UnitOfMeasures:       "",
+				},
+			},
 			UserNeedTypes:          [][]byte{},
 		},
 		{

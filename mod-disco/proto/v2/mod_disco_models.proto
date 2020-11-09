@@ -15,11 +15,17 @@ message SupportRoleType {
 }
 
 message NewSupportRoleType {
+  // @inject_tag: fake:"skip"
   string survey_project_ref_id = 1;
+  // @inject_tag: fake:"{randomstring:[survey_project_one,survey_project_two,survey_project_three]}"
   string survey_project_ref_name = 2;
+  // @inject_tag: fake:"{randomstring:[srt_one,srt_two,srt_three]}"
   string name = 3;
+  // @inject_tag: fake:"{sentence:8}"
   string comment = 4;
+  // @inject_tag: fake:"{sentence:4}"
   string description = 5;
+  // @inject_tag: fake:"{randomstring:[days,weeks,months]}"
   string unit_of_measures = 6;
 }
 
@@ -27,17 +33,24 @@ message SupportRoleValue {
   string id = 1;
   string survey_user_ref_id = 2;
   string support_role_type_ref_id = 3;
-  string pledged = 4;
+  uint64 pledged = 4;
   string comment = 5;
 }
 
 message NewSupportRoleValue {
+  // @inject_tag: fake:"skip"
   string id = 1;
+  // @inject_tag: fake:"skip"
   string survey_user_ref_id = 2;
+  // @inject_tag: fake:"{randomstring:[survey_user_one,survey_user_two,survey_user_three]}"
   string survey_user_ref_name = 3;
+  // @inject_tag: fake:"skip"
   string support_role_type_ref_id = 4;
+  // @inject_tag: fake:"{randomstring:[srt_one,srt_two,srt_three}"
   string support_role_type_ref_name = 5;
-  string pledged = 6;
+  // @inject_tag: fake:"{number:1,100}"
+  uint64 pledged = 6;
+  // @inject_tag: fake:"{sentence:8}"
   string comment = 7;
 }
 
@@ -51,11 +64,17 @@ message UserNeedsType {
 }
 
 message NewUserNeedsType {
+  // @inject_tag: fake:"skip"
   string id = 1;
+  // @inject_tag: fake:"skip"
   string survey_project_ref_id = 2;
+  // @inject_tag: fake:"{randomstring:[unt_one,unt_two,unt_three]}"
   string name = 3;
+  // @inject_tag: fake:"{sentence:4}"
   string comment = 4;
+  // @inject_tag: fake:"{sentence:4}"
   string description = 5;
+  // @inject_tag: fake:"{randomstring:[days,weeks,months]}"
   string unit_of_measures = 6;
 }
 
@@ -64,35 +83,44 @@ message UserNeedsValue {
   string survey_user_ref_id = 2;
   string user_needs_type_ref_id = 3;
   string comments = 4;
-  string pledged = 5;
+  uint64 pledged = 5;
 }
 
 message NewUserNeedsValue {
+  // @inject_tag: fake:"{randomstring:[survey_user_one,survey_user_two,survey_user_three]}"
   string survey_user_ref_name = 1;
+  // @inject_tag: fake:"skip"
   string survey_user_ref_id = 2;
+  // @inject_tag: fake:"skip"
   string user_needs_type_ref_id = 3;
+  // @inject_tag: fake:"{randomstring:[unt_one,unt_two,unt_three]}"
   string user_needs_type_ref_name = 4;
+  // @inject_tag: fake:"{sentence:4}"
   string comments = 5;
-  string pledged = 6;
+  // @inject_tag: fake:"{number:1,100}"
+  uint64 pledged = 6;
 }
 
 message SurveyProject {
   string survey_project_id = 1;
   string sys_account_project_ref_id = 2;
-  SupportRoleType support_role_types = 3;
-  UserNeedsType user_need_types = 4; // SurveyFilterType in JSON format
+  repeated SupportRoleType support_role_types = 3;
+  repeated UserNeedsType user_need_types = 4; // SurveyFilterType in JSON format
   google.protobuf.Timestamp created_at = 5;
   google.protobuf.Timestamp updated_at = 6;
+  string survey_project_name = 7;
 }
 
 message SurveyUser {
   string survey_user_id = 1;
   string survey_project_ref_id = 2;
   string sys_account_account_ref_id = 3;
-  SupportRoleValue support_role_values = 4;
-  UserNeedsValue user_need_values = 5; // serialized to strongly typed stuff in DB
+  repeated SupportRoleValue support_role_values = 4;
+  repeated UserNeedsValue user_need_values = 5; // serialized to strongly typed stuff in DB
   google.protobuf.Timestamp created_at = 6;
   google.protobuf.Timestamp updated_at = 7;
+  string survey_project_ref_name = 8;
+  string survey_user_name = 9;
 }
 
 message DiscoProject {
@@ -119,24 +147,42 @@ message DiscoProject {
 }
 
 message NewDiscoProjectRequest {
+  // @inject_tag: fake:"skip"
   string sys_account_project_ref_id = 1; // account project id
+  // @inject_tag: fake:"skip"
   string sys_account_org_ref_id = 2; // account org id
+  // @inject_tag: fake:"{sentence:8}"
   string goal = 3;
+  // @inject_tag: fake:"{number:1,1000}"
   uint64 already_pledged = 4;
   google.protobuf.Timestamp action_time = 5;
+  // @inject_tag: fake:"{city}"
   string action_location = 6;
+  // @inject_tag: fake:"{number:1000,10000}"
   uint64 min_pioneers = 7;
+  // @inject_tag: fake:"{number:1000,1500}"
   uint64 min_rebels_media = 8;
+  // @inject_tag: fake:"{number:1000,1500}"
   uint64 min_rebels_to_win = 9;
+  // @inject_tag: fake:"{randomstring:[14 days, 13 weeks, 12 months]}"
   string action_length = 10;
+  // @inject_tag: fake:"{randomstring:[environment,global_campaign,poverty]}"
   string action_type = 11;
+  // @inject_tag: fake:"{randomstring:[environment,global_campaign,poverty]}"
   string category = 12;
+  // @inject_tag: fake:"{email}"
   string contact = 13;
+  // @inject_tag: fake:"{sentence:8}"
   string hist_precedents = 14;
+  // @inject_tag: fake:"{sentence:8}"
   string strategy = 15;
+  // @inject_tag: fake:"{url}"
   repeated string video_url = 16;
+  // @inject_tag: fake:"{randomstring:[days,weeks,months]}"
   string unit_of_measures = 17;
+  // @inject_tag: fake:"{randomstring:[sys_account_project_one,sys_account_project_two,sys_account_project_three]}"
   string sys_account_project_ref_name = 18;
+  // @inject_tag: fake:"{randomstring:[sys_account_org_one,sys_account_org_two,sys_account_org_three]}"
   string sys_account_org_ref_name = 19;
 }
 
@@ -185,19 +231,33 @@ message ListResponse {
 }
 
 message NewSurveyProjectRequest {
+  // @inject_tag: fake:"skip"
   string sys_account_project_ref_id = 1;
+  // @inject_tag: fakesize:"2"
   repeated NewSupportRoleType support_role_types = 2;
+  // @inject_tag: fakesize:"2"
   repeated NewUserNeedsType user_need_types = 3;
+  // @inject_tag: fake:"{randomstring:[sys_account_project_one,sys_account_project_two,sys_account_project_three]}"
   string sys_account_project_ref_name = 4;
+  // @inject_tag: fake:"{randomstring:[survey_project_one,survey_project_two,survey_project_three]}"
+  string survey_project_name = 5;
 }
 
 message NewSurveyUserRequest {
+  // @inject_tag: fake:"skip"
   string survey_project_ref_id = 1;
+  // @inject_tag: fake:"skip"
   string sys_account_user_ref_id = 2;
+  // @inject_tag: fakesize:"2"
   repeated NewSupportRoleValue support_role_values = 3;
+  // @inject_tag: fakesize:"2"
   repeated NewUserNeedsValue user_need_values = 4;
+  // @inject_tag: fake:"{randomstring:[survey_project_one,survey_project_two,survey_project_three]}"
   string survey_project_ref_name = 5;
+  // @inject_tag: fake:"{email}"
   string sys_account_user_ref_name = 6;
+  // @inject_tag: fake:"{randomstring:[survey_user_one,survey_user_two,survey_user_three]}"
+  string survey_user_name = 7;
 }
 
 message UpdateSurveyProjectRequest {

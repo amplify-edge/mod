@@ -77,7 +77,9 @@ func _SurveyServiceNewSurveyProjectCommand(cfg *client.Config) *cobra.Command {
 		},
 	}
 
-	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefId, cfg.FlagNamer("SysAccountProjectRefId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefId, cfg.FlagNamer("SysAccountProjectRefId"), "", "@inject_tag: fake:\"skip\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefName, cfg.FlagNamer("SysAccountProjectRefName"), "", "@inject_tag: fake:\"{randomstring:[sys_account_project_one,sys_account_project_two,sys_account_project_three]}\"")
+	cmd.PersistentFlags().StringVar(&req.SurveyProjectName, cfg.FlagNamer("SurveyProjectName"), "", "@inject_tag: fake:\"{randomstring:[survey_project_one,survey_project_two,survey_project_three]}\"")
 
 	return cmd
 }
@@ -309,8 +311,11 @@ func _SurveyServiceNewSurveyUserCommand(cfg *client.Config) *cobra.Command {
 		},
 	}
 
-	cmd.PersistentFlags().StringVar(&req.SurveyProjectRefId, cfg.FlagNamer("SurveyProjectRefId"), "", "")
-	cmd.PersistentFlags().StringVar(&req.SysAccountUserRefId, cfg.FlagNamer("SysAccountUserRefId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SurveyProjectRefId, cfg.FlagNamer("SurveyProjectRefId"), "", "@inject_tag: fake:\"skip\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountUserRefId, cfg.FlagNamer("SysAccountUserRefId"), "", "@inject_tag: fake:\"skip\"")
+	cmd.PersistentFlags().StringVar(&req.SurveyProjectRefName, cfg.FlagNamer("SurveyProjectRefName"), "", "@inject_tag: fake:\"{randomstring:[survey_project_one,survey_project_two,survey_project_three]}\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountUserRefName, cfg.FlagNamer("SysAccountUserRefName"), "", "@inject_tag: fake:\"{email}\"")
+	cmd.PersistentFlags().StringVar(&req.SurveyUserName, cfg.FlagNamer("SurveyUserName"), "", "@inject_tag: fake:\"{randomstring:[survey_user_one,survey_user_two,survey_user_three]}\"")
 
 	return cmd
 }
@@ -544,26 +549,26 @@ func _SurveyServiceNewDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 		},
 	}
 
-	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefId, cfg.FlagNamer("SysAccountProjectRefId"), "", "")
-	cmd.PersistentFlags().StringVar(&req.SysAccountOrgRefId, cfg.FlagNamer("SysAccountOrgRefId"), "", "")
-	cmd.PersistentFlags().StringVar(&req.Goal, cfg.FlagNamer("Goal"), "", "")
-	cmd.PersistentFlags().Uint64Var(&req.AlreadyPledged, cfg.FlagNamer("AlreadyPledged"), 0, "")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefId, cfg.FlagNamer("SysAccountProjectRefId"), "", "@inject_tag: fake:\"skip\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountOrgRefId, cfg.FlagNamer("SysAccountOrgRefId"), "", "@inject_tag: fake:\"skip\"")
+	cmd.PersistentFlags().StringVar(&req.Goal, cfg.FlagNamer("Goal"), "", "@inject_tag: fake:\"{sentence:8}\"")
+	cmd.PersistentFlags().Uint64Var(&req.AlreadyPledged, cfg.FlagNamer("AlreadyPledged"), 0, "@inject_tag: fake:\"{number:1,1000}\"")
 	cmd.PersistentFlags().Int64Var(&req.ActionTime.Seconds, cfg.FlagNamer("ActionTime Seconds"), 0, "Represents seconds of UTC time since Unix epoch\n 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to\n 9999-12-31T23:59:59Z inclusive.")
 	cmd.PersistentFlags().Int32Var(&req.ActionTime.Nanos, cfg.FlagNamer("ActionTime Nanos"), 0, "Non-negative fractions of a second at nanosecond resolution. Negative\n second values with fractions must still have non-negative nanos values\n that count forward in time. Must be from 0 to 999,999,999\n inclusive.")
-	cmd.PersistentFlags().StringVar(&req.ActionLocation, cfg.FlagNamer("ActionLocation"), "", "")
-	cmd.PersistentFlags().Uint64Var(&req.MinPioneers, cfg.FlagNamer("MinPioneers"), 0, "")
-	cmd.PersistentFlags().Uint64Var(&req.MinRebelsMedia, cfg.FlagNamer("MinRebelsMedia"), 0, "")
-	cmd.PersistentFlags().Uint64Var(&req.MinRebelsToWin, cfg.FlagNamer("MinRebelsToWin"), 0, "")
-	cmd.PersistentFlags().StringVar(&req.ActionLength, cfg.FlagNamer("ActionLength"), "", "")
-	cmd.PersistentFlags().StringVar(&req.ActionType, cfg.FlagNamer("ActionType"), "", "")
-	cmd.PersistentFlags().StringVar(&req.Category, cfg.FlagNamer("Category"), "", "")
-	cmd.PersistentFlags().StringVar(&req.Contact, cfg.FlagNamer("Contact"), "", "")
-	cmd.PersistentFlags().StringVar(&req.HistPrecedents, cfg.FlagNamer("HistPrecedents"), "", "")
-	cmd.PersistentFlags().StringVar(&req.Strategy, cfg.FlagNamer("Strategy"), "", "")
-	cmd.PersistentFlags().StringSliceVar(&req.VideoUrl, cfg.FlagNamer("VideoUrl"), nil, "")
-	cmd.PersistentFlags().StringVar(&req.UnitOfMeasures, cfg.FlagNamer("UnitOfMeasures"), "", "")
-	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefName, cfg.FlagNamer("SysAccountProjectRefName"), "", "")
-	cmd.PersistentFlags().StringVar(&req.SysAccountOrgRefName, cfg.FlagNamer("SysAccountOrgRefName"), "", "")
+	cmd.PersistentFlags().StringVar(&req.ActionLocation, cfg.FlagNamer("ActionLocation"), "", "@inject_tag: fake:\"{city}\"")
+	cmd.PersistentFlags().Uint64Var(&req.MinPioneers, cfg.FlagNamer("MinPioneers"), 0, "@inject_tag: fake:\"{number:1000,10000}\"")
+	cmd.PersistentFlags().Uint64Var(&req.MinRebelsMedia, cfg.FlagNamer("MinRebelsMedia"), 0, "@inject_tag: fake:\"{number:1000,1500}\"")
+	cmd.PersistentFlags().Uint64Var(&req.MinRebelsToWin, cfg.FlagNamer("MinRebelsToWin"), 0, "@inject_tag: fake:\"{number:1000,1500}\"")
+	cmd.PersistentFlags().StringVar(&req.ActionLength, cfg.FlagNamer("ActionLength"), "", "@inject_tag: fake:\"{randomstring:[14 days, 13 weeks, 12 months]}\"")
+	cmd.PersistentFlags().StringVar(&req.ActionType, cfg.FlagNamer("ActionType"), "", "@inject_tag: fake:\"{randomstring:[environment,global_campaign,poverty]}\"")
+	cmd.PersistentFlags().StringVar(&req.Category, cfg.FlagNamer("Category"), "", "@inject_tag: fake:\"{randomstring:[environment,global_campaign,poverty]}\"")
+	cmd.PersistentFlags().StringVar(&req.Contact, cfg.FlagNamer("Contact"), "", "@inject_tag: fake:\"{email}\"")
+	cmd.PersistentFlags().StringVar(&req.HistPrecedents, cfg.FlagNamer("HistPrecedents"), "", "@inject_tag: fake:\"{sentence:8}\"")
+	cmd.PersistentFlags().StringVar(&req.Strategy, cfg.FlagNamer("Strategy"), "", "@inject_tag: fake:\"{sentence:8}\"")
+	cmd.PersistentFlags().StringSliceVar(&req.VideoUrl, cfg.FlagNamer("VideoUrl"), nil, "@inject_tag: fake:\"{url}\"")
+	cmd.PersistentFlags().StringVar(&req.UnitOfMeasures, cfg.FlagNamer("UnitOfMeasures"), "", "@inject_tag: fake:\"{randomstring:[days,weeks,months]}\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefName, cfg.FlagNamer("SysAccountProjectRefName"), "", "@inject_tag: fake:\"{randomstring:[sys_account_project_one,sys_account_project_two,sys_account_project_three]}\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountOrgRefName, cfg.FlagNamer("SysAccountOrgRefName"), "", "@inject_tag: fake:\"{randomstring:[sys_account_org_one,sys_account_org_two,sys_account_org_three]}\"")
 
 	return cmd
 }

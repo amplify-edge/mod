@@ -1,12 +1,13 @@
 package dao_test
 
 import (
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
-	corecfg "github.com/getcouragenow/sys/sys-core/service/go"
-	coresvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
+	corecfg "github.com/getcouragenow/sys/sys-core/service/go"
+	coresvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
 var (
@@ -30,7 +31,7 @@ func init() {
 	}
 	logger := log.New().WithField("test", "mod-disco")
 	logger.Level = log.DebugLevel
-	testDb, err = coresvc.NewCoreDB(logger, csc, nil)
+	testDb, err = coresvc.NewCoreDB(logger, &csc.SysCoreConfig, nil)
 	if err != nil {
 		log.Fatalf("error creating CoreDB: %v", err)
 	}

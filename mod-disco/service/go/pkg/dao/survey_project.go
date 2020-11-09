@@ -4,25 +4,28 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
-	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/segmentio/encoding/json"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/protobuf/types/known/timestamppb"
+
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
+	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
 type SurveyProject struct {
 	SurveyProjectId        string `json:"surveyProjectId" genji:"survey_project_id"`
+	SurveyProjectName      string `json:"surveyProjectName" genji:"survey_project_name"`
 	SysAccountProjectRefId string `json:"sysAccountProjectRefId" genji:"sys_account_project_ref_id"`
 	CreatedAt              int64  `json:"createdAt" genji:"created_at"`
 	UpdatedAt              int64  `json:"updatedAt" genji:"updated_at"`
 }
 
 var (
-	surveyProjectUniqueIndex = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_sys_account_ref ON %s(sys_account_project_ref_id)", SurveyProjectTableName, SurveyProjectTableName)
+	surveyProjectUniqueIndex   = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_sys_account_ref ON %s(sys_account_project_ref_id)", SurveyProjectTableName, SurveyProjectTableName)
+	surveyProjectNameUniqueIdx = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_name ON %s(survey_project_name)", SurveyProjectTableName, SurveyProjectTableName)
 )
 
 func (m *ModDiscoDB) FromPkgSurveyProject(sp *discoRpc.SurveyProject) (*SurveyProject, error) {
@@ -43,23 +46,23 @@ func (m *ModDiscoDB) ToPkgSurveyProject(sp *SurveyProject) (*discoRpc.SurveyProj
 	if err != nil {
 		return nil, err
 	}
-	supportRoleTypesByte, err := sysCoreSvc.MarshalToBytes(supportRoleTypes)
-	if err != nil {
-		return nil, err
+	var srts []*discoRpc.SupportRoleType
+	for _, srt := range supportRoleTypes {
+		srts = append(srts, srt.ToProto())
 	}
+	var unts []*discoRpc.UserNeedsType
 	userNeedTypes, err := m.ListUserNeedsType(map[string]interface{}{"survey_project_ref_id": sp.SurveyProjectId})
 	if err != nil {
 		return nil, err
 	}
-	userNeedTypesByte, err := sysCoreSvc.MarshalToBytes(userNeedTypes)
-	if err != nil {
-		return nil, err
+	for _, unt := range userNeedTypes {
+		unts = append(unts, unt.ToProto())
 	}
 	return &discoRpc.SurveyProject{
 		SurveyProjectId:        sp.SurveyProjectId,
 		SysAccountProjectRefId: sp.SysAccountProjectRefId,
-		SupportRoleTypes:       supportRoleTypesByte,
-		UserNeedTypes:          userNeedTypesByte,
+		SupportRoleTypes:       srts,
+		UserNeedTypes:          unts,
 		CreatedAt:              sharedConfig.UnixToUtcTS(sp.CreatedAt),
 		UpdatedAt:              sharedConfig.UnixToUtcTS(sp.UpdatedAt),
 	}, nil
@@ -67,7 +70,7 @@ func (m *ModDiscoDB) ToPkgSurveyProject(sp *SurveyProject) (*discoRpc.SurveyProj
 
 func (sp SurveyProject) CreateSQL() []string {
 	fields := sysCoreSvc.GetStructTags(sp)
-	tbl := sysCoreSvc.NewTable(SurveyProjectTableName, fields, []string{surveyProjectUniqueIndex})
+	tbl := sysCoreSvc.NewTable(SurveyProjectTableName, fields, []string{surveyProjectUniqueIndex, surveyProjectNameUniqueIdx})
 	return tbl.CreateTable()
 }
 
@@ -170,12 +173,8 @@ func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (
 
 	if sp.GetSupportRoleTypes() != nil && len(sp.GetSupportRoleTypes()) != 0 {
 		for _, srv := range sp.GetSupportRoleTypes() {
-			var s SupportRoleValue
-			if err := json.Unmarshal(srv, &s); err != nil {
-				return nil, err
-			}
-			supportRoleValue := NewSupportRoleValue(s.Id, s.SurveyUserRefId, s.SupportRoleTypeRefId, s.Comment, s.Pledged)
-			if err := m.InsertSupportRoleValue(supportRoleValue); err != nil {
+			srv.SurveyProjectRefId = sproj.SurveyProjectId
+			if err = m.InsertFromNewSupportRoleType(srv); err != nil {
 				return nil, err
 			}
 		}
@@ -183,12 +182,8 @@ func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (
 
 	if sp.GetUserNeedTypes() != nil && len(sp.GetUserNeedTypes()) != 0 {
 		for _, srv := range sp.GetUserNeedTypes() {
-			var u UserNeedsType
-			if err := json.Unmarshal(srv, &u); err != nil {
-				return nil, err
-			}
-			userNeedsType := NewUserNeedsType(u.Id, u.SurveyProjectRefId, u.Name, u.Comment, u.Description, u.UnitOfMeasures)
-			if err := m.InsertUserNeedsType(userNeedsType); err != nil {
+			srv.SurveyProjectRefId = sproj.SurveyProjectId
+			if err = m.InsertFromNewUserNeedsType(srv); err != nil {
 				return nil, err
 			}
 		}
@@ -219,7 +214,11 @@ func (m *ModDiscoDB) UpdateSurveyProject(usp *discoRpc.UpdateSurveyProjectReques
 		for _, srv := range usp.GetSupportRoleTypes() {
 			var s SupportRoleType
 			m.log.Warnf("SupportRoleType from Update: %v", s)
-			if err := json.Unmarshal(srv, &s); err != nil {
+			srvBytes, err := sysCoreSvc.MarshalToBytes(srv)
+			if err != nil {
+				return err
+			}
+			if err := json.Unmarshal(srvBytes, &s); err != nil {
 				return err
 			}
 			actualSrv, err := m.GetSupportRoleType(s.Id)
@@ -244,7 +243,11 @@ func (m *ModDiscoDB) UpdateSurveyProject(usp *discoRpc.UpdateSurveyProjectReques
 	if usp.GetUserNeedTypes() != nil && len(usp.GetUserNeedTypes()) != 0 {
 		for _, srv := range usp.GetUserNeedTypes() {
 			var u UserNeedsType
-			if err := json.Unmarshal(srv, &u); err != nil {
+			untBytes, err := sysCoreSvc.MarshalToBytes(srv)
+			if err != nil {
+				return err
+			}
+			if err := json.Unmarshal(untBytes, &u); err != nil {
 				return err
 			}
 			actualUnv, err := m.GetUserNeedsType(u.Id)

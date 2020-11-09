@@ -4,6 +4,7 @@ go 1.15
 
 require (
 	github.com/Masterminds/squirrel v1.4.0
+	github.com/brianvoe/gofakeit/v5 v5.9.3
 	github.com/genjidb/genji v0.8.0
 	github.com/getcouragenow/protoc-gen-cobra v0.3.1-0.20201005114840-ccc8cd57bcdc
 	github.com/getcouragenow/sys v0.0.0-20201102153848-4460bc43174f

@@ -4,6 +4,8 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
+
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
@@ -33,6 +35,33 @@ func NewUserNeedsType(id, surveyProjectId, name, comment, desc, uom string) *Use
 		Description:        desc,
 		UnitOfMeasures:     uom,
 	}
+}
+
+func (s *UserNeedsType) ToProto() *discoRpc.UserNeedsType {
+	return &discoRpc.UserNeedsType{
+		Id:                 s.Id,
+		SurveyProjectRefId: s.SurveyProjectRefId,
+		Name:               s.Name,
+		Comment:            s.Comment,
+		Description:        s.Description,
+		UnitOfMeasures:     s.UnitOfMeasures,
+	}
+}
+
+func (m *ModDiscoDB) InsertFromNewUserNeedsType(in *discoRpc.NewUserNeedsType) error {
+	nunt := &UserNeedsType{
+		Id:                 sysCoreSvc.NewID(),
+		SurveyProjectRefId: in.GetSurveyProjectRefId(),
+		Name:               in.GetName(),
+		Comment:            in.GetComment(),
+		Description:        in.GetDescription(),
+		UnitOfMeasures:     in.GetUnitOfMeasures(),
+	}
+	err := m.InsertUserNeedsType(nunt)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s UserNeedsType) CreateSQL() []string {

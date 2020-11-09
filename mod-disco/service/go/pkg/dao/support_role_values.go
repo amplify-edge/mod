@@ -4,6 +4,8 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
+
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
@@ -27,6 +29,31 @@ func NewSupportRoleValue(id, surveyUserRefId, supportRoleTypeRefId, comment stri
 		Comment:              comment,
 		Pledged:              pledged,
 	}
+}
+
+func (s *SupportRoleValue) ToProto() *discoRpc.SupportRoleValue {
+	return &discoRpc.SupportRoleValue{
+		Id:                   s.Id,
+		SurveyUserRefId:      s.SurveyUserRefId,
+		SupportRoleTypeRefId: s.SupportRoleTypeRefId,
+		Pledged:              s.Pledged,
+		Comment:              s.Comment,
+	}
+}
+
+func (m *ModDiscoDB) InsertFromNewSupportRoleValue(in *discoRpc.NewSupportRoleValue) error {
+	nsprt := &SupportRoleValue{
+		Id:                   sysCoreSvc.NewID(),
+		SurveyUserRefId:      in.GetSurveyUserRefId(),
+		SupportRoleTypeRefId: in.GetSupportRoleTypeRefId(),
+		Pledged:              in.GetPledged(),
+		Comment:              in.GetComment(),
+	}
+	err := m.InsertSupportRoleValue(nsprt)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s SupportRoleValue) CreateSQL() []string {
