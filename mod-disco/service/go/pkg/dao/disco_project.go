@@ -35,13 +35,16 @@ type DiscoProject struct {
 
 var (
 	discoProjectUniqueKey1 = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_sys_account_ref ON %s(sys_account_project_ref_id)", DiscoProjectTableName, DiscoProjectTableName)
-	discoProjectUniqueKey2 = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_sys_account_ref ON %s(sys_account_org_ref_id)", DiscoProjectTableName, DiscoProjectTableName)
 )
 
 func (m *ModDiscoDB) FromPkgDiscoProject(dp *discoRpc.DiscoProject) (*DiscoProject, error) {
 	projectId := dp.ProjectId
 	if projectId == "" {
 		projectId = sysCoreSvc.NewID()
+	}
+	vidUrl := []string{}
+	if dp.GetVideoUrl() == nil {
+		dp.VideoUrl = vidUrl
 	}
 	return &DiscoProject{
 		ProjectId:              projectId,
@@ -68,6 +71,10 @@ func (m *ModDiscoDB) FromPkgDiscoProject(dp *discoRpc.DiscoProject) (*DiscoProje
 }
 
 func (m *ModDiscoDB) FromNewPkgDiscoProject(dp *discoRpc.NewDiscoProjectRequest) (*DiscoProject, error) {
+	vidUrl := []string{}
+	if dp.GetVideoUrl() == nil {
+		dp.VideoUrl = vidUrl
+	}
 	return &DiscoProject{
 		ProjectId:              sysCoreSvc.NewID(),
 		SysAccountProjectRefId: dp.SysAccountProjectRefId,
@@ -119,7 +126,7 @@ func (dp *DiscoProject) ToPkgDiscoProject() (*discoRpc.DiscoProject, error) {
 
 func (dp DiscoProject) CreateSQL() []string {
 	fields := sysCoreSvc.GetStructTags(dp)
-	tbl := sysCoreSvc.NewTable(DiscoProjectTableName, fields, []string{discoProjectUniqueKey1, discoProjectUniqueKey2})
+	tbl := sysCoreSvc.NewTable(DiscoProjectTableName, fields, []string{discoProjectUniqueKey1})
 	return tbl.CreateTable()
 }
 

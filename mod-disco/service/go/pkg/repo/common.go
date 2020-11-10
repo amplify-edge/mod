@@ -19,7 +19,7 @@ func (md *ModDiscoRepo) getCursor(currentCursor string) (int64, error) {
 	}
 }
 
-func (md *ModDiscoRepo) surveyProjectExists(surveyProjectId, surveyProjectName string) bool {
+func (md *ModDiscoRepo) surveyProjectExists(surveyProjectId, surveyProjectName string) (bool, string) {
 	const surveyProjectIdKey = "survey_project_id"
 	const surveyProjectNameKey = "survey_project_name"
 	params := map[string]interface{}{}
@@ -29,21 +29,21 @@ func (md *ModDiscoRepo) surveyProjectExists(surveyProjectId, surveyProjectName s
 	if surveyProjectName != "" {
 		params[surveyProjectNameKey] = surveyProjectName
 	}
-	_, err := md.store.GetSurveyProject(params)
+	sp, err := md.store.GetSurveyProject(params)
 	if err != nil {
-		return false
+		return false, ""
 	}
-	return true
+	return true, sp.SurveyProjectId
 }
 
-func (md *ModDiscoRepo) sysAccountUserExists(ctx context.Context, accountId, accountEmail string) (bool, error) {
+func (md *ModDiscoRepo) sysAccountUserExists(ctx context.Context, accountId, accountEmail string) (bool, string, error) {
 	const accountIdKey = "sys_account_user_ref_id"
 	const accountNameKey = "sys_account_user_ref_name"
 	in := newSysExistsInput(accountIdKey, accountNameKey, accountId, accountEmail, "onCheckAccountExists")
 	return md.checkExists(ctx, in)
 }
 
-func (md *ModDiscoRepo) sysAccountProjectExists(ctx context.Context, projectId, projectName string) (bool, error) {
+func (md *ModDiscoRepo) sysAccountProjectExists(ctx context.Context, projectId, projectName string) (bool, string, error) {
 	const (
 		projectIdKey   = "sys_account_project_ref_id"
 		projectNameKey = "sys_account_project_ref_name"
@@ -70,7 +70,7 @@ func newSysExistsInput(idKey, nameKey, idInput, nameInput, eventName string) *sy
 	}
 }
 
-func (md *ModDiscoRepo) checkExists(ctx context.Context, in *sysExistsInput) (bool, error) {
+func (md *ModDiscoRepo) checkExists(ctx context.Context, in *sysExistsInput) (bool, string, error) {
 	params := map[string]interface{}{}
 	if in.idInput != "" {
 		params[in.idKey] = in.idInput
@@ -80,7 +80,7 @@ func (md *ModDiscoRepo) checkExists(ctx context.Context, in *sysExistsInput) (bo
 	}
 	payloadBytes, err := sysCoreSvc.MarshalToBytes(params)
 	if err != nil {
-		return false, err
+		return false, "", err
 	}
 	resp, err := md.busClient.Broadcast(ctx, &corepkg.EventRequest{
 		EventName:   in.eventName,
@@ -88,14 +88,14 @@ func (md *ModDiscoRepo) checkExists(ctx context.Context, in *sysExistsInput) (bo
 		JsonPayload: payloadBytes,
 	})
 	if err != nil {
-		return false, err
+		return false, "", err
 	}
 	replyResp, err := sysCoreSvc.UnmarshalToMap(resp.Reply)
 	if err != nil {
-		return false, err
+		return false, "", err
 	}
 	if !replyResp["exists"].(bool) {
-		return false, status.Errorf(codes.InvalidArgument, "does not exists")
+		return false, "", status.Errorf(codes.InvalidArgument, "does not exists")
 	}
-	return true, nil
+	return true, replyResp[in.idKey].(string), nil
 }

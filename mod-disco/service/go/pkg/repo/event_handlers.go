@@ -71,13 +71,13 @@ func (md *ModDiscoRepo) onDeleteDiscoProject(ctx context.Context, in *sharedCore
 			Reason: sharedBus.ErrInvalidEventPayload,
 			Err:    fmt.Errorf("no valid %s or %s found", discoProjectIdKey, sysAccountProjectIdKey),
 		}
+		close(errChan)
+		close(requestMap)
 	}()
 	if err = <-errChan; err != nil {
 		return nil, err
 	}
-	close(errChan)
 	rmap := <-requestMap
-	close(requestMap)
 	for k, v := range rmap {
 		switch k {
 		case discoProjectIdKey:
@@ -128,13 +128,13 @@ func (md *ModDiscoRepo) onDeleteSurveyProject(ctx context.Context, in *sharedCor
 			Reason: sharedBus.ErrInvalidEventPayload,
 			Err:    fmt.Errorf("no valid %s or %s found", surveyProjectIdKey, sysAccountProjectIdKey),
 		}
+		close(errChan)
+		close(requestMap)
 	}()
 	if err = <-errChan; err != nil {
 		return nil, err
 	}
-	close(errChan)
 	rmap := <-requestMap
-	close(requestMap)
 	for k, v := range rmap {
 		switch k {
 		case sysAccountProjectIdKey:
@@ -185,13 +185,13 @@ func (md *ModDiscoRepo) onDeleteSurveyUser(ctx context.Context, in *sharedCore.E
 			Reason: sharedBus.ErrInvalidEventPayload,
 			Err:    fmt.Errorf("no valid %s or %s found", surveyUserIdKey, sysAccountAccountIdKey),
 		}
+		close(errChan)
+		close(requestMap)
 	}()
 	if err = <-errChan; err != nil {
 		return nil, err
 	}
-	close(errChan)
 	rmap := <-requestMap
-	close(requestMap)
 	for k, v := range rmap {
 		switch k {
 		case sysAccountAccountIdKey:
