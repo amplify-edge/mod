@@ -59,7 +59,7 @@ func main() {
 			log.Fatalf(errSourcingConfig, err)
 		}
 
-		discoServiceCfg, err := pkg.NewModDiscoServiceConfig(log, gdb, discoCfgPath, corebus.NewCoreBus())
+		discoServiceCfg, err := pkg.NewModDiscoServiceConfig(log, gdb, discoCfgPath, corebus.NewCoreBus(), nil)
 		if err != nil {
 			log.Fatalf("error creating config: %v", err)
 		}
