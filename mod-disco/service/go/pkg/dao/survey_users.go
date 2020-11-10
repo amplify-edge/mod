@@ -214,7 +214,7 @@ func (m *ModDiscoDB) UpdateSurveyUser(usp *discoRpc.UpdateSurveyUserRequest) err
 			if err != nil {
 				return err
 			}
-			if err := json.Unmarshal(srvBytes, &s); err != nil {
+			if err := sharedConfig.UnmarshalJson(srvBytes, &s); err != nil {
 				return err
 			}
 			actualSrv, err = m.GetSupportRoleValue(s.Id)

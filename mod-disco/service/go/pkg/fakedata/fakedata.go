@@ -1,11 +1,10 @@
 package fakedata
 
 import (
-	"fmt"
 	"github.com/brianvoe/gofakeit/v5"
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
-	"github.com/segmentio/encoding/json"
 	"io/ioutil"
 )
 
@@ -44,14 +43,14 @@ func (b *BootstrapModDisco) MarshalPretty() ([]byte, error) {
 }
 
 func BootstrapFakeData() ([]byte, error) {
+	// internal counter
+	
 	var bsp bootstrapSurveyProject
 	var bsu bootstrapSurveyUser
 	var bsdp bootstrapDiscoProject
-	fmt.Println("GENERATING FAKE DATA FOR Bootstrap Survey Project")
 	gofakeit.Struct(&bsp)
 	gofakeit.Struct(&bsu)
 	gofakeit.Struct(&bsdp)
-	fmt.Println("Generated")
 	bmd := &BootstrapModDisco{
 		BSP: bsp,
 		BSU: bsu,
@@ -66,7 +65,7 @@ func BootstrapModDiscoFromFilepath(path string) (*BootstrapModDisco, error) {
 	if err != nil {
 		return nil, err
 	}
-	if err = json.Unmarshal(f, &bmd); err != nil {
+	if err = sharedConfig.UnmarshalJson(f, &bmd); err != nil {
 		return nil, err
 	}
 	return &bmd, nil
