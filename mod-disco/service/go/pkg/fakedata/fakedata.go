@@ -3,10 +3,11 @@ package fakedata
 import (
 	"fmt"
 	"github.com/brianvoe/gofakeit/v5"
+	"math/rand"
+
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	"github.com/getcouragenow/sys-share/sys-core/service/fakehelper"
-	"math/rand"
 )
 
 type bootstrapSurveyProject struct {
@@ -185,6 +186,8 @@ func genFakeDiscoProject(sysAccOrgRc, sysAccProjRc *fakehelper.RefCount) bootstr
 			return fmt.Sprintf("%s_%d", prefix, rc.Previous), nil
 		},
 	))
+	gofakeit.AddFuncLookup(fakehelper.FakeRandomTs())
+	gofakeit.AddFuncLookup(fakehelper.FakeYtUrls())
 	var bsdp bootstrapDiscoProject
 	gofakeit.Struct(&bsdp)
 	return bsdp

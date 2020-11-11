@@ -6,6 +6,7 @@ import (
 	"github.com/genjidb/genji/document"
 
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
@@ -25,7 +26,7 @@ var (
 func NewUserNeedsType(id, surveyProjectId, name, comment, desc, uom string) *UserNeedsType {
 	srtId := id
 	if srtId == "" {
-		srtId = sysCoreSvc.NewID()
+		srtId = sharedConfig.NewID()
 	}
 	return &UserNeedsType{
 		Id:                 srtId,
@@ -50,7 +51,7 @@ func (s *UserNeedsType) ToProto() *discoRpc.UserNeedsType {
 
 func (m *ModDiscoDB) InsertFromNewUserNeedsType(in *discoRpc.NewUserNeedsType) error {
 	nunt := &UserNeedsType{
-		Id:                 sysCoreSvc.NewID(),
+		Id:                 sharedConfig.NewID(),
 		SurveyProjectRefId: in.GetSurveyProjectRefId(),
 		Name:               in.GetName(),
 		Comment:            in.GetComment(),

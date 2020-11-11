@@ -31,7 +31,7 @@ var (
 func (m *ModDiscoDB) FromPkgSurveyUser(sp *discoRpc.SurveyUser) (*SurveyUser, error) {
 	surveyUserId := sp.SurveyUserId
 	if surveyUserId == "" {
-		surveyUserId = sysCoreSvc.NewID()
+		surveyUserId = sharedConfig.NewID()
 	}
 	return &SurveyUser{
 		SurveyUserId:           surveyUserId,
@@ -137,7 +137,7 @@ func (m *ModDiscoDB) ListSurveyUser(filters map[string]interface{}, orderBy stri
 
 func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*discoRpc.SurveyUser, error) {
 	newPkgSurveyUser := &discoRpc.SurveyUser{
-		SurveyUserId:           sysCoreSvc.NewID(),
+		SurveyUserId:           sharedConfig.NewID(),
 		SurveyUserName:         sp.GetSurveyUserName(),
 		SysAccountAccountRefId: sp.SysAccountUserRefId,
 		SurveyProjectRefId:     sp.SurveyProjectRefId,
@@ -278,7 +278,7 @@ func (m *ModDiscoDB) UpdateSurveyUser(usp *discoRpc.UpdateSurveyUserRequest) err
 	delete(filterParam.Params, "sys_account_account_ref_id")
 	delete(filterParam.Params, "survey_project_ref_id")
 	delete(filterParam.Params, "updated_at")
-	filterParam.Params["updated_at"] = sysCoreSvc.CurrentTimestamp()
+	filterParam.Params["updated_at"] = sharedConfig.CurrentTimestamp()
 	stmt, args, err := sq.Update(SurveyUsersTableName).SetMap(filterParam.Params).
 		Where(sq.Eq{"survey_user_id": sp.SurveyUserId}).ToSql()
 	if err != nil {

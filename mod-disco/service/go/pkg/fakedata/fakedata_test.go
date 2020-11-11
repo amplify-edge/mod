@@ -1,12 +1,12 @@
 package fakedata_test
 
 import (
+	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/fakedata"
 	"io/ioutil"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/fakedata"
 	fakeAccount "github.com/getcouragenow/sys-share/sys-account/service/go/pkg/fakedata"
 )
 

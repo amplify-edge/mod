@@ -155,8 +155,8 @@ message NewDiscoProjectRequest {
   string goal = 3;
   // @inject_tag: fake:"{number:1,1000}" yaml:"already_pledged"
   uint64 already_pledged = 4;
-  // @inject_tag: fake:"skip" yaml:"action_time,omitempty"
-  google.protobuf.Timestamp action_time = 5;
+  // @inject_tag: fake:"{randomts}" yaml:"action_time"
+  int64 action_time_nano = 5;
   // @inject_tag: fake:"{city}" yaml:"action_location"
   string action_location = 6;
   // @inject_tag: fake:"{number:1000,10000}" yaml:"min_pioneers"
@@ -177,7 +177,7 @@ message NewDiscoProjectRequest {
   string hist_precedents = 14;
   // @inject_tag: fake:"{sentence:8}" yaml:"strategy"
   string strategy = 15;
-  // @inject_tag: fake:"{url}" yaml:"video_url"
+  // @inject_tag: fake:"{randomyt}" fakesize:"2" yaml:"video_url"
   repeated string video_url = 16;
   // @inject_tag: fake:"{randomstring:[days,weeks,months]}" yaml:"unit_of_measures"
   string unit_of_measures = 17;

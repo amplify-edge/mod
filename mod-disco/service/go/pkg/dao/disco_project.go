@@ -4,10 +4,11 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
+	log "github.com/sirupsen/logrus"
+
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
-	log "github.com/sirupsen/logrus"
 )
 
 type DiscoProject struct {
@@ -40,7 +41,7 @@ var (
 func (m *ModDiscoDB) FromPkgDiscoProject(dp *discoRpc.DiscoProject) (*DiscoProject, error) {
 	projectId := dp.ProjectId
 	if projectId == "" {
-		projectId = sysCoreSvc.NewID()
+		projectId = sharedConfig.NewID()
 	}
 	vidUrl := []string{}
 	if dp.GetVideoUrl() == nil {
@@ -52,7 +53,7 @@ func (m *ModDiscoDB) FromPkgDiscoProject(dp *discoRpc.DiscoProject) (*DiscoProje
 		SysAccountOrgRefId:     dp.SysAccountOrgRefId,
 		Goal:                   dp.Goal,
 		AlreadyPledged:         dp.AlreadyPledged,
-		ActionTime:             dp.ActionTime.Seconds,
+		ActionTime:             dp.ActionTime.AsTime().UnixNano(),
 		ActionLocation:         dp.ActionLocation,
 		MinPioneers:            dp.MinPioneers,
 		MinRebelsMedia:         dp.MinRebelsMedia,
@@ -76,12 +77,12 @@ func (m *ModDiscoDB) FromNewPkgDiscoProject(dp *discoRpc.NewDiscoProjectRequest)
 		dp.VideoUrl = vidUrl
 	}
 	return &DiscoProject{
-		ProjectId:              sysCoreSvc.NewID(),
+		ProjectId:              sharedConfig.NewID(),
 		SysAccountProjectRefId: dp.SysAccountProjectRefId,
 		SysAccountOrgRefId:     dp.SysAccountOrgRefId,
 		Goal:                   dp.Goal,
 		AlreadyPledged:         dp.AlreadyPledged,
-		ActionTime:             dp.ActionTime.Seconds,
+		ActionTime:             dp.GetActionTimeNano(),
 		ActionLocation:         dp.ActionLocation,
 		MinPioneers:            dp.MinPioneers,
 		MinRebelsMedia:         dp.MinRebelsMedia,
@@ -94,8 +95,8 @@ func (m *ModDiscoDB) FromNewPkgDiscoProject(dp *discoRpc.NewDiscoProjectRequest)
 		Strategy:               dp.GetStrategy(),
 		VideoUrl:               dp.GetVideoUrl(),
 		UnitOfMeasures:         dp.GetUnitOfMeasures(),
-		CreatedAt:              sysCoreSvc.CurrentTimestamp(),
-		UpdatedAt:              sysCoreSvc.CurrentTimestamp(),
+		CreatedAt:              sharedConfig.CurrentTimestamp(),
+		UpdatedAt:              sharedConfig.CurrentTimestamp(),
 	}, nil
 }
 
@@ -234,7 +235,7 @@ func (m *ModDiscoDB) UpdateDiscoProject(udp *discoRpc.UpdateDiscoProjectRequest)
 	delete(filterParam.Params, "project_id")
 	delete(filterParam.Params, "sys_account_project_ref_id")
 	delete(filterParam.Params, "updated_at")
-	filterParam.Params["updated_at"] = sysCoreSvc.CurrentTimestamp()
+	filterParam.Params["updated_at"] = sharedConfig.CurrentTimestamp()
 	if filterParam.Params["goal"] == "" {
 		delete(filterParam.Params, "goal")
 	}

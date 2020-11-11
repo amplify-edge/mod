@@ -3,7 +3,7 @@
 //  source: mod_disco_models.proto
 //
 // @dart = 2.3
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
 
 const SupportRoleType$json = const {
   '1': 'SupportRoleType',
@@ -161,7 +161,7 @@ const NewDiscoProjectRequest$json = const {
     const {'1': 'sys_account_org_ref_id', '3': 2, '4': 1, '5': 9, '10': 'sysAccountOrgRefId'},
     const {'1': 'goal', '3': 3, '4': 1, '5': 9, '10': 'goal'},
     const {'1': 'already_pledged', '3': 4, '4': 1, '5': 4, '10': 'alreadyPledged'},
-    const {'1': 'action_time', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'actionTime'},
+    const {'1': 'action_time_nano', '3': 5, '4': 1, '5': 3, '10': 'actionTimeNano'},
     const {'1': 'action_location', '3': 6, '4': 1, '5': 9, '10': 'actionLocation'},
     const {'1': 'min_pioneers', '3': 7, '4': 1, '5': 4, '10': 'minPioneers'},
     const {'1': 'min_rebels_media', '3': 8, '4': 1, '5': 4, '10': 'minRebelsMedia'},

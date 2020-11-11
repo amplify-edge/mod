@@ -31,7 +31,7 @@ var (
 func (m *ModDiscoDB) FromPkgSurveyProject(sp *discoRpc.SurveyProject) (*SurveyProject, error) {
 	surveyProjectId := sp.SurveyProjectId
 	if surveyProjectId == "" {
-		surveyProjectId = sysCoreSvc.NewID()
+		surveyProjectId = sharedConfig.NewID()
 	}
 	return &SurveyProject{
 		SurveyProjectId:        surveyProjectId,
@@ -141,7 +141,7 @@ func (m *ModDiscoDB) ListSurveyProject(filters map[string]interface{}, orderBy s
 
 func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (*discoRpc.SurveyProject, error) {
 	newPkgSurveyProject := &discoRpc.SurveyProject{
-		SurveyProjectId:        sysCoreSvc.NewID(),
+		SurveyProjectId:        sharedConfig.NewID(),
 		SurveyProjectName:      sp.GetSurveyProjectName(),
 		SysAccountProjectRefId: sp.SysAccountProjectRefId,
 		CreatedAt:              timestamppb.Now(),
@@ -277,7 +277,7 @@ func (m *ModDiscoDB) UpdateSurveyProject(usp *discoRpc.UpdateSurveyProjectReques
 	delete(filterParam.Params, "survey_project_id")
 	delete(filterParam.Params, "sys_account_project_ref_id")
 	delete(filterParam.Params, "updated_at")
-	filterParam.Params["updated_at"] = sysCoreSvc.CurrentTimestamp()
+	filterParam.Params["updated_at"] = sharedConfig.CurrentTimestamp()
 	stmt, args, err := sq.Update(SurveyProjectTableName).SetMap(filterParam.Params).
 		Where(sq.Eq{"survey_project_id": sp.SurveyProjectId}).ToSql()
 	if err != nil {

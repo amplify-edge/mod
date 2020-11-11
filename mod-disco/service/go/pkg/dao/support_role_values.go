@@ -6,6 +6,7 @@ import (
 	"github.com/genjidb/genji/document"
 
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
@@ -20,7 +21,7 @@ type SupportRoleValue struct {
 func NewSupportRoleValue(id, surveyUserRefId, supportRoleTypeRefId, comment string, pledged uint64) *SupportRoleValue {
 	srtId := id
 	if srtId == "" {
-		srtId = sysCoreSvc.NewID()
+		srtId = sharedConfig.NewID()
 	}
 	return &SupportRoleValue{
 		Id:                   srtId,
@@ -43,7 +44,7 @@ func (s *SupportRoleValue) ToProto() *discoRpc.SupportRoleValue {
 
 func (m *ModDiscoDB) InsertFromNewSupportRoleValue(in *discoRpc.NewSupportRoleValue) error {
 	nsprt := &SupportRoleValue{
-		Id:                   sysCoreSvc.NewID(),
+		Id:                   sharedConfig.NewID(),
 		SurveyUserRefId:      in.GetSurveyUserRefId(),
 		SupportRoleTypeRefId: in.GetSupportRoleTypeRefId(),
 		Pledged:              in.GetPledged(),

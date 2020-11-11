@@ -6,6 +6,7 @@ import (
 	"github.com/genjidb/genji/document"
 
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
@@ -20,7 +21,7 @@ type UserNeedsValue struct {
 func NewUserNeedsValue(id, surveyUserRefId, userNeedsTypeRefId, comment string, pledged uint64) *UserNeedsValue {
 	unvId := id
 	if unvId == "" {
-		unvId = sysCoreSvc.NewID()
+		unvId = sharedConfig.NewID()
 	}
 	return &UserNeedsValue{
 		Id:                 unvId,
@@ -43,7 +44,7 @@ func (s *UserNeedsValue) ToProto() *discoRpc.UserNeedsValue {
 
 func (m *ModDiscoDB) InsertFromNewUserNeedsValue(in *discoRpc.NewUserNeedsValue) error {
 	nunt := &UserNeedsValue{
-		Id:                 sysCoreSvc.NewID(),
+		Id:                 sharedConfig.NewID(),
 		SurveyUserRefId:    in.GetSurveyUserRefId(),
 		UserNeedsTypeRefId: in.GetUserNeedsTypeRefId(),
 		Comment:            in.GetComments(),

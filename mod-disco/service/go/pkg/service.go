@@ -2,6 +2,9 @@ package pkg
 
 import (
 	"fmt"
+	"github.com/sirupsen/logrus"
+	"google.golang.org/grpc"
+
 	service "github.com/getcouragenow/mod/mod-disco/service/go"
 	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/repo"
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
@@ -9,13 +12,12 @@ import (
 	"github.com/getcouragenow/sys-share/sys-account/service/go/pkg/interceptor"
 	sharedBus "github.com/getcouragenow/sys-share/sys-core/service/go/pkg/bus"
 	"github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
-	"github.com/sirupsen/logrus"
-	"google.golang.org/grpc"
 )
 
 type ModDiscoService struct {
 	proxyService      *discoRpc.SurveyServiceService
 	ClientInterceptor *interceptor.ClientSide
+	ModDiscoRepo      *repo.ModDiscoRepo
 }
 
 type ModDiscoServiceConfig struct {
@@ -58,6 +60,7 @@ func NewModDiscoService(cfg *ModDiscoServiceConfig) (*ModDiscoService, error) {
 	discoService := discoRpc.NewSurveyServiceService(discoRepo)
 	return &ModDiscoService{
 		proxyService:      discoService,
+		ModDiscoRepo:      discoRepo,
 		ClientInterceptor: discoRepo.ClientInterceptor,
 	}, nil
 }

@@ -2,6 +2,8 @@ package dao_test
 
 import (
 	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/fakedata"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
+
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -16,10 +18,10 @@ var (
 	mdb    *dao.ModDiscoDB
 	err    error
 
-	project1ID    = coresvc.NewID()
-	project2ID    = coresvc.NewID()
-	org1ID        = coresvc.NewID()
-	org2ID        = coresvc.NewID()
+	project1ID    = sharedConfig.NewID()
+	project2ID    = sharedConfig.NewID()
+	org1ID        = sharedConfig.NewID()
+	org2ID        = sharedConfig.NewID()
 	sysProjectIds []string
 	sysAccountIds []string
 )
@@ -42,19 +44,19 @@ func init() {
 		log.Fatal(err)
 	}
 	log.Printf("successfully initialize mod-disco-db:  %v", mdb)
-	bmd, err := fakedata.BootstrapModDiscoFromFilepath("./testdata/bs-mod-disco.json")
+	bmd, err := fakedata.BootstrapFromFilepath("./testdata/bs-mod-disco.json")
 	if err != nil {
 		log.Fatalf("unable to unmarshal bs-mod-disco.json => %v", err)
 	}
 	newSurveyProjects = bmd.GetSurveyProjects()
 	for _, nsp := range newSurveyProjects {
-		pid := coresvc.NewID()
+		pid := sharedConfig.NewID()
 		sysProjectIds = append(sysProjectIds, pid)
 		nsp.SysAccountProjectRefId = pid
 	}
 	newSurveyUsers = bmd.GetSurveyUsers()
 	for _, nsu := range newSurveyUsers {
-		uid := coresvc.NewID()
+		uid := sharedConfig.NewID()
 		sysAccountIds = append(sysAccountIds, uid)
 		nsu.SysAccountUserRefId = uid
 	}
