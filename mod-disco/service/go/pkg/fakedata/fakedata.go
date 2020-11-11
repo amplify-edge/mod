@@ -6,13 +6,11 @@ import (
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	"github.com/getcouragenow/sys-share/sys-core/service/fakehelper"
-	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
-	"io/ioutil"
 	"math/rand"
 )
 
 type bootstrapSurveyProject struct {
-	NewSurveyProject []*discoRpc.NewSurveyProjectRequest `fakesize:"3" json:"new_survey_projects"`
+	NewSurveyProject []*discoRpc.NewSurveyProjectRequest `fakesize:"3" json:"new_survey_projects" yaml:"new_survey_projects"`
 }
 
 func genFakeSurveyProject(sysAccProjRc *fakehelper.RefCount) (*fakehelper.RefCount, bootstrapSurveyProject) {
@@ -63,7 +61,7 @@ func genFakeSurveyProject(sysAccProjRc *fakehelper.RefCount) (*fakehelper.RefCou
 }
 
 type bootstrapSurveyUser struct {
-	NewSurveyUser []*discoRpc.NewSurveyUserRequest `fakesize:"2" json:"new_survey_users"`
+	NewSurveyUser []*discoRpc.NewSurveyUserRequest `fakesize:"4" json:"new_survey_users" yaml:"new_survey_users"`
 }
 
 func genFakeSurveyUser(domain string, sysAccRc, sysAccProjRc, surveyProjectRc *fakehelper.RefCount) bootstrapSurveyUser {
@@ -145,7 +143,7 @@ func genFakeSurveyUser(domain string, sysAccRc, sysAccProjRc, surveyProjectRc *f
 }
 
 type bootstrapDiscoProject struct {
-	NewDiscoProject []*discoRpc.NewDiscoProjectRequest `fakesize:"20" json:"new_disco_projects"`
+	NewDiscoProject []*discoRpc.NewDiscoProjectRequest `fakesize:"20" json:"new_disco_projects" yaml:"new_disco_projects"`
 }
 
 func genFakeDiscoProject(sysAccOrgRc, sysAccProjRc *fakehelper.RefCount) bootstrapDiscoProject {
@@ -211,10 +209,14 @@ func (b *BootstrapModDisco) GetDiscoProjects() []*discoRpc.NewDiscoProjectReques
 }
 
 func (b *BootstrapModDisco) MarshalPretty() ([]byte, error) {
-	return sysCoreSvc.MarshalPretty(b)
+	return sharedConfig.MarshalPretty(b)
 }
 
-func BootstrapFakeData(domain string, sysAccRc, sysAccOrgRc, sysAccProjRc *fakehelper.RefCount) ([]byte, error) {
+func (b *BootstrapModDisco) MarshalYAML() ([]byte, error) {
+	return sharedConfig.MarshalYAML(b)
+}
+
+func BootstrapFakeData(domain string, sysAccRc, sysAccOrgRc, sysAccProjRc *fakehelper.RefCount) (*BootstrapModDisco, error) {
 	// internal counter
 	spRc := fakehelper.NewRefCount()
 	suRc := fakehelper.NewRefCount()
@@ -273,16 +275,12 @@ func BootstrapFakeData(domain string, sysAccRc, sysAccOrgRc, sysAccProjRc *fakeh
 		BSU: genFakeSurveyUser(domain, sysAccRc, sysAccProjRc, spRc),
 		BDP: genFakeDiscoProject(sysAccOrgRc, sysAccProjRc),
 	}
-	return bmd.MarshalPretty()
+	return bmd, nil
 }
 
-func BootstrapModDiscoFromFilepath(path string) (*BootstrapModDisco, error) {
+func BootstrapFromFilepath(path string) (*BootstrapModDisco, error) {
 	var bmd BootstrapModDisco
-	f, err := ioutil.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
-	if err = sharedConfig.UnmarshalJson(f, &bmd); err != nil {
+	if err := fakehelper.UnmarshalFromFilepath(path, &bmd); err != nil {
 		return nil, err
 	}
 	return &bmd, nil
