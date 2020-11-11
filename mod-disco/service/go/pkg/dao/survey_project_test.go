@@ -35,13 +35,13 @@ func testListSurveyProjects(t *testing.T) {
 		assert.NoError(t, err)
 		surveyProjects = append(surveyProjects, surveyProject)
 	}
-	assert.Equal(t, 1, len(surveyProjects))
+	assert.Equal(t, 3, len(surveyProjects))
 	t.Logf("\n Survey Projects: %v\n", surveyProjects)
 }
 
 func testGetSurveyProject(t *testing.T) {
 	t.Log("on getting survey projects")
-	sp, err := mdb.GetSurveyProject(map[string]interface{}{"sys_account_project_ref_id": project1ID})
+	sp, err := mdb.GetSurveyProject(map[string]interface{}{"sys_account_project_ref_id": sysProjectIds[0]})
 	assert.NoError(t, err)
 	t.Log(sp)
 }
@@ -101,9 +101,9 @@ func testListSurveyUsers(t *testing.T) {
 
 func testGetSurveyUser(t *testing.T) {
 	t.Log("on getting survey users")
-	sp, err := mdb.GetSurveyUser(map[string]interface{}{"sys_account_account_ref_id": account1ID})
+	sp, err := mdb.GetSurveyUser(map[string]interface{}{"sys_account_account_ref_id": sysAccountIds[0]})
 	assert.NoError(t, err)
-	assert.Equal(t, account1ID, sp.SysAccountAccountRefId)
+	assert.Equal(t, sysAccountIds[0], sp.SysAccountAccountRefId)
 }
 
 func testUpdateSurveyUser(t *testing.T) {

@@ -12,7 +12,7 @@ import (
 
 type DiscoProject struct {
 	ProjectId              string   `json:"projectId,omitempty" genji:"project_id" coredb:"primary"`
-	SysAccountProjectRefId string   `json:"sysAccountProjectRefId,omitempty" genji:"sys_account_project_ref_id"`
+	SysAccountProjectRefId string   `json:"sysAccountProjectRefId,omitempty" genji:"sys_account_project_ref_id" coredb:"not_null"`
 	SysAccountOrgRefId     string   `json:"SysAccountOrgRefId,omitempty" genji:"sys_account_org_ref_id"`
 	Goal                   string   `json:"goal,omitempty" genji:"goal"`
 	AlreadyPledged         uint64   `json:"alreadyPledged,omitempty" genji:"already_pledged"`

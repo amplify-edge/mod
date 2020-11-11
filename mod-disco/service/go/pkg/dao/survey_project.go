@@ -16,9 +16,9 @@ import (
 )
 
 type SurveyProject struct {
-	SurveyProjectId        string `json:"surveyProjectId" genji:"survey_project_id"`
+	SurveyProjectId        string `json:"surveyProjectId" genji:"survey_project_id" coredb:"primary"`
 	SurveyProjectName      string `json:"surveyProjectName" genji:"survey_project_name"`
-	SysAccountProjectRefId string `json:"sysAccountProjectRefId" genji:"sys_account_project_ref_id"`
+	SysAccountProjectRefId string `json:"sysAccountProjectRefId" genji:"sys_account_project_ref_id" coredb:"not_null"`
 	CreatedAt              int64  `json:"createdAt" genji:"created_at"`
 	UpdatedAt              int64  `json:"updatedAt" genji:"updated_at"`
 }
@@ -227,6 +227,7 @@ func (m *ModDiscoDB) UpdateSurveyProject(usp *discoRpc.UpdateSurveyProjectReques
 			actualSrv, err := m.GetSupportRoleType(s.Id)
 			if err != nil {
 				if err.Error() == "document not found" {
+					s.SurveyProjectRefId = sp.SurveyProjectId
 					if err = m.InsertSupportRoleType(&s); err != nil {
 						return err
 					}
@@ -256,6 +257,7 @@ func (m *ModDiscoDB) UpdateSurveyProject(usp *discoRpc.UpdateSurveyProjectReques
 			actualUnv, err := m.GetUserNeedsType(u.Id)
 			if err != nil {
 				if err.Error() == "document not found" {
+					u.SurveyProjectRefId = sp.SurveyProjectId
 					if err = m.InsertUserNeedsType(&u); err != nil {
 						return err
 					}

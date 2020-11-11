@@ -11,7 +11,7 @@ import (
 
 type SupportRoleType struct {
 	Id                 string `json:"id,omitempty" genji:"id" coredb:"primary"`
-	SurveyProjectRefId string `json:"surveyProjectRefId,omitempty" genji:"survey_project_ref_id"`
+	SurveyProjectRefId string `json:"surveyProjectRefId,omitempty" genji:"survey_project_ref_id" coredb:"not_null"`
 	Name               string `json:"name,omitempty" genji:"name"`
 	Comment            string `json:"comment,omitempty" genji:"comment"`
 	Description        string `json:"description,omitempty" genji:"description"`

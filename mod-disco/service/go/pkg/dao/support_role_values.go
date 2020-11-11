@@ -11,8 +11,8 @@ import (
 
 type SupportRoleValue struct {
 	Id                   string `json:"id" genji:"id" coredb:"primary"`
-	SurveyUserRefId      string `json:"surveyUserRefId" genji:"survey_user_ref_id"`
-	SupportRoleTypeRefId string `json:"supportRoleTypeRefId" genji:"support_role_type_ref_id"`
+	SurveyUserRefId      string `json:"surveyUserRefId" genji:"survey_user_ref_id" coredb:"not_null"`
+	SupportRoleTypeRefId string `json:"supportRoleTypeRefId" genji:"support_role_type_ref_id" coredb:"not_null"`
 	Pledged              uint64 `json:"pledged" genji:"pledged"`
 	Comment              string `json:"comment" genji:"comment"`
 }

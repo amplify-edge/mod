@@ -120,10 +120,10 @@ type NewSupportRoleType struct {
 
 	// @inject_tag: fake:"skip"
 	SurveyProjectRefId string `protobuf:"bytes,1,opt,name=survey_project_ref_id,json=surveyProjectRefId,proto3" json:"survey_project_ref_id,omitempty" fake:"skip"`
-	// @inject_tag: fake:"{randomstring:[survey_project_one,survey_project_two,survey_project_three]}"
-	SurveyProjectRefName string `protobuf:"bytes,2,opt,name=survey_project_ref_name,json=surveyProjectRefName,proto3" json:"survey_project_ref_name,omitempty" fake:"{randomstring:[survey_project_one,survey_project_two,survey_project_three]}"`
-	// @inject_tag: fake:"{randomstring:[srt_one,srt_two,srt_three]}"
-	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty" fake:"{randomstring:[srt_one,srt_two,srt_three]}"`
+	// @inject_tag: fake:"skip"
+	SurveyProjectRefName string `protobuf:"bytes,2,opt,name=survey_project_ref_name,json=surveyProjectRefName,proto3" json:"survey_project_ref_name,omitempty" fake:"skip"`
+	// @inject_tag: fake:"{nameseq:support_role_type,false,none,false,false}"
+	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty" fake:"{nameseq:support_role_type,false,none,false,false}"`
 	// @inject_tag: fake:"{sentence:8}"
 	Comment string `protobuf:"bytes,4,opt,name=comment,proto3" json:"comment,omitempty" fake:"{sentence:8}"`
 	// @inject_tag: fake:"{sentence:4}"
@@ -294,12 +294,12 @@ type NewSupportRoleValue struct {
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" fake:"skip"`
 	// @inject_tag: fake:"skip"
 	SurveyUserRefId string `protobuf:"bytes,2,opt,name=survey_user_ref_id,json=surveyUserRefId,proto3" json:"survey_user_ref_id,omitempty" fake:"skip"`
-	// @inject_tag: fake:"{randomstring:[survey_user_one,survey_user_two,survey_user_three]}"
-	SurveyUserRefName string `protobuf:"bytes,3,opt,name=survey_user_ref_name,json=surveyUserRefName,proto3" json:"survey_user_ref_name,omitempty" fake:"{randomstring:[survey_user_one,survey_user_two,survey_user_three]}"`
+	// @inject_tag: fake:"skip"
+	SurveyUserRefName string `protobuf:"bytes,3,opt,name=survey_user_ref_name,json=surveyUserRefName,proto3" json:"survey_user_ref_name,omitempty" fake:"skip"`
 	// @inject_tag: fake:"skip"
 	SupportRoleTypeRefId string `protobuf:"bytes,4,opt,name=support_role_type_ref_id,json=supportRoleTypeRefId,proto3" json:"support_role_type_ref_id,omitempty" fake:"skip"`
-	// @inject_tag: fake:"{randomstring:[srt_one,srt_two,srt_three]}"
-	SupportRoleTypeRefName string `protobuf:"bytes,5,opt,name=support_role_type_ref_name,json=supportRoleTypeRefName,proto3" json:"support_role_type_ref_name,omitempty" fake:"{randomstring:[srt_one,srt_two,srt_three]}"`
+	// @inject_tag: fake:"{nameseq:support_role_type,true,support_role_type,true,false}"
+	SupportRoleTypeRefName string `protobuf:"bytes,5,opt,name=support_role_type_ref_name,json=supportRoleTypeRefName,proto3" json:"support_role_type_ref_name,omitempty" fake:"{nameseq:support_role_type,true,support_role_type,true,false}"`
 	// @inject_tag: fake:"{number:1,100}"
 	Pledged uint64 `protobuf:"varint,6,opt,name=pledged,proto3" json:"pledged,omitempty" fake:"{number:1,100}"`
 	// @inject_tag: fake:"{sentence:4}"
@@ -483,8 +483,8 @@ type NewUserNeedsType struct {
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" fake:"skip"`
 	// @inject_tag: fake:"skip"
 	SurveyProjectRefId string `protobuf:"bytes,2,opt,name=survey_project_ref_id,json=surveyProjectRefId,proto3" json:"survey_project_ref_id,omitempty" fake:"skip"`
-	// @inject_tag: fake:"{randomstring:[unt_one,unt_two,unt_three]}"
-	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty" fake:"{randomstring:[unt_one,unt_two,unt_three]}"`
+	// @inject_tag: fake:"{nameseq:user_needs_type,false,none,false,false}"
+	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty" fake:"{nameseq:user_needs_type,false,none,false,false}"`
 	// @inject_tag: fake:"{sentence:4}"
 	Comment string `protobuf:"bytes,4,opt,name=comment,proto3" json:"comment,omitempty" fake:"{sentence:4}"`
 	// @inject_tag: fake:"{sentence:4}"
@@ -651,14 +651,14 @@ type NewUserNeedsValue struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: fake:"{randomstring:[survey_user_one,survey_user_two,survey_user_three]}"
-	SurveyUserRefName string `protobuf:"bytes,1,opt,name=survey_user_ref_name,json=surveyUserRefName,proto3" json:"survey_user_ref_name,omitempty" fake:"{randomstring:[survey_user_one,survey_user_two,survey_user_three]}"`
+	// @inject_tag: fake:"skip"
+	SurveyUserRefName string `protobuf:"bytes,1,opt,name=survey_user_ref_name,json=surveyUserRefName,proto3" json:"survey_user_ref_name,omitempty" fake:"skip"`
 	// @inject_tag: fake:"skip"
 	SurveyUserRefId string `protobuf:"bytes,2,opt,name=survey_user_ref_id,json=surveyUserRefId,proto3" json:"survey_user_ref_id,omitempty" fake:"skip"`
 	// @inject_tag: fake:"skip"
 	UserNeedsTypeRefId string `protobuf:"bytes,3,opt,name=user_needs_type_ref_id,json=userNeedsTypeRefId,proto3" json:"user_needs_type_ref_id,omitempty" fake:"skip"`
-	// @inject_tag: fake:"{randomstring:[unt_one,unt_two,unt_three]}"
-	UserNeedsTypeRefName string `protobuf:"bytes,4,opt,name=user_needs_type_ref_name,json=userNeedsTypeRefName,proto3" json:"user_needs_type_ref_name,omitempty" fake:"{randomstring:[unt_one,unt_two,unt_three]}"`
+	// @inject_tag: fake:"{nameseq:user_needs_type,true,user_needs_type,true,false}"
+	UserNeedsTypeRefName string `protobuf:"bytes,4,opt,name=user_needs_type_ref_name,json=userNeedsTypeRefName,proto3" json:"user_needs_type_ref_name,omitempty" fake:"{nameseq:user_needs_type,true,user_needs_type,true,false}"`
 	// @inject_tag: fake:"{sentence:4}"
 	Comments string `protobuf:"bytes,5,opt,name=comments,proto3" json:"comments,omitempty" fake:"{sentence:4}"`
 	// @inject_tag: fake:"{number:1,100}"
@@ -1182,10 +1182,10 @@ type NewDiscoProjectRequest struct {
 	VideoUrl []string `protobuf:"bytes,16,rep,name=video_url,json=videoUrl,proto3" json:"video_url,omitempty" fake:"{url}"`
 	// @inject_tag: fake:"{randomstring:[days,weeks,months]}"
 	UnitOfMeasures string `protobuf:"bytes,17,opt,name=unit_of_measures,json=unitOfMeasures,proto3" json:"unit_of_measures,omitempty" fake:"{randomstring:[days,weeks,months]}"`
-	// @inject_tag: fake:"{randomstring:[sys_account_project_one,sys_account_project_two,sys_account_project_three]}"
-	SysAccountProjectRefName string `protobuf:"bytes,18,opt,name=sys_account_project_ref_name,json=sysAccountProjectRefName,proto3" json:"sys_account_project_ref_name,omitempty" fake:"{randomstring:[sys_account_project_one,sys_account_project_two,sys_account_project_three]}"`
-	// @inject_tag: fake:"{randomstring:[sys_account_org_one,sys_account_org_two,sys_account_org_three]}"
-	SysAccountOrgRefName string `protobuf:"bytes,19,opt,name=sys_account_org_ref_name,json=sysAccountOrgRefName,proto3" json:"sys_account_org_ref_name,omitempty" fake:"{randomstring:[sys_account_org_one,sys_account_org_two,sys_account_org_three]}"`
+	// @inject_tag: fake:"{nameseq:sys_account_project,true,sys_account_project,true,false}"
+	SysAccountProjectRefName string `protobuf:"bytes,18,opt,name=sys_account_project_ref_name,json=sysAccountProjectRefName,proto3" json:"sys_account_project_ref_name,omitempty" fake:"{nameseq:sys_account_project,true,sys_account_project,true,false}"`
+	// @inject_tag: fake:"{nameseq:sys_account_org,true,sys_account_org,false,false}"
+	SysAccountOrgRefName string `protobuf:"bytes,19,opt,name=sys_account_org_ref_name,json=sysAccountOrgRefName,proto3" json:"sys_account_org_ref_name,omitempty" fake:"{nameseq:sys_account_org,true,sys_account_org,false,false}"`
 }
 
 func (x *NewDiscoProjectRequest) Reset() {
@@ -1772,14 +1772,14 @@ type NewSurveyProjectRequest struct {
 
 	// @inject_tag: fake:"skip"
 	SysAccountProjectRefId string `protobuf:"bytes,1,opt,name=sys_account_project_ref_id,json=sysAccountProjectRefId,proto3" json:"sys_account_project_ref_id,omitempty" fake:"skip"`
-	// @inject_tag: fakesize:"1"
-	SupportRoleTypes []*NewSupportRoleType `protobuf:"bytes,2,rep,name=support_role_types,json=supportRoleTypes,proto3" json:"support_role_types,omitempty" fakesize:"1"`
-	// @inject_tag: fakesize:"1"
-	UserNeedTypes []*NewUserNeedsType `protobuf:"bytes,3,rep,name=user_need_types,json=userNeedTypes,proto3" json:"user_need_types,omitempty" fakesize:"1"`
-	// @inject_tag: fake:"{randomstring:[sys_account_project_one,sys_account_project_two,sys_account_project_three]}"
-	SysAccountProjectRefName string `protobuf:"bytes,4,opt,name=sys_account_project_ref_name,json=sysAccountProjectRefName,proto3" json:"sys_account_project_ref_name,omitempty" fake:"{randomstring:[sys_account_project_one,sys_account_project_two,sys_account_project_three]}"`
-	// @inject_tag: fake:"{randomstring:[survey_project_one,survey_project_two,survey_project_three]}"
-	SurveyProjectName string `protobuf:"bytes,5,opt,name=survey_project_name,json=surveyProjectName,proto3" json:"survey_project_name,omitempty" fake:"{randomstring:[survey_project_one,survey_project_two,survey_project_three]}"`
+	// @inject_tag: fakesize:"3"
+	SupportRoleTypes []*NewSupportRoleType `protobuf:"bytes,2,rep,name=support_role_types,json=supportRoleTypes,proto3" json:"support_role_types,omitempty" fakesize:"3"`
+	// @inject_tag: fakesize:"3"
+	UserNeedTypes []*NewUserNeedsType `protobuf:"bytes,3,rep,name=user_need_types,json=userNeedTypes,proto3" json:"user_need_types,omitempty" fakesize:"3"`
+	// @inject_tag: fake:"{nameseq:sys_account_project,true,sys_account_project,true,false}"
+	SysAccountProjectRefName string `protobuf:"bytes,4,opt,name=sys_account_project_ref_name,json=sysAccountProjectRefName,proto3" json:"sys_account_project_ref_name,omitempty" fake:"{nameseq:sys_account_project,true,sys_account_project,true,false}"`
+	// @inject_tag: fake:"{nameseq:survey_project,false,none,false,false}"
+	SurveyProjectName string `protobuf:"bytes,5,opt,name=survey_project_name,json=surveyProjectName,proto3" json:"survey_project_name,omitempty" fake:"{nameseq:survey_project,false,none,false,false}"`
 }
 
 func (x *NewSurveyProjectRequest) Reset() {
@@ -1858,16 +1858,16 @@ type NewSurveyUserRequest struct {
 	SurveyProjectRefId string `protobuf:"bytes,1,opt,name=survey_project_ref_id,json=surveyProjectRefId,proto3" json:"survey_project_ref_id,omitempty" fake:"skip"`
 	// @inject_tag: fake:"skip"
 	SysAccountUserRefId string `protobuf:"bytes,2,opt,name=sys_account_user_ref_id,json=sysAccountUserRefId,proto3" json:"sys_account_user_ref_id,omitempty" fake:"skip"`
-	// @inject_tag: fakesize:"2"
-	SupportRoleValues []*NewSupportRoleValue `protobuf:"bytes,3,rep,name=support_role_values,json=supportRoleValues,proto3" json:"support_role_values,omitempty" fakesize:"2"`
-	// @inject_tag: fakesize:"2"
-	UserNeedValues []*NewUserNeedsValue `protobuf:"bytes,4,rep,name=user_need_values,json=userNeedValues,proto3" json:"user_need_values,omitempty" fakesize:"2"`
-	// @inject_tag: fake:"{randomstring:[survey_project_one,survey_project_two,survey_project_three]}"
-	SurveyProjectRefName string `protobuf:"bytes,5,opt,name=survey_project_ref_name,json=surveyProjectRefName,proto3" json:"survey_project_ref_name,omitempty" fake:"{randomstring:[survey_project_one,survey_project_two,survey_project_three]}"`
-	// @inject_tag: fake:"{email}"
-	SysAccountUserRefName string `protobuf:"bytes,6,opt,name=sys_account_user_ref_name,json=sysAccountUserRefName,proto3" json:"sys_account_user_ref_name,omitempty" fake:"{email}"`
-	// @inject_tag: fake:"{randomstring:[survey_user_one,survey_user_two,survey_user_three]}"
-	SurveyUserName string `protobuf:"bytes,7,opt,name=survey_user_name,json=surveyUserName,proto3" json:"survey_user_name,omitempty" fake:"{randomstring:[survey_user_one,survey_user_two,survey_user_three]}"`
+	// @inject_tag: fakesize:"3"
+	SupportRoleValues []*NewSupportRoleValue `protobuf:"bytes,3,rep,name=support_role_values,json=supportRoleValues,proto3" json:"support_role_values,omitempty" fakesize:"3"`
+	// @inject_tag: fakesize:"3"
+	UserNeedValues []*NewUserNeedsValue `protobuf:"bytes,4,rep,name=user_need_values,json=userNeedValues,proto3" json:"user_need_values,omitempty" fakesize:"3"`
+	// @inject_tag: fake:"{nameseq:survey_project,true,survey_project,false,false}"
+	SurveyProjectRefName string `protobuf:"bytes,5,opt,name=survey_project_ref_name,json=surveyProjectRefName,proto3" json:"survey_project_ref_name,omitempty" fake:"{nameseq:survey_project,true,survey_project,false,false}"`
+	// @inject_tag: fake:"{mailseq:ops,true,sys_account_email,true}"
+	SysAccountUserRefName string `protobuf:"bytes,6,opt,name=sys_account_user_ref_name,json=sysAccountUserRefName,proto3" json:"sys_account_user_ref_name,omitempty" fake:"{mailseq:ops,true,sys_account_email,true}"`
+	// @inject_tag: fake:"{nameseq:survey_user,false,none,false,false}"
+	SurveyUserName string `protobuf:"bytes,7,opt,name=survey_user_name,json=surveyUserName,proto3" json:"survey_user_name,omitempty" fake:"{nameseq:survey_user,false,none,false,false}"`
 }
 
 func (x *NewSurveyUserRequest) Reset() {

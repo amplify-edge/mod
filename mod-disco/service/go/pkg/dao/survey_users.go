@@ -16,9 +16,9 @@ import (
 )
 
 type SurveyUser struct {
-	SurveyUserId           string `json:"surveyUserId" genji:"survey_user_id"`
+	SurveyUserId           string `json:"surveyUserId" genji:"survey_user_id" coredb:"primary"`
 	SurveyUserName         string `json:"surveyUserName" genji:"survey_user_name"`
-	SurveyProjectRefId     string `json:"surveyProjectRefId" genji:"survey_project_ref_id"`
+	SurveyProjectRefId     string `json:"surveyProjectRefId" genji:"survey_project_ref_id" coredb:"not_null"`
 	SysAccountAccountRefId string `json:"sysAccountAccountRefId" genji:"sys_account_account_ref_id"`
 	CreatedAt              int64  `json:"createdAt" genji:"created_at"`
 	UpdatedAt              int64  `json:"updatedAt" genji:"updated_at"`
@@ -220,6 +220,7 @@ func (m *ModDiscoDB) UpdateSurveyUser(usp *discoRpc.UpdateSurveyUserRequest) err
 			actualSrv, err = m.GetSupportRoleValue(s.Id)
 			if err != nil {
 				if err.Error() == "document not found" {
+					s.SurveyUserRefId = sp.SurveyUserId
 					if err = m.InsertSupportRoleValue(&s); err != nil {
 						return err
 					}
@@ -251,6 +252,7 @@ func (m *ModDiscoDB) UpdateSurveyUser(usp *discoRpc.UpdateSurveyUserRequest) err
 			actualUnv, err := m.GetUserNeedsValue(u.Id)
 			if err != nil {
 				if err.Error() == "document not found" {
+					u.SurveyUserRefId = sp.SurveyUserId
 					if err = m.InsertUserNeedsValue(&u); err != nil {
 						return err
 					}

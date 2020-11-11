@@ -78,8 +78,8 @@ func _SurveyServiceNewSurveyProjectCommand(cfg *client.Config) *cobra.Command {
 	}
 
 	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefId, cfg.FlagNamer("SysAccountProjectRefId"), "", "@inject_tag: fake:\"skip\"")
-	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefName, cfg.FlagNamer("SysAccountProjectRefName"), "", "@inject_tag: fake:\"{randomstring:[sys_account_project_one,sys_account_project_two,sys_account_project_three]}\"")
-	cmd.PersistentFlags().StringVar(&req.SurveyProjectName, cfg.FlagNamer("SurveyProjectName"), "", "@inject_tag: fake:\"{randomstring:[survey_project_one,survey_project_two,survey_project_three]}\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefName, cfg.FlagNamer("SysAccountProjectRefName"), "", "@inject_tag: fake:\"{nameseq:sys_account_project,true,sys_account_project,true,false}\"")
+	cmd.PersistentFlags().StringVar(&req.SurveyProjectName, cfg.FlagNamer("SurveyProjectName"), "", "@inject_tag: fake:\"{nameseq:survey_project,false,none,false,false}\"")
 
 	return cmd
 }
@@ -313,9 +313,9 @@ func _SurveyServiceNewSurveyUserCommand(cfg *client.Config) *cobra.Command {
 
 	cmd.PersistentFlags().StringVar(&req.SurveyProjectRefId, cfg.FlagNamer("SurveyProjectRefId"), "", "@inject_tag: fake:\"skip\"")
 	cmd.PersistentFlags().StringVar(&req.SysAccountUserRefId, cfg.FlagNamer("SysAccountUserRefId"), "", "@inject_tag: fake:\"skip\"")
-	cmd.PersistentFlags().StringVar(&req.SurveyProjectRefName, cfg.FlagNamer("SurveyProjectRefName"), "", "@inject_tag: fake:\"{randomstring:[survey_project_one,survey_project_two,survey_project_three]}\"")
-	cmd.PersistentFlags().StringVar(&req.SysAccountUserRefName, cfg.FlagNamer("SysAccountUserRefName"), "", "@inject_tag: fake:\"{email}\"")
-	cmd.PersistentFlags().StringVar(&req.SurveyUserName, cfg.FlagNamer("SurveyUserName"), "", "@inject_tag: fake:\"{randomstring:[survey_user_one,survey_user_two,survey_user_three]}\"")
+	cmd.PersistentFlags().StringVar(&req.SurveyProjectRefName, cfg.FlagNamer("SurveyProjectRefName"), "", "@inject_tag: fake:\"{nameseq:survey_project,true,survey_project,false,false}\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountUserRefName, cfg.FlagNamer("SysAccountUserRefName"), "", "@inject_tag: fake:\"{mailseq:ops,true,sys_account_email,true}\"")
+	cmd.PersistentFlags().StringVar(&req.SurveyUserName, cfg.FlagNamer("SurveyUserName"), "", "@inject_tag: fake:\"{nameseq:survey_user,false,none,false,false}\"")
 
 	return cmd
 }
@@ -567,8 +567,8 @@ func _SurveyServiceNewDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 	cmd.PersistentFlags().StringVar(&req.Strategy, cfg.FlagNamer("Strategy"), "", "@inject_tag: fake:\"{sentence:8}\"")
 	cmd.PersistentFlags().StringSliceVar(&req.VideoUrl, cfg.FlagNamer("VideoUrl"), nil, "@inject_tag: fake:\"{url}\"")
 	cmd.PersistentFlags().StringVar(&req.UnitOfMeasures, cfg.FlagNamer("UnitOfMeasures"), "", "@inject_tag: fake:\"{randomstring:[days,weeks,months]}\"")
-	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefName, cfg.FlagNamer("SysAccountProjectRefName"), "", "@inject_tag: fake:\"{randomstring:[sys_account_project_one,sys_account_project_two,sys_account_project_three]}\"")
-	cmd.PersistentFlags().StringVar(&req.SysAccountOrgRefName, cfg.FlagNamer("SysAccountOrgRefName"), "", "@inject_tag: fake:\"{randomstring:[sys_account_org_one,sys_account_org_two,sys_account_org_three]}\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefName, cfg.FlagNamer("SysAccountProjectRefName"), "", "@inject_tag: fake:\"{nameseq:sys_account_project,true,sys_account_project,true,false}\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountOrgRefName, cfg.FlagNamer("SysAccountOrgRefName"), "", "@inject_tag: fake:\"{nameseq:sys_account_org,true,sys_account_org,false,false}\"")
 
 	return cmd
 }

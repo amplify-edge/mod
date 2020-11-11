@@ -11,7 +11,7 @@ import (
 
 type UserNeedsType struct {
 	Id                 string `json:"id" genji:"id" coredb:"primary"`
-	SurveyProjectRefId string `json:"surveyProjectRefId" genji:"survey_project_ref_id"`
+	SurveyProjectRefId string `json:"surveyProjectRefId" genji:"survey_project_ref_id" coredb:"not_null"`
 	Name               string `json:"name" genji:"name"`
 	Comment            string `json:"comment" genji:"comment"`
 	Description        string `json:"description" genji:"description"`

@@ -11,8 +11,8 @@ import (
 
 type UserNeedsValue struct {
 	Id                 string `json:"id" genji:"id" coredb:"primary"`
-	SurveyUserRefId    string `json:"surveyUserRefId" genji:"survey_user_ref_id"`
-	UserNeedsTypeRefId string `json:"userNeedsTypeRefId" genji:"user_needs_type_ref_id"`
+	SurveyUserRefId    string `json:"surveyUserRefId" genji:"survey_user_ref_id" coredb:"not_null"`
+	UserNeedsTypeRefId string `json:"userNeedsTypeRefId" genji:"user_needs_type_ref_id" coredb:"not_null"`
 	Comment            string `json:"comment" genji:"comment"`
 	Pledged            uint64 `json:"pledged" genji:"pledged"`
 }
