@@ -28,18 +28,13 @@ type ModDiscoServiceConfig struct {
 	logger          *logrus.Entry
 }
 
-func NewModDiscoServiceConfig(l *logrus.Entry, db *coredb.CoreDB, filepath string, bus *sharedBus.CoreBus, grpcClientOpts grpc.ClientConnInterface) (*ModDiscoServiceConfig, error) {
-	var err error
+func NewModDiscoServiceConfig(l *logrus.Entry, db *coredb.CoreDB, discoCfg *service.ModDiscoConfig, bus *sharedBus.CoreBus, grpcClientOpts grpc.ClientConnInterface) (*ModDiscoServiceConfig, error) {
 	if db == nil {
 		return nil, fmt.Errorf("error creating mod disco service: database is null")
 	}
 	modDiscoLogger := l.WithFields(logrus.Fields{
 		"mod": "mod-disco",
 	})
-	discoCfg, err := service.NewConfig(filepath)
-	if err != nil {
-		return nil, err
-	}
 	newAuthProxyClient := sharedAccountPkg.NewSysAccountProxyServiceClient(grpcClientOpts)
 	mdsc := &ModDiscoServiceConfig{
 		store:           db,
