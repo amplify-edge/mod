@@ -2,10 +2,10 @@ package dao_test
 
 import (
 	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
+
 	"github.com/stretchr/testify/assert"
 	"testing"
-
-	"google.golang.org/protobuf/types/known/timestamppb"
 
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 )
@@ -17,7 +17,7 @@ var (
 			SysAccountOrgRefId:     org1ID,
 			Goal:                   "Distribute food to third world country",
 			AlreadyPledged:         10,
-			ActionTime:             timestamppb.Now(),
+			ActionTimeNano:         sharedConfig.CurrentTimestamp(),
 			ActionLocation:         "Boston, MA",
 			MinPioneers:            3000,
 			MinRebelsMedia:         1000,
@@ -36,7 +36,7 @@ var (
 			SysAccountOrgRefId:     org2ID,
 			Goal:                   "Lift senate immunity law",
 			AlreadyPledged:         10,
-			ActionTime:             timestamppb.Now(),
+			ActionTimeNano:         sharedConfig.CurrentTimestamp(),
 			ActionLocation:         "Jakarta, ID",
 			MinPioneers:            3000,
 			MinRebelsMedia:         1000,
