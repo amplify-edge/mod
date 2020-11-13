@@ -66,8 +66,8 @@ func (m *ModDiscoDB) FromPkgDiscoProject(dp *discoRpc.DiscoProject) (*DiscoProje
 		Strategy:               dp.GetStrategy(),
 		VideoUrl:               dp.GetVideoUrl(),
 		UnitOfMeasures:         dp.GetUnitOfMeasures(),
-		CreatedAt:              dp.GetCreatedAt().Seconds,
-		UpdatedAt:              dp.GetUpdatedAt().Seconds,
+		CreatedAt:              int64(dp.GetCreatedAt().GetNanos()),
+		UpdatedAt:              int64(dp.GetUpdatedAt().GetNanos()),
 	}, nil
 }
 
