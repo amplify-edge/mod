@@ -24,11 +24,12 @@ class DynamicDropdownButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<DropdownMenuItem<String>> dropdownItems = _data.keys
-        .map((question) =>
-            DropdownMenuItem(child: Padding(
+        .map((question) => DropdownMenuItem(
+            child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(question),
-            ), value: question))
+            ),
+            value: question))
         .toList();
 
     return Padding(
@@ -128,10 +129,10 @@ class DynamicSlider extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-               ListTile(
+              ListTile(
                 title: Text(
                   this._title,
-                  style: Theme.of(context).textTheme.title,
+                  style: Theme.of(context).textTheme.headline6,
                 ),
               ),
               ListTile(
@@ -144,13 +145,13 @@ class DynamicSlider extends StatelessWidget {
               ListTile(
                 title: Text(
                   'Minimum hours you can dedicate  : ',
-                  style: Theme.of(context).textTheme.subtitle,
+                  style: Theme.of(context).textTheme.subtitle2,
                 ),
                 trailing: Text(
                   '${this._current} hr',
                   style: Theme.of(context)
                       .textTheme
-                      .body1
+                      .bodyText2
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 subtitle: Slider(
