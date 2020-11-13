@@ -4,12 +4,15 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
+
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
 type SupportRoleType struct {
 	Id                 string `json:"id,omitempty" genji:"id" coredb:"primary"`
-	SurveyProjectRefId string `json:"surveyProjectRefId,omitempty" genji:"survey_project_ref_id"`
+	SurveyProjectRefId string `json:"surveyProjectRefId,omitempty" genji:"survey_project_ref_id" coredb:"not_null"`
 	Name               string `json:"name,omitempty" genji:"name"`
 	Comment            string `json:"comment,omitempty" genji:"comment"`
 	Description        string `json:"description,omitempty" genji:"description"`
@@ -23,7 +26,7 @@ var (
 func NewSupportRoleType(id, surveyProjectId, name, comment, desc, uom string) *SupportRoleType {
 	srtId := id
 	if srtId == "" {
-		srtId = sysCoreSvc.NewID()
+		srtId = sharedConfig.NewID()
 	}
 	return &SupportRoleType{
 		Id:                 srtId,
@@ -33,6 +36,33 @@ func NewSupportRoleType(id, surveyProjectId, name, comment, desc, uom string) *S
 		Description:        desc,
 		UnitOfMeasures:     uom,
 	}
+}
+
+func (s *SupportRoleType) ToProto() *discoRpc.SupportRoleType {
+	return &discoRpc.SupportRoleType{
+		Id:                 s.Id,
+		SurveyProjectRefId: s.SurveyProjectRefId,
+		Name:               s.Name,
+		Comment:            s.Comment,
+		Description:        s.Description,
+		UnitOfMeasures:     s.UnitOfMeasures,
+	}
+}
+
+func (m *ModDiscoDB) InsertFromNewSupportRoleType(in *discoRpc.NewSupportRoleType) error {
+	nsprt := &SupportRoleType{
+		Id:                 sharedConfig.NewID(),
+		SurveyProjectRefId: in.SurveyProjectRefId,
+		Name:               in.GetName(),
+		Comment:            in.GetComment(),
+		Description:        in.GetDescription(),
+		UnitOfMeasures:     in.GetUnitOfMeasures(),
+	}
+	err := m.InsertSupportRoleType(nsprt)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s SupportRoleType) CreateSQL() []string {

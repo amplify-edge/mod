@@ -1,12 +1,16 @@
 package dao_test
 
 import (
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
-	corecfg "github.com/getcouragenow/sys/sys-core/service/go"
-	coresvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
+	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/fakedata"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
+
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
+	corecfg "github.com/getcouragenow/sys/sys-core/service/go"
+	coresvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
 var (
@@ -14,12 +18,12 @@ var (
 	mdb    *dao.ModDiscoDB
 	err    error
 
-	project1ID = coresvc.NewID()
-	project2ID = coresvc.NewID()
-	org1ID     = coresvc.NewID()
-	org2ID     = coresvc.NewID()
-	account1ID = coresvc.NewID()
-	account2ID = coresvc.NewID()
+	project1ID    = sharedConfig.NewID()
+	project2ID    = sharedConfig.NewID()
+	org1ID        = sharedConfig.NewID()
+	org2ID        = sharedConfig.NewID()
+	sysProjectIds []string
+	sysAccountIds []string
 )
 
 func init() {
@@ -30,7 +34,7 @@ func init() {
 	}
 	logger := log.New().WithField("test", "mod-disco")
 	logger.Level = log.DebugLevel
-	testDb, err = coresvc.NewCoreDB(logger, csc, nil)
+	testDb, err = coresvc.NewCoreDB(logger, &csc.SysCoreConfig, nil)
 	if err != nil {
 		log.Fatalf("error creating CoreDB: %v", err)
 	}
@@ -40,11 +44,27 @@ func init() {
 		log.Fatal(err)
 	}
 	log.Printf("successfully initialize mod-disco-db:  %v", mdb)
+	bmd, err := fakedata.BootstrapFromFilepath("./testdata/bs-mod-disco.json")
+	if err != nil {
+		log.Fatalf("unable to unmarshal bs-mod-disco.json => %v", err)
+	}
+	newSurveyProjects = bmd.GetSurveyProjects()
+	for _, nsp := range newSurveyProjects {
+		pid := sharedConfig.NewID()
+		sysProjectIds = append(sysProjectIds, pid)
+		nsp.SysAccountProjectRefId = pid
+	}
+	newSurveyUsers = bmd.GetSurveyUsers()
+	for _, nsu := range newSurveyUsers {
+		uid := sharedConfig.NewID()
+		sysAccountIds = append(sysAccountIds, uid)
+		nsu.SysAccountUserRefId = uid
+	}
 }
 
 func TestAll(t *testing.T) {
 	t.Run("Test Survey Project Insert", testInsertSurveyProjects)
-	t.Run("Test Survey Project List", testListtSurveyProjects)
+	t.Run("Test Survey Project List", testListSurveyProjects)
 	t.Run("Test Survey Project Get", testGetSurveyProject)
 	t.Run("Test Survey Project Update", testUpdateSurveyProject)
 	t.Run("Test Survey User Insert", testInsertSurveyUser)

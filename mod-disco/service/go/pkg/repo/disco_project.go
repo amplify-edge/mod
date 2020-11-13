@@ -2,11 +2,11 @@ package repo
 
 import (
 	"context"
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 
+	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sharedAuth "github.com/getcouragenow/sys-share/sys-account/service/go/pkg/shared"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
@@ -16,6 +16,15 @@ func (md *ModDiscoRepo) NewDiscoProject(ctx context.Context, in *discoRpc.NewDis
 	if in == nil {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot insert disco project: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
+	// make sure that the sys-account project exists
+	exists, sysAccountProjectId, err := md.sysAccountProjectExists(ctx, in.SysAccountProjectRefId, in.SysAccountProjectRefName)
+	if err != nil {
+		return nil, status.Errorf(codes.InvalidArgument, "cannot insert disco project, non existent sys-account-project: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
+	}
+	if !exists {
+		return nil, status.Errorf(codes.InvalidArgument, "cannot insert disco project: non-existent sys-account-project", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
+	}
+	in.SysAccountProjectRefId = sysAccountProjectId
 	dp, err := md.store.InsertDiscoProject(in)
 	if err != nil {
 		return nil, err

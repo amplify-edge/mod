@@ -4,31 +4,38 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
-	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/segmentio/encoding/json"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/protobuf/types/known/timestamppb"
+
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
+	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
 type SurveyUser struct {
-	SurveyUserId           string `json:"surveyUserId" genji:"survey_user_id"`
-	SurveyProjectRefId     string `json:"surveyProjectRefId" genji:"survey_project_ref_id"`
+	SurveyUserId           string `json:"surveyUserId" genji:"survey_user_id" coredb:"primary"`
+	SurveyUserName         string `json:"surveyUserName" genji:"survey_user_name"`
+	SurveyProjectRefId     string `json:"surveyProjectRefId" genji:"survey_project_ref_id" coredb:"not_null"`
 	SysAccountAccountRefId string `json:"sysAccountAccountRefId" genji:"sys_account_account_ref_id"`
 	CreatedAt              int64  `json:"createdAt" genji:"created_at"`
 	UpdatedAt              int64  `json:"updatedAt" genji:"updated_at"`
 }
 
+var (
+	surveyUserUniqueIdx = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_name ON %s(survey_user_name)", SurveyUsersTableName, SurveyUsersTableName)
+)
+
 func (m *ModDiscoDB) FromPkgSurveyUser(sp *discoRpc.SurveyUser) (*SurveyUser, error) {
 	surveyUserId := sp.SurveyUserId
 	if surveyUserId == "" {
-		surveyUserId = sysCoreSvc.NewID()
+		surveyUserId = sharedConfig.NewID()
 	}
 	return &SurveyUser{
 		SurveyUserId:           surveyUserId,
+		SurveyUserName:         sp.GetSurveyUserName(),
 		SurveyProjectRefId:     sp.SurveyProjectRefId,
 		SysAccountAccountRefId: sp.SysAccountAccountRefId,
 		CreatedAt:              sp.CreatedAt.Seconds,
@@ -41,24 +48,25 @@ func (m *ModDiscoDB) ToPkgSurveyUser(sp *SurveyUser) (*discoRpc.SurveyUser, erro
 	if err != nil {
 		return nil, err
 	}
-	supportRoleValuesByte, err := sysCoreSvc.MarshalToBytes(supportRoleValues)
-	if err != nil {
-		return nil, err
+	var srvs []*discoRpc.SupportRoleValue
+	for _, srv := range supportRoleValues {
+		srvs = append(srvs, srv.ToProto())
 	}
 	userNeedValues, err := m.ListUserNeedsValue(map[string]interface{}{"survey_user_ref_id": sp.SurveyUserId})
 	if err != nil {
 		return nil, err
 	}
-	userNeedValuesByte, err := sysCoreSvc.MarshalToBytes(userNeedValues)
-	if err != nil {
-		return nil, err
+	var unvs []*discoRpc.UserNeedsValue
+	for _, unv := range userNeedValues {
+		unvs = append(unvs, unv.ToProto())
 	}
 	return &discoRpc.SurveyUser{
 		SurveyUserId:           sp.SurveyUserId,
+		SurveyUserName:         sp.SurveyUserName,
 		SurveyProjectRefId:     sp.SurveyProjectRefId,
 		SysAccountAccountRefId: sp.SysAccountAccountRefId,
-		SupportRoleValues:      supportRoleValuesByte,
-		UserNeedValues:         userNeedValuesByte,
+		SupportRoleValues:      srvs,
+		UserNeedValues:         unvs,
 		CreatedAt:              sharedConfig.UnixToUtcTS(sp.CreatedAt),
 		UpdatedAt:              sharedConfig.UnixToUtcTS(sp.UpdatedAt),
 	}, nil
@@ -66,7 +74,7 @@ func (m *ModDiscoDB) ToPkgSurveyUser(sp *SurveyUser) (*discoRpc.SurveyUser, erro
 
 func (sp SurveyUser) CreateSQL() []string {
 	fields := sysCoreSvc.GetStructTags(sp)
-	tbl := sysCoreSvc.NewTable(SurveyUsersTableName, fields, []string{})
+	tbl := sysCoreSvc.NewTable(SurveyUsersTableName, fields, []string{surveyUserUniqueIdx})
 	return tbl.CreateTable()
 }
 
@@ -129,18 +137,19 @@ func (m *ModDiscoDB) ListSurveyUser(filters map[string]interface{}, orderBy stri
 
 func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*discoRpc.SurveyUser, error) {
 	newPkgSurveyUser := &discoRpc.SurveyUser{
-		SurveyUserId:           sysCoreSvc.NewID(),
+		SurveyUserId:           sharedConfig.NewID(),
+		SurveyUserName:         sp.GetSurveyUserName(),
 		SysAccountAccountRefId: sp.SysAccountUserRefId,
 		SurveyProjectRefId:     sp.SurveyProjectRefId,
 		CreatedAt:              timestamppb.Now(),
 		UpdatedAt:              timestamppb.Now(),
 	}
 
-	sproj, err := m.FromPkgSurveyUser(newPkgSurveyUser)
+	suser, err := m.FromPkgSurveyUser(newPkgSurveyUser)
 	if err != nil {
 		return nil, err
 	}
-	queryParam, err := sysCoreSvc.AnyToQueryParam(sproj, true)
+	queryParam, err := sysCoreSvc.AnyToQueryParam(suser, true)
 	if err != nil {
 		return nil, err
 	}
@@ -165,12 +174,8 @@ func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*disco
 	}
 	if sp.GetSupportRoleValues() != nil && len(sp.GetSupportRoleValues()) != 0 {
 		for _, srv := range sp.GetSupportRoleValues() {
-			var s SupportRoleValue
-			if err := json.Unmarshal(srv, &s); err != nil {
-				return nil, err
-			}
-			supportRoleValue := NewSupportRoleValue(s.Id, s.SurveyUserRefId, s.SupportRoleTypeRefId, s.Comment, s.Pledged)
-			if err := m.InsertSupportRoleValue(supportRoleValue); err != nil {
+			srv.SurveyUserRefId = suser.SurveyUserId
+			if err = m.InsertFromNewSupportRoleValue(srv); err != nil {
 				return nil, err
 			}
 		}
@@ -178,12 +183,8 @@ func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*disco
 
 	if sp.GetUserNeedValues() != nil && len(sp.GetUserNeedValues()) != 0 {
 		for _, srv := range sp.GetUserNeedValues() {
-			var u UserNeedsValue
-			if err := json.Unmarshal(srv, &u); err != nil {
-				return nil, err
-			}
-			userNeedsValue := NewUserNeedsValue(u.Id, u.SurveyUserRefId, u.UserNeedsTypeRefId, u.Comment, u.Pledged)
-			if err := m.InsertUserNeedsValue(userNeedsValue); err != nil {
+			srv.SurveyUserRefId = suser.SurveyUserId
+			if err = m.InsertFromNewUserNeedsValue(srv); err != nil {
 				return nil, err
 			}
 		}
@@ -209,12 +210,17 @@ func (m *ModDiscoDB) UpdateSurveyUser(usp *discoRpc.UpdateSurveyUserRequest) err
 		for _, srv := range usp.GetSupportRoleValues() {
 			var s SupportRoleValue
 			var actualSrv *SupportRoleValue
-			if err := json.Unmarshal(srv, &s); err != nil {
+			srvBytes, err := sysCoreSvc.MarshalToBytes(srv)
+			if err != nil {
+				return err
+			}
+			if err := sharedConfig.UnmarshalJson(srvBytes, &s); err != nil {
 				return err
 			}
 			actualSrv, err = m.GetSupportRoleValue(s.Id)
 			if err != nil {
 				if err.Error() == "document not found" {
+					s.SurveyUserRefId = sp.SurveyUserId
 					if err = m.InsertSupportRoleValue(&s); err != nil {
 						return err
 					}
@@ -236,12 +242,17 @@ func (m *ModDiscoDB) UpdateSurveyUser(usp *discoRpc.UpdateSurveyUserRequest) err
 	if usp.GetUserNeedValues() != nil && len(usp.GetUserNeedValues()) != 0 {
 		for _, srv := range usp.GetUserNeedValues() {
 			var u UserNeedsValue
-			if err := json.Unmarshal(srv, &u); err != nil {
+			unvBytes, err := sysCoreSvc.MarshalToBytes(srv)
+			if err != nil {
+				return err
+			}
+			if err := json.Unmarshal(unvBytes, &u); err != nil {
 				return err
 			}
 			actualUnv, err := m.GetUserNeedsValue(u.Id)
 			if err != nil {
 				if err.Error() == "document not found" {
+					u.SurveyUserRefId = sp.SurveyUserId
 					if err = m.InsertUserNeedsValue(&u); err != nil {
 						return err
 					}
@@ -267,7 +278,7 @@ func (m *ModDiscoDB) UpdateSurveyUser(usp *discoRpc.UpdateSurveyUserRequest) err
 	delete(filterParam.Params, "sys_account_account_ref_id")
 	delete(filterParam.Params, "survey_project_ref_id")
 	delete(filterParam.Params, "updated_at")
-	filterParam.Params["updated_at"] = sysCoreSvc.CurrentTimestamp()
+	filterParam.Params["updated_at"] = sharedConfig.CurrentTimestamp()
 	stmt, args, err := sq.Update(SurveyUsersTableName).SetMap(filterParam.Params).
 		Where(sq.Eq{"survey_user_id": sp.SurveyUserId}).ToSql()
 	if err != nil {
@@ -295,4 +306,3 @@ func (m *ModDiscoDB) DeleteSurveyUser(id string) error {
 		stmt:    args,
 	})
 }
-

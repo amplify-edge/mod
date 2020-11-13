@@ -4,13 +4,16 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
+
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
 type UserNeedsValue struct {
 	Id                 string `json:"id" genji:"id" coredb:"primary"`
-	SurveyUserRefId    string `json:"surveyUserRefId" genji:"survey_user_ref_id"`
-	UserNeedsTypeRefId string `json:"userNeedsTypeRefId" genji:"user_needs_type_ref_id"`
+	SurveyUserRefId    string `json:"surveyUserRefId" genji:"survey_user_ref_id" coredb:"not_null"`
+	UserNeedsTypeRefId string `json:"userNeedsTypeRefId" genji:"user_needs_type_ref_id" coredb:"not_null"`
 	Comment            string `json:"comment" genji:"comment"`
 	Pledged            uint64 `json:"pledged" genji:"pledged"`
 }
@@ -18,7 +21,7 @@ type UserNeedsValue struct {
 func NewUserNeedsValue(id, surveyUserRefId, userNeedsTypeRefId, comment string, pledged uint64) *UserNeedsValue {
 	unvId := id
 	if unvId == "" {
-		unvId = sysCoreSvc.NewID()
+		unvId = sharedConfig.NewID()
 	}
 	return &UserNeedsValue{
 		Id:                 unvId,
@@ -27,6 +30,31 @@ func NewUserNeedsValue(id, surveyUserRefId, userNeedsTypeRefId, comment string, 
 		Comment:            comment,
 		Pledged:            pledged,
 	}
+}
+
+func (s *UserNeedsValue) ToProto() *discoRpc.UserNeedsValue {
+	return &discoRpc.UserNeedsValue{
+		Id:                 s.Id,
+		SurveyUserRefId:    s.SurveyUserRefId,
+		UserNeedsTypeRefId: s.UserNeedsTypeRefId,
+		Comments:           s.Comment,
+		Pledged:            s.Pledged,
+	}
+}
+
+func (m *ModDiscoDB) InsertFromNewUserNeedsValue(in *discoRpc.NewUserNeedsValue) error {
+	nunt := &UserNeedsValue{
+		Id:                 sharedConfig.NewID(),
+		SurveyUserRefId:    in.GetSurveyUserRefId(),
+		UserNeedsTypeRefId: in.GetUserNeedsTypeRefId(),
+		Comment:            in.GetComments(),
+		Pledged:            in.GetPledged(),
+	}
+	err := m.InsertUserNeedsValue(nunt)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s UserNeedsValue) CreateSQL() []string {

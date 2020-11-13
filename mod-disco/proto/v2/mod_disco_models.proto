@@ -5,23 +5,122 @@ package v2.mod_disco.services;
 
 option go_package = "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2";
 
+message SupportRoleType {
+  string id = 1;
+  string survey_project_ref_id = 2;
+  string name = 3;
+  string comment = 4;
+  string description = 5;
+  string unit_of_measures = 6;
+}
+
+message NewSupportRoleType {
+  // @inject_tag: fake:"skip" yaml:"survey_project_ref_id,omitempty"
+  string survey_project_ref_id = 1;
+  // @inject_tag: fake:"skip" yaml:"survey_project_ref_name,omitempty"
+  string survey_project_ref_name = 2;
+  // @inject_tag: fake:"{nameseq:support_role_type,false,none,false,false}" yaml:"name,omitempty"
+  string name = 3;
+  // @inject_tag: fake:"{sentence:8}" yaml:"comment,omitempty"
+  string comment = 4;
+  // @inject_tag: fake:"{sentence:4}" yaml:"description,omitempty"
+  string description = 5;
+  // @inject_tag: fake:"{randomstring:[days,weeks,months]}" yaml:"unit_of_measures,omitempty"
+  string unit_of_measures = 6;
+}
+
+message SupportRoleValue {
+  string id = 1;
+  string survey_user_ref_id = 2;
+  string support_role_type_ref_id = 3;
+  uint64 pledged = 4;
+  string comment = 5;
+}
+
+message NewSupportRoleValue {
+  // @inject_tag: fake:"skip" yaml:"id,omitempty"
+  string id = 1;
+  // @inject_tag: fake:"skip" yaml:"survey_user_ref_id,omitempty"
+  string survey_user_ref_id = 2;
+  // @inject_tag: fake:"skip" yaml:"survey_user_ref_name,omitempty"
+  string survey_user_ref_name = 3;
+  // @inject_tag: fake:"skip" yaml:"support_role_type_ref_id,omitempty"
+  string support_role_type_ref_id = 4;
+  // @inject_tag: fake:"{nameseq:support_role_type,true,support_role_type,true,false}" yaml:"support_role_type_ref_name,omitempty"
+  string support_role_type_ref_name = 5;
+  // @inject_tag: fake:"{number:1,100}" yaml:"pledged,omitempty"
+  uint64 pledged = 6;
+  // @inject_tag: fake:"{sentence:4}" yaml:"comment,omitempty"
+  string comment = 7;
+}
+
+message UserNeedsType {
+  string id = 1;
+  string survey_project_ref_id = 2;
+  string name = 3;
+  string comment = 4;
+  string description = 5;
+  string unit_of_measures = 6;
+}
+
+message NewUserNeedsType {
+  // @inject_tag: fake:"skip" yaml:"id,omitempty"
+  string id = 1;
+  // @inject_tag: fake:"skip" yaml:"survey_project_ref_id,omitempty"
+  string survey_project_ref_id = 2;
+  // @inject_tag: fake:"{nameseq:user_needs_type,false,none,false,false}" yaml:"name,omitempty"
+  string name = 3;
+  // @inject_tag: fake:"{sentence:4}" yaml:"comment,omitempty"
+  string comment = 4;
+  // @inject_tag: fake:"{sentence:4}" yaml:"description,omitempty"
+  string description = 5;
+  // @inject_tag: fake:"{randomstring:[days,weeks,months]}" yaml:"unit_of_measures,omitempty"
+  string unit_of_measures = 6;
+}
+
+message UserNeedsValue {
+  string id = 1;
+  string survey_user_ref_id = 2;
+  string user_needs_type_ref_id = 3;
+  string comments = 4;
+  uint64 pledged = 5;
+}
+
+message NewUserNeedsValue {
+  // @inject_tag: fake:"skip" yaml:"survey_user_ref_name,omitempty"
+  string survey_user_ref_name = 1;
+  // @inject_tag: fake:"skip" yaml:"survey_user_ref_id,omitempty"
+  string survey_user_ref_id = 2;
+  // @inject_tag: fake:"skip" yaml:"user_needs_type_ref_id,omitempty"
+  string user_needs_type_ref_id = 3;
+  // @inject_tag: fake:"{nameseq:user_needs_type,true,user_needs_type,true,false}" yaml:"user_needs_type_ref_name,omitempty"
+  string user_needs_type_ref_name = 4;
+  // @inject_tag: fake:"{sentence:4}" yaml:"comments,omitempty"
+  string comments = 5;
+  // @inject_tag: fake:"{number:1,100}" yaml:"pledged,omitempty"
+  uint64 pledged = 6;
+}
+
 message SurveyProject {
   string survey_project_id = 1;
   string sys_account_project_ref_id = 2;
-  bytes support_role_types = 3; // SurveySchemaType in JSON format
-  bytes user_need_types = 4; // SurveyFilterType in JSON format
+  repeated SupportRoleType support_role_types = 3;
+  repeated UserNeedsType user_need_types = 4; // SurveyFilterType in JSON format
   google.protobuf.Timestamp created_at = 5;
   google.protobuf.Timestamp updated_at = 6;
+  string survey_project_name = 7;
 }
 
 message SurveyUser {
   string survey_user_id = 1;
   string survey_project_ref_id = 2;
   string sys_account_account_ref_id = 3;
-  bytes support_role_values = 4;
-  bytes user_need_values = 5; // serialized to strongly typed stuff in DB
+  repeated SupportRoleValue support_role_values = 4;
+  repeated UserNeedsValue user_need_values = 5; // serialized to strongly typed stuff in DB
   google.protobuf.Timestamp created_at = 6;
   google.protobuf.Timestamp updated_at = 7;
+  string survey_project_ref_name = 8;
+  string survey_user_name = 9;
 }
 
 message DiscoProject {
@@ -48,23 +147,44 @@ message DiscoProject {
 }
 
 message NewDiscoProjectRequest {
+  // @inject_tag: fake:"skip" yaml:"sys_account_project_ref_id,omitempty"
   string sys_account_project_ref_id = 1; // account project id
+  // @inject_tag: fake:"skip" yaml:"sys_account_org_ref_id,omitempty"
   string sys_account_org_ref_id = 2; // account org id
+  // @inject_tag: fake:"{sentence:8}" yaml:"goal,omitempty"
   string goal = 3;
+  // @inject_tag: fake:"{number:1,1000}" yaml:"already_pledged"
   uint64 already_pledged = 4;
-  google.protobuf.Timestamp action_time = 5;
+  // @inject_tag: fake:"{randomts}" yaml:"action_time"
+  int64 action_time_nano = 5;
+  // @inject_tag: fake:"{city}" yaml:"action_location"
   string action_location = 6;
+  // @inject_tag: fake:"{number:1000,10000}" yaml:"min_pioneers"
   uint64 min_pioneers = 7;
+  // @inject_tag: fake:"{number:1000,1500}" yaml:"min_rebels_media"
   uint64 min_rebels_media = 8;
+  // @inject_tag: fake:"{number:1000,1500}" yaml:"min_rebels_to_win"
   uint64 min_rebels_to_win = 9;
+  // @inject_tag: fake:"{randomstring:[14 days, 13 weeks, 12 months]}" yaml:"action_length"
   string action_length = 10;
+  // @inject_tag: fake:"{randomstring:[environment,global_campaign,poverty]}" yaml:"action_type"
   string action_type = 11;
+  // @inject_tag: fake:"{randomstring:[environment,global_campaign,poverty]}" yaml:"category"
   string category = 12;
+  // @inject_tag: fake:"{email}" yaml:"contact"
   string contact = 13;
+  // @inject_tag: fake:"{sentence:8}" yaml:"hist_precedents"
   string hist_precedents = 14;
+  // @inject_tag: fake:"{sentence:8}" yaml:"strategy"
   string strategy = 15;
+  // @inject_tag: fake:"{randomyt}" fakesize:"2" yaml:"video_url"
   repeated string video_url = 16;
+  // @inject_tag: fake:"{randomstring:[days,weeks,months]}" yaml:"unit_of_measures"
   string unit_of_measures = 17;
+  // @inject_tag: fake:"{nameseq:sys_account_project,true,sys_account_project,true,false}" yaml:"sys_account_project_ref_name"
+  string sys_account_project_ref_name = 18;
+  // @inject_tag: fake:"{nameseq:sys_account_org,true,sys_account_org,false,false}" yaml:"sys_account_org_ref_name,omitempty"
+  string sys_account_org_ref_name = 19;
 }
 
 message UpdateDiscoProjectRequest {
@@ -112,27 +232,44 @@ message ListResponse {
 }
 
 message NewSurveyProjectRequest {
+  // @inject_tag: fake:"skip" yaml:"sys_account_project_ref_id,omitempty"
   string sys_account_project_ref_id = 1;
-  repeated bytes support_role_types = 2;
-  repeated bytes user_need_types = 3;
+  // @inject_tag: fakesize:"3" yaml:"support_role_types"
+  repeated NewSupportRoleType support_role_types = 2;
+  // @inject_tag: fakesize:"3" yaml:"user_need_types"
+  repeated NewUserNeedsType user_need_types = 3;
+  // @inject_tag: fake:"{nameseq:sys_account_project,true,sys_account_project,true,false}" yaml:"sys_account_project_ref_name"
+  string sys_account_project_ref_name = 4;
+  // @inject_tag: fake:"{nameseq:survey_project,false,none,false,false}" yaml:"survey_project_name"
+  string survey_project_name = 5;
 }
 
 message NewSurveyUserRequest {
+  // @inject_tag: fake:"skip" yaml:"survey_project_ref_id,omitempty"
   string survey_project_ref_id = 1;
+  // @inject_tag: fake:"skip" yaml:"sys_account_user_ref_id,omitempty"
   string sys_account_user_ref_id = 2;
-  repeated bytes support_role_values = 3;
-  repeated bytes user_need_values = 4;
+  // @inject_tag: fakesize:"3" yaml:"support_role_values"
+  repeated NewSupportRoleValue support_role_values = 3;
+  // @inject_tag: fakesize:"3" yaml:"user_need_values"
+  repeated NewUserNeedsValue user_need_values = 4;
+  // @inject_tag: fake:"{nameseq:survey_project,true,survey_project,false,false}" yaml:"survey_project_ref_name"
+  string survey_project_ref_name = 5;
+  // @inject_tag: fake:"{mailseq:ops,true,sys_account_email,true}" yaml:"sys_account_user_ref_name"
+  string sys_account_user_ref_name = 6;
+  // @inject_tag: fake:"{nameseq:survey_user,false,none,false,false}" yaml:"survey_user_name"
+  string survey_user_name = 7;
 }
 
 message UpdateSurveyProjectRequest {
   string survey_project_id = 1;
-  repeated bytes support_role_types = 2;
-  repeated bytes user_need_types = 3;
+  repeated SupportRoleType support_role_types = 2;
+  repeated UserNeedsType user_need_types = 3;
 }
 
 message UpdateSurveyUserRequest {
   string survey_user_id = 1;
-  repeated bytes support_role_values = 2;
-  repeated bytes user_need_values = 3;
+  repeated SupportRoleValue support_role_values = 2;
+  repeated UserNeedsValue user_need_values = 3;
 }
 

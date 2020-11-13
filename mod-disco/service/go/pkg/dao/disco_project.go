@@ -4,15 +4,16 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
+	log "github.com/sirupsen/logrus"
+
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
-	log "github.com/sirupsen/logrus"
 )
 
 type DiscoProject struct {
 	ProjectId              string   `json:"projectId,omitempty" genji:"project_id" coredb:"primary"`
-	SysAccountProjectRefId string   `json:"sysAccountProjectRefId,omitempty" genji:"sys_account_project_ref_id"`
+	SysAccountProjectRefId string   `json:"sysAccountProjectRefId,omitempty" genji:"sys_account_project_ref_id" coredb:"not_null"`
 	SysAccountOrgRefId     string   `json:"SysAccountOrgRefId,omitempty" genji:"sys_account_org_ref_id"`
 	Goal                   string   `json:"goal,omitempty" genji:"goal"`
 	AlreadyPledged         uint64   `json:"alreadyPledged,omitempty" genji:"already_pledged"`
@@ -35,13 +36,16 @@ type DiscoProject struct {
 
 var (
 	discoProjectUniqueKey1 = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_sys_account_ref ON %s(sys_account_project_ref_id)", DiscoProjectTableName, DiscoProjectTableName)
-	discoProjectUniqueKey2 = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_sys_account_ref ON %s(sys_account_org_ref_id)", DiscoProjectTableName, DiscoProjectTableName)
 )
 
 func (m *ModDiscoDB) FromPkgDiscoProject(dp *discoRpc.DiscoProject) (*DiscoProject, error) {
 	projectId := dp.ProjectId
 	if projectId == "" {
-		projectId = sysCoreSvc.NewID()
+		projectId = sharedConfig.NewID()
+	}
+	vidUrl := []string{}
+	if dp.GetVideoUrl() == nil {
+		dp.VideoUrl = vidUrl
 	}
 	return &DiscoProject{
 		ProjectId:              projectId,
@@ -49,7 +53,7 @@ func (m *ModDiscoDB) FromPkgDiscoProject(dp *discoRpc.DiscoProject) (*DiscoProje
 		SysAccountOrgRefId:     dp.SysAccountOrgRefId,
 		Goal:                   dp.Goal,
 		AlreadyPledged:         dp.AlreadyPledged,
-		ActionTime:             dp.ActionTime.Seconds,
+		ActionTime:             dp.ActionTime.AsTime().UnixNano(),
 		ActionLocation:         dp.ActionLocation,
 		MinPioneers:            dp.MinPioneers,
 		MinRebelsMedia:         dp.MinRebelsMedia,
@@ -68,13 +72,17 @@ func (m *ModDiscoDB) FromPkgDiscoProject(dp *discoRpc.DiscoProject) (*DiscoProje
 }
 
 func (m *ModDiscoDB) FromNewPkgDiscoProject(dp *discoRpc.NewDiscoProjectRequest) (*DiscoProject, error) {
+	vidUrl := []string{}
+	if dp.GetVideoUrl() == nil {
+		dp.VideoUrl = vidUrl
+	}
 	return &DiscoProject{
-		ProjectId:              sysCoreSvc.NewID(),
+		ProjectId:              sharedConfig.NewID(),
 		SysAccountProjectRefId: dp.SysAccountProjectRefId,
 		SysAccountOrgRefId:     dp.SysAccountOrgRefId,
 		Goal:                   dp.Goal,
 		AlreadyPledged:         dp.AlreadyPledged,
-		ActionTime:             dp.ActionTime.Seconds,
+		ActionTime:             dp.GetActionTimeNano(),
 		ActionLocation:         dp.ActionLocation,
 		MinPioneers:            dp.MinPioneers,
 		MinRebelsMedia:         dp.MinRebelsMedia,
@@ -87,8 +95,8 @@ func (m *ModDiscoDB) FromNewPkgDiscoProject(dp *discoRpc.NewDiscoProjectRequest)
 		Strategy:               dp.GetStrategy(),
 		VideoUrl:               dp.GetVideoUrl(),
 		UnitOfMeasures:         dp.GetUnitOfMeasures(),
-		CreatedAt:              sysCoreSvc.CurrentTimestamp(),
-		UpdatedAt:              sysCoreSvc.CurrentTimestamp(),
+		CreatedAt:              sharedConfig.CurrentTimestamp(),
+		UpdatedAt:              sharedConfig.CurrentTimestamp(),
 	}, nil
 }
 
@@ -119,7 +127,7 @@ func (dp *DiscoProject) ToPkgDiscoProject() (*discoRpc.DiscoProject, error) {
 
 func (dp DiscoProject) CreateSQL() []string {
 	fields := sysCoreSvc.GetStructTags(dp)
-	tbl := sysCoreSvc.NewTable(DiscoProjectTableName, fields, []string{discoProjectUniqueKey1, discoProjectUniqueKey2})
+	tbl := sysCoreSvc.NewTable(DiscoProjectTableName, fields, []string{discoProjectUniqueKey1})
 	return tbl.CreateTable()
 }
 
@@ -227,7 +235,7 @@ func (m *ModDiscoDB) UpdateDiscoProject(udp *discoRpc.UpdateDiscoProjectRequest)
 	delete(filterParam.Params, "project_id")
 	delete(filterParam.Params, "sys_account_project_ref_id")
 	delete(filterParam.Params, "updated_at")
-	filterParam.Params["updated_at"] = sysCoreSvc.CurrentTimestamp()
+	filterParam.Params["updated_at"] = sharedConfig.CurrentTimestamp()
 	if filterParam.Params["goal"] == "" {
 		delete(filterParam.Params, "goal")
 	}

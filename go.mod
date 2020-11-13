@@ -4,9 +4,11 @@ go 1.15
 
 require (
 	github.com/Masterminds/squirrel v1.4.0
+	github.com/brianvoe/gofakeit/v5 v5.9.3
 	github.com/genjidb/genji v0.8.0
 	github.com/getcouragenow/protoc-gen-cobra v0.3.1-0.20201005114840-ccc8cd57bcdc
-	github.com/getcouragenow/sys v0.0.0-20201102153848-4460bc43174f // indirect
+	github.com/getcouragenow/sys v0.0.0-20201102153848-4460bc43174f
+	github.com/getcouragenow/sys-share v0.0.0-20201102093809-ef0efd93ad36
 	github.com/golang/protobuf v1.4.3
 	github.com/google/go-cmp v0.5.1
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
@@ -22,3 +24,7 @@ require (
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/yaml.v2 v2.3.0
 )
+
+replace github.com/getcouragenow/sys-share => ../sys-share/
+
+replace github.com/getcouragenow/sys => ../sys

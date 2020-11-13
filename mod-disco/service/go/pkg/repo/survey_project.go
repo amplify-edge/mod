@@ -16,6 +16,15 @@ func (md *ModDiscoRepo) NewSurveyProject(ctx context.Context, in *discoRpc.NewSu
 	if in == nil {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot insert survey project: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
+	// make sure that the sys-account project exists
+	exists, sysAccountProjectId, err := md.sysAccountProjectExists(ctx, in.SysAccountProjectRefId, in.SysAccountProjectRefName)
+	if err != nil {
+		return nil, status.Errorf(codes.InvalidArgument, "cannot insert disco project, non existent sys-account-project: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
+	}
+	if !exists {
+		return nil, status.Errorf(codes.InvalidArgument, "cannot insert disco project: non-existent sys-account-project", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
+	}
+	in.SysAccountProjectRefId = sysAccountProjectId
 	sp, err := md.store.InsertSurveyProject(in)
 	if err != nil {
 		return nil, err

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	commonCfg "github.com/getcouragenow/sys-share/sys-core/service/config/common"
-	sysCoreConfig "github.com/getcouragenow/sys/sys-core/service/go"
 	"gopkg.in/yaml.v2"
 )
 
@@ -23,10 +22,10 @@ func (m *ModDiscoConfig) Validate() error {
 }
 
 type Config struct {
-	SysCoreConfig         sysCoreConfig.SysCoreConfig `yaml:"sysCoreConfig" mapstructure:"sysCoreConfig"`
-	UnauthenticatedRoutes []string                    `json:"unauthenticatedRoutes" yaml:"unauthenticatedRoutes"`
-	JWTConfig             JWTConfig                   `json:"jwt" yaml:"jwt"`
-	BusClientRoutes       []string                    `json:"busClientRoutes" yaml:"busClientRoutes"`
+	SysCoreConfig         commonCfg.Config `yaml:"sysCoreConfig" mapstructure:"sysCoreConfig"`
+	UnauthenticatedRoutes []string         `json:"unauthenticatedRoutes" yaml:"unauthenticatedRoutes"`
+	JWTConfig             JWTConfig        `json:"jwt" yaml:"jwt"`
+	BusClientRoutes       []string         `json:"busClientRoutes" yaml:"busClientRoutes"`
 }
 
 func (c Config) validate() error {

@@ -4,12 +4,15 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
+
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
 type UserNeedsType struct {
 	Id                 string `json:"id" genji:"id" coredb:"primary"`
-	SurveyProjectRefId string `json:"surveyProjectRefId" genji:"survey_project_ref_id"`
+	SurveyProjectRefId string `json:"surveyProjectRefId" genji:"survey_project_ref_id" coredb:"not_null"`
 	Name               string `json:"name" genji:"name"`
 	Comment            string `json:"comment" genji:"comment"`
 	Description        string `json:"description" genji:"description"`
@@ -23,7 +26,7 @@ var (
 func NewUserNeedsType(id, surveyProjectId, name, comment, desc, uom string) *UserNeedsType {
 	srtId := id
 	if srtId == "" {
-		srtId = sysCoreSvc.NewID()
+		srtId = sharedConfig.NewID()
 	}
 	return &UserNeedsType{
 		Id:                 srtId,
@@ -33,6 +36,33 @@ func NewUserNeedsType(id, surveyProjectId, name, comment, desc, uom string) *Use
 		Description:        desc,
 		UnitOfMeasures:     uom,
 	}
+}
+
+func (s *UserNeedsType) ToProto() *discoRpc.UserNeedsType {
+	return &discoRpc.UserNeedsType{
+		Id:                 s.Id,
+		SurveyProjectRefId: s.SurveyProjectRefId,
+		Name:               s.Name,
+		Comment:            s.Comment,
+		Description:        s.Description,
+		UnitOfMeasures:     s.UnitOfMeasures,
+	}
+}
+
+func (m *ModDiscoDB) InsertFromNewUserNeedsType(in *discoRpc.NewUserNeedsType) error {
+	nunt := &UserNeedsType{
+		Id:                 sharedConfig.NewID(),
+		SurveyProjectRefId: in.GetSurveyProjectRefId(),
+		Name:               in.GetName(),
+		Comment:            in.GetComment(),
+		Description:        in.GetDescription(),
+		UnitOfMeasures:     in.GetUnitOfMeasures(),
+	}
+	err := m.InsertUserNeedsType(nunt)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s UserNeedsType) CreateSQL() []string {

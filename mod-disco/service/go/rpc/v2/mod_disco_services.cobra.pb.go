@@ -6,7 +6,6 @@ import (
 	client "github.com/getcouragenow/protoc-gen-cobra/client"
 	flag "github.com/getcouragenow/protoc-gen-cobra/flag"
 	iocodec "github.com/getcouragenow/protoc-gen-cobra/iocodec"
-	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	cobra "github.com/spf13/cobra"
 	grpc "google.golang.org/grpc"
 	proto "google.golang.org/protobuf/proto"
@@ -77,9 +76,9 @@ func _SurveyServiceNewSurveyProjectCommand(cfg *client.Config) *cobra.Command {
 		},
 	}
 
-	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefId, cfg.FlagNamer("SysAccountProjectRefId"), "", "")
-	flag.BytesBase64SliceVar(cmd.PersistentFlags(), &req.SupportRoleTypes, cfg.FlagNamer("SupportRoleTypes"), "")
-	flag.BytesBase64SliceVar(cmd.PersistentFlags(), &req.UserNeedTypes, cfg.FlagNamer("UserNeedTypes"), "")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefId, cfg.FlagNamer("SysAccountProjectRefId"), "", "@inject_tag: fake:\"skip\" yaml:\"sys_account_project_ref_id,omitempty\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefName, cfg.FlagNamer("SysAccountProjectRefName"), "", "@inject_tag: fake:\"{nameseq:sys_account_project,true,sys_account_project,true,false}\" yaml:\"sys_account_project_ref_name\"")
+	cmd.PersistentFlags().StringVar(&req.SurveyProjectName, cfg.FlagNamer("SurveyProjectName"), "", "@inject_tag: fake:\"{nameseq:survey_project,false,none,false,false}\" yaml:\"survey_project_name\"")
 
 	return cmd
 }
@@ -223,8 +222,6 @@ func _SurveyServiceUpdateSurveyProjectCommand(cfg *client.Config) *cobra.Command
 	}
 
 	cmd.PersistentFlags().StringVar(&req.SurveyProjectId, cfg.FlagNamer("SurveyProjectId"), "", "")
-	flag.BytesBase64SliceVar(cmd.PersistentFlags(), &req.SupportRoleTypes, cfg.FlagNamer("SupportRoleTypes"), "")
-	flag.BytesBase64SliceVar(cmd.PersistentFlags(), &req.UserNeedTypes, cfg.FlagNamer("UserNeedTypes"), "")
 
 	return cmd
 }
@@ -313,10 +310,11 @@ func _SurveyServiceNewSurveyUserCommand(cfg *client.Config) *cobra.Command {
 		},
 	}
 
-	cmd.PersistentFlags().StringVar(&req.SurveyProjectRefId, cfg.FlagNamer("SurveyProjectRefId"), "", "")
-	cmd.PersistentFlags().StringVar(&req.SysAccountUserRefId, cfg.FlagNamer("SysAccountUserRefId"), "", "")
-	flag.BytesBase64SliceVar(cmd.PersistentFlags(), &req.SupportRoleValues, cfg.FlagNamer("SupportRoleValues"), "")
-	flag.BytesBase64SliceVar(cmd.PersistentFlags(), &req.UserNeedValues, cfg.FlagNamer("UserNeedValues"), "")
+	cmd.PersistentFlags().StringVar(&req.SurveyProjectRefId, cfg.FlagNamer("SurveyProjectRefId"), "", "@inject_tag: fake:\"skip\" yaml:\"survey_project_ref_id,omitempty\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountUserRefId, cfg.FlagNamer("SysAccountUserRefId"), "", "@inject_tag: fake:\"skip\" yaml:\"sys_account_user_ref_id,omitempty\"")
+	cmd.PersistentFlags().StringVar(&req.SurveyProjectRefName, cfg.FlagNamer("SurveyProjectRefName"), "", "@inject_tag: fake:\"{nameseq:survey_project,true,survey_project,false,false}\" yaml:\"survey_project_ref_name\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountUserRefName, cfg.FlagNamer("SysAccountUserRefName"), "", "@inject_tag: fake:\"{mailseq:ops,true,sys_account_email,true}\" yaml:\"sys_account_user_ref_name\"")
+	cmd.PersistentFlags().StringVar(&req.SurveyUserName, cfg.FlagNamer("SurveyUserName"), "", "@inject_tag: fake:\"{nameseq:survey_user,false,none,false,false}\" yaml:\"survey_user_name\"")
 
 	return cmd
 }
@@ -460,8 +458,6 @@ func _SurveyServiceUpdateSurveyUserCommand(cfg *client.Config) *cobra.Command {
 	}
 
 	cmd.PersistentFlags().StringVar(&req.SurveyUserId, cfg.FlagNamer("SurveyUserId"), "", "")
-	flag.BytesBase64SliceVar(cmd.PersistentFlags(), &req.SupportRoleValues, cfg.FlagNamer("SupportRoleValues"), "")
-	flag.BytesBase64SliceVar(cmd.PersistentFlags(), &req.UserNeedValues, cfg.FlagNamer("UserNeedValues"), "")
 
 	return cmd
 }
@@ -514,9 +510,7 @@ func _SurveyServiceDeleteSurveyUserCommand(cfg *client.Config) *cobra.Command {
 }
 
 func _SurveyServiceNewDiscoProjectCommand(cfg *client.Config) *cobra.Command {
-	req := &NewDiscoProjectRequest{
-		ActionTime: &timestamp.Timestamp{},
-	}
+	req := &NewDiscoProjectRequest{}
 
 	cmd := &cobra.Command{
 		Use:   cfg.CommandNamer("NewDiscoProject"),
@@ -552,24 +546,25 @@ func _SurveyServiceNewDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 		},
 	}
 
-	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefId, cfg.FlagNamer("SysAccountProjectRefId"), "", "")
-	cmd.PersistentFlags().StringVar(&req.SysAccountOrgRefId, cfg.FlagNamer("SysAccountOrgRefId"), "", "")
-	cmd.PersistentFlags().StringVar(&req.Goal, cfg.FlagNamer("Goal"), "", "")
-	cmd.PersistentFlags().Uint64Var(&req.AlreadyPledged, cfg.FlagNamer("AlreadyPledged"), 0, "")
-	cmd.PersistentFlags().Int64Var(&req.ActionTime.Seconds, cfg.FlagNamer("ActionTime Seconds"), 0, "Represents seconds of UTC time since Unix epoch\n 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to\n 9999-12-31T23:59:59Z inclusive.")
-	cmd.PersistentFlags().Int32Var(&req.ActionTime.Nanos, cfg.FlagNamer("ActionTime Nanos"), 0, "Non-negative fractions of a second at nanosecond resolution. Negative\n second values with fractions must still have non-negative nanos values\n that count forward in time. Must be from 0 to 999,999,999\n inclusive.")
-	cmd.PersistentFlags().StringVar(&req.ActionLocation, cfg.FlagNamer("ActionLocation"), "", "")
-	cmd.PersistentFlags().Uint64Var(&req.MinPioneers, cfg.FlagNamer("MinPioneers"), 0, "")
-	cmd.PersistentFlags().Uint64Var(&req.MinRebelsMedia, cfg.FlagNamer("MinRebelsMedia"), 0, "")
-	cmd.PersistentFlags().Uint64Var(&req.MinRebelsToWin, cfg.FlagNamer("MinRebelsToWin"), 0, "")
-	cmd.PersistentFlags().StringVar(&req.ActionLength, cfg.FlagNamer("ActionLength"), "", "")
-	cmd.PersistentFlags().StringVar(&req.ActionType, cfg.FlagNamer("ActionType"), "", "")
-	cmd.PersistentFlags().StringVar(&req.Category, cfg.FlagNamer("Category"), "", "")
-	cmd.PersistentFlags().StringVar(&req.Contact, cfg.FlagNamer("Contact"), "", "")
-	cmd.PersistentFlags().StringVar(&req.HistPrecedents, cfg.FlagNamer("HistPrecedents"), "", "")
-	cmd.PersistentFlags().StringVar(&req.Strategy, cfg.FlagNamer("Strategy"), "", "")
-	cmd.PersistentFlags().StringSliceVar(&req.VideoUrl, cfg.FlagNamer("VideoUrl"), nil, "")
-	cmd.PersistentFlags().StringVar(&req.UnitOfMeasures, cfg.FlagNamer("UnitOfMeasures"), "", "")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefId, cfg.FlagNamer("SysAccountProjectRefId"), "", "@inject_tag: fake:\"skip\" yaml:\"sys_account_project_ref_id,omitempty\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountOrgRefId, cfg.FlagNamer("SysAccountOrgRefId"), "", "@inject_tag: fake:\"skip\" yaml:\"sys_account_org_ref_id,omitempty\"")
+	cmd.PersistentFlags().StringVar(&req.Goal, cfg.FlagNamer("Goal"), "", "@inject_tag: fake:\"{sentence:8}\" yaml:\"goal,omitempty\"")
+	cmd.PersistentFlags().Uint64Var(&req.AlreadyPledged, cfg.FlagNamer("AlreadyPledged"), 0, "@inject_tag: fake:\"{number:1,1000}\" yaml:\"already_pledged\"")
+	cmd.PersistentFlags().Int64Var(&req.ActionTimeNano, cfg.FlagNamer("ActionTimeNano"), 0, "@inject_tag: fake:\"{randomts}\" yaml:\"action_time\"")
+	cmd.PersistentFlags().StringVar(&req.ActionLocation, cfg.FlagNamer("ActionLocation"), "", "@inject_tag: fake:\"{city}\" yaml:\"action_location\"")
+	cmd.PersistentFlags().Uint64Var(&req.MinPioneers, cfg.FlagNamer("MinPioneers"), 0, "@inject_tag: fake:\"{number:1000,10000}\" yaml:\"min_pioneers\"")
+	cmd.PersistentFlags().Uint64Var(&req.MinRebelsMedia, cfg.FlagNamer("MinRebelsMedia"), 0, "@inject_tag: fake:\"{number:1000,1500}\" yaml:\"min_rebels_media\"")
+	cmd.PersistentFlags().Uint64Var(&req.MinRebelsToWin, cfg.FlagNamer("MinRebelsToWin"), 0, "@inject_tag: fake:\"{number:1000,1500}\" yaml:\"min_rebels_to_win\"")
+	cmd.PersistentFlags().StringVar(&req.ActionLength, cfg.FlagNamer("ActionLength"), "", "@inject_tag: fake:\"{randomstring:[14 days, 13 weeks, 12 months]}\" yaml:\"action_length\"")
+	cmd.PersistentFlags().StringVar(&req.ActionType, cfg.FlagNamer("ActionType"), "", "@inject_tag: fake:\"{randomstring:[environment,global_campaign,poverty]}\" yaml:\"action_type\"")
+	cmd.PersistentFlags().StringVar(&req.Category, cfg.FlagNamer("Category"), "", "@inject_tag: fake:\"{randomstring:[environment,global_campaign,poverty]}\" yaml:\"category\"")
+	cmd.PersistentFlags().StringVar(&req.Contact, cfg.FlagNamer("Contact"), "", "@inject_tag: fake:\"{email}\" yaml:\"contact\"")
+	cmd.PersistentFlags().StringVar(&req.HistPrecedents, cfg.FlagNamer("HistPrecedents"), "", "@inject_tag: fake:\"{sentence:8}\" yaml:\"hist_precedents\"")
+	cmd.PersistentFlags().StringVar(&req.Strategy, cfg.FlagNamer("Strategy"), "", "@inject_tag: fake:\"{sentence:8}\" yaml:\"strategy\"")
+	cmd.PersistentFlags().StringSliceVar(&req.VideoUrl, cfg.FlagNamer("VideoUrl"), nil, "@inject_tag: fake:\"{randomyt}\" fakesize:\"2\" yaml:\"video_url\"")
+	cmd.PersistentFlags().StringVar(&req.UnitOfMeasures, cfg.FlagNamer("UnitOfMeasures"), "", "@inject_tag: fake:\"{randomstring:[days,weeks,months]}\" yaml:\"unit_of_measures\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefName, cfg.FlagNamer("SysAccountProjectRefName"), "", "@inject_tag: fake:\"{nameseq:sys_account_project,true,sys_account_project,true,false}\" yaml:\"sys_account_project_ref_name\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountOrgRefName, cfg.FlagNamer("SysAccountOrgRefName"), "", "@inject_tag: fake:\"{nameseq:sys_account_org,true,sys_account_org,false,false}\" yaml:\"sys_account_org_ref_name,omitempty\"")
 
 	return cmd
 }
@@ -713,8 +708,6 @@ func _SurveyServiceUpdateDiscoProjectCommand(cfg *client.Config) *cobra.Command 
 	}
 
 	cmd.PersistentFlags().StringVar(&req.SurveyProjectId, cfg.FlagNamer("SurveyProjectId"), "", "")
-	flag.BytesBase64SliceVar(cmd.PersistentFlags(), &req.SupportRoleTypes, cfg.FlagNamer("SupportRoleTypes"), "")
-	flag.BytesBase64SliceVar(cmd.PersistentFlags(), &req.UserNeedTypes, cfg.FlagNamer("UserNeedTypes"), "")
 
 	return cmd
 }

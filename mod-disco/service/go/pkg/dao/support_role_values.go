@@ -4,13 +4,16 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
+
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
 type SupportRoleValue struct {
 	Id                   string `json:"id" genji:"id" coredb:"primary"`
-	SurveyUserRefId      string `json:"surveyUserRefId" genji:"survey_user_ref_id"`
-	SupportRoleTypeRefId string `json:"supportRoleTypeRefId" genji:"support_role_type_ref_id"`
+	SurveyUserRefId      string `json:"surveyUserRefId" genji:"survey_user_ref_id" coredb:"not_null"`
+	SupportRoleTypeRefId string `json:"supportRoleTypeRefId" genji:"support_role_type_ref_id" coredb:"not_null"`
 	Pledged              uint64 `json:"pledged" genji:"pledged"`
 	Comment              string `json:"comment" genji:"comment"`
 }
@@ -18,7 +21,7 @@ type SupportRoleValue struct {
 func NewSupportRoleValue(id, surveyUserRefId, supportRoleTypeRefId, comment string, pledged uint64) *SupportRoleValue {
 	srtId := id
 	if srtId == "" {
-		srtId = sysCoreSvc.NewID()
+		srtId = sharedConfig.NewID()
 	}
 	return &SupportRoleValue{
 		Id:                   srtId,
@@ -27,6 +30,31 @@ func NewSupportRoleValue(id, surveyUserRefId, supportRoleTypeRefId, comment stri
 		Comment:              comment,
 		Pledged:              pledged,
 	}
+}
+
+func (s *SupportRoleValue) ToProto() *discoRpc.SupportRoleValue {
+	return &discoRpc.SupportRoleValue{
+		Id:                   s.Id,
+		SurveyUserRefId:      s.SurveyUserRefId,
+		SupportRoleTypeRefId: s.SupportRoleTypeRefId,
+		Pledged:              s.Pledged,
+		Comment:              s.Comment,
+	}
+}
+
+func (m *ModDiscoDB) InsertFromNewSupportRoleValue(in *discoRpc.NewSupportRoleValue) error {
+	nsprt := &SupportRoleValue{
+		Id:                   sharedConfig.NewID(),
+		SurveyUserRefId:      in.GetSurveyUserRefId(),
+		SupportRoleTypeRefId: in.GetSupportRoleTypeRefId(),
+		Pledged:              in.GetPledged(),
+		Comment:              in.GetComment(),
+	}
+	err := m.InsertSupportRoleValue(nsprt)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s SupportRoleValue) CreateSQL() []string {

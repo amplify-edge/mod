@@ -1,17 +1,7 @@
-[
-  {
-    "id": "1jbhmWLOZBEmduALLf74eQvIMAa",
-    "pledged": 12,
-    "comment": "some comment"
-  },
-  {
-    "id": "1jbmDK10iTreWfUgbiazVKiu2fD",
-    "pledged": 13,
-    "comment": "some comment"
-  },
-  {
-    "id": "1jbmBzGFQzk0sA7beZgTXroshMj",
-    "pledged": 8,
-    "comment": "some comment"
-  }
-]
+{
+  "id": "1jbiIqDTOQHd8jzcCfXN0cRN0GD",
+  "surveyUserRefId": "",
+  "supportRoleTypeRefId": "",
+  "comment": "Helping NVDA leaders on legal standing",
+  "pledged": 100
+}
