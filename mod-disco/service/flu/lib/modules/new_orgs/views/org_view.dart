@@ -1,10 +1,7 @@
-// import 'package:floating_search_bar/ui/sliver_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/modules/new_orgs/view_model/org_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
-
-// import 'package:responsive_scaffold/responsive_scaffold.dart';
 import 'package:mod_disco/core/core.dart';
 import 'package:sys_core/sys_core.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
