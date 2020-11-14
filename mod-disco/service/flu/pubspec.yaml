@@ -42,10 +42,12 @@ dependencies:
   grpc:
   protobuf:
 
-  sys_core:
-    git:
-      url: git://github.com/getcouragenow/sys-share
-      path: sys-core/service/flu
+  #  sys_core:
+  #    git:
+  #      url: git://github.com/getcouragenow/sys-share
+  #      path: sys-core/service/flu
+  sys_share_sys_account_service:
+    path: ../../../../sys-share/sys-account/service/flu
 
   # mod_timespace:
   #   path: ../../mod-timespace/client

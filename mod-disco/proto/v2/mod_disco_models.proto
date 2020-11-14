@@ -5,6 +5,40 @@ package v2.mod_disco.services;
 
 option go_package = "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2";
 
+message UserInfo {
+  string sys_account_ref_id = 1;
+  string selected_country = 2;
+  string selected_city = 3;
+  string selected_age_range = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+message NewUserInfo {
+  string sys_account_ref_id = 1;
+  string sys_account_ref_email = 2;
+  string selected_country = 3;
+  string selected_city = 4;
+  string selected_age_range = 5;
+}
+
+message UpdateUserInfo {
+  string sys_account_ref_id = 1;
+  string selected_country = 2;
+  string selected_city = 3;
+  string selected_age_range = 4;
+}
+
+message UserInfoValues {
+  string id = 1;
+  // @inject_tag: fakesize:60 fake:{country}
+  repeated string countries = 2;
+  // @inject_tag: fakesize:1000 fake:{city}
+  repeated string cities = 3;
+  // @inject_tag: fakesize:8 fake:{daterange}
+  repeated string selected_age_ranges = 4;
+}
+
 message SupportRoleType {
   string id = 1;
   string survey_project_ref_id = 2;
