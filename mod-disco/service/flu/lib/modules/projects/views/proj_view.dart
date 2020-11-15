@@ -36,7 +36,7 @@ class ProjectView extends StatelessWidget {
                 items: model.projects,
                 labelBuilder: (item) => item.name,
                 imageBuilder: (item) => item.logo,
-                routeWithIdPlaceholder: Modular.get<Paths>().orgsId,
+                routeWithIdPlaceholder: Modular.get<Paths>().projectsId,
                 detailsBuilder: (context, detailsId, isFullScreen) =>
                     ProjectDetailView(
                         project: model.projects
