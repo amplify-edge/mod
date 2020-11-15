@@ -40,7 +40,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageNotifier>(builder: (context, value) {
-      print("value: ${value.locale}");
+      // print("value: ${value.locale}");
       return MaterialApp(
           builder: (context, child) => Column(
                 children: <Widget>[

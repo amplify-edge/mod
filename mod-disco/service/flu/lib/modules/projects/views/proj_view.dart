@@ -41,6 +41,10 @@ class ProjectView extends StatelessWidget {
                     ProjectDetailView(
                         project: model.projects
                             .firstWhere((org) => org.id == detailsId),
+                        projectDetails: model.projectDetails.firstWhere(
+                          (projDet) =>
+                              projDet.sysAccountProjectRefId == detailsId,
+                        ),
                         showBackButton: isFullScreen),
                 noItemsAvailable: Center(
                   child: Text(
@@ -53,46 +57,6 @@ class ProjectView extends StatelessWidget {
                 disableBackButtonOnNoItemSelected: false,
                 masterAppBarTitle: Text(ModDiscoLocalizations.of(context)
                     .translate('selectCampaign')),
-                // item.projects != null && item.projects.isNotEmpty
-                //     ? item.projects
-                //         .map(
-                //   (project) => InkWell(
-                //     child: Container(
-                //       height: 56,
-                //       child: Row(
-                //         children: [
-                //           SizedBox(width: 16),
-                //           CircleAvatar(
-                //             radius: 20,
-                //             backgroundImage: MemoryImage(
-                //                 Uint8List.fromList(project.logo)),
-                //           ),
-                //           SizedBox(width: 16),
-                //           Expanded(
-                //             child: Text(
-                //               project.name,
-                //               textAlign: TextAlign.center,
-                //               style: Theme.of(context)
-                //                   .textTheme
-                //                   .subtitle1
-                //                   .merge(
-                //                     TextStyle(
-                //                       color: Theme.of(context)
-                //                           .accentColor,
-                //                     ),
-                //                   ),
-                //             ),
-                //           ),
-                //           SizedBox(width: 30),
-                //         ],
-                //       ),
-                //     ),
-                //     onTap: () {
-                //       _pushDetailsRoute(project.id, context);
-                //     },
-                //   ),
-                // )
-                // .toList()
               ),
             ),
     );
