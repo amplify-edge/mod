@@ -6,7 +6,6 @@ import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_re
 
 class NewOrgViewModel extends BaseModel {
   List<Org> orgs = List<Org>();
-  List<Project> currentOrgProjects = List<Project>();
 
   // constructor
   NewOrgViewModel({this.orgs});
@@ -16,6 +15,7 @@ class NewOrgViewModel extends BaseModel {
   bool _isLoading = false;
 
   List<bool> get selected => _selected;
+
   bool get isLoading => _isLoading;
 
   void changeSelection(bool value, int index) {
@@ -23,6 +23,12 @@ class NewOrgViewModel extends BaseModel {
     notifyListeners();
   }
 
+  List<Project> getCurrentOrgProject(String id) {
+    final projList = orgs.firstWhere((element) => element.id == id).projects;
+    notifyListeners();
+    return projList;
+  }
+  
   Future<void> fetchInitialOrgs() async {
     _setLoading(true);
     await repo.OrgProjRepo.listUserOrgs(
