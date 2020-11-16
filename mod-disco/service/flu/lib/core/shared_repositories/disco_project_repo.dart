@@ -13,7 +13,7 @@ class DiscoProjectRepo {
     try {
       final client = await discoClient();
       final resp = client
-          .getDiscoProject(req, options: await getCallOptions())
+          .getDiscoProject(req)
           .then((res) {
         return res;
       });

@@ -41,8 +41,7 @@ dependencies:
   font_awesome_flutter: ^8.7.0
   grpc:
   protobuf:
-  chewie: ^0.12.0
-
+  youtube_player_iframe: ^1.1.0
   #  sys_core:
   #    git:
   #      url: git://github.com/getcouragenow/sys-share

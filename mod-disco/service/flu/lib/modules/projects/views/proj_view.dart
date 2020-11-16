@@ -57,9 +57,9 @@ class ProjectView extends StatelessWidget {
                 disableBackButtonOnNoItemSelected: false,
                 masterAppBarTitle: Text(ModDiscoLocalizations.of(context)
                     .translate('selectCampaign')),
-                searchFunction: (String name) => model.projects
-                    .where((proj) => proj.name.contains(name))
-                    .toList(),
+              //   searchFunction: (String name) => model.projects
+              //       .where((proj) => proj.name.contains(name))
+              //       .toList(),
               ),
             ),
     );

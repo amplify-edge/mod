@@ -33,12 +33,17 @@ func (md *ModDiscoRepo) NewDiscoProject(ctx context.Context, in *discoRpc.NewDis
 }
 
 func (md *ModDiscoRepo) GetDiscoProject(ctx context.Context, in *discoRpc.IdRequest) (*discoRpc.DiscoProject, error) {
-	if in == nil || in.DiscoProjectId == "" {
+	if in == nil || (in.GetDiscoProjectId() == "" && in.GetSysAccountProjectId() == "") {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot get disco project: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
-	dp, err := md.store.GetDiscoProject(map[string]interface{}{
-		"project_id": in.DiscoProjectId,
-	})
+	params := map[string]interface{}{}
+	if in.GetDiscoProjectId() != "" {
+		params["project_id"] = in.GetDiscoProjectId()
+	}
+	if in.GetSysAccountProjectId() != "" {
+		params["sys_account_project_ref_id"] = in.GetSysAccountProjectId()
+	}
+	dp, err := md.store.GetDiscoProject(params)
 	if err != nil {
 		return nil, err
 	}

@@ -35,14 +35,14 @@ class ProjectViewModel extends BaseModel {
     ).then((res) async {
       this.projects = res.projects;
       notifyListeners();
-      await DiscoProjectRepo.listProjectDetails(
-        currentPageId: _nextPageId,
-        orderBy: "sys_account_project_ref_id",
-        perPageEntries: 10,
-      ).then((listProjectDetails) {
-        projectDetails.addAll(listProjectDetails);
-        notifyListeners();
+      this.projects.forEach((p) async {
+        await DiscoProjectRepo.getProjectDetails(accountProjRefId: p.id)
+            .then((details) {
+          projectDetails.add(details);
+          notifyListeners();
+        }).catchError((e) => print(e));
       });
+      notifyListeners();
     }).catchError((e) {
       throw e;
     });
@@ -60,14 +60,11 @@ class ProjectViewModel extends BaseModel {
       _setnextPageId(int.parse(res.nextPageId));
       notifyListeners();
       this.projects.forEach((proj) async {
-        print("FETCHING PROJECT DETAILS");
-        await DiscoProjectRepo.listProjectDetails(
-                currentPageId: _nextPageId,
-                orderBy: "sys_account_project_ref_id")
+        await DiscoProjectRepo.getProjectDetails(accountProjRefId: proj.id)
             .then((listProjectDetails) {
-          projectDetails.addAll(listProjectDetails);
-          notifyListeners();
+          projectDetails.add(listProjectDetails);
         });
+        notifyListeners();
       });
     }).catchError((e) {
       throw e;
