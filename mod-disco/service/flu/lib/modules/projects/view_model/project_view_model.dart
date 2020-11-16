@@ -29,14 +29,17 @@ class ProjectViewModel extends BaseModel {
   Future<void> fetchInitialProjects() async {
     _setLoading(true);
     await repo.OrgProjRepo.listUserProjects(
-            orderBy: 'name', isDescending: false)
-        .then((res) async {
+      orderBy: 'name',
+      isDescending: false,
+      perPageEntries: 10,
+    ).then((res) async {
       this.projects = res.projects;
       notifyListeners();
-      print("FETCHING PROJECT DETAILS");
       await DiscoProjectRepo.listProjectDetails(
-              currentPageId: _nextPageId, orderBy: "sys_account_project_ref_id")
-          .then((listProjectDetails) {
+        currentPageId: _nextPageId,
+        orderBy: "sys_account_project_ref_id",
+        perPageEntries: 10,
+      ).then((listProjectDetails) {
         projectDetails.addAll(listProjectDetails);
         notifyListeners();
       });

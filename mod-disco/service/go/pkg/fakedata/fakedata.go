@@ -144,7 +144,7 @@ func genFakeSurveyUser(domain string, sysAccRc, sysAccProjRc, surveyProjectRc *f
 }
 
 type bootstrapDiscoProject struct {
-	NewDiscoProject []*discoRpc.NewDiscoProjectRequest `fakesize:"20" json:"new_disco_projects" yaml:"new_disco_projects"`
+	NewDiscoProject []*discoRpc.NewDiscoProjectRequest `fakesize:"200" json:"new_disco_projects" yaml:"new_disco_projects"`
 }
 
 func genFakeDiscoProject(sysAccOrgRc, sysAccProjRc *fakehelper.RefCount) bootstrapDiscoProject {

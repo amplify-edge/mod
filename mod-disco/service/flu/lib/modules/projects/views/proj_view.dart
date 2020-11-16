@@ -26,7 +26,7 @@ class ProjectView extends StatelessWidget {
         }
       },
       builder: (context, ProjectViewModel model, child) => model.isLoading
-          ? Container(
+          ? Center(
               child: CircularProgressIndicator(),
             )
           : Scaffold(
@@ -57,6 +57,9 @@ class ProjectView extends StatelessWidget {
                 disableBackButtonOnNoItemSelected: false,
                 masterAppBarTitle: Text(ModDiscoLocalizations.of(context)
                     .translate('selectCampaign')),
+                searchFunction: (String name) => model.projects
+                    .where((proj) => proj.name.contains(name))
+                    .toList(),
               ),
             ),
     );
