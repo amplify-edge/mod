@@ -29,8 +29,21 @@ func (md *ModDiscoRepo) NewSurveyUser(ctx context.Context, in *discoRpc.NewSurve
 }
 
 func (md *ModDiscoRepo) GetSurveyUser(ctx context.Context, in *discoRpc.IdRequest) (*discoRpc.SurveyUser, error) {
-	if in == nil || in.SurveyUserId == "" {
+	if in == nil || (in.SurveyUserId == "" && in.SurveyProjectId == "" && in.SysAccountAccountId == "") {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot get survey user: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
+	}
+	params := map[string]interface{}{}
+	if in.GetSurveyProjectId() != "" {
+		params["survey_project_id"] = in.GetSurveyProjectId()
+	}
+	if in.GetSurveyUserId() != "" {
+		params["survey_user_id"] = in.GetSurveyUserId()
+	}
+	if in.GetSysAccountAccountId() != "" {
+		params["sys_account_account_ref_id"] = in.GetSysAccountAccountId()
+	}
+	if in.GetSysAccountProjectId() != "" {
+		params["sys_account_project_ref_id"] = in.GetSysAccountProjectId()
 	}
 	sp, err := md.store.GetSurveyUser(map[string]interface{}{
 		"survey_user_id": in.SurveyUserId,

@@ -35,11 +35,12 @@ class ProjectView extends StatelessWidget {
           routeWithIdPlaceholder: Modular.get<Paths>().projectsId,
           detailsBuilder: (context, detailsId, isFullScreen) =>
               ProjectDetailView(
-                  project: model.projects.firstWhere((p) => p.id == detailsId),
-                  projectDetails: model.projectDetails.firstWhere(
-                    (projDet) => projDet.sysAccountProjectRefId == detailsId,
-                  ),
-                  showBackButton: isFullScreen),
+            project: model.projects.firstWhere((p) => p.id == detailsId),
+            projectDetails: model.projectDetails.firstWhere(
+              (projDet) => projDet.sysAccountProjectRefId == detailsId,
+            ),
+            showBackButton: isFullScreen,
+          ),
           noItemsAvailable: Center(
             child: Text(
               ModDiscoLocalizations.of(context).translate('noCampaigns'),
