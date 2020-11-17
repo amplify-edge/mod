@@ -64,10 +64,10 @@ class MainAppModule extends ChildModule {
         /// Non-Admin Dashboard Routes
         ModularRouter("/userInfo", child: (_, args) => UserInfoView()),
         ModularRouter(
-          "/orgs",
+          "/projects",
           child: (_, args) => ProjectView(),
         ),
-        ModularRouter("/orgs/:id",
+        ModularRouter("/projects/:id",
             child: (_, args) => ProjectView(
                   id: args.params['id'] ?? '',
                 )),

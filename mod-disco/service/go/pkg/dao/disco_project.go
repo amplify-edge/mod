@@ -141,6 +141,16 @@ func (m *ModDiscoDB) discoProjectQueryFilter(filter map[string]interface{}) sq.S
 	return baseStmt
 }
 
+func (m *ModDiscoDB) discoProjectLikeFilter(filter map[string]interface{}) sq.SelectBuilder {
+	baseStmt := sq.Select(m.discoProjectColumns).From(DiscoProjectTableName)
+	if filter != nil {
+		for k, v := range filter {
+			baseStmt = baseStmt.Where(sq.Like{k: v})
+		}
+	}
+	return baseStmt
+}
+
 func (m *ModDiscoDB) GetDiscoProject(filters map[string]interface{}) (*DiscoProject, error) {
 	var dp DiscoProject
 	selectStmt, args, err := m.discoProjectQueryFilter(filters).ToSql()

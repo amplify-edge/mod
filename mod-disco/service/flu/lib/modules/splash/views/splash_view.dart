@@ -21,7 +21,7 @@ class SplashView extends StatelessWidget {
                     model.navigateToOrgManagement();
                   }),
               RaisedButton(
-                  child: Text("Main"),
+                  child: Text("Discover Projects"),
                   onPressed: () {
                     model.navigateToMain();
                   }),

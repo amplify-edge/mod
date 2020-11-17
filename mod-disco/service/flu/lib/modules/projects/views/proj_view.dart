@@ -25,43 +25,39 @@ class ProjectView extends StatelessWidget {
           await model.fetchInitialProjects();
         }
       },
-      builder: (context, ProjectViewModel model, child) => model.isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Scaffold(
-              body: NewGetCourageMasterDetail<Project>(
-                enableSearchBar: true,
-                id: id,
-                items: model.projects,
-                labelBuilder: (item) => item.name,
-                imageBuilder: (item) => item.logo,
-                routeWithIdPlaceholder: Modular.get<Paths>().projectsId,
-                detailsBuilder: (context, detailsId, isFullScreen) =>
-                    ProjectDetailView(
-                        project: model.projects
-                            .firstWhere((org) => org.id == detailsId),
-                        projectDetails: model.projectDetails.firstWhere(
-                          (projDet) =>
-                              projDet.sysAccountProjectRefId == detailsId,
-                        ),
-                        showBackButton: isFullScreen),
-                noItemsAvailable: Center(
-                  child: Text(
-                    ModDiscoLocalizations.of(context).translate('noCampaigns'),
+      builder: (context, ProjectViewModel model, child) => Scaffold(
+        body: NewGetCourageMasterDetail<Project>(
+          enableSearchBar: true,
+          id: id,
+          items: model.projects,
+          labelBuilder: (item) => item.name,
+          imageBuilder: (item) => item.logo,
+          routeWithIdPlaceholder: Modular.get<Paths>().projectsId,
+          detailsBuilder: (context, detailsId, isFullScreen) =>
+              ProjectDetailView(
+                  project: model.projects.firstWhere((p) => p.id == detailsId),
+                  projectDetails: model.projectDetails.firstWhere(
+                    (projDet) => projDet.sysAccountProjectRefId == detailsId,
                   ),
-                ),
-                noItemsSelected: Center(
-                    child: Text(ModDiscoLocalizations.of(context)
-                        .translate('noItemsSelected'))),
-                disableBackButtonOnNoItemSelected: false,
-                masterAppBarTitle: Text(ModDiscoLocalizations.of(context)
-                    .translate('selectCampaign')),
-              //   searchFunction: (String name) => model.projects
-              //       .where((proj) => proj.name.contains(name))
-              //       .toList(),
-              ),
+                  showBackButton: isFullScreen),
+          noItemsAvailable: Center(
+            child: Text(
+              ModDiscoLocalizations.of(context).translate('noCampaigns'),
             ),
+          ),
+          noItemsSelected: Center(
+              child: Text(ModDiscoLocalizations.of(context)
+                  .translate('noItemsSelected'))),
+          disableBackButtonOnNoItemSelected: false,
+          masterAppBarTitle: Text(
+              ModDiscoLocalizations.of(context).translate('selectCampaign')),
+          isLoadingMoreItems: model.isLoading,
+          fetchNextItems: model.fetchNextProjects,
+          hasMoreItems: model.hasMoreItems,
+          searchFunction: model.searchProjects,
+          resetSearchFunction: model.onResetSearchProjects,
+        ),
+      ),
     );
   }
 }
