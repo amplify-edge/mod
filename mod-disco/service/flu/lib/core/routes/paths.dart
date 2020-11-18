@@ -24,7 +24,7 @@ class Paths {
         projects = '$baseRoute/projects',
         projectsId = '$baseRoute/projects/:id',
         ready = '$baseRoute/ready',
-        supportRoles = '$baseRoute/supportRoles/projects/:id',
+        supportRoles = '$baseRoute/support_roles/projects/',
         myNeeds = '$baseRoute/myneeds/projects/:id',
         splash = '$baseRoute/';
 }
