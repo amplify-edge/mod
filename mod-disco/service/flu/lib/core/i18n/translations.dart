@@ -14,6 +14,15 @@ class Translations {
     );
   }
 
+  String videoUrl() {
+    return Intl.message(
+      'Video',
+      name: 'video',
+      desc: 'Video',
+      locale: locale.toString(),
+    );
+  }
+
   String aboutYou() {
     return Intl.message(
       "About you",

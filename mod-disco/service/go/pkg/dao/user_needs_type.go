@@ -14,29 +14,17 @@ type UserNeedsType struct {
 	Id                 string `json:"id" genji:"id" coredb:"primary"`
 	SurveyProjectRefId string `json:"surveyProjectRefId" genji:"survey_project_ref_id" coredb:"not_null"`
 	Name               string `json:"name" genji:"name"`
+	QuestionGroup      string `json:"questionGroup" genji:"question_group"`
 	Comment            string `json:"comment" genji:"comment"`
 	Description        string `json:"description" genji:"description"`
 	UnitOfMeasures     string `json:"unitOfMeasures" genji:"unit_of_measures"`
+	QuestionType       string `json:"questionType" genji:"question_type"`
+	DropdownQuestion   string `json:"dropdownQuestion" genji:"dropdown_question"`
 }
 
 var (
 	userNeedTypesUniqueIdx = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_name ON %s(name)", UserNeedTypesTable, UserNeedTypesTable)
 )
-
-func NewUserNeedsType(id, surveyProjectId, name, comment, desc, uom string) *UserNeedsType {
-	srtId := id
-	if srtId == "" {
-		srtId = sharedConfig.NewID()
-	}
-	return &UserNeedsType{
-		Id:                 srtId,
-		SurveyProjectRefId: surveyProjectId,
-		Name:               name,
-		Comment:            comment,
-		Description:        desc,
-		UnitOfMeasures:     uom,
-	}
-}
 
 func (s *UserNeedsType) ToProto() *discoRpc.UserNeedsType {
 	return &discoRpc.UserNeedsType{
@@ -46,6 +34,9 @@ func (s *UserNeedsType) ToProto() *discoRpc.UserNeedsType {
 		Comment:            s.Comment,
 		Description:        s.Description,
 		UnitOfMeasures:     s.UnitOfMeasures,
+		QuestionGroup:      s.QuestionGroup,
+		QuestionType:       s.QuestionType,
+		DropdownQuestion:   s.DropdownQuestion,
 	}
 }
 
@@ -57,6 +48,9 @@ func (m *ModDiscoDB) InsertFromNewUserNeedsType(in *discoRpc.NewUserNeedsType) e
 		Comment:            in.GetComment(),
 		Description:        in.GetDescription(),
 		UnitOfMeasures:     in.GetUnitOfMeasures(),
+		QuestionGroup:      in.GetQuestionGroup(),
+		QuestionType:       in.GetQuestionType(),
+		DropdownQuestion:   in.GetDropdownQuestion(),
 	}
 	err := m.InsertUserNeedsType(nunt)
 	if err != nil {

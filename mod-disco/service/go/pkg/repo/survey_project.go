@@ -25,6 +25,7 @@ func (md *ModDiscoRepo) NewSurveyProject(ctx context.Context, in *discoRpc.NewSu
 		return nil, status.Errorf(codes.InvalidArgument, "cannot insert disco project: non-existent sys-account-project", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
 	in.SysAccountProjectRefId = sysAccountProjectId
+	md.log.Debugf("SysAccountProjectId: %s", sysAccountProjectId)
 	sp, err := md.store.InsertSurveyProject(in)
 	if err != nil {
 		return nil, err
@@ -33,12 +34,17 @@ func (md *ModDiscoRepo) NewSurveyProject(ctx context.Context, in *discoRpc.NewSu
 }
 
 func (md *ModDiscoRepo) GetSurveyProject(ctx context.Context, in *discoRpc.IdRequest) (*discoRpc.SurveyProject, error) {
-	if in == nil || in.SurveyProjectId == "" {
+	if in == nil || (in.SurveyProjectId == "" && in.SysAccountProjectId == "") {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot get survey project: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
-	sp, err := md.store.GetSurveyProject(map[string]interface{}{
-		"survey_project_id": in.SurveyProjectId,
-	})
+	params := map[string]interface{}{}
+	if in.GetSurveyProjectId() != "" {
+		params["survey_project_id"] = in.GetSurveyProjectId()
+	}
+	if in.GetSysAccountProjectId() != "" {
+		params["sys_account_project_ref_id"] = in.GetSysAccountProjectId()
+	}
+	sp, err := md.store.GetSurveyProject(params)
 	if err != nil {
 		return nil, err
 	}

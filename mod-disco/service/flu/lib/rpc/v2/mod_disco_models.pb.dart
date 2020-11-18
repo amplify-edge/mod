@@ -3,7 +3,7 @@
 //  source: mod_disco_models.proto
 //
 // @dart = 2.3
-// ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
+// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
 
@@ -12,14 +12,306 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'google/protobuf/timestamp.pb.dart' as $2;
 
+class UserInfo extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserInfo', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountRefId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'selectedCountry')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'selectedCity')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'selectedAgeRange')
+    ..aOM<$2.Timestamp>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', subBuilder: $2.Timestamp.create)
+    ..aOM<$2.Timestamp>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updatedAt', subBuilder: $2.Timestamp.create)
+    ..hasRequiredFields = false
+  ;
+
+  UserInfo._() : super();
+  factory UserInfo() => create();
+  factory UserInfo.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserInfo.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UserInfo clone() => UserInfo()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserInfo copyWith(void Function(UserInfo) updates) => super.copyWith((message) => updates(message as UserInfo)); // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UserInfo create() => UserInfo._();
+  UserInfo createEmptyInstance() => create();
+  static $pb.PbList<UserInfo> createRepeated() => $pb.PbList<UserInfo>();
+  @$core.pragma('dart2js:noInline')
+  static UserInfo getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserInfo>(create);
+  static UserInfo _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sysAccountRefId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sysAccountRefId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSysAccountRefId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSysAccountRefId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get selectedCountry => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set selectedCountry($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasSelectedCountry() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSelectedCountry() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get selectedCity => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set selectedCity($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasSelectedCity() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearSelectedCity() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get selectedAgeRange => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set selectedAgeRange($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasSelectedAgeRange() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearSelectedAgeRange() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $2.Timestamp get createdAt => $_getN(4);
+  @$pb.TagNumber(5)
+  set createdAt($2.Timestamp v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasCreatedAt() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearCreatedAt() => clearField(5);
+  @$pb.TagNumber(5)
+  $2.Timestamp ensureCreatedAt() => $_ensure(4);
+
+  @$pb.TagNumber(6)
+  $2.Timestamp get updatedAt => $_getN(5);
+  @$pb.TagNumber(6)
+  set updatedAt($2.Timestamp v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasUpdatedAt() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearUpdatedAt() => clearField(6);
+  @$pb.TagNumber(6)
+  $2.Timestamp ensureUpdatedAt() => $_ensure(5);
+}
+
+class NewUserInfo extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewUserInfo', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountRefId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountRefEmail')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'selectedCountry')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'selectedCity')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'selectedAgeRange')
+    ..hasRequiredFields = false
+  ;
+
+  NewUserInfo._() : super();
+  factory NewUserInfo() => create();
+  factory NewUserInfo.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory NewUserInfo.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  NewUserInfo clone() => NewUserInfo()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  NewUserInfo copyWith(void Function(NewUserInfo) updates) => super.copyWith((message) => updates(message as NewUserInfo)); // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static NewUserInfo create() => NewUserInfo._();
+  NewUserInfo createEmptyInstance() => create();
+  static $pb.PbList<NewUserInfo> createRepeated() => $pb.PbList<NewUserInfo>();
+  @$core.pragma('dart2js:noInline')
+  static NewUserInfo getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<NewUserInfo>(create);
+  static NewUserInfo _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sysAccountRefId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sysAccountRefId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSysAccountRefId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSysAccountRefId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get sysAccountRefEmail => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set sysAccountRefEmail($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasSysAccountRefEmail() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSysAccountRefEmail() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get selectedCountry => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set selectedCountry($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasSelectedCountry() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearSelectedCountry() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get selectedCity => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set selectedCity($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasSelectedCity() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearSelectedCity() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get selectedAgeRange => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set selectedAgeRange($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasSelectedAgeRange() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearSelectedAgeRange() => clearField(5);
+}
+
+class UpdateUserInfo extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateUserInfo', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountRefId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'selectedCountry')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'selectedCity')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'selectedAgeRange')
+    ..hasRequiredFields = false
+  ;
+
+  UpdateUserInfo._() : super();
+  factory UpdateUserInfo() => create();
+  factory UpdateUserInfo.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdateUserInfo.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UpdateUserInfo clone() => UpdateUserInfo()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UpdateUserInfo copyWith(void Function(UpdateUserInfo) updates) => super.copyWith((message) => updates(message as UpdateUserInfo)); // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UpdateUserInfo create() => UpdateUserInfo._();
+  UpdateUserInfo createEmptyInstance() => create();
+  static $pb.PbList<UpdateUserInfo> createRepeated() => $pb.PbList<UpdateUserInfo>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateUserInfo getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateUserInfo>(create);
+  static UpdateUserInfo _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sysAccountRefId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sysAccountRefId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSysAccountRefId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSysAccountRefId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get selectedCountry => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set selectedCountry($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasSelectedCountry() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSelectedCountry() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get selectedCity => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set selectedCity($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasSelectedCity() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearSelectedCity() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get selectedAgeRange => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set selectedAgeRange($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasSelectedAgeRange() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearSelectedAgeRange() => clearField(4);
+}
+
+class UserInfoValues extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserInfoValues', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..pPS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'countries')
+    ..pPS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cities')
+    ..pPS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'selectedAgeRanges')
+    ..hasRequiredFields = false
+  ;
+
+  UserInfoValues._() : super();
+  factory UserInfoValues() => create();
+  factory UserInfoValues.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserInfoValues.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UserInfoValues clone() => UserInfoValues()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserInfoValues copyWith(void Function(UserInfoValues) updates) => super.copyWith((message) => updates(message as UserInfoValues)); // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UserInfoValues create() => UserInfoValues._();
+  UserInfoValues createEmptyInstance() => create();
+  static $pb.PbList<UserInfoValues> createRepeated() => $pb.PbList<UserInfoValues>();
+  @$core.pragma('dart2js:noInline')
+  static UserInfoValues getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserInfoValues>(create);
+  static UserInfoValues _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.String> get countries => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $core.List<$core.String> get cities => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.String> get selectedAgeRanges => $_getList(3);
+}
+
 class SupportRoleType extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SupportRoleType', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'id')
-    ..aOS(2, 'surveyProjectRefId')
-    ..aOS(3, 'name')
-    ..aOS(4, 'comment')
-    ..aOS(5, 'description')
-    ..aOS(6, 'unitOfMeasures')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SupportRoleType', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjectRefId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comment')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'unitOfMeasures')
     ..hasRequiredFields = false
   ;
 
@@ -27,8 +319,16 @@ class SupportRoleType extends $pb.GeneratedMessage {
   factory SupportRoleType() => create();
   factory SupportRoleType.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory SupportRoleType.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   SupportRoleType clone() => SupportRoleType()..mergeFromMessage(this);
-  SupportRoleType copyWith(void Function(SupportRoleType) updates) => super.copyWith((message) => updates(message as SupportRoleType));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SupportRoleType copyWith(void Function(SupportRoleType) updates) => super.copyWith((message) => updates(message as SupportRoleType)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static SupportRoleType create() => SupportRoleType._();
@@ -94,13 +394,13 @@ class SupportRoleType extends $pb.GeneratedMessage {
 }
 
 class NewSupportRoleType extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('NewSupportRoleType', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'surveyProjectRefId')
-    ..aOS(2, 'surveyProjectRefName')
-    ..aOS(3, 'name')
-    ..aOS(4, 'comment')
-    ..aOS(5, 'description')
-    ..aOS(6, 'unitOfMeasures')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewSupportRoleType', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjectRefId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjectRefName')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comment')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'unitOfMeasures')
     ..hasRequiredFields = false
   ;
 
@@ -108,8 +408,16 @@ class NewSupportRoleType extends $pb.GeneratedMessage {
   factory NewSupportRoleType() => create();
   factory NewSupportRoleType.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewSupportRoleType.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   NewSupportRoleType clone() => NewSupportRoleType()..mergeFromMessage(this);
-  NewSupportRoleType copyWith(void Function(NewSupportRoleType) updates) => super.copyWith((message) => updates(message as NewSupportRoleType));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  NewSupportRoleType copyWith(void Function(NewSupportRoleType) updates) => super.copyWith((message) => updates(message as NewSupportRoleType)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static NewSupportRoleType create() => NewSupportRoleType._();
@@ -175,12 +483,12 @@ class NewSupportRoleType extends $pb.GeneratedMessage {
 }
 
 class SupportRoleValue extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SupportRoleValue', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'id')
-    ..aOS(2, 'surveyUserRefId')
-    ..aOS(3, 'supportRoleTypeRefId')
-    ..a<$fixnum.Int64>(4, 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aOS(5, 'comment')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SupportRoleValue', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUserRefId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportRoleTypeRefId')
+    ..a<$fixnum.Int64>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comment')
     ..hasRequiredFields = false
   ;
 
@@ -188,8 +496,16 @@ class SupportRoleValue extends $pb.GeneratedMessage {
   factory SupportRoleValue() => create();
   factory SupportRoleValue.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory SupportRoleValue.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   SupportRoleValue clone() => SupportRoleValue()..mergeFromMessage(this);
-  SupportRoleValue copyWith(void Function(SupportRoleValue) updates) => super.copyWith((message) => updates(message as SupportRoleValue));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SupportRoleValue copyWith(void Function(SupportRoleValue) updates) => super.copyWith((message) => updates(message as SupportRoleValue)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static SupportRoleValue create() => SupportRoleValue._();
@@ -246,14 +562,14 @@ class SupportRoleValue extends $pb.GeneratedMessage {
 }
 
 class NewSupportRoleValue extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('NewSupportRoleValue', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'id')
-    ..aOS(2, 'surveyUserRefId')
-    ..aOS(3, 'surveyUserRefName')
-    ..aOS(4, 'supportRoleTypeRefId')
-    ..aOS(5, 'supportRoleTypeRefName')
-    ..a<$fixnum.Int64>(6, 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aOS(7, 'comment')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewSupportRoleValue', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUserRefId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUserRefName')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportRoleTypeRefId')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportRoleTypeRefName')
+    ..a<$fixnum.Int64>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comment')
     ..hasRequiredFields = false
   ;
 
@@ -261,8 +577,16 @@ class NewSupportRoleValue extends $pb.GeneratedMessage {
   factory NewSupportRoleValue() => create();
   factory NewSupportRoleValue.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewSupportRoleValue.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   NewSupportRoleValue clone() => NewSupportRoleValue()..mergeFromMessage(this);
-  NewSupportRoleValue copyWith(void Function(NewSupportRoleValue) updates) => super.copyWith((message) => updates(message as NewSupportRoleValue));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  NewSupportRoleValue copyWith(void Function(NewSupportRoleValue) updates) => super.copyWith((message) => updates(message as NewSupportRoleValue)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static NewSupportRoleValue create() => NewSupportRoleValue._();
@@ -337,13 +661,16 @@ class NewSupportRoleValue extends $pb.GeneratedMessage {
 }
 
 class UserNeedsType extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UserNeedsType', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'id')
-    ..aOS(2, 'surveyProjectRefId')
-    ..aOS(3, 'name')
-    ..aOS(4, 'comment')
-    ..aOS(5, 'description')
-    ..aOS(6, 'unitOfMeasures')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserNeedsType', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjectRefId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comment')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'unitOfMeasures')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'questionGroup')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'questionType')
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dropdownQuestion')
     ..hasRequiredFields = false
   ;
 
@@ -351,8 +678,16 @@ class UserNeedsType extends $pb.GeneratedMessage {
   factory UserNeedsType() => create();
   factory UserNeedsType.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UserNeedsType.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   UserNeedsType clone() => UserNeedsType()..mergeFromMessage(this);
-  UserNeedsType copyWith(void Function(UserNeedsType) updates) => super.copyWith((message) => updates(message as UserNeedsType));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserNeedsType copyWith(void Function(UserNeedsType) updates) => super.copyWith((message) => updates(message as UserNeedsType)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static UserNeedsType create() => UserNeedsType._();
@@ -415,16 +750,46 @@ class UserNeedsType extends $pb.GeneratedMessage {
   $core.bool hasUnitOfMeasures() => $_has(5);
   @$pb.TagNumber(6)
   void clearUnitOfMeasures() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get questionGroup => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set questionGroup($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasQuestionGroup() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearQuestionGroup() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get questionType => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set questionType($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasQuestionType() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearQuestionType() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.String get dropdownQuestion => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set dropdownQuestion($core.String v) { $_setString(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasDropdownQuestion() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearDropdownQuestion() => clearField(9);
 }
 
 class NewUserNeedsType extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('NewUserNeedsType', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'id')
-    ..aOS(2, 'surveyProjectRefId')
-    ..aOS(3, 'name')
-    ..aOS(4, 'comment')
-    ..aOS(5, 'description')
-    ..aOS(6, 'unitOfMeasures')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewUserNeedsType', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjectRefId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comment')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'unitOfMeasures')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'questionGroup')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'questionType')
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dropdownQuestion')
     ..hasRequiredFields = false
   ;
 
@@ -432,8 +797,16 @@ class NewUserNeedsType extends $pb.GeneratedMessage {
   factory NewUserNeedsType() => create();
   factory NewUserNeedsType.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewUserNeedsType.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   NewUserNeedsType clone() => NewUserNeedsType()..mergeFromMessage(this);
-  NewUserNeedsType copyWith(void Function(NewUserNeedsType) updates) => super.copyWith((message) => updates(message as NewUserNeedsType));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  NewUserNeedsType copyWith(void Function(NewUserNeedsType) updates) => super.copyWith((message) => updates(message as NewUserNeedsType)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static NewUserNeedsType create() => NewUserNeedsType._();
@@ -496,15 +869,42 @@ class NewUserNeedsType extends $pb.GeneratedMessage {
   $core.bool hasUnitOfMeasures() => $_has(5);
   @$pb.TagNumber(6)
   void clearUnitOfMeasures() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get questionGroup => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set questionGroup($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasQuestionGroup() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearQuestionGroup() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get questionType => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set questionType($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasQuestionType() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearQuestionType() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.String get dropdownQuestion => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set dropdownQuestion($core.String v) { $_setString(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasDropdownQuestion() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearDropdownQuestion() => clearField(9);
 }
 
 class UserNeedsValue extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UserNeedsValue', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'id')
-    ..aOS(2, 'surveyUserRefId')
-    ..aOS(3, 'userNeedsTypeRefId')
-    ..aOS(4, 'comments')
-    ..a<$fixnum.Int64>(5, 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserNeedsValue', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUserRefId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedsTypeRefId')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comments')
+    ..a<$fixnum.Int64>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
@@ -512,8 +912,16 @@ class UserNeedsValue extends $pb.GeneratedMessage {
   factory UserNeedsValue() => create();
   factory UserNeedsValue.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UserNeedsValue.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   UserNeedsValue clone() => UserNeedsValue()..mergeFromMessage(this);
-  UserNeedsValue copyWith(void Function(UserNeedsValue) updates) => super.copyWith((message) => updates(message as UserNeedsValue));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserNeedsValue copyWith(void Function(UserNeedsValue) updates) => super.copyWith((message) => updates(message as UserNeedsValue)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static UserNeedsValue create() => UserNeedsValue._();
@@ -570,13 +978,13 @@ class UserNeedsValue extends $pb.GeneratedMessage {
 }
 
 class NewUserNeedsValue extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('NewUserNeedsValue', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'surveyUserRefName')
-    ..aOS(2, 'surveyUserRefId')
-    ..aOS(3, 'userNeedsTypeRefId')
-    ..aOS(4, 'userNeedsTypeRefName')
-    ..aOS(5, 'comments')
-    ..a<$fixnum.Int64>(6, 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewUserNeedsValue', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUserRefName')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUserRefId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedsTypeRefId')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedsTypeRefName')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comments')
+    ..a<$fixnum.Int64>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
@@ -584,8 +992,16 @@ class NewUserNeedsValue extends $pb.GeneratedMessage {
   factory NewUserNeedsValue() => create();
   factory NewUserNeedsValue.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewUserNeedsValue.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   NewUserNeedsValue clone() => NewUserNeedsValue()..mergeFromMessage(this);
-  NewUserNeedsValue copyWith(void Function(NewUserNeedsValue) updates) => super.copyWith((message) => updates(message as NewUserNeedsValue));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  NewUserNeedsValue copyWith(void Function(NewUserNeedsValue) updates) => super.copyWith((message) => updates(message as NewUserNeedsValue)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static NewUserNeedsValue create() => NewUserNeedsValue._();
@@ -651,14 +1067,14 @@ class NewUserNeedsValue extends $pb.GeneratedMessage {
 }
 
 class SurveyProject extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SurveyProject', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'surveyProjectId')
-    ..aOS(2, 'sysAccountProjectRefId')
-    ..pc<SupportRoleType>(3, 'supportRoleTypes', $pb.PbFieldType.PM, subBuilder: SupportRoleType.create)
-    ..pc<UserNeedsType>(4, 'userNeedTypes', $pb.PbFieldType.PM, subBuilder: UserNeedsType.create)
-    ..aOM<$2.Timestamp>(5, 'createdAt', subBuilder: $2.Timestamp.create)
-    ..aOM<$2.Timestamp>(6, 'updatedAt', subBuilder: $2.Timestamp.create)
-    ..aOS(7, 'surveyProjectName')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SurveyProject', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjectId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountProjectRefId')
+    ..pc<SupportRoleType>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportRoleTypes', $pb.PbFieldType.PM, subBuilder: SupportRoleType.create)
+    ..pc<UserNeedsType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedTypes', $pb.PbFieldType.PM, subBuilder: UserNeedsType.create)
+    ..aOM<$2.Timestamp>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', subBuilder: $2.Timestamp.create)
+    ..aOM<$2.Timestamp>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updatedAt', subBuilder: $2.Timestamp.create)
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjectName')
     ..hasRequiredFields = false
   ;
 
@@ -666,8 +1082,16 @@ class SurveyProject extends $pb.GeneratedMessage {
   factory SurveyProject() => create();
   factory SurveyProject.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory SurveyProject.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   SurveyProject clone() => SurveyProject()..mergeFromMessage(this);
-  SurveyProject copyWith(void Function(SurveyProject) updates) => super.copyWith((message) => updates(message as SurveyProject));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SurveyProject copyWith(void Function(SurveyProject) updates) => super.copyWith((message) => updates(message as SurveyProject)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static SurveyProject create() => SurveyProject._();
@@ -734,16 +1158,16 @@ class SurveyProject extends $pb.GeneratedMessage {
 }
 
 class SurveyUser extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SurveyUser', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'surveyUserId')
-    ..aOS(2, 'surveyProjectRefId')
-    ..aOS(3, 'sysAccountAccountRefId')
-    ..pc<SupportRoleValue>(4, 'supportRoleValues', $pb.PbFieldType.PM, subBuilder: SupportRoleValue.create)
-    ..pc<UserNeedsValue>(5, 'userNeedValues', $pb.PbFieldType.PM, subBuilder: UserNeedsValue.create)
-    ..aOM<$2.Timestamp>(6, 'createdAt', subBuilder: $2.Timestamp.create)
-    ..aOM<$2.Timestamp>(7, 'updatedAt', subBuilder: $2.Timestamp.create)
-    ..aOS(8, 'surveyProjectRefName')
-    ..aOS(9, 'surveyUserName')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SurveyUser', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUserId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjectRefId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountAccountRefId')
+    ..pc<SupportRoleValue>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportRoleValues', $pb.PbFieldType.PM, subBuilder: SupportRoleValue.create)
+    ..pc<UserNeedsValue>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedValues', $pb.PbFieldType.PM, subBuilder: UserNeedsValue.create)
+    ..aOM<$2.Timestamp>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', subBuilder: $2.Timestamp.create)
+    ..aOM<$2.Timestamp>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updatedAt', subBuilder: $2.Timestamp.create)
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjectRefName')
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUserName')
     ..hasRequiredFields = false
   ;
 
@@ -751,8 +1175,16 @@ class SurveyUser extends $pb.GeneratedMessage {
   factory SurveyUser() => create();
   factory SurveyUser.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory SurveyUser.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   SurveyUser clone() => SurveyUser()..mergeFromMessage(this);
-  SurveyUser copyWith(void Function(SurveyUser) updates) => super.copyWith((message) => updates(message as SurveyUser));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SurveyUser copyWith(void Function(SurveyUser) updates) => super.copyWith((message) => updates(message as SurveyUser)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static SurveyUser create() => SurveyUser._();
@@ -837,27 +1269,27 @@ class SurveyUser extends $pb.GeneratedMessage {
 }
 
 class DiscoProject extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('DiscoProject', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'projectId')
-    ..aOS(2, 'sysAccountProjectRefId')
-    ..aOS(3, 'sysAccountOrgRefId')
-    ..aOS(4, 'goal')
-    ..a<$fixnum.Int64>(5, 'alreadyPledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aOM<$2.Timestamp>(6, 'actionTime', subBuilder: $2.Timestamp.create)
-    ..aOS(7, 'actionLocation')
-    ..a<$fixnum.Int64>(8, 'minPioneers', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..a<$fixnum.Int64>(9, 'minRebelsMedia', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..a<$fixnum.Int64>(10, 'minRebelsToWin', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aOS(11, 'actionLength')
-    ..aOS(12, 'actionType')
-    ..aOS(14, 'category')
-    ..aOS(15, 'contact')
-    ..aOS(16, 'histPrecedents')
-    ..aOS(17, 'strategy')
-    ..pPS(18, 'videoUrl')
-    ..aOS(19, 'unitOfMeasures')
-    ..aOM<$2.Timestamp>(20, 'createdAt', subBuilder: $2.Timestamp.create)
-    ..aOM<$2.Timestamp>(21, 'updatedAt', subBuilder: $2.Timestamp.create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'DiscoProject', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'projectId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountProjectRefId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountOrgRefId')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'goal')
+    ..a<$fixnum.Int64>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'alreadyPledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOM<$2.Timestamp>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'actionTime', subBuilder: $2.Timestamp.create)
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'actionLocation')
+    ..a<$fixnum.Int64>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minPioneers', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minRebelsMedia', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minRebelsToWin', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'actionLength')
+    ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'actionType')
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'category')
+    ..aOS(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contact')
+    ..aOS(16, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'histPrecedents')
+    ..aOS(17, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'strategy')
+    ..pPS(18, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'videoUrl')
+    ..aOS(19, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'unitOfMeasures')
+    ..aOM<$2.Timestamp>(20, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', subBuilder: $2.Timestamp.create)
+    ..aOM<$2.Timestamp>(21, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updatedAt', subBuilder: $2.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -865,8 +1297,16 @@ class DiscoProject extends $pb.GeneratedMessage {
   factory DiscoProject() => create();
   factory DiscoProject.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory DiscoProject.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   DiscoProject clone() => DiscoProject()..mergeFromMessage(this);
-  DiscoProject copyWith(void Function(DiscoProject) updates) => super.copyWith((message) => updates(message as DiscoProject));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DiscoProject copyWith(void Function(DiscoProject) updates) => super.copyWith((message) => updates(message as DiscoProject)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static DiscoProject create() => DiscoProject._();
@@ -1058,26 +1498,26 @@ class DiscoProject extends $pb.GeneratedMessage {
 }
 
 class NewDiscoProjectRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('NewDiscoProjectRequest', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'sysAccountProjectRefId')
-    ..aOS(2, 'sysAccountOrgRefId')
-    ..aOS(3, 'goal')
-    ..a<$fixnum.Int64>(4, 'alreadyPledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aInt64(5, 'actionTimeNano')
-    ..aOS(6, 'actionLocation')
-    ..a<$fixnum.Int64>(7, 'minPioneers', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..a<$fixnum.Int64>(8, 'minRebelsMedia', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..a<$fixnum.Int64>(9, 'minRebelsToWin', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aOS(10, 'actionLength')
-    ..aOS(11, 'actionType')
-    ..aOS(12, 'category')
-    ..aOS(13, 'contact')
-    ..aOS(14, 'histPrecedents')
-    ..aOS(15, 'strategy')
-    ..pPS(16, 'videoUrl')
-    ..aOS(17, 'unitOfMeasures')
-    ..aOS(18, 'sysAccountProjectRefName')
-    ..aOS(19, 'sysAccountOrgRefName')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewDiscoProjectRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountProjectRefId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountOrgRefId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'goal')
+    ..a<$fixnum.Int64>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'alreadyPledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aInt64(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'actionTimeNano')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'actionLocation')
+    ..a<$fixnum.Int64>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minPioneers', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minRebelsMedia', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minRebelsToWin', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'actionLength')
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'actionType')
+    ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'category')
+    ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contact')
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'histPrecedents')
+    ..aOS(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'strategy')
+    ..pPS(16, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'videoUrl')
+    ..aOS(17, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'unitOfMeasures')
+    ..aOS(18, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountProjectRefName')
+    ..aOS(19, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountOrgRefName')
     ..hasRequiredFields = false
   ;
 
@@ -1085,8 +1525,16 @@ class NewDiscoProjectRequest extends $pb.GeneratedMessage {
   factory NewDiscoProjectRequest() => create();
   factory NewDiscoProjectRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewDiscoProjectRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   NewDiscoProjectRequest clone() => NewDiscoProjectRequest()..mergeFromMessage(this);
-  NewDiscoProjectRequest copyWith(void Function(NewDiscoProjectRequest) updates) => super.copyWith((message) => updates(message as NewDiscoProjectRequest));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  NewDiscoProjectRequest copyWith(void Function(NewDiscoProjectRequest) updates) => super.copyWith((message) => updates(message as NewDiscoProjectRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static NewDiscoProjectRequest create() => NewDiscoProjectRequest._();
@@ -1263,23 +1711,23 @@ class NewDiscoProjectRequest extends $pb.GeneratedMessage {
 }
 
 class UpdateDiscoProjectRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateDiscoProjectRequest', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'projectId')
-    ..aOS(2, 'goal')
-    ..a<$fixnum.Int64>(3, 'alreadyPledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aOM<$2.Timestamp>(4, 'actionTime', subBuilder: $2.Timestamp.create)
-    ..aOS(5, 'actionLocation')
-    ..a<$fixnum.Int64>(6, 'minPioneers', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..a<$fixnum.Int64>(7, 'minRebelsMedia', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..a<$fixnum.Int64>(8, 'minRebelsToWin', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aOS(9, 'actionLength')
-    ..aOS(10, 'actionType')
-    ..aOS(11, 'category')
-    ..aOS(12, 'contact')
-    ..aOS(13, 'histPrecedents')
-    ..aOS(14, 'strategy')
-    ..aOS(15, 'videoUrl')
-    ..aOS(16, 'unitOfMeasures')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateDiscoProjectRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'projectId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'goal')
+    ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'alreadyPledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOM<$2.Timestamp>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'actionTime', subBuilder: $2.Timestamp.create)
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'actionLocation')
+    ..a<$fixnum.Int64>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minPioneers', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minRebelsMedia', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minRebelsToWin', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'actionLength')
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'actionType')
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'category')
+    ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contact')
+    ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'histPrecedents')
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'strategy')
+    ..aOS(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'videoUrl')
+    ..aOS(16, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'unitOfMeasures')
     ..hasRequiredFields = false
   ;
 
@@ -1287,8 +1735,16 @@ class UpdateDiscoProjectRequest extends $pb.GeneratedMessage {
   factory UpdateDiscoProjectRequest() => create();
   factory UpdateDiscoProjectRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UpdateDiscoProjectRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   UpdateDiscoProjectRequest clone() => UpdateDiscoProjectRequest()..mergeFromMessage(this);
-  UpdateDiscoProjectRequest copyWith(void Function(UpdateDiscoProjectRequest) updates) => super.copyWith((message) => updates(message as UpdateDiscoProjectRequest));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UpdateDiscoProjectRequest copyWith(void Function(UpdateDiscoProjectRequest) updates) => super.copyWith((message) => updates(message as UpdateDiscoProjectRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static UpdateDiscoProjectRequest create() => UpdateDiscoProjectRequest._();
@@ -1446,13 +1902,13 @@ class UpdateDiscoProjectRequest extends $pb.GeneratedMessage {
 }
 
 class IdRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('IdRequest', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'surveyUserId')
-    ..aOS(2, 'sysAccountProjectId')
-    ..aOS(3, 'surveyProjectId')
-    ..aOS(4, 'sysAccountAccountId')
-    ..aOS(5, 'discoProjectId')
-    ..aOS(6, 'sysAccountOrgId')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'IdRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUserId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountProjectId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjectId')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountAccountId')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'discoProjectId')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountOrgId')
     ..hasRequiredFields = false
   ;
 
@@ -1460,8 +1916,16 @@ class IdRequest extends $pb.GeneratedMessage {
   factory IdRequest() => create();
   factory IdRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory IdRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   IdRequest clone() => IdRequest()..mergeFromMessage(this);
-  IdRequest copyWith(void Function(IdRequest) updates) => super.copyWith((message) => updates(message as IdRequest));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  IdRequest copyWith(void Function(IdRequest) updates) => super.copyWith((message) => updates(message as IdRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static IdRequest create() => IdRequest._();
@@ -1527,13 +1991,13 @@ class IdRequest extends $pb.GeneratedMessage {
 }
 
 class ListRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('ListRequest', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOM<IdRequest>(1, 'idRequest', subBuilder: IdRequest.create)
-    ..aInt64(2, 'perPageEntries')
-    ..aOS(3, 'orderBy')
-    ..aOS(4, 'currentPageId')
-    ..a<$core.List<$core.int>>(5, 'filters', $pb.PbFieldType.OY)
-    ..aOB(6, 'isDescending', protoName: 'isDescending')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOM<IdRequest>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'idRequest', subBuilder: IdRequest.create)
+    ..aInt64(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'perPageEntries')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'orderBy')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currentPageId')
+    ..a<$core.List<$core.int>>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filters', $pb.PbFieldType.OY)
+    ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isDescending', protoName: 'isDescending')
     ..hasRequiredFields = false
   ;
 
@@ -1541,8 +2005,16 @@ class ListRequest extends $pb.GeneratedMessage {
   factory ListRequest() => create();
   factory ListRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ListRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   ListRequest clone() => ListRequest()..mergeFromMessage(this);
-  ListRequest copyWith(void Function(ListRequest) updates) => super.copyWith((message) => updates(message as ListRequest));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListRequest copyWith(void Function(ListRequest) updates) => super.copyWith((message) => updates(message as ListRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static ListRequest create() => ListRequest._();
@@ -1610,11 +2082,11 @@ class ListRequest extends $pb.GeneratedMessage {
 }
 
 class ListResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('ListResponse', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..pc<SurveyProject>(1, 'surveyProjects', $pb.PbFieldType.PM, subBuilder: SurveyProject.create)
-    ..pc<SurveyUser>(2, 'surveyUsers', $pb.PbFieldType.PM, subBuilder: SurveyUser.create)
-    ..aInt64(3, 'nextPageId')
-    ..pc<DiscoProject>(4, 'discoProjects', $pb.PbFieldType.PM, subBuilder: DiscoProject.create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..pc<SurveyProject>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjects', $pb.PbFieldType.PM, subBuilder: SurveyProject.create)
+    ..pc<SurveyUser>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUsers', $pb.PbFieldType.PM, subBuilder: SurveyUser.create)
+    ..aInt64(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPageId')
+    ..pc<DiscoProject>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'discoProjects', $pb.PbFieldType.PM, subBuilder: DiscoProject.create)
     ..hasRequiredFields = false
   ;
 
@@ -1622,8 +2094,16 @@ class ListResponse extends $pb.GeneratedMessage {
   factory ListResponse() => create();
   factory ListResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ListResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   ListResponse clone() => ListResponse()..mergeFromMessage(this);
-  ListResponse copyWith(void Function(ListResponse) updates) => super.copyWith((message) => updates(message as ListResponse));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListResponse copyWith(void Function(ListResponse) updates) => super.copyWith((message) => updates(message as ListResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static ListResponse create() => ListResponse._();
@@ -1653,12 +2133,12 @@ class ListResponse extends $pb.GeneratedMessage {
 }
 
 class NewSurveyProjectRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('NewSurveyProjectRequest', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'sysAccountProjectRefId')
-    ..pc<NewSupportRoleType>(2, 'supportRoleTypes', $pb.PbFieldType.PM, subBuilder: NewSupportRoleType.create)
-    ..pc<NewUserNeedsType>(3, 'userNeedTypes', $pb.PbFieldType.PM, subBuilder: NewUserNeedsType.create)
-    ..aOS(4, 'sysAccountProjectRefName')
-    ..aOS(5, 'surveyProjectName')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewSurveyProjectRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountProjectRefId')
+    ..pc<NewSupportRoleType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportRoleTypes', $pb.PbFieldType.PM, subBuilder: NewSupportRoleType.create)
+    ..pc<NewUserNeedsType>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedTypes', $pb.PbFieldType.PM, subBuilder: NewUserNeedsType.create)
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountProjectRefName')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjectName')
     ..hasRequiredFields = false
   ;
 
@@ -1666,8 +2146,16 @@ class NewSurveyProjectRequest extends $pb.GeneratedMessage {
   factory NewSurveyProjectRequest() => create();
   factory NewSurveyProjectRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewSurveyProjectRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   NewSurveyProjectRequest clone() => NewSurveyProjectRequest()..mergeFromMessage(this);
-  NewSurveyProjectRequest copyWith(void Function(NewSurveyProjectRequest) updates) => super.copyWith((message) => updates(message as NewSurveyProjectRequest));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  NewSurveyProjectRequest copyWith(void Function(NewSurveyProjectRequest) updates) => super.copyWith((message) => updates(message as NewSurveyProjectRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static NewSurveyProjectRequest create() => NewSurveyProjectRequest._();
@@ -1712,14 +2200,14 @@ class NewSurveyProjectRequest extends $pb.GeneratedMessage {
 }
 
 class NewSurveyUserRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('NewSurveyUserRequest', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'surveyProjectRefId')
-    ..aOS(2, 'sysAccountUserRefId')
-    ..pc<NewSupportRoleValue>(3, 'supportRoleValues', $pb.PbFieldType.PM, subBuilder: NewSupportRoleValue.create)
-    ..pc<NewUserNeedsValue>(4, 'userNeedValues', $pb.PbFieldType.PM, subBuilder: NewUserNeedsValue.create)
-    ..aOS(5, 'surveyProjectRefName')
-    ..aOS(6, 'sysAccountUserRefName')
-    ..aOS(7, 'surveyUserName')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewSurveyUserRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjectRefId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountUserRefId')
+    ..pc<NewSupportRoleValue>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportRoleValues', $pb.PbFieldType.PM, subBuilder: NewSupportRoleValue.create)
+    ..pc<NewUserNeedsValue>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedValues', $pb.PbFieldType.PM, subBuilder: NewUserNeedsValue.create)
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjectRefName')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountUserRefName')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUserName')
     ..hasRequiredFields = false
   ;
 
@@ -1727,8 +2215,16 @@ class NewSurveyUserRequest extends $pb.GeneratedMessage {
   factory NewSurveyUserRequest() => create();
   factory NewSurveyUserRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewSurveyUserRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   NewSurveyUserRequest clone() => NewSurveyUserRequest()..mergeFromMessage(this);
-  NewSurveyUserRequest copyWith(void Function(NewSurveyUserRequest) updates) => super.copyWith((message) => updates(message as NewSurveyUserRequest));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  NewSurveyUserRequest copyWith(void Function(NewSurveyUserRequest) updates) => super.copyWith((message) => updates(message as NewSurveyUserRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static NewSurveyUserRequest create() => NewSurveyUserRequest._();
@@ -1791,10 +2287,10 @@ class NewSurveyUserRequest extends $pb.GeneratedMessage {
 }
 
 class UpdateSurveyProjectRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateSurveyProjectRequest', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'surveyProjectId')
-    ..pc<SupportRoleType>(2, 'supportRoleTypes', $pb.PbFieldType.PM, subBuilder: SupportRoleType.create)
-    ..pc<UserNeedsType>(3, 'userNeedTypes', $pb.PbFieldType.PM, subBuilder: UserNeedsType.create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateSurveyProjectRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyProjectId')
+    ..pc<SupportRoleType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportRoleTypes', $pb.PbFieldType.PM, subBuilder: SupportRoleType.create)
+    ..pc<UserNeedsType>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedTypes', $pb.PbFieldType.PM, subBuilder: UserNeedsType.create)
     ..hasRequiredFields = false
   ;
 
@@ -1802,8 +2298,16 @@ class UpdateSurveyProjectRequest extends $pb.GeneratedMessage {
   factory UpdateSurveyProjectRequest() => create();
   factory UpdateSurveyProjectRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UpdateSurveyProjectRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   UpdateSurveyProjectRequest clone() => UpdateSurveyProjectRequest()..mergeFromMessage(this);
-  UpdateSurveyProjectRequest copyWith(void Function(UpdateSurveyProjectRequest) updates) => super.copyWith((message) => updates(message as UpdateSurveyProjectRequest));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UpdateSurveyProjectRequest copyWith(void Function(UpdateSurveyProjectRequest) updates) => super.copyWith((message) => updates(message as UpdateSurveyProjectRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static UpdateSurveyProjectRequest create() => UpdateSurveyProjectRequest._();
@@ -1830,10 +2334,10 @@ class UpdateSurveyProjectRequest extends $pb.GeneratedMessage {
 }
 
 class UpdateSurveyUserRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateSurveyUserRequest', package: const $pb.PackageName('v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, 'surveyUserId')
-    ..pc<SupportRoleValue>(2, 'supportRoleValues', $pb.PbFieldType.PM, subBuilder: SupportRoleValue.create)
-    ..pc<UserNeedsValue>(3, 'userNeedValues', $pb.PbFieldType.PM, subBuilder: UserNeedsValue.create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateSurveyUserRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUserId')
+    ..pc<SupportRoleValue>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportRoleValues', $pb.PbFieldType.PM, subBuilder: SupportRoleValue.create)
+    ..pc<UserNeedsValue>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedValues', $pb.PbFieldType.PM, subBuilder: UserNeedsValue.create)
     ..hasRequiredFields = false
   ;
 
@@ -1841,8 +2345,16 @@ class UpdateSurveyUserRequest extends $pb.GeneratedMessage {
   factory UpdateSurveyUserRequest() => create();
   factory UpdateSurveyUserRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UpdateSurveyUserRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   UpdateSurveyUserRequest clone() => UpdateSurveyUserRequest()..mergeFromMessage(this);
-  UpdateSurveyUserRequest copyWith(void Function(UpdateSurveyUserRequest) updates) => super.copyWith((message) => updates(message as UpdateSurveyUserRequest));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UpdateSurveyUserRequest copyWith(void Function(UpdateSurveyUserRequest) updates) => super.copyWith((message) => updates(message as UpdateSurveyUserRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static UpdateSurveyUserRequest create() => UpdateSurveyUserRequest._();

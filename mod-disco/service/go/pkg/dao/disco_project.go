@@ -66,8 +66,8 @@ func (m *ModDiscoDB) FromPkgDiscoProject(dp *discoRpc.DiscoProject) (*DiscoProje
 		Strategy:               dp.GetStrategy(),
 		VideoUrl:               dp.GetVideoUrl(),
 		UnitOfMeasures:         dp.GetUnitOfMeasures(),
-		CreatedAt:              dp.GetCreatedAt().Seconds,
-		UpdatedAt:              dp.GetUpdatedAt().Seconds,
+		CreatedAt:              int64(dp.GetCreatedAt().GetNanos()),
+		UpdatedAt:              int64(dp.GetUpdatedAt().GetNanos()),
 	}, nil
 }
 
@@ -136,6 +136,16 @@ func (m *ModDiscoDB) discoProjectQueryFilter(filter map[string]interface{}) sq.S
 	if filter != nil {
 		for k, v := range filter {
 			baseStmt = baseStmt.Where(sq.Eq{k: v})
+		}
+	}
+	return baseStmt
+}
+
+func (m *ModDiscoDB) discoProjectLikeFilter(filter map[string]interface{}) sq.SelectBuilder {
+	baseStmt := sq.Select(m.discoProjectColumns).From(DiscoProjectTableName)
+	if filter != nil {
+		for k, v := range filter {
+			baseStmt = baseStmt.Where(sq.Like{k: v})
 		}
 	}
 	return baseStmt

@@ -37,15 +37,17 @@ dependencies:
   data_tables: ^1.0.3
   random_string: ^2.0.1
   flutter_platform_widgets: ^0.8.1
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.0
   font_awesome_flutter: ^8.7.0
   grpc:
   protobuf:
-
-  sys_core:
-    git:
-      url: git://github.com/getcouragenow/sys-share
-      path: sys-core/service/flu
+  youtube_player_iframe: ^1.1.0
+  #  sys_core:
+  #    git:
+  #      url: git://github.com/getcouragenow/sys-share
+  #      path: sys-core/service/flu
+  sys_share_sys_account_service:
+    path: ../../../../sys-share/sys-account/service/flu
 
   # mod_timespace:
   #   path: ../../mod-timespace/client

@@ -5,8 +5,11 @@ import 'package:mod_disco/core/shared_repositories/mocks/mock_support_role_answe
 import 'package:mod_disco/core/shared_repositories/mocks/mock_support_role_repository.dart';
 import 'package:mod_disco/core/shared_repositories/mocks/mock_user_need_answer_repository.dart';
 import 'package:mod_disco/core/shared_repositories/mocks/mock_user_need_repository.dart';
+import 'package:mod_disco/modules/new_orgs/views/org_view.dart';
 import 'package:mod_disco/modules/org_manager/orgs/views/org_master_detail_view.dart';
+import 'package:mod_disco/modules/projects/views/proj_view.dart';
 import 'package:mod_disco/modules/support_roles/services/support_role_answer_service.dart';
+import 'package:mod_disco/modules/survey_project/views/survey_project_view.dart';
 import 'package:mod_disco/modules/user_needs/services/user_need_answer_service.dart';
 import 'orgs/service/orgs_service.dart';
 import 'orgs/views/org_view.dart';
@@ -40,21 +43,19 @@ class MainAppModule extends ChildModule {
   List<Bind> get binds => [
         Bind((i) => Paths(baseRoute)),
         Bind((i) => EnvConfig(url, urlNative)),
-        Bind((i) => OrgsService(
-            repository:
-                MockOrgRepository())), // TODO Replace this later with OrgRepository
-        Bind((i) => UserNeedService(
-            repository:
-                MockUserNeedRepository())), // TODO Replace this later with UserNeedRepository
-        Bind((i) => UserNeedAnswerService(
-            repository:
-                MockUserNeedAnswerRepository())), // TODO Replace this later with UserNeedAnswerRepository
-        Bind((i) => SupportRoleService(
-            repository:
-                MockSupportRoleRepository())), // TODO Replace this later with SupportRoleRepository
+        Bind((i) => OrgsService(repository: MockOrgRepository())),
+        // TODO Replace this later with OrgRepository
+        Bind((i) => UserNeedService(repository: MockUserNeedRepository())),
+        // TODO Replace this later with UserNeedRepository
+        Bind((i) =>
+            UserNeedAnswerService(repository: MockUserNeedAnswerRepository())),
+        // TODO Replace this later with UserNeedAnswerRepository
+        Bind(
+            (i) => SupportRoleService(repository: MockSupportRoleRepository())),
+        // TODO Replace this later with SupportRoleRepository
         Bind((i) => SupportRoleAnswerService(
-            repository:
-                MockSupportRoleAnswerRepository())), // TODO Replace this later with SupportRoleRepository
+            repository: MockSupportRoleAnswerRepository())),
+        // TODO Replace this later with SupportRoleRepository
       ];
 
   @override
@@ -62,20 +63,24 @@ class MainAppModule extends ChildModule {
         ModularRouter("/", child: (_, args) => SplashView()),
 
         /// Non-Admin Dashboard Routes
-        ModularRouter("/userInfo", child: (_, args) => UserInfoView()),
+        // ModularRouter("/userInfo", child: (_, args) => UserInfoView()),
         ModularRouter(
-          "/orgs",
-          child: (_, args) => OrgView(),
+          "/projects",
+          child: (_, args) => ProjectView(),
         ),
-        ModularRouter("/orgs/:id",
-            child: (_, args) => OrgView(
-                  id: int.tryParse(args.params['id']) ?? -1,
+        ModularRouter("/projects/:id",
+            child: (_, args) => ProjectView(
+                  id: args.params['id'] ?? '',
                 )),
-        ModularRouter("/myneeds/orgs/:id",
+        ModularRouter("/survey/:id",
+            child: (_, args) => SurveyProjectView(
+                  projectId: args.params['id'],
+                )),
+        ModularRouter("/myneeds/projects/:id",
             child: (_, args) => UserNeedsView(
                   orgID: args.params['id'],
                 )),
-        ModularRouter("/supportRoles/orgs/:id",
+        ModularRouter("/supportRoles/projects/:id",
             child: (_, args) => SupportRoleView(
                   orgId: args.params['id'],
                 )),

@@ -9,7 +9,7 @@ class SplashViewModel extends BaseModel {
   }
 
   void navigateToMain() {
-    Modular.to.pushNamed(Modular.get<Paths>().userInfo);
+    Modular.to.pushNamed(Modular.get<Paths>().projects);
   }
 
   void navigateToOrgManagement() {
