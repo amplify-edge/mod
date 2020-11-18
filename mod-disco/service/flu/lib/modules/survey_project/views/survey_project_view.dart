@@ -9,9 +9,9 @@ import 'package:provider_architecture/provider_architecture.dart';
 import 'package:mod_disco/core/core.dart';
 
 class SurveyProjectView extends StatefulWidget {
-  final String projectId;
+  final Project project;
 
-  SurveyProjectView({Key key, this.projectId}) : super(key: key);
+  SurveyProjectView({Key key, this.project}) : super(key: key);
 
   @override
   _SurveyProjectViewState createState() => _SurveyProjectViewState();
@@ -22,7 +22,7 @@ class _SurveyProjectViewState extends State<SurveyProjectView> {
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
       viewModelBuilder: () =>
-          SurveyProjectViewModel(sysAccountProjectRefId: widget.projectId),
+          SurveyProjectViewModel(sysAccountProject: widget.project),
       onModelReady: (SurveyProjectViewModel model) async {
         await model.fetchSurveyProject();
       },

@@ -53,8 +53,9 @@ class SurveyProjectViewModel extends BaseModel {
     notifyListeners();
   }
 
-  SurveyProjectViewModel({@required String sysAccountProjectRefId}) {
-    _projectId = sysAccountProjectRefId;
+  SurveyProjectViewModel({@required Project sysAccountProject}) {
+    _project = sysAccountProject;
+    _projectId = sysAccountProject.id;
     notifyListeners();
   }
 
@@ -69,11 +70,10 @@ class SurveyProjectViewModel extends BaseModel {
     }
     _surveyUser.sysAccountUserRefId = _accountId;
     notifyListeners();
-    print("TEMP ACCOUNT ID: " + _accountId);
-    await OrgProjRepo.getProject(id: _projectId).then((res) {
-      _project = res;
-      notifyListeners();
-    });
+    // await OrgProjRepo.getProject(id: _projectId).then((res) {
+    //   _project = res;
+    //   notifyListeners();
+    // });
     await SurveyProjectRepo.listSurveyProjects(
             sysAccountProjectRefId: _projectId, orderBy: 'name')
         .then((res) {
@@ -248,9 +248,7 @@ class SurveyProjectViewModel extends BaseModel {
               final qcount = questionCount++;
               final widgetKey = "textfield_" + qcount.toString();
               viewWidgetList.add(DynamicMultilineTextFormField(
-                question: qcount.toString() +
-                    ". " +
-                    userNeedsType.description,
+                question: qcount.toString() + ". " + userNeedsType.description,
                 callbackInjection: (String value) {
                   this.selectNeed(userNeedsType.id, value);
                   final newUserNeedValue =
@@ -270,9 +268,7 @@ class SurveyProjectViewModel extends BaseModel {
               final widgetKey = "checkbox" + qcount.toString();
               viewWidgetList.add(CheckboxListTile(
                 title: Text(
-                  qcount.toString() +
-                      '. ' +
-                      userNeedsType.description,
+                  qcount.toString() + '. ' + userNeedsType.description,
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 value: this.value[userNeedsType.id] ?? false,
