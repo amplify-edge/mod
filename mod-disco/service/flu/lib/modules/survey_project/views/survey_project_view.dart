@@ -7,19 +7,20 @@ import 'package:mod_disco/modules/user_needs/view_model/userneed_view_model.dart
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:mod_disco/core/core.dart';
 
-class UserNeedsView extends StatelessWidget {
-  final String orgID;
+class SupportProjectView extends StatelessWidget {
+  final String projectId;
 
-  UserNeedsView({Key key, this.orgID}) : super(key: key);
+  SupportProjectView({Key key, this.projectId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
-      viewModel: UserNeedsViewModel(),
-      onModelReady: (UserNeedsViewModel model) {
+      viewModelBuilder: SupportProjectViewModel(sysAccountProject: projectId),
+      viewModel: SupportProjectView(),
+      onModelReady: (SupportProjectView model) {
         model.initializeData(orgID);
       },
-      builder: (context, UserNeedsViewModel model, child) => Scaffold(
+      builder: (context, SupportProjectViewModel model, child) => Scaffold(
         appBar: AppBar(
           title: Text(ModDiscoLocalizations.of(context).translate('yourNeeds')),
         ),
@@ -33,7 +34,7 @@ class UserNeedsView extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundImage: NetworkImage(model.org.logoUrl),
+                          backgroundImage: MemoryImage(model.org.logoUrl),
                         ),
                         title: Text(
                           model.org.campaignName,

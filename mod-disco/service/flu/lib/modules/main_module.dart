@@ -62,7 +62,7 @@ class MainAppModule extends ChildModule {
         ModularRouter("/", child: (_, args) => SplashView()),
 
         /// Non-Admin Dashboard Routes
-        ModularRouter("/userInfo", child: (_, args) => UserInfoView()),
+        // ModularRouter("/userInfo", child: (_, args) => UserInfoView()),
         ModularRouter(
           "/projects",
           child: (_, args) => ProjectView(),
@@ -71,11 +71,15 @@ class MainAppModule extends ChildModule {
             child: (_, args) => ProjectView(
                   id: args.params['id'] ?? '',
                 )),
-        ModularRouter("/myneeds/orgs/:id",
+        ModularRouter("/survey/:id",
             child: (_, args) => UserNeedsView(
                   orgID: args.params['id'],
                 )),
-        ModularRouter("/supportRoles/orgs/:id",
+        ModularRouter("/myneeds/projects/:id",
+            child: (_, args) => UserNeedsView(
+                  orgID: args.params['id'],
+                )),
+        ModularRouter("/supportRoles/projects/:id",
             child: (_, args) => SupportRoleView(
                   orgId: args.params['id'],
                 )),
