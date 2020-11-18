@@ -33,37 +33,17 @@ class SurveyProjectRepo {
     }
   }
 
-  static Map<String, Map<String, Map<String, List<UserNeedsType>>>>
-      getGroupedUserNeedsType(List<List<UserNeedsType>> userNeedsLists) {
-    Map<String, Map<String, Map<String, List<UserNeedsType>>>> mapped =
-        Map<String, Map<String, Map<String, List<UserNeedsType>>>>();
+  static Map<String, Map<String, List<UserNeedsType>>> getGroupedUserNeedsType(
+      List<List<UserNeedsType>> userNeedsLists) {
+    Map<String, Map<String, List<UserNeedsType>>> mapped =
+        Map<String, Map<String, List<UserNeedsType>>>();
     userNeedsLists.forEach((userNeedsList) {
-      // List<UserNeedsType> untList = List<UserNeedsType>();
       final surveyProjectId = userNeedsList.first.surveyProjectRefId;
+      mapped[surveyProjectId] = {};
       // group by its questionGroup
-      final m =
-          groupBy(userNeedsList, (UserNeedsType unt) => unt.questionGroup);
-      // group by its questionType (dropdown, textfield, or single choice)
-      m.forEach((key, value) {
-        final groupedQuestionType =
-            groupBy(value, (UserNeedsType unt) => unt.questionType);
-        groupedQuestionType.forEach((questionTypeKey, questionTypeValue) {
-          final map1 = {
-            surveyProjectId: {
-              key: {questionTypeKey: questionTypeValue}
-            }
-          };
-          if (mapped.containsKey(surveyProjectId) &&
-              mapped[surveyProjectId].containsKey(key) &&
-              mapped[surveyProjectId][key].containsKey(questionTypeKey)) {
-            mapped[surveyProjectId][key][questionTypeKey]
-                .addAll(questionTypeValue);
-          }
-          mapped.addAll(map1);
-        });
-      });
+      final m = groupBy(userNeedsList, (UserNeedsType unt) => unt.questionType);
+      mapped[surveyProjectId] = m;
     });
-    print("ALL: " + mapped.toString());
     return mapped;
   }
 
