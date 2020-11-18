@@ -326,3 +326,10 @@ const UpdateSurveyUserRequest$json = const {
   ],
 };
 
+const GenIdResponse$json = const {
+  '1': 'GenIdResponse',
+  '2': const [
+    const {'1': 'temp_id', '3': 1, '4': 1, '5': 9, '10': 'tempId'},
+  ],
+};
+

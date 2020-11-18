@@ -36,6 +36,8 @@ type SurveyServiceClient interface {
 	ListDiscoProject(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
 	UpdateDiscoProject(ctx context.Context, in *UpdateSurveyProjectRequest, opts ...grpc.CallOption) (*DiscoProject, error)
 	DeleteDiscoProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	// TempIdRequest
+	GenTempId(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*GenIdResponse, error)
 }
 
 type surveyServiceClient struct {
@@ -241,6 +243,19 @@ func (c *surveyServiceClient) DeleteDiscoProject(ctx context.Context, in *IdRequ
 	return out, nil
 }
 
+var surveyServiceGenTempIdStreamDesc = &grpc.StreamDesc{
+	StreamName: "GenTempId",
+}
+
+func (c *surveyServiceClient) GenTempId(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*GenIdResponse, error) {
+	out := new(GenIdResponse)
+	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/GenTempId", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SurveyServiceService is the service API for SurveyService service.
 // Fields should be assigned to their respective handler implementations only before
 // RegisterSurveyServiceService is called.  Any unassigned fields will result in the
@@ -264,6 +279,8 @@ type SurveyServiceService struct {
 	ListDiscoProject   func(context.Context, *ListRequest) (*ListResponse, error)
 	UpdateDiscoProject func(context.Context, *UpdateSurveyProjectRequest) (*DiscoProject, error)
 	DeleteDiscoProject func(context.Context, *IdRequest) (*empty.Empty, error)
+	// TempIdRequest
+	GenTempId func(context.Context, *empty.Empty) (*GenIdResponse, error)
 }
 
 func (s *SurveyServiceService) newSurveyProject(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -566,6 +583,26 @@ func (s *SurveyServiceService) deleteDiscoProject(_ interface{}, ctx context.Con
 	}
 	return interceptor(ctx, in, info, handler)
 }
+func (s *SurveyServiceService) genTempId(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.GenTempId == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method GenTempId not implemented")
+	}
+	in := new(empty.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return s.GenTempId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     s,
+		FullMethod: "/v2.mod_disco.services.SurveyService/GenTempId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return s.GenTempId(ctx, req.(*empty.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
 
 // RegisterSurveyServiceService registers a service implementation with a gRPC server.
 func RegisterSurveyServiceService(s grpc.ServiceRegistrar, srv *SurveyServiceService) {
@@ -631,6 +668,10 @@ func RegisterSurveyServiceService(s grpc.ServiceRegistrar, srv *SurveyServiceSer
 			{
 				MethodName: "DeleteDiscoProject",
 				Handler:    srv.deleteDiscoProject,
+			},
+			{
+				MethodName: "GenTempId",
+				Handler:    srv.genTempId,
 			},
 		},
 		Streams:  []grpc.StreamDesc{},
@@ -723,6 +764,11 @@ func NewSurveyServiceService(s interface{}) *SurveyServiceService {
 	}); ok {
 		ns.DeleteDiscoProject = h.DeleteDiscoProject
 	}
+	if h, ok := s.(interface {
+		GenTempId(context.Context, *empty.Empty) (*GenIdResponse, error)
+	}); ok {
+		ns.GenTempId = h.GenTempId
+	}
 	return ns
 }
 
@@ -749,4 +795,6 @@ type UnstableSurveyServiceService interface {
 	ListDiscoProject(context.Context, *ListRequest) (*ListResponse, error)
 	UpdateDiscoProject(context.Context, *UpdateSurveyProjectRequest) (*DiscoProject, error)
 	DeleteDiscoProject(context.Context, *IdRequest) (*empty.Empty, error)
+	// TempIdRequest
+	GenTempId(context.Context, *empty.Empty) (*GenIdResponse, error)
 }

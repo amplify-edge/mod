@@ -2441,6 +2441,53 @@ func (x *UpdateSurveyUserRequest) GetUserNeedValues() []*UserNeedsValue {
 	return nil
 }
 
+type GenIdResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TempId string `protobuf:"bytes,1,opt,name=temp_id,json=tempId,proto3" json:"temp_id,omitempty"`
+}
+
+func (x *GenIdResponse) Reset() {
+	*x = GenIdResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_mod_disco_models_proto_msgTypes[24]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GenIdResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GenIdResponse) ProtoMessage() {}
+
+func (x *GenIdResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_mod_disco_models_proto_msgTypes[24]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GenIdResponse.ProtoReflect.Descriptor instead.
+func (*GenIdResponse) Descriptor() ([]byte, []int) {
+	return file_mod_disco_models_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *GenIdResponse) GetTempId() string {
+	if x != nil {
+		return x.TempId
+	}
+	return ""
+}
+
 var File_mod_disco_models_proto protoreflect.FileDescriptor
 
 var file_mod_disco_models_proto_rawDesc = []byte{
@@ -2966,12 +3013,14 @@ var file_mod_disco_models_proto_rawDesc = []byte{
 	0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x25, 0x2e, 0x76, 0x32, 0x2e, 0x6d, 0x6f, 0x64,
 	0x5f, 0x64, 0x69, 0x73, 0x63, 0x6f, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e,
 	0x55, 0x73, 0x65, 0x72, 0x4e, 0x65, 0x65, 0x64, 0x73, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x0e,
-	0x75, 0x73, 0x65, 0x72, 0x4e, 0x65, 0x65, 0x64, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x42, 0x3a,
-	0x5a, 0x38, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x67, 0x65, 0x74,
-	0x63, 0x6f, 0x75, 0x72, 0x61, 0x67, 0x65, 0x6e, 0x6f, 0x77, 0x2f, 0x6d, 0x6f, 0x64, 0x2f, 0x6d,
-	0x6f, 0x64, 0x2d, 0x64, 0x69, 0x73, 0x63, 0x6f, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x2f, 0x67, 0x6f, 0x2f, 0x72, 0x70, 0x63, 0x2f, 0x76, 0x32, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x75, 0x73, 0x65, 0x72, 0x4e, 0x65, 0x65, 0x64, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x22, 0x28,
+	0x0a, 0x0d, 0x47, 0x65, 0x6e, 0x49, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x17, 0x0a, 0x07, 0x74, 0x65, 0x6d, 0x70, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x06, 0x74, 0x65, 0x6d, 0x70, 0x49, 0x64, 0x42, 0x3a, 0x5a, 0x38, 0x67, 0x69, 0x74, 0x68,
+	0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x67, 0x65, 0x74, 0x63, 0x6f, 0x75, 0x72, 0x61, 0x67,
+	0x65, 0x6e, 0x6f, 0x77, 0x2f, 0x6d, 0x6f, 0x64, 0x2f, 0x6d, 0x6f, 0x64, 0x2d, 0x64, 0x69, 0x73,
+	0x63, 0x6f, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x67, 0x6f, 0x2f, 0x72, 0x70,
+	0x63, 0x2f, 0x76, 0x32, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2986,7 +3035,7 @@ func file_mod_disco_models_proto_rawDescGZIP() []byte {
 	return file_mod_disco_models_proto_rawDescData
 }
 
-var file_mod_disco_models_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
+var file_mod_disco_models_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
 var file_mod_disco_models_proto_goTypes = []interface{}{
 	(*UserInfo)(nil),                   // 0: v2.mod_disco.services.UserInfo
 	(*NewUserInfo)(nil),                // 1: v2.mod_disco.services.NewUserInfo
@@ -3012,23 +3061,24 @@ var file_mod_disco_models_proto_goTypes = []interface{}{
 	(*NewSurveyUserRequest)(nil),       // 21: v2.mod_disco.services.NewSurveyUserRequest
 	(*UpdateSurveyProjectRequest)(nil), // 22: v2.mod_disco.services.UpdateSurveyProjectRequest
 	(*UpdateSurveyUserRequest)(nil),    // 23: v2.mod_disco.services.UpdateSurveyUserRequest
-	(*timestamp.Timestamp)(nil),        // 24: google.protobuf.Timestamp
+	(*GenIdResponse)(nil),              // 24: v2.mod_disco.services.GenIdResponse
+	(*timestamp.Timestamp)(nil),        // 25: google.protobuf.Timestamp
 }
 var file_mod_disco_models_proto_depIdxs = []int32{
-	24, // 0: v2.mod_disco.services.UserInfo.created_at:type_name -> google.protobuf.Timestamp
-	24, // 1: v2.mod_disco.services.UserInfo.updated_at:type_name -> google.protobuf.Timestamp
+	25, // 0: v2.mod_disco.services.UserInfo.created_at:type_name -> google.protobuf.Timestamp
+	25, // 1: v2.mod_disco.services.UserInfo.updated_at:type_name -> google.protobuf.Timestamp
 	4,  // 2: v2.mod_disco.services.SurveyProject.support_role_types:type_name -> v2.mod_disco.services.SupportRoleType
 	8,  // 3: v2.mod_disco.services.SurveyProject.user_need_types:type_name -> v2.mod_disco.services.UserNeedsType
-	24, // 4: v2.mod_disco.services.SurveyProject.created_at:type_name -> google.protobuf.Timestamp
-	24, // 5: v2.mod_disco.services.SurveyProject.updated_at:type_name -> google.protobuf.Timestamp
+	25, // 4: v2.mod_disco.services.SurveyProject.created_at:type_name -> google.protobuf.Timestamp
+	25, // 5: v2.mod_disco.services.SurveyProject.updated_at:type_name -> google.protobuf.Timestamp
 	6,  // 6: v2.mod_disco.services.SurveyUser.support_role_values:type_name -> v2.mod_disco.services.SupportRoleValue
 	10, // 7: v2.mod_disco.services.SurveyUser.user_need_values:type_name -> v2.mod_disco.services.UserNeedsValue
-	24, // 8: v2.mod_disco.services.SurveyUser.created_at:type_name -> google.protobuf.Timestamp
-	24, // 9: v2.mod_disco.services.SurveyUser.updated_at:type_name -> google.protobuf.Timestamp
-	24, // 10: v2.mod_disco.services.DiscoProject.action_time:type_name -> google.protobuf.Timestamp
-	24, // 11: v2.mod_disco.services.DiscoProject.created_at:type_name -> google.protobuf.Timestamp
-	24, // 12: v2.mod_disco.services.DiscoProject.updated_at:type_name -> google.protobuf.Timestamp
-	24, // 13: v2.mod_disco.services.UpdateDiscoProjectRequest.action_time:type_name -> google.protobuf.Timestamp
+	25, // 8: v2.mod_disco.services.SurveyUser.created_at:type_name -> google.protobuf.Timestamp
+	25, // 9: v2.mod_disco.services.SurveyUser.updated_at:type_name -> google.protobuf.Timestamp
+	25, // 10: v2.mod_disco.services.DiscoProject.action_time:type_name -> google.protobuf.Timestamp
+	25, // 11: v2.mod_disco.services.DiscoProject.created_at:type_name -> google.protobuf.Timestamp
+	25, // 12: v2.mod_disco.services.DiscoProject.updated_at:type_name -> google.protobuf.Timestamp
+	25, // 13: v2.mod_disco.services.UpdateDiscoProjectRequest.action_time:type_name -> google.protobuf.Timestamp
 	17, // 14: v2.mod_disco.services.ListRequest.id_request:type_name -> v2.mod_disco.services.IdRequest
 	12, // 15: v2.mod_disco.services.ListResponse.survey_projects:type_name -> v2.mod_disco.services.SurveyProject
 	13, // 16: v2.mod_disco.services.ListResponse.survey_users:type_name -> v2.mod_disco.services.SurveyUser
@@ -3342,6 +3392,18 @@ func file_mod_disco_models_proto_init() {
 				return nil
 			}
 		}
+		file_mod_disco_models_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GenIdResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -3349,7 +3411,7 @@ func file_mod_disco_models_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_mod_disco_models_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   24,
+			NumMessages:   25,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

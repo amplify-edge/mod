@@ -26,4 +26,6 @@ service SurveyService {
   rpc ListDiscoProject(v2.mod_disco.services.ListRequest) returns (v2.mod_disco.services.ListResponse) {};
   rpc UpdateDiscoProject(v2.mod_disco.services.UpdateSurveyProjectRequest) returns (v2.mod_disco.services.DiscoProject) {};
   rpc DeleteDiscoProject(v2.mod_disco.services.IdRequest) returns (google.protobuf.Empty) {};
+  // TempIdRequest
+  rpc GenTempId(google.protobuf.Empty) returns (v2.mod_disco.services.GenIdResponse) {};
 }
