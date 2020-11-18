@@ -6,15 +6,15 @@ import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
+import 'package:collection/collection.dart';
 
 class SurveyProjectViewModel extends BaseModel {
   String _projectId;
   Project _project;
   List<SurveyProject> _surveyProjects = List<SurveyProject>();
   List<List<UserNeedsType>> _userNeedsLists = List<List<UserNeedsType>>();
-  Map<String, Map<String, Map<String, List<UserNeedsType>>>>
-      _userNeedsQuestionMap =
-      Map<String, Map<String, Map<String, List<UserNeedsType>>>>();
+  Map<String, Map<String, List<UserNeedsType>>> _userNeedsQuestionMap =
+      Map<String, Map<String, List<UserNeedsType>>>();
 
   DynamicWidgetService dwService = DynamicWidgetService();
   bool _isLoading = false;
@@ -33,8 +33,8 @@ class SurveyProjectViewModel extends BaseModel {
 
   Map<String, dynamic> get value => _value;
 
-  Map<String, Map<String, Map<String, List<UserNeedsType>>>>
-      get userNeedsQuestionMap => _userNeedsQuestionMap;
+  Map<String, Map<String, List<UserNeedsType>>> get userNeedsQuestionMap =>
+      _userNeedsQuestionMap;
 
   void _setLoading(bool val) {
     _isLoading = val;
@@ -154,12 +154,15 @@ class SurveyProjectViewModel extends BaseModel {
     List<Widget> viewWidgetList = [];
 
     this._userNeedsQuestionMap.forEach((key, value) {
-      _userNeedsQuestionMap[key].forEach((questionKey, questionValues) {
-        questionValues.forEach((questionTypeKey, questionTypeValues) {
-          switch (questionTypeKey) {
-            case "dropdown":
+      _userNeedsQuestionMap[key].forEach((questionTypeKey, questionTypeValues) {
+        switch (questionTypeKey) {
+          case "dropdown":
+            // group by its question group
+            final grouped = groupBy(
+                questionTypeValues, (UserNeedsType unt) => unt.questionGroup);
+            grouped.forEach((k, v) {
               Map<String, String> questionData = {};
-              questionTypeValues.forEach((userNeed) =>
+              v.forEach((userNeed) =>
                   questionData[userNeed.dropdownQuestion] = userNeed.id);
               String dropdownOptionKey =
                   generateDropdownKey(questionTypeValues);
@@ -188,54 +191,58 @@ class SurveyProjectViewModel extends BaseModel {
                     notifyListeners();
                   });
 
-              viewWidgetList.add(Padding(
+              viewWidgetList.add(
+                Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          (questionCount++).toString() +
-                              '. ' +
-                              questionTypeValues.first.dropdownQuestion,
-                          style: Theme.of(context).textTheme.subtitle1,
-                        ),
-                        spacer,
-                        ddb,
-                      ])));
-              break;
-            case "textfield":
-              questionTypeValues.forEach((userNeedsType) {
-                viewWidgetList.add(DynamicMultilineTextFormField(
-                  question: (questionCount++).toString() +
-                      ". " +
-                      userNeedsType.description,
-                  callbackInjection: (String value) {
-                    this.selectNeed(userNeedsType.id, value);
-                  },
-                ));
-              });
-              break;
-            case "singlecheckbox":
-              questionTypeValues.forEach((userNeedsType) {
-                viewWidgetList.add(CheckboxListTile(
-                  title: Text(
-                    (questionCount++).toString() +
-                        '. ' +
-                        userNeedsType.description,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        (questionCount++).toString() +
+                            '. ' +
+                            v.first.dropdownQuestion,
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                      spacer,
+                      ddb,
+                    ],
                   ),
-                  value: this.value[userNeedsType.id] ?? false,
-                  onChanged: (bool value) {
-                    this.selectNeed(userNeedsType.id, value);
-                  },
-                  //secondary: const Icon(FontAwesomeIcons.peopleCarry),
-                ));
-              });
-              break;
-            default:
-              print("UNIMPLEMENTED");
-          }
-        });
+                ),
+              );
+            });
+            break;
+          case "textfield":
+            questionTypeValues.forEach((userNeedsType) {
+              viewWidgetList.add(DynamicMultilineTextFormField(
+                question: (questionCount++).toString() +
+                    ". " +
+                    userNeedsType.description,
+                callbackInjection: (String value) {
+                  this.selectNeed(userNeedsType.id, value);
+                },
+              ));
+            });
+            break;
+          case "singlecheckbox":
+            questionTypeValues.forEach((userNeedsType) {
+              viewWidgetList.add(CheckboxListTile(
+                title: Text(
+                  (questionCount++).toString() +
+                      '. ' +
+                      userNeedsType.description,
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                value: this.value[userNeedsType.id] ?? false,
+                onChanged: (bool value) {
+                  this.selectNeed(userNeedsType.id, value);
+                },
+                //secondary: const Icon(FontAwesomeIcons.peopleCarry),
+              ));
+            });
+            break;
+          default:
+            print("UNIMPLEMENTED");
+        }
       });
     });
     return viewWidgetList;
