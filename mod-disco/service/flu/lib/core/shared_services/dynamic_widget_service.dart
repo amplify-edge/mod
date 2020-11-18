@@ -8,7 +8,7 @@ class DynamicWidgetService {
   Map<String, String> selectedDropdownOptions = {};
 }
 
-class DynamicDropdownButton extends StatelessWidget {
+class DynamicDropdownButton extends StatefulWidget {
   final String _selected;
   final Map<String, String> _data;
   final DropdownCallbackInjection _callbackInjection;
@@ -22,8 +22,13 @@ class DynamicDropdownButton extends StatelessWidget {
         this._callbackInjection = callbackInjection;
 
   @override
+  _DynamicDropdownButtonState createState() => _DynamicDropdownButtonState();
+}
+
+class _DynamicDropdownButtonState extends State<DynamicDropdownButton> {
+  @override
   Widget build(BuildContext context) {
-    List<DropdownMenuItem<String>> dropdownItems = _data.keys
+    List<DropdownMenuItem<String>> dropdownItems = widget._data.keys
         .map((question) => DropdownMenuItem(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -40,17 +45,17 @@ class DynamicDropdownButton extends StatelessWidget {
           icon: Icon(Icons.arrow_drop_down),
           iconSize: 24,
           isExpanded: true,
-          value: this._selected,
+          value: this.widget._selected,
           onChanged: (String value) {
-            if (this._callbackInjection != null) {
-              this._callbackInjection(this._data, value);
+            if (this.widget._callbackInjection != null) {
+              this.widget._callbackInjection(this.widget._data, value);
             }
           },
         ));
   }
 }
 
-class DynamicMultilineTextFormField extends StatelessWidget {
+class DynamicMultilineTextFormField extends StatefulWidget {
   final StandardCallbackInjection _callbackInjection;
   final String _question;
 
@@ -59,6 +64,11 @@ class DynamicMultilineTextFormField extends StatelessWidget {
       : this._question = question,
         this._callbackInjection = callbackInjection;
 
+  @override
+  _DynamicMultilineTextFormFieldState createState() => _DynamicMultilineTextFormFieldState();
+}
+
+class _DynamicMultilineTextFormFieldState extends State<DynamicMultilineTextFormField> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -66,7 +76,7 @@ class DynamicMultilineTextFormField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            this._question,
+            this.widget._question,
             style: Theme.of(context).textTheme.subtitle1,
           ),
           TextFormField(
@@ -82,13 +92,13 @@ class DynamicMultilineTextFormField extends StatelessWidget {
               ),*/
             ),
             onChanged: (String value) {
-              if (this._callbackInjection != null) {
-                this._callbackInjection(value);
+              if (this.widget._callbackInjection != null) {
+                this.widget._callbackInjection(value);
               }
             },
             onSaved: (String value) {
-              if (this._callbackInjection != null) {
-                this._callbackInjection(value);
+              if (this.widget._callbackInjection != null) {
+                this.widget._callbackInjection(value);
               }
             },
             keyboardType: TextInputType.multiline,
@@ -102,7 +112,7 @@ class DynamicMultilineTextFormField extends StatelessWidget {
   }
 }
 
-class DynamicSlider extends StatelessWidget {
+class DynamicSlider extends StatefulWidget {
   final StandardCallbackInjection _callbackInjection;
   final String _title, _question;
   final double _min, _max, _current;
@@ -121,6 +131,11 @@ class DynamicSlider extends StatelessWidget {
         this._max = max,
         this._callbackInjection = callbackInjection;
 
+  @override
+  _DynamicSliderState createState() => _DynamicSliderState();
+}
+
+class _DynamicSliderState extends State<DynamicSlider> {
   Widget build(BuildContext context) {
     return Container(
       child: Card(
@@ -131,13 +146,13 @@ class DynamicSlider extends StatelessWidget {
             children: <Widget>[
               ListTile(
                 title: Text(
-                  this._title,
+                  this.widget._title,
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
               ListTile(
                 title: Text(
-                  this._question,
+                  this.widget._question,
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ),
@@ -148,20 +163,20 @@ class DynamicSlider extends StatelessWidget {
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
                 trailing: Text(
-                  '${this._current} hr',
+                  '${this.widget._current} hr',
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 subtitle: Slider(
-                    label: this._current.toString(),
-                    divisions: this._max.toInt(),
-                    min: this._min,
-                    max: this._max,
-                    value: this._current,
+                    label: this.widget._current.toString(),
+                    divisions: this.widget._max.toInt(),
+                    min: this.widget._min,
+                    max: this.widget._max,
+                    value: this.widget._current,
                     onChanged: (double value) {
-                      this._callbackInjection(value.toString());
+                      this.widget._callbackInjection(value.toString());
                     }),
               ),
             ],

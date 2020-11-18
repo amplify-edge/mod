@@ -160,15 +160,14 @@ class SurveyProjectRepo {
   }
 
   static NewUserNeedsValue createUserNeedsValue({
-    @required String surveyUserRefId,
-    @required String name,
+    @required String surveyUserRefName,
     @required String comment,
     @required String userNeedsTypeRefId,
     int pledged = 1,
   }) {
     final req = NewUserNeedsValue()
       ..userNeedsTypeRefId = userNeedsTypeRefId
-      ..surveyUserRefId = surveyUserRefId
+      ..surveyUserRefName = surveyUserRefName
       ..pledged = Int64(pledged);
     if (comment != null) {
       req..comments = comment;

@@ -4,6 +4,7 @@ import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/core/shared_repositories/survey_project_repo.dart';
 import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
+import 'package:random_string/random_string.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
@@ -14,7 +15,8 @@ class SurveyProjectViewModel extends BaseModel {
   Project _project;
   List<SurveyProject> _surveyProjects = List<SurveyProject>();
   List<List<UserNeedsType>> _userNeedsLists = List<List<UserNeedsType>>();
-  List<SurveyUser> _surveyUsers = List<SurveyUser>();
+  Map<String, NewUserNeedsValue> _userNeedsValueList = {};
+  NewSurveyUserRequest _surveyUser = NewSurveyUserRequest();
   String _accountId = "";
   Map<String, Map<String, List<UserNeedsType>>> _userNeedsQuestionMap =
       Map<String, Map<String, List<UserNeedsType>>>();
@@ -40,6 +42,11 @@ class SurveyProjectViewModel extends BaseModel {
     notifyListeners();
   }
 
+  void _appendUserNeedsValue(NewUserNeedsValue unv, String uniqueWidgetKey) {
+    _userNeedsValueList[uniqueWidgetKey] = unv;
+    // notifyListeners();
+  }
+
   Future<void> _isLoggedIn() async {
     final isLoggedOn = await isLoggedIn();
     _isLoggedOn = isLoggedOn;
@@ -60,6 +67,9 @@ class SurveyProjectViewModel extends BaseModel {
       _accountId = await SurveyProjectRepo.getNewTempId();
       notifyListeners();
     }
+    _surveyUser.sysAccountUserRefId = _accountId;
+    notifyListeners();
+    print("TEMP ACCOUNT ID: " + _accountId);
     await OrgProjRepo.getProject(id: _projectId).then((res) {
       _project = res;
       notifyListeners();
@@ -165,13 +175,13 @@ class SurveyProjectViewModel extends BaseModel {
     int questionCount = 1;
     const SizedBox spacer = SizedBox(height: 8.0);
     List<Widget> viewWidgetList = [];
+    _surveyUser..surveyUserName = _accountId + randomString(8);
 
     this._userNeedsQuestionMap.forEach((key, value) {
       _userNeedsQuestionMap[key].forEach((questionTypeKey, questionTypeValues) {
         switch (questionTypeKey) {
           case "dropdown":
             // group by its question group
-            final NewUserNeedsValue newUnv = NewUserNeedsValue();
             final grouped = groupBy(
                 questionTypeValues, (UserNeedsType unt) => unt.questionGroup);
             grouped.forEach((k, v) {
@@ -188,11 +198,19 @@ class SurveyProjectViewModel extends BaseModel {
                     // the onChangedCallback
                     // Because each dropdown option is technically a "question" in the db
                     // We need to set each option/question as true/false based on its relative selection
-                    data.forEach((userNeedDesc, userNeedId) {
+                    data.forEach((userNeedAnswer, userNeedId) {
                       // Needs to go through each "option" in the dropdown
-                      if (userNeedDesc == selected) {
+                      if (userNeedAnswer == selected) {
                         // If we selected it this time set that question id to true
                         this.selectNeed(userNeedId, true, deferNotify: true);
+                        final newUserNeedValue =
+                            SurveyProjectRepo.createUserNeedsValue(
+                          surveyUserRefName: _surveyUser.surveyUserName,
+                          comment: _accountId + "answer",
+                          userNeedsTypeRefId: userNeedId,
+                        );
+                        _appendUserNeedsValue(
+                            newUserNeedValue, dropdownOptionKey);
                         this
                                 .dwService
                                 .selectedDropdownOptions[dropdownOptionKey] =
@@ -227,21 +245,32 @@ class SurveyProjectViewModel extends BaseModel {
             break;
           case "textfield":
             questionTypeValues.forEach((userNeedsType) {
+              final qcount = questionCount++;
+              final widgetKey = "textfield_" + qcount.toString();
               viewWidgetList.add(DynamicMultilineTextFormField(
-                question: (questionCount++).toString() +
+                question: qcount.toString() +
                     ". " +
                     userNeedsType.description,
                 callbackInjection: (String value) {
                   this.selectNeed(userNeedsType.id, value);
+                  final newUserNeedValue =
+                      SurveyProjectRepo.createUserNeedsValue(
+                    surveyUserRefName: _surveyUser.surveyUserName,
+                    comment: _accountId + "answer",
+                    userNeedsTypeRefId: userNeedsType.id,
+                  );
+                  _appendUserNeedsValue(newUserNeedValue, widgetKey);
                 },
               ));
             });
             break;
           case "singlecheckbox":
             questionTypeValues.forEach((userNeedsType) {
+              final qcount = questionCount++;
+              final widgetKey = "checkbox" + qcount.toString();
               viewWidgetList.add(CheckboxListTile(
                 title: Text(
-                  (questionCount++).toString() +
+                  qcount.toString() +
                       '. ' +
                       userNeedsType.description,
                   style: Theme.of(context).textTheme.subtitle1,
@@ -249,6 +278,13 @@ class SurveyProjectViewModel extends BaseModel {
                 value: this.value[userNeedsType.id] ?? false,
                 onChanged: (bool value) {
                   this.selectNeed(userNeedsType.id, value);
+                  final newUserNeedValue =
+                      SurveyProjectRepo.createUserNeedsValue(
+                    surveyUserRefName: _surveyUser.surveyUserName,
+                    comment: _accountId + "answer",
+                    userNeedsTypeRefId: userNeedsType.id,
+                  );
+                  _appendUserNeedsValue(newUserNeedValue, widgetKey);
                 },
                 //secondary: const Icon(FontAwesomeIcons.peopleCarry),
               ));
@@ -259,6 +295,7 @@ class SurveyProjectViewModel extends BaseModel {
         }
       });
     });
+    print("NEW USER NEEDS VALUE MAP: " + _userNeedsValueList.toString());
     return viewWidgetList;
   }
 }
