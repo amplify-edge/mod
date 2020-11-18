@@ -106,7 +106,8 @@ const UserNeedsType$json = const {
     const {'1': 'description', '3': 5, '4': 1, '5': 9, '10': 'description'},
     const {'1': 'unit_of_measures', '3': 6, '4': 1, '5': 9, '10': 'unitOfMeasures'},
     const {'1': 'question_group', '3': 7, '4': 1, '5': 9, '10': 'questionGroup'},
-    const {'1': 'is_textbox', '3': 8, '4': 1, '5': 8, '10': 'isTextbox'},
+    const {'1': 'question_type', '3': 8, '4': 1, '5': 9, '10': 'questionType'},
+    const {'1': 'dropdown_question', '3': 9, '4': 1, '5': 9, '10': 'dropdownQuestion'},
   ],
 };
 
@@ -120,7 +121,8 @@ const NewUserNeedsType$json = const {
     const {'1': 'description', '3': 5, '4': 1, '5': 9, '10': 'description'},
     const {'1': 'unit_of_measures', '3': 6, '4': 1, '5': 9, '10': 'unitOfMeasures'},
     const {'1': 'question_group', '3': 7, '4': 1, '5': 9, '10': 'questionGroup'},
-    const {'1': 'is_textbox', '3': 8, '4': 1, '5': 8, '10': 'isTextbox'},
+    const {'1': 'question_type', '3': 8, '4': 1, '5': 9, '10': 'questionType'},
+    const {'1': 'dropdown_question', '3': 9, '4': 1, '5': 9, '10': 'dropdownQuestion'},
   ],
 };
 

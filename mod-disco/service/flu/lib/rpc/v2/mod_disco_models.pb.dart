@@ -669,7 +669,8 @@ class UserNeedsType extends $pb.GeneratedMessage {
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'unitOfMeasures')
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'questionGroup')
-    ..aOB(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isTextbox')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'questionType')
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dropdownQuestion')
     ..hasRequiredFields = false
   ;
 
@@ -760,13 +761,22 @@ class UserNeedsType extends $pb.GeneratedMessage {
   void clearQuestionGroup() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.bool get isTextbox => $_getBF(7);
+  $core.String get questionType => $_getSZ(7);
   @$pb.TagNumber(8)
-  set isTextbox($core.bool v) { $_setBool(7, v); }
+  set questionType($core.String v) { $_setString(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasIsTextbox() => $_has(7);
+  $core.bool hasQuestionType() => $_has(7);
   @$pb.TagNumber(8)
-  void clearIsTextbox() => clearField(8);
+  void clearQuestionType() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.String get dropdownQuestion => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set dropdownQuestion($core.String v) { $_setString(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasDropdownQuestion() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearDropdownQuestion() => clearField(9);
 }
 
 class NewUserNeedsType extends $pb.GeneratedMessage {
@@ -778,7 +788,8 @@ class NewUserNeedsType extends $pb.GeneratedMessage {
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'unitOfMeasures')
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'questionGroup')
-    ..aOB(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isTextbox')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'questionType')
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dropdownQuestion')
     ..hasRequiredFields = false
   ;
 
@@ -869,13 +880,22 @@ class NewUserNeedsType extends $pb.GeneratedMessage {
   void clearQuestionGroup() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.bool get isTextbox => $_getBF(7);
+  $core.String get questionType => $_getSZ(7);
   @$pb.TagNumber(8)
-  set isTextbox($core.bool v) { $_setBool(7, v); }
+  set questionType($core.String v) { $_setString(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasIsTextbox() => $_has(7);
+  $core.bool hasQuestionType() => $_has(7);
   @$pb.TagNumber(8)
-  void clearIsTextbox() => clearField(8);
+  void clearQuestionType() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.String get dropdownQuestion => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set dropdownQuestion($core.String v) { $_setString(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasDropdownQuestion() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearDropdownQuestion() => clearField(9);
 }
 
 class UserNeedsValue extends $pb.GeneratedMessage {

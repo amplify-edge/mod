@@ -59,7 +59,7 @@ class SurveyProjectView extends StatelessWidget {
                   const SizedBox(height: 8.0),
 
                   // ...this._dynamicFormWidgets,
-                  ...model.buildWidgetList(context),
+                  ...model.buildSurveyUserNeeds(context),
 
                   ButtonBar(
                     children: <Widget>[

@@ -96,7 +96,9 @@ message UserNeedsType {
   string description = 5;
   string unit_of_measures = 6;
   string question_group = 7;
-  bool is_textbox = 8;
+  string question_type = 8;
+  // only filled if the question_type is dropdown
+  string dropdown_question = 9;
 }
 
 message NewUserNeedsType {
@@ -108,14 +110,16 @@ message NewUserNeedsType {
   string name = 3;
   // @inject_tag: fake:"{sentence:4}" yaml:"comment,omitempty"
   string comment = 4;
-  // @inject_tag: fake:"{sentence:4}" yaml:"description,omitempty"
+  // @inject_tag: fake:"{question}" yaml:"description,omitempty"
   string description = 5;
   // @inject_tag: fake:"{randomstring:[days,weeks,months]}" yaml:"unit_of_measures,omitempty"
   string unit_of_measures = 6;
   // @inject_tag: fake:"{randomstring:[question_group_1,question_group_2,question_group_3,question_group_4,question_group_5,question_group_6]}" yaml:"group,omitempty"
   string question_group = 7;
-  // @inject_tag: fake:"{bool}" yaml:"isTextbox,omitempty"
-  bool is_textbox = 8;
+  // @inject_tag: fake:"{randomstring:[dropdown,textfield,singlecheckbox]}" yaml:"questionType,omitempty"
+  string question_type = 8;
+  // @inject_tag: fake:"{question}" yaml:"dropdownQuestion,omitempty"
+  string dropdown_question = 9;
 }
 
 message UserNeedsValue {

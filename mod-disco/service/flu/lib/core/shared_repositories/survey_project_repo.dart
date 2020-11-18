@@ -5,6 +5,7 @@ import 'package:mod_disco/rpc/v2/mod_disco_services.pbgrpc.dart';
 import 'package:sys_core/sys_core.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:sys_share_sys_account_service/pkg/pkg.dart';
+import 'package:collection/collection.dart';
 
 class SurveyProjectRepo {
   static Future<SurveyProject> newSurveyProject({
@@ -30,6 +31,40 @@ class SurveyProjectRepo {
     } catch (e) {
       throw e;
     }
+  }
+
+  static Map<String, Map<String, Map<String, List<UserNeedsType>>>>
+      getGroupedUserNeedsType(List<List<UserNeedsType>> userNeedsLists) {
+    Map<String, Map<String, Map<String, List<UserNeedsType>>>> mapped =
+        Map<String, Map<String, Map<String, List<UserNeedsType>>>>();
+    userNeedsLists.forEach((userNeedsList) {
+      // List<UserNeedsType> untList = List<UserNeedsType>();
+      final surveyProjectId = userNeedsList.first.surveyProjectRefId;
+      // group by its questionGroup
+      final m =
+          groupBy(userNeedsList, (UserNeedsType unt) => unt.questionGroup);
+      // group by its questionType (dropdown, textfield, or single choice)
+      m.forEach((key, value) {
+        final groupedQuestionType =
+            groupBy(value, (UserNeedsType unt) => unt.questionType);
+        groupedQuestionType.forEach((questionTypeKey, questionTypeValue) {
+          final map1 = {
+            surveyProjectId: {
+              key: {questionTypeKey: questionTypeValue}
+            }
+          };
+          if (mapped.containsKey(surveyProjectId) &&
+              mapped[surveyProjectId].containsKey(key) &&
+              mapped[surveyProjectId][key].containsKey(questionTypeKey)) {
+            mapped[surveyProjectId][key][questionTypeKey]
+                .addAll(questionTypeValue);
+          }
+          mapped.addAll(map1);
+        });
+      });
+    });
+    print("ALL: " + mapped.toString());
+    return mapped;
   }
 
   static Future<SurveyProject> updateSurveyProject({

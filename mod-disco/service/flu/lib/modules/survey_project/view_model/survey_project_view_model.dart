@@ -12,6 +12,10 @@ class SurveyProjectViewModel extends BaseModel {
   Project _project;
   List<SurveyProject> _surveyProjects = List<SurveyProject>();
   List<List<UserNeedsType>> _userNeedsLists = List<List<UserNeedsType>>();
+  Map<String, Map<String, Map<String, List<UserNeedsType>>>>
+      _userNeedsQuestionMap =
+      Map<String, Map<String, Map<String, List<UserNeedsType>>>>();
+
   DynamicWidgetService dwService = DynamicWidgetService();
   bool _isLoading = false;
 
@@ -28,6 +32,9 @@ class SurveyProjectViewModel extends BaseModel {
   Map<String, dynamic> _value = <String, dynamic>{};
 
   Map<String, dynamic> get value => _value;
+
+  Map<String, Map<String, Map<String, List<UserNeedsType>>>>
+      get userNeedsQuestionMap => _userNeedsQuestionMap;
 
   void _setLoading(bool val) {
     _isLoading = val;
@@ -51,6 +58,9 @@ class SurveyProjectViewModel extends BaseModel {
       res.forEach((sp) {
         _userNeedsLists.add(sp.userNeedTypes);
       });
+      notifyListeners();
+      _userNeedsQuestionMap =
+          SurveyProjectRepo.getGroupedUserNeedsType(_userNeedsLists);
       notifyListeners();
     });
   }
@@ -138,89 +148,96 @@ class SurveyProjectViewModel extends BaseModel {
     );
   }
 
-  /// Builds all of the dynamic questions from the userNeed objects
-  List<Widget> buildWidgetList(BuildContext context) {
+  List<Widget> buildSurveyUserNeeds(BuildContext context) {
     int questionCount = 1;
     const SizedBox spacer = SizedBox(height: 8.0);
     List<Widget> viewWidgetList = [];
 
-    this._userNeedsLists.forEach((userNeedGroup) {
-      if (userNeedGroup.length > 1) {
-        Map<String, String> data = {};
-        userNeedGroup
-            .forEach((userNeed) => data[userNeed.description] = userNeed.id);
+    this._userNeedsQuestionMap.forEach((key, value) {
+      _userNeedsQuestionMap[key].forEach((questionKey, questionValues) {
+        questionValues.forEach((questionTypeKey, questionTypeValues) {
+          switch (questionTypeKey) {
+            case "dropdown":
+              Map<String, String> questionData = {};
+              questionTypeValues.forEach((userNeed) =>
+                  questionData[userNeed.dropdownQuestion] = userNeed.id);
+              String dropdownOptionKey =
+                  generateDropdownKey(questionTypeValues);
+              DynamicDropdownButton ddb = DynamicDropdownButton(
+                  data: questionData,
+                  selectedOption: this.dwService.selectedDropdownOptions[
+                      dropdownOptionKey], // The selected description
+                  callbackInjection: (data, selected) {
+                    // the onChangedCallback
+                    // Because each dropdown option is technically a "question" in the db
+                    // We need to set each option/question as true/false based on its relative selection
+                    data.forEach((userNeedDesc, userNeedId) {
+                      // Needs to go through each "option" in the dropdown
+                      if (userNeedDesc == selected) {
+                        // If we selected it this time set that question id to true
+                        this.selectNeed(userNeedId, true, deferNotify: true);
+                        this
+                                .dwService
+                                .selectedDropdownOptions[dropdownOptionKey] =
+                            selected;
+                      } else {
+                        // Otherwise set the others to false
+                        this.selectNeed(userNeedId, false, deferNotify: true);
+                      }
+                    });
+                    notifyListeners();
+                  });
 
-        String dropdownOptionKey = generateDropdownKey(userNeedGroup);
-
-        // Create new button
-        DynamicDropdownButton ddb = DynamicDropdownButton(
-            data: data,
-            selectedOption: this.dwService.selectedDropdownOptions[
-                dropdownOptionKey], // The selected description
-            callbackInjection: (data, selected) {
-              // the onChangedCallback
-              // Because each dropdown option is technically a "question" in the db
-              // We need to set each option/question as true/false based on its relative selection
-              data.forEach((userNeedDesc, userNeedId) {
-                // Needs to go through each "option" in the dropdown
-                if (userNeedDesc == selected) {
-                  // If we selected it this time set that question id to true
-                  this.selectNeed(userNeedId, true, deferNotify: true);
-                  this.dwService.selectedDropdownOptions[dropdownOptionKey] =
-                      selected;
-                } else {
-                  // Otherwise set the others to false
-                  this.selectNeed(userNeedId, false, deferNotify: true);
-                }
+              viewWidgetList.add(Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          (questionCount++).toString() +
+                              '. ' +
+                              questionTypeValues.first.dropdownQuestion,
+                          style: Theme.of(context).textTheme.subtitle1,
+                        ),
+                        spacer,
+                        ddb,
+                      ])));
+              break;
+            case "textfield":
+              questionTypeValues.forEach((userNeedsType) {
+                viewWidgetList.add(DynamicMultilineTextFormField(
+                  question: (questionCount++).toString() +
+                      ". " +
+                      userNeedsType.description,
+                  callbackInjection: (String value) {
+                    this.selectNeed(userNeedsType.id, value);
+                  },
+                ));
               });
-              notifyListeners();
-            });
-
-        viewWidgetList.add(Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
+              break;
+            case "singlecheckbox":
+              questionTypeValues.forEach((userNeedsType) {
+                viewWidgetList.add(CheckboxListTile(
+                  title: Text(
                     (questionCount++).toString() +
                         '. ' +
-                        'Help us understand your needs',
+                        userNeedsType.description,
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
-                  spacer,
-                  ddb,
-                ])));
-      } else if (userNeedGroup.first.isTextbox) {
-        // If there is only 1 and it's a textbox
-        UserNeedsType _userNeed = userNeedGroup.first;
-
-        viewWidgetList.add(DynamicMultilineTextFormField(
-          question: (questionCount++).toString() + '. ' + _userNeed.description,
-          callbackInjection: (String value) {
-            this.selectNeed(_userNeed.id, value);
-          },
-        ));
-      } else {
-        // If there is only 1 and it is NOT a textbox
-        UserNeedsType _userNeed = userNeedGroup.first;
-
-        viewWidgetList.add(CheckboxListTile(
-          title: Text(
-            (questionCount++).toString() + '. ' + _userNeed.description,
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-          value: this.value[_userNeed.id] ?? false,
-          onChanged: (bool value) {
-            this.selectNeed(_userNeed.id, value);
-          },
-          //secondary: const Icon(FontAwesomeIcons.peopleCarry),
-        ));
-      }
-
-      // Add the spacer
-      viewWidgetList.add(spacer);
+                  value: this.value[userNeedsType.id] ?? false,
+                  onChanged: (bool value) {
+                    this.selectNeed(userNeedsType.id, value);
+                  },
+                  //secondary: const Icon(FontAwesomeIcons.peopleCarry),
+                ));
+              });
+              break;
+            default:
+              print("UNIMPLEMENTED");
+          }
+        });
+      });
     });
-
     return viewWidgetList;
   }
 }
