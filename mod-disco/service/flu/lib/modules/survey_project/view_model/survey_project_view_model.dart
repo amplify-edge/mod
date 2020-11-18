@@ -4,6 +4,8 @@ import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/core/shared_repositories/survey_project_repo.dart';
 import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
+import 'package:random_string/random_string.dart';
+import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 import 'package:collection/collection.dart';
@@ -13,22 +15,21 @@ class SurveyProjectViewModel extends BaseModel {
   Project _project;
   List<SurveyProject> _surveyProjects = List<SurveyProject>();
   List<List<UserNeedsType>> _userNeedsLists = List<List<UserNeedsType>>();
+  Map<String, NewUserNeedsValue> _userNeedsValueList = {};
+  NewSurveyUserRequest _surveyUser = NewSurveyUserRequest();
+  String _accountId = "";
   Map<String, Map<String, List<UserNeedsType>>> _userNeedsQuestionMap =
       Map<String, Map<String, List<UserNeedsType>>>();
+  bool _isLoggedOn = false;
 
   DynamicWidgetService dwService = DynamicWidgetService();
   bool _isLoading = false;
-
-  // final orgService = Modular.get<OrgsService>();
-  // final userNeedService = Modular.get<UserNeedService>();
-  // final userNeedAnswerService = Modular.get<UserNeedAnswerService>();
 
   String get projectId => _projectId;
 
   Project get project => _project;
 
   bool get isLoading => _isLoading;
-
   Map<String, dynamic> _value = <String, dynamic>{};
 
   Map<String, dynamic> get value => _value;
@@ -41,16 +42,38 @@ class SurveyProjectViewModel extends BaseModel {
     notifyListeners();
   }
 
-  SurveyProjectViewModel({@required String sysAccountProjectRefId}) {
-    _projectId = sysAccountProjectRefId;
+  void _appendUserNeedsValue(NewUserNeedsValue unv, String uniqueWidgetKey) {
+    _userNeedsValueList[uniqueWidgetKey] = unv;
+    // notifyListeners();
+  }
+
+  Future<void> _isLoggedIn() async {
+    final isLoggedOn = await isLoggedIn();
+    _isLoggedOn = isLoggedOn;
+    notifyListeners();
+  }
+
+  SurveyProjectViewModel({@required Project sysAccountProject}) {
+    _project = sysAccountProject;
+    _projectId = sysAccountProject.id;
     notifyListeners();
   }
 
   Future<void> fetchSurveyProject() async {
-    await OrgProjRepo.getProject(id: _projectId).then((res) {
-      _project = res;
+    await _isLoggedIn();
+    if (_isLoggedOn) {
+      _accountId = await getAccountId();
       notifyListeners();
-    });
+    } else {
+      _accountId = await SurveyProjectRepo.getNewTempId();
+      notifyListeners();
+    }
+    _surveyUser.sysAccountUserRefId = _accountId;
+    notifyListeners();
+    // await OrgProjRepo.getProject(id: _projectId).then((res) {
+    //   _project = res;
+    //   notifyListeners();
+    // });
     await SurveyProjectRepo.listSurveyProjects(
             sysAccountProjectRefId: _projectId, orderBy: 'name')
         .then((res) {
@@ -136,9 +159,9 @@ class SurveyProjectViewModel extends BaseModel {
       },
       onPressedYes: () {
         print("SAVE THE TEMP USER RESPONSE HERE");
-        Modular.to.pop();
-        Modular.to.pushNamed(
-            Modular.get<Paths>().supportRoles.replaceAll(':id', _projectId));
+        // Modular.to.pop();
+        // Modular.to.pushNamed(
+        //     Modular.get<Paths>().supportRoles.replaceAll(':id', _projectId));
       },
       title: ModDiscoLocalizations.of(context).translate('supportRole'),
       description:
@@ -152,6 +175,7 @@ class SurveyProjectViewModel extends BaseModel {
     int questionCount = 1;
     const SizedBox spacer = SizedBox(height: 8.0);
     List<Widget> viewWidgetList = [];
+    _surveyUser..surveyUserName = _accountId + randomString(8);
 
     this._userNeedsQuestionMap.forEach((key, value) {
       _userNeedsQuestionMap[key].forEach((questionTypeKey, questionTypeValues) {
@@ -174,11 +198,19 @@ class SurveyProjectViewModel extends BaseModel {
                     // the onChangedCallback
                     // Because each dropdown option is technically a "question" in the db
                     // We need to set each option/question as true/false based on its relative selection
-                    data.forEach((userNeedDesc, userNeedId) {
+                    data.forEach((userNeedAnswer, userNeedId) {
                       // Needs to go through each "option" in the dropdown
-                      if (userNeedDesc == selected) {
+                      if (userNeedAnswer == selected) {
                         // If we selected it this time set that question id to true
                         this.selectNeed(userNeedId, true, deferNotify: true);
+                        final newUserNeedValue =
+                            SurveyProjectRepo.createUserNeedsValue(
+                          surveyUserRefName: _surveyUser.surveyUserName,
+                          comment: _accountId + "answer",
+                          userNeedsTypeRefId: userNeedId,
+                        );
+                        _appendUserNeedsValue(
+                            newUserNeedValue, dropdownOptionKey);
                         this
                                 .dwService
                                 .selectedDropdownOptions[dropdownOptionKey] =
@@ -213,28 +245,42 @@ class SurveyProjectViewModel extends BaseModel {
             break;
           case "textfield":
             questionTypeValues.forEach((userNeedsType) {
+              final qcount = questionCount++;
+              final widgetKey = "textfield_" + qcount.toString();
               viewWidgetList.add(DynamicMultilineTextFormField(
-                question: (questionCount++).toString() +
-                    ". " +
-                    userNeedsType.description,
+                question: qcount.toString() + ". " + userNeedsType.description,
                 callbackInjection: (String value) {
                   this.selectNeed(userNeedsType.id, value);
+                  final newUserNeedValue =
+                      SurveyProjectRepo.createUserNeedsValue(
+                    surveyUserRefName: _surveyUser.surveyUserName,
+                    comment: _accountId + "answer",
+                    userNeedsTypeRefId: userNeedsType.id,
+                  );
+                  _appendUserNeedsValue(newUserNeedValue, widgetKey);
                 },
               ));
             });
             break;
           case "singlecheckbox":
             questionTypeValues.forEach((userNeedsType) {
+              final qcount = questionCount++;
+              final widgetKey = "checkbox" + qcount.toString();
               viewWidgetList.add(CheckboxListTile(
                 title: Text(
-                  (questionCount++).toString() +
-                      '. ' +
-                      userNeedsType.description,
+                  qcount.toString() + '. ' + userNeedsType.description,
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 value: this.value[userNeedsType.id] ?? false,
                 onChanged: (bool value) {
                   this.selectNeed(userNeedsType.id, value);
+                  final newUserNeedValue =
+                      SurveyProjectRepo.createUserNeedsValue(
+                    surveyUserRefName: _surveyUser.surveyUserName,
+                    comment: _accountId + "answer",
+                    userNeedsTypeRefId: userNeedsType.id,
+                  );
+                  _appendUserNeedsValue(newUserNeedValue, widgetKey);
                 },
                 //secondary: const Icon(FontAwesomeIcons.peopleCarry),
               ));
@@ -245,6 +291,7 @@ class SurveyProjectViewModel extends BaseModel {
         }
       });
     });
+    print("NEW USER NEEDS VALUE MAP: " + _userNeedsValueList.toString());
     return viewWidgetList;
   }
 }

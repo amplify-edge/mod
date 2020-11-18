@@ -8,16 +8,21 @@ import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:mod_disco/core/core.dart';
 
-class SurveyProjectView extends StatelessWidget {
-  final String projectId;
+class SurveyProjectView extends StatefulWidget {
+  final Project project;
 
-  SurveyProjectView({Key key, this.projectId}) : super(key: key);
+  SurveyProjectView({Key key, this.project}) : super(key: key);
 
+  @override
+  _SurveyProjectViewState createState() => _SurveyProjectViewState();
+}
+
+class _SurveyProjectViewState extends State<SurveyProjectView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
       viewModelBuilder: () =>
-          SurveyProjectViewModel(sysAccountProjectRefId: projectId),
+          SurveyProjectViewModel(sysAccountProject: widget.project),
       onModelReady: (SurveyProjectViewModel model) async {
         await model.fetchSurveyProject();
       },
@@ -26,8 +31,7 @@ class SurveyProjectView extends StatelessWidget {
           title: Text(ModDiscoLocalizations.of(context).translate('yourNeeds')),
         ),
         body: (model.isLoading)
-            // ? Center(child: Offstage())
-            ? Center(child: CircularProgressIndicator())
+            ? Center(child: Offstage())
             : ListView(
                 shrinkWrap: true,
                 children: <Widget>[
@@ -58,7 +62,6 @@ class SurveyProjectView extends StatelessWidget {
                   ),
                   const SizedBox(height: 8.0),
 
-                  // ...this._dynamicFormWidgets,
                   ...model.buildSurveyUserNeeds(context),
 
                   ButtonBar(

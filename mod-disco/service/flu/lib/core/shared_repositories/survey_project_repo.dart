@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:meta/meta.dart';
+import 'package:mod_disco/rpc/v2/google/protobuf/empty.pb.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_services.pbgrpc.dart';
 import 'package:sys_core/sys_core.dart';
@@ -145,6 +146,33 @@ class SurveyProjectRepo {
     } catch (e) {
       throw e;
     }
+  }
+
+  static Future<String> getNewTempId() async {
+    try {
+      final client = await discoClient();
+      final resp =
+          await client.genTempId(Empty(), options: await getCallOptions());
+      return resp.tempId;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  static NewUserNeedsValue createUserNeedsValue({
+    @required String surveyUserRefName,
+    @required String comment,
+    @required String userNeedsTypeRefId,
+    int pledged = 1,
+  }) {
+    final req = NewUserNeedsValue()
+      ..userNeedsTypeRefId = userNeedsTypeRefId
+      ..surveyUserRefName = surveyUserRefName
+      ..pledged = Int64(pledged);
+    if (comment != null) {
+      req..comments = comment;
+    }
+    return req;
   }
 
   static Future<SurveyServiceClient> discoClient() async {

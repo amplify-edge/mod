@@ -6,6 +6,7 @@ import (
 	client "github.com/getcouragenow/protoc-gen-cobra/client"
 	flag "github.com/getcouragenow/protoc-gen-cobra/flag"
 	iocodec "github.com/getcouragenow/protoc-gen-cobra/iocodec"
+	empty "github.com/golang/protobuf/ptypes/empty"
 	cobra "github.com/spf13/cobra"
 	grpc "google.golang.org/grpc"
 	proto "google.golang.org/protobuf/proto"
@@ -36,6 +37,7 @@ func SurveyServiceClientCommand(options ...client.Option) *cobra.Command {
 		_SurveyServiceListDiscoProjectCommand(cfg),
 		_SurveyServiceUpdateDiscoProjectCommand(cfg),
 		_SurveyServiceDeleteDiscoProjectCommand(cfg),
+		_SurveyServiceGenTempIdCommand(cfg),
 	)
 	return cmd
 }
@@ -771,6 +773,47 @@ func _SurveyServiceDeleteDiscoProjectCommand(cfg *client.Config) *cobra.Command 
 	cmd.PersistentFlags().StringVar(&req.SysAccountAccountId, cfg.FlagNamer("SysAccountAccountId"), "", "")
 	cmd.PersistentFlags().StringVar(&req.DiscoProjectId, cfg.FlagNamer("DiscoProjectId"), "", "")
 	cmd.PersistentFlags().StringVar(&req.SysAccountOrgId, cfg.FlagNamer("SysAccountOrgId"), "", "")
+
+	return cmd
+}
+
+func _SurveyServiceGenTempIdCommand(cfg *client.Config) *cobra.Command {
+	req := &empty.Empty{}
+
+	cmd := &cobra.Command{
+		Use:    cfg.CommandNamer("GenTempId"),
+		Short:  "GenTempId RPC client",
+		Long:   "TempIdRequest",
+		Hidden: false,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			if cfg.UseEnvVars {
+				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
+					return err
+				}
+				if err := flag.SetFlagsFromEnv(cmd.PersistentFlags(), false, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService", "GenTempId"); err != nil {
+					return err
+				}
+			}
+			return client.RoundTrip(cmd.Context(), cfg, func(cc grpc.ClientConnInterface, in iocodec.Decoder, out iocodec.Encoder) error {
+				cli := NewSurveyServiceClient(cc)
+				v := &empty.Empty{}
+
+				if err := in(v); err != nil {
+					return err
+				}
+				proto.Merge(v, req)
+
+				res, err := cli.GenTempId(cmd.Context(), v)
+
+				if err != nil {
+					return err
+				}
+
+				return out(res)
+
+			})
+		},
+	}
 
 	return cmd
 }
