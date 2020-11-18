@@ -73,9 +73,13 @@ class SurveyProjectRepo {
     String surveyProjectId,
     String sysAccountProjectRefId,
   }) async {
-    final req = IdRequest()
-      ..surveyProjectId = surveyProjectId
-      ..sysAccountProjectId = sysAccountProjectRefId;
+    final req = IdRequest();
+    if (surveyProjectId != null && surveyProjectId.isNotEmpty) {
+      req..surveyProjectId = surveyProjectId;
+    }
+    if (sysAccountProjectRefId != null && sysAccountProjectRefId.isNotEmpty) {
+      req..sysAccountProjectId = sysAccountProjectRefId;
+    }
     try {
       final client = await discoClient();
       final resp = await client
@@ -99,10 +103,13 @@ class SurveyProjectRepo {
     Map<String, dynamic> filters,
   }) async {
     final ppe = Int64(perPageEntries);
-    final idRequest = IdRequest()
-      ..surveyProjectId = surveyProjectId
-      ..sysAccountProjectId = sysAccountProjectRefId;
-
+    final idRequest = IdRequest();
+    if (surveyProjectId != null && surveyProjectId.isNotEmpty) {
+      idRequest..surveyProjectId = surveyProjectId;
+    }
+    if (sysAccountProjectRefId != null && sysAccountProjectRefId.isNotEmpty) {
+      idRequest..sysAccountProjectId = sysAccountProjectRefId;
+    }
     final req = ListRequest()
       ..idRequest = idRequest
       ..perPageEntries = ppe

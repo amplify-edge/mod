@@ -11,7 +11,7 @@ import (
 )
 
 type bootstrapSurveyProject struct {
-	NewSurveyProject []*discoRpc.NewSurveyProjectRequest `fakesize:"3" json:"new_survey_projects" yaml:"new_survey_projects"`
+	NewSurveyProject []*discoRpc.NewSurveyProjectRequest `fakesize:"200" json:"new_survey_projects" yaml:"new_survey_projects"`
 }
 
 func genFakeSurveyProject(sysAccProjRc *fakehelper.RefCount) (*fakehelper.RefCount, bootstrapSurveyProject) {

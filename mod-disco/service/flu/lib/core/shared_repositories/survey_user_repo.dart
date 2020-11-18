@@ -77,11 +77,19 @@ class SurveyUserRepo {
     String surveyUserId,
     String sysAccountUserRefId,
   }) async {
-    final req = IdRequest()
-      ..surveyUserId = surveyUserId
-      ..sysAccountAccountId = sysAccountUserRefId
-      ..surveyProjectId = surveyProjectId
-      ..sysAccountProjectId = sysAccountProjectRefId;
+    final req = IdRequest();
+    if (surveyUserId != null && surveyUserId.isNotEmpty) {
+      req..surveyUserId = surveyUserId;
+    }
+    if (sysAccountUserRefId != null && sysAccountUserRefId.isNotEmpty) {
+      req..sysAccountAccountId = sysAccountUserRefId;
+    }
+    if (surveyProjectId != null && surveyProjectId.isNotEmpty) {
+      req..surveyProjectId = surveyProjectId;
+    }
+    if (sysAccountProjectRefId != null && sysAccountProjectRefId.isNotEmpty) {
+      req..sysAccountProjectId = sysAccountProjectRefId;
+    }
     try {
       final client = await discoClient();
       final resp = await client
@@ -107,25 +115,32 @@ class SurveyUserRepo {
     Map<String, dynamic> filters,
   }) async {
     final ppe = Int64(perPageEntries);
-    final idRequest = IdRequest()
-      ..surveyUserId = surveyUserId
-      ..sysAccountAccountId = sysAccountUserRefId
-      ..surveyProjectId = surveyProjectId
-      ..sysAccountProjectId = sysAccountProjectRefId;
-
-    final req = ListRequest()
-      ..idRequest = idRequest
+    final req = IdRequest();
+    if (surveyUserId != null && surveyUserId.isNotEmpty) {
+      req..surveyUserId = surveyUserId;
+    }
+    if (sysAccountUserRefId != null && sysAccountUserRefId.isNotEmpty) {
+      req..sysAccountAccountId = sysAccountUserRefId;
+    }
+    if (surveyProjectId != null && surveyProjectId.isNotEmpty) {
+      req..surveyProjectId = surveyProjectId;
+    }
+    if (sysAccountProjectRefId != null && sysAccountProjectRefId.isNotEmpty) {
+      req..sysAccountProjectId = sysAccountProjectRefId;
+    }
+    final lreq = ListRequest()
+      ..idRequest = req
       ..perPageEntries = ppe
       ..isDescending = isDescending
       ..orderBy = orderBy;
     if (filters != null) {
       final jbytes = utf8.encode(jsonEncode(filters));
-      req..filters = jbytes;
+      lreq..filters = jbytes;
     }
     try {
       final client = await discoClient();
       final resp = await client
-          .listSurveyUser(req, options: await getCallOptions())
+          .listSurveyUser(lreq, options: await getCallOptions())
           .then((res) {
         return res;
       });

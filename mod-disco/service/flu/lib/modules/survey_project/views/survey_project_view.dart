@@ -1,31 +1,33 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
-import 'package:mod_disco/modules/orgs/data/org_model.dart';
-import 'package:mod_disco/modules/user_needs/data/user_need_model.dart';
-import 'package:mod_disco/modules/user_needs/view_model/userneed_view_model.dart';
+import 'package:mod_disco/modules/survey_project/view_model/survey_project_view_model.dart';
+import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:mod_disco/core/core.dart';
 
-class SupportProjectView extends StatelessWidget {
+class SurveyProjectView extends StatelessWidget {
   final String projectId;
 
-  SupportProjectView({Key key, this.projectId}) : super(key: key);
+  SurveyProjectView({Key key, this.projectId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
-      viewModelBuilder: SupportProjectViewModel(sysAccountProject: projectId),
-      viewModel: SupportProjectView(),
-      onModelReady: (SupportProjectView model) {
-        model.initializeData(orgID);
+      viewModelBuilder: () =>
+          SurveyProjectViewModel(sysAccountProjectRefId: projectId),
+      onModelReady: (SurveyProjectViewModel model) async {
+        await model.fetchSurveyProject();
       },
-      builder: (context, SupportProjectViewModel model, child) => Scaffold(
+      builder: (context, SurveyProjectViewModel model, child) => Scaffold(
         appBar: AppBar(
           title: Text(ModDiscoLocalizations.of(context).translate('yourNeeds')),
         ),
-        body: (model.buzy)
-            ? Center(child: Offstage())
+        body: (model.isLoading)
+            // ? Center(child: Offstage())
+            ? Center(child: CircularProgressIndicator())
             : ListView(
                 shrinkWrap: true,
                 children: <Widget>[
@@ -34,14 +36,15 @@ class SupportProjectView extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundImage: MemoryImage(model.org.logoUrl),
+                          backgroundImage: MemoryImage(
+                              Uint8List.fromList(model.project.logo)),
                         ),
                         title: Text(
-                          model.org.campaignName,
-                          style: Theme.of(context).textTheme.title,
+                          model.project.name,
+                          style: Theme.of(context).textTheme.headline6,
                         ),
                         isThreeLine: true,
-                        subtitle: Text(model.org.goal),
+                        subtitle: Text(model.project.org.name),
                       ),
                     ),
                   ),
@@ -50,12 +53,12 @@ class SupportProjectView extends StatelessWidget {
                     title: Text(
                       ModDiscoLocalizations.of(context)
                           .translate('needsSatisifiedRequirement'),
-                      style: Theme.of(context).textTheme.body1,
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                   ),
                   const SizedBox(height: 8.0),
 
-                  //...this._dynamicFormWidgets,
+                  // ...this._dynamicFormWidgets,
                   ...model.buildWidgetList(context),
 
                   ButtonBar(

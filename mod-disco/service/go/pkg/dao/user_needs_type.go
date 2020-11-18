@@ -14,16 +14,18 @@ type UserNeedsType struct {
 	Id                 string `json:"id" genji:"id" coredb:"primary"`
 	SurveyProjectRefId string `json:"surveyProjectRefId" genji:"survey_project_ref_id" coredb:"not_null"`
 	Name               string `json:"name" genji:"name"`
+	QuestionGroup      string `json:"questionGroup" genji:"question_group"`
 	Comment            string `json:"comment" genji:"comment"`
 	Description        string `json:"description" genji:"description"`
 	UnitOfMeasures     string `json:"unitOfMeasures" genji:"unit_of_measures"`
+	IsTextbox          bool   `json:"isTextbox" genji:"is_textbox"`
 }
 
 var (
 	userNeedTypesUniqueIdx = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_name ON %s(name)", UserNeedTypesTable, UserNeedTypesTable)
 )
 
-func NewUserNeedsType(id, surveyProjectId, name, comment, desc, uom string) *UserNeedsType {
+func NewUserNeedsType(id, surveyProjectId, name, comment, desc, uom, group string, isTextBox bool) *UserNeedsType {
 	srtId := id
 	if srtId == "" {
 		srtId = sharedConfig.NewID()
@@ -35,6 +37,8 @@ func NewUserNeedsType(id, surveyProjectId, name, comment, desc, uom string) *Use
 		Comment:            comment,
 		Description:        desc,
 		UnitOfMeasures:     uom,
+		QuestionGroup:      group,
+		IsTextbox:          isTextBox,
 	}
 }
 
@@ -46,6 +50,8 @@ func (s *UserNeedsType) ToProto() *discoRpc.UserNeedsType {
 		Comment:            s.Comment,
 		Description:        s.Description,
 		UnitOfMeasures:     s.UnitOfMeasures,
+		QuestionGroup:      s.QuestionGroup,
+		IsTextbox:          s.IsTextbox,
 	}
 }
 
@@ -57,6 +63,8 @@ func (m *ModDiscoDB) InsertFromNewUserNeedsType(in *discoRpc.NewUserNeedsType) e
 		Comment:            in.GetComment(),
 		Description:        in.GetDescription(),
 		UnitOfMeasures:     in.GetUnitOfMeasures(),
+		QuestionGroup:      in.GetQuestionGroup(),
+		IsTextbox:          in.GetIsTextbox(),
 	}
 	err := m.InsertUserNeedsType(nunt)
 	if err != nil {

@@ -1,42 +1,72 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
-import 'package:mod_disco/modules/orgs/data/org_model.dart';
-import 'package:mod_disco/modules/user_needs/data/user_need_model.dart';
-import 'package:mod_disco/modules/user_needs/services/user_need_answer_service.dart';
-import 'package:mod_disco/modules/user_needs/services/user_need_service.dart';
+import 'package:mod_disco/core/shared_repositories/survey_project_repo.dart';
 import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
-import '../../orgs/service/orgs_service.dart';
+import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
+import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart';
+import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 
-class UserNeedsViewModel extends BaseModel {
-  String _orgId;
-  Org _org;
-  List<List<UserNeed>> _userNeedsByGroup;
+class SurveyProjectViewModel extends BaseModel {
+  String _projectId;
+  Project _project;
+  List<SurveyProject> _surveyProjects = List<SurveyProject>();
+  List<List<UserNeedsType>> _userNeedsLists = List<List<UserNeedsType>>();
   DynamicWidgetService dwService = DynamicWidgetService();
+  bool _isLoading = false;
 
-  final orgService = Modular.get<OrgsService>();
-  final userNeedService = Modular.get<UserNeedService>();
-  final userNeedAnswerService = Modular.get<UserNeedAnswerService>();
+  // final orgService = Modular.get<OrgsService>();
+  // final userNeedService = Modular.get<UserNeedService>();
+  // final userNeedAnswerService = Modular.get<UserNeedAnswerService>();
 
-  get org => _org;
-  get userNeedsByGroup => _userNeedsByGroup;
+  String get projectId => _projectId;
+
+  Project get project => _project;
+
+  bool get isLoading => _isLoading;
 
   Map<String, dynamic> _value = <String, dynamic>{};
 
   Map<String, dynamic> get value => _value;
 
-  initializeData(String orgId) {
-    setBuzy(true);
-
-    _orgId = orgId;
-    _org = orgService.getOrgById(orgId);
-    _userNeedsByGroup = userNeedService.getGroupedUserNeedsByOrgId(orgId);
-
-    this.initializeDropdownSelectionData(_userNeedsByGroup);
-
-    setBuzy(false);
+  void _setLoading(bool val) {
+    _isLoading = val;
+    notifyListeners();
   }
 
+  SurveyProjectViewModel({@required String sysAccountProjectRefId}) {
+    _projectId = sysAccountProjectRefId;
+    notifyListeners();
+  }
+
+  Future<void> fetchSurveyProject() async {
+    await OrgProjRepo.getProject(id: _projectId).then((res) {
+      _project = res;
+      notifyListeners();
+    });
+    await SurveyProjectRepo.listSurveyProjects(
+            sysAccountProjectRefId: _projectId, orderBy: 'name')
+        .then((res) {
+      _surveyProjects = res;
+      res.forEach((sp) {
+        _userNeedsLists.add(sp.userNeedTypes);
+      });
+      notifyListeners();
+    });
+  }
+
+// initializeData(String projectId) {
+//   setBuzy(true);
+//
+//   _orgId = orgId;
+//   _org = orgService.getOrgById(orgId);
+//   _userNeedsByGroup = userNeedService.getGroupedUserNeedsByOrgId(orgId);
+//
+//   this.initializeDropdownSelectionData(_userNeedsByGroup);
+//
+//   setBuzy(false);
+// }
+//
   void selectNeed(String key, value, {bool deferNotify: false}) {
     _value[key] = value;
 
@@ -45,19 +75,19 @@ class UserNeedsViewModel extends BaseModel {
     }
   }
 
-  void initializeDropdownSelectionData(List<List<UserNeed>> userNeedsByGroup) {
+//
+  void initializeDropdownSelectionData(
+      List<List<UserNeedsType>> userNeedsList) {
     if (this.dwService.selectedDropdownOptions.length == 0) {
       // We need to track which option of the dropdown was selected
-      userNeedsByGroup.forEach((group) {
-        if (group.length > 1) {
-          String key = generateDropdownKey(group);
-          this.dwService.selectedDropdownOptions[key] = null;
-        }
+      userNeedsList.forEach((group) {
+        String key = generateDropdownKey(group);
+        this.dwService.selectedDropdownOptions[key] = null;
       });
     }
   }
 
-  String generateDropdownKey(List<UserNeed> userNeeds) {
+  String generateDropdownKey(List<UserNeedsType> userNeeds) {
     String key = '';
     userNeeds.forEach((userNeed) => key += '|' + userNeed.id);
 
@@ -73,30 +103,32 @@ class UserNeedsViewModel extends BaseModel {
     return data.toString();
   }
 
-  // TODO create the ones that don't already exist, update the ones that do
-  void save() {
-    this.value.forEach((key, value) {
-      this.userNeedAnswerService.repository.createUserNeedAnswer(
-            answer: this._formatData(value),
-            refQuestionId: key,
-            refUserId: "199", // TODO update with user session data
-            prod: "1",
-            comment: "n/a",
-          );
-    });
-  }
+// TODO create the ones that don't already exist, update the ones that do
+// void save() {
+//   this.value.forEach((key, value) {
+//     this.userNeedAnswerService.repository.createUserNeedAnswer(
+//       answer: this._formatData(value),
+//       refQuestionId: key,
+//       refUserId: "199",
+//       // TODO update with user session data
+//       prod: "1",
+//       comment: "n/a",
+//     );
+//   });
+// }
 
   void navigateNext(BuildContext context) {
     showActionDialogBox(
       onPressedNo: () {
-        this.save();
-        Modular.to.pushNamed('/account/signup');
+        print("SAVE THE TEMP USER RESPONSE HERE");
+        // this.save();
+        // Modular.to.pushNamed('/account/signup');
       },
       onPressedYes: () {
-        this.save();
+        print("SAVE THE TEMP USER RESPONSE HERE");
         Modular.to.pop();
         Modular.to.pushNamed(
-            Modular.get<Paths>().supportRoles.replaceAll(':id', _orgId));
+            Modular.get<Paths>().supportRoles.replaceAll(':id', _projectId));
       },
       title: ModDiscoLocalizations.of(context).translate('supportRole'),
       description:
@@ -112,7 +144,7 @@ class UserNeedsViewModel extends BaseModel {
     const SizedBox spacer = SizedBox(height: 8.0);
     List<Widget> viewWidgetList = [];
 
-    this.userNeedsByGroup.forEach((userNeedGroup) {
+    this._userNeedsLists.forEach((userNeedGroup) {
       if (userNeedGroup.length > 1) {
         Map<String, String> data = {};
         userNeedGroup
@@ -158,9 +190,9 @@ class UserNeedsViewModel extends BaseModel {
                   spacer,
                   ddb,
                 ])));
-      } else if (userNeedGroup.first.isTextBox == "yes") {
+      } else if (userNeedGroup.first.isTextbox) {
         // If there is only 1 and it's a textbox
-        UserNeed _userNeed = userNeedGroup.first;
+        UserNeedsType _userNeed = userNeedGroup.first;
 
         viewWidgetList.add(DynamicMultilineTextFormField(
           question: (questionCount++).toString() + '. ' + _userNeed.description,
@@ -170,7 +202,7 @@ class UserNeedsViewModel extends BaseModel {
         ));
       } else {
         // If there is only 1 and it is NOT a textbox
-        UserNeed _userNeed = userNeedGroup.first;
+        UserNeedsType _userNeed = userNeedGroup.first;
 
         viewWidgetList.add(CheckboxListTile(
           title: Text(

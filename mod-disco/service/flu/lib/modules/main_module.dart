@@ -9,6 +9,7 @@ import 'package:mod_disco/modules/new_orgs/views/org_view.dart';
 import 'package:mod_disco/modules/org_manager/orgs/views/org_master_detail_view.dart';
 import 'package:mod_disco/modules/projects/views/proj_view.dart';
 import 'package:mod_disco/modules/support_roles/services/support_role_answer_service.dart';
+import 'package:mod_disco/modules/survey_project/views/survey_project_view.dart';
 import 'package:mod_disco/modules/user_needs/services/user_need_answer_service.dart';
 import 'orgs/service/orgs_service.dart';
 import 'orgs/views/org_view.dart';
@@ -72,8 +73,8 @@ class MainAppModule extends ChildModule {
                   id: args.params['id'] ?? '',
                 )),
         ModularRouter("/survey/:id",
-            child: (_, args) => UserNeedsView(
-                  orgID: args.params['id'],
+            child: (_, args) => SurveyProjectView(
+                  projectId: args.params['id'],
                 )),
         ModularRouter("/myneeds/projects/:id",
             child: (_, args) => UserNeedsView(

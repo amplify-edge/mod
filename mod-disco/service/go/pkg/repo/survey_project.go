@@ -25,6 +25,7 @@ func (md *ModDiscoRepo) NewSurveyProject(ctx context.Context, in *discoRpc.NewSu
 		return nil, status.Errorf(codes.InvalidArgument, "cannot insert disco project: non-existent sys-account-project", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
 	in.SysAccountProjectRefId = sysAccountProjectId
+	md.log.Debugf("SysAccountProjectId: %s", sysAccountProjectId)
 	sp, err := md.store.InsertSurveyProject(in)
 	if err != nil {
 		return nil, err

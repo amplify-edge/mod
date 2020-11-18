@@ -3,7 +3,50 @@
 //  source: mod_disco_models.proto
 //
 // @dart = 2.3
-// ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
+// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+
+const UserInfo$json = const {
+  '1': 'UserInfo',
+  '2': const [
+    const {'1': 'sys_account_ref_id', '3': 1, '4': 1, '5': 9, '10': 'sysAccountRefId'},
+    const {'1': 'selected_country', '3': 2, '4': 1, '5': 9, '10': 'selectedCountry'},
+    const {'1': 'selected_city', '3': 3, '4': 1, '5': 9, '10': 'selectedCity'},
+    const {'1': 'selected_age_range', '3': 4, '4': 1, '5': 9, '10': 'selectedAgeRange'},
+    const {'1': 'created_at', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
+    const {'1': 'updated_at', '3': 6, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updatedAt'},
+  ],
+};
+
+const NewUserInfo$json = const {
+  '1': 'NewUserInfo',
+  '2': const [
+    const {'1': 'sys_account_ref_id', '3': 1, '4': 1, '5': 9, '10': 'sysAccountRefId'},
+    const {'1': 'sys_account_ref_email', '3': 2, '4': 1, '5': 9, '10': 'sysAccountRefEmail'},
+    const {'1': 'selected_country', '3': 3, '4': 1, '5': 9, '10': 'selectedCountry'},
+    const {'1': 'selected_city', '3': 4, '4': 1, '5': 9, '10': 'selectedCity'},
+    const {'1': 'selected_age_range', '3': 5, '4': 1, '5': 9, '10': 'selectedAgeRange'},
+  ],
+};
+
+const UpdateUserInfo$json = const {
+  '1': 'UpdateUserInfo',
+  '2': const [
+    const {'1': 'sys_account_ref_id', '3': 1, '4': 1, '5': 9, '10': 'sysAccountRefId'},
+    const {'1': 'selected_country', '3': 2, '4': 1, '5': 9, '10': 'selectedCountry'},
+    const {'1': 'selected_city', '3': 3, '4': 1, '5': 9, '10': 'selectedCity'},
+    const {'1': 'selected_age_range', '3': 4, '4': 1, '5': 9, '10': 'selectedAgeRange'},
+  ],
+};
+
+const UserInfoValues$json = const {
+  '1': 'UserInfoValues',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    const {'1': 'countries', '3': 2, '4': 3, '5': 9, '10': 'countries'},
+    const {'1': 'cities', '3': 3, '4': 3, '5': 9, '10': 'cities'},
+    const {'1': 'selected_age_ranges', '3': 4, '4': 3, '5': 9, '10': 'selectedAgeRanges'},
+  ],
+};
 
 const SupportRoleType$json = const {
   '1': 'SupportRoleType',
@@ -62,6 +105,8 @@ const UserNeedsType$json = const {
     const {'1': 'comment', '3': 4, '4': 1, '5': 9, '10': 'comment'},
     const {'1': 'description', '3': 5, '4': 1, '5': 9, '10': 'description'},
     const {'1': 'unit_of_measures', '3': 6, '4': 1, '5': 9, '10': 'unitOfMeasures'},
+    const {'1': 'question_group', '3': 7, '4': 1, '5': 9, '10': 'questionGroup'},
+    const {'1': 'is_textbox', '3': 8, '4': 1, '5': 8, '10': 'isTextbox'},
   ],
 };
 
@@ -74,6 +119,8 @@ const NewUserNeedsType$json = const {
     const {'1': 'comment', '3': 4, '4': 1, '5': 9, '10': 'comment'},
     const {'1': 'description', '3': 5, '4': 1, '5': 9, '10': 'description'},
     const {'1': 'unit_of_measures', '3': 6, '4': 1, '5': 9, '10': 'unitOfMeasures'},
+    const {'1': 'question_group', '3': 7, '4': 1, '5': 9, '10': 'questionGroup'},
+    const {'1': 'is_textbox', '3': 8, '4': 1, '5': 8, '10': 'isTextbox'},
   ],
 };
 
