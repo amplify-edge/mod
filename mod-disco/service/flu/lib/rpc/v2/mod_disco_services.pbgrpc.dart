@@ -89,6 +89,10 @@ class SurveyServiceClient extends $grpc.Client {
           '/v2.mod_disco.services.SurveyService/DeleteDiscoProject',
           ($0.IdRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$genTempId = $grpc.ClientMethod<$1.Empty, $0.GenIdResponse>(
+      '/v2.mod_disco.services.SurveyService/GenTempId',
+      ($1.Empty value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.GenIdResponse.fromBuffer(value));
 
   SurveyServiceClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
       : super(channel, options: options);
@@ -219,6 +223,13 @@ class SurveyServiceClient extends $grpc.Client {
         options: options);
     return $grpc.ResponseFuture(call);
   }
+
+  $grpc.ResponseFuture<$0.GenIdResponse> genTempId($1.Empty request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(_$genTempId, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
 }
 
 abstract class SurveyServiceBase extends $grpc.Service {
@@ -339,6 +350,13 @@ abstract class SurveyServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.IdRequest.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.Empty, $0.GenIdResponse>(
+        'GenTempId',
+        genTempId_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $1.Empty.fromBuffer(value),
+        ($0.GenIdResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.SurveyProject> newSurveyProject_Pre($grpc.ServiceCall call,
@@ -417,6 +435,11 @@ abstract class SurveyServiceBase extends $grpc.Service {
     return deleteDiscoProject(call, await request);
   }
 
+  $async.Future<$0.GenIdResponse> genTempId_Pre(
+      $grpc.ServiceCall call, $async.Future<$1.Empty> request) async {
+    return genTempId(call, await request);
+  }
+
   $async.Future<$0.SurveyProject> newSurveyProject(
       $grpc.ServiceCall call, $0.NewSurveyProjectRequest request);
   $async.Future<$0.SurveyProject> getSurveyProject(
@@ -447,4 +470,6 @@ abstract class SurveyServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.UpdateSurveyProjectRequest request);
   $async.Future<$1.Empty> deleteDiscoProject(
       $grpc.ServiceCall call, $0.IdRequest request);
+  $async.Future<$0.GenIdResponse> genTempId(
+      $grpc.ServiceCall call, $1.Empty request);
 }

@@ -4,6 +4,7 @@ import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/core/shared_repositories/survey_project_repo.dart';
 import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
+import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 import 'package:collection/collection.dart';
@@ -13,22 +14,20 @@ class SurveyProjectViewModel extends BaseModel {
   Project _project;
   List<SurveyProject> _surveyProjects = List<SurveyProject>();
   List<List<UserNeedsType>> _userNeedsLists = List<List<UserNeedsType>>();
+  List<SurveyUser> _surveyUsers = List<SurveyUser>();
+  String _accountId = "";
   Map<String, Map<String, List<UserNeedsType>>> _userNeedsQuestionMap =
       Map<String, Map<String, List<UserNeedsType>>>();
+  bool _isLoggedOn = false;
 
   DynamicWidgetService dwService = DynamicWidgetService();
   bool _isLoading = false;
-
-  // final orgService = Modular.get<OrgsService>();
-  // final userNeedService = Modular.get<UserNeedService>();
-  // final userNeedAnswerService = Modular.get<UserNeedAnswerService>();
 
   String get projectId => _projectId;
 
   Project get project => _project;
 
   bool get isLoading => _isLoading;
-
   Map<String, dynamic> _value = <String, dynamic>{};
 
   Map<String, dynamic> get value => _value;
@@ -41,12 +40,26 @@ class SurveyProjectViewModel extends BaseModel {
     notifyListeners();
   }
 
+  Future<void> _isLoggedIn() async {
+    final isLoggedOn = await isLoggedIn();
+    _isLoggedOn = isLoggedOn;
+    notifyListeners();
+  }
+
   SurveyProjectViewModel({@required String sysAccountProjectRefId}) {
     _projectId = sysAccountProjectRefId;
     notifyListeners();
   }
 
   Future<void> fetchSurveyProject() async {
+    await _isLoggedIn();
+    if (_isLoggedOn) {
+      _accountId = await getAccountId();
+      notifyListeners();
+    } else {
+      _accountId = await SurveyProjectRepo.getNewTempId();
+      notifyListeners();
+    }
     await OrgProjRepo.getProject(id: _projectId).then((res) {
       _project = res;
       notifyListeners();
@@ -136,9 +149,9 @@ class SurveyProjectViewModel extends BaseModel {
       },
       onPressedYes: () {
         print("SAVE THE TEMP USER RESPONSE HERE");
-        Modular.to.pop();
-        Modular.to.pushNamed(
-            Modular.get<Paths>().supportRoles.replaceAll(':id', _projectId));
+        // Modular.to.pop();
+        // Modular.to.pushNamed(
+        //     Modular.get<Paths>().supportRoles.replaceAll(':id', _projectId));
       },
       title: ModDiscoLocalizations.of(context).translate('supportRole'),
       description:
@@ -158,6 +171,7 @@ class SurveyProjectViewModel extends BaseModel {
         switch (questionTypeKey) {
           case "dropdown":
             // group by its question group
+            final NewUserNeedsValue newUnv = NewUserNeedsValue();
             final grouped = groupBy(
                 questionTypeValues, (UserNeedsType unt) => unt.questionGroup);
             grouped.forEach((k, v) {

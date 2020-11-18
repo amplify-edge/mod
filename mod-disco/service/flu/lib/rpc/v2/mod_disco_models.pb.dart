@@ -2380,3 +2380,42 @@ class UpdateSurveyUserRequest extends $pb.GeneratedMessage {
   $core.List<UserNeedsValue> get userNeedValues => $_getList(2);
 }
 
+class GenIdResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GenIdResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tempId')
+    ..hasRequiredFields = false
+  ;
+
+  GenIdResponse._() : super();
+  factory GenIdResponse() => create();
+  factory GenIdResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GenIdResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GenIdResponse clone() => GenIdResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GenIdResponse copyWith(void Function(GenIdResponse) updates) => super.copyWith((message) => updates(message as GenIdResponse)); // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GenIdResponse create() => GenIdResponse._();
+  GenIdResponse createEmptyInstance() => create();
+  static $pb.PbList<GenIdResponse> createRepeated() => $pb.PbList<GenIdResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GenIdResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GenIdResponse>(create);
+  static GenIdResponse _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get tempId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set tempId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasTempId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearTempId() => clearField(1);
+}
+

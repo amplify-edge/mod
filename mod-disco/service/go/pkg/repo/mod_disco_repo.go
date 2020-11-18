@@ -4,11 +4,14 @@ import (
 	"context"
 	service "github.com/getcouragenow/mod/mod-disco/service/go"
 	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sharedAccountPkg "github.com/getcouragenow/sys-share/sys-account/service/go/pkg"
 	"github.com/getcouragenow/sys-share/sys-account/service/go/pkg/interceptor"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	corebus "github.com/getcouragenow/sys-share/sys-core/service/go/pkg/bus"
 	"github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	l "github.com/sirupsen/logrus"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 const (
@@ -52,4 +55,8 @@ func NewDiscoRepo(
 	busClient.RegisterAction("onLoginCreateInterceptor", mdr.newClientInterceptor)
 	busClient.RegisterAction("onLogoutRemoveInterceptor", mdr.removeClientInterceptor)
 	return mdr, nil
+}
+
+func (md *ModDiscoRepo) GenTempId(ctx context.Context, in *emptypb.Empty) (*discoRpc.GenIdResponse, error) {
+	return &discoRpc.GenIdResponse{TempId: sharedConfig.NewID()}, nil
 }

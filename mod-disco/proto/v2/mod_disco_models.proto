@@ -317,3 +317,6 @@ message UpdateSurveyUserRequest {
   repeated UserNeedsValue user_need_values = 3;
 }
 
+message GenIdResponse {
+  string temp_id = 1;
+}
