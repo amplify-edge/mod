@@ -144,7 +144,6 @@ class SurveyProjectViewModel extends BaseModel {
     const SizedBox spacer = SizedBox(height: 8.0);
     List<Widget> viewWidgetList = [];
     _surveyUser..surveyUserName = _accountId + randomString(8);
-
     this._userNeedsQuestionMap.forEach((key, value) {
       _userNeedsQuestionMap[key].forEach((questionTypeKey, questionTypeValues) {
         switch (questionTypeKey) {
@@ -152,14 +151,16 @@ class SurveyProjectViewModel extends BaseModel {
             // group by its question group
             final grouped = groupBy(
                 questionTypeValues, (UserNeedsType unt) => unt.questionGroup);
+            Map<String, Map<String, String>> questionDataMap = {};
             grouped.forEach((k, v) {
               Map<String, String> questionData = {};
-              v.forEach((userNeed) =>
-                  questionData[userNeed.dropdownQuestion] = userNeed.id);
+              v.forEach(
+                  (userNeed) => questionData[userNeed.name] = userNeed.id);
+              questionDataMap[k] = questionData;
               String dropdownOptionKey =
                   generateDropdownKey(questionTypeValues);
               DynamicDropdownButton ddb = DynamicDropdownButton(
-                  data: questionData,
+                  data: questionDataMap[k],
                   selectedOption: this.dwService.selectedDropdownOptions[
                       dropdownOptionKey], // The selected description
                   callbackInjection: (data, selected) {
@@ -187,8 +188,8 @@ class SurveyProjectViewModel extends BaseModel {
                         // Otherwise set the others to false
                         this.selectNeed(userNeedId, false, deferNotify: true);
                       }
+                      notifyListeners();
                     });
-                    notifyListeners();
                   });
 
               viewWidgetList.add(

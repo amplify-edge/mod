@@ -39,6 +39,7 @@ dependencies:
   flutter_platform_widgets: ^0.8.1
   cupertino_icons: ^1.0.0
   font_awesome_flutter: ^8.7.0
+  smart_select: ^4.3.2
   grpc:
   protobuf:
   youtube_player_iframe: ^1.1.0

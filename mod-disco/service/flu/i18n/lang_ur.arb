@@ -1,8 +1,14 @@
 {
-  "@@last_modified": "2020-11-19T02:39:37.417710",
+  "@@last_modified": "2020-11-19T07:43:17.473094",
   "country": "ملک",
   "@country": {
     "description": "Country",
+    "placeholders": {},
+    "type": "text"
+  },
+  "videoUrl": "ویڈیو یو آر ایل",
+  "@videoUrl": {
+    "description": "Video Url",
     "placeholders": {},
     "type": "text"
   },
@@ -120,7 +126,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "backingEndorsingOrganizations": "حمایت یا تنظیموں کی حمایت",
+  "backingEndorsingOrganizations": "تنظیموں کی حمایت / حمایت کرنا",
   "@backingEndorsingOrganizations": {
     "description": "Backing/Endorsing Organizations",
     "placeholders": {},

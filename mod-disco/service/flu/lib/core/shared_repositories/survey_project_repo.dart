@@ -48,6 +48,21 @@ class SurveyProjectRepo {
     return mapped;
   }
 
+  static Map<String, Map<String, List<SupportRoleType>>>
+      getGroupedSupportRoleType(List<List<SupportRoleType>> supportRoleLists) {
+    Map<String, Map<String, List<SupportRoleType>>> mapped =
+        Map<String, Map<String, List<SupportRoleType>>>();
+    supportRoleLists.forEach((supportRoleList) {
+      final surveyProjectId = supportRoleList.first.surveyProjectRefId;
+      mapped[surveyProjectId] = {};
+      // group by its questionGroup
+      final m =
+          groupBy(supportRoleList, (SupportRoleType srt) => srt.description);
+      mapped[surveyProjectId] = m;
+    });
+    return mapped;
+  }
+
   static Future<SurveyProject> updateSurveyProject({
     @required String surveyProjectId,
     List<UserNeedsType> userNeedsTypes,

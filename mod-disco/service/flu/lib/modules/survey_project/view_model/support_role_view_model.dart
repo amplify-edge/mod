@@ -12,15 +12,23 @@ class SupportRoleViewModel extends BaseModel {
   String _accountId = "";
   List<SurveyProject> _surveyProjects;
   NewSurveyUserRequest _nsuReq;
-  Map<String, Map<String, List<SupportRoleType>>> _supportRoleQuestionMap =
-      Map<String, Map<String, List<SupportRoleType>>>();
-
+  List<List<SupportRoleType>> _srtLists = [];
+  List<SupportRoleType> _srtList = [];
+  Map<String, double> _minHours = {};
   DynamicWidgetService dwService = DynamicWidgetService();
   bool _isLoading = false;
+
   String get projectId => _projectId;
+
   Project get project => _project;
+
   NewSurveyUserRequest get nsuReq => _nsuReq;
+
   bool get isLoading => _isLoading;
+
+  List<SupportRoleType> get supportRoles => _srtList;
+
+  Map<String, double> get minHours => _minHours;
 
   // Constructor
   SupportRoleViewModel(
@@ -32,5 +40,21 @@ class SupportRoleViewModel extends BaseModel {
     _accountId = accountId;
     _nsuReq = newSurveyUserRequest;
     _surveyProjects = surveyProjectList;
+  }
+
+  // init
+  void initOnReady() {
+    setBuzy(true);
+    _surveyProjects.forEach((element) {
+      _srtLists.add(element.supportRoleTypes);
+    });
+    _srtList = _srtLists.expand((i) => i).toList();
+    notifyListeners();
+    setBuzy(false);
+  }
+
+  void selectMinHours(double value, String id) {
+    _minHours[id] = value;
+    notifyListeners();
   }
 }

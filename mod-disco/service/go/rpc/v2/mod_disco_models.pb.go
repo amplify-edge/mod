@@ -437,8 +437,8 @@ type NewSupportRoleType struct {
 	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty" fake:"{nameseq:support_role_type,false,none,false,false}" yaml:"name,omitempty"`
 	// @inject_tag: fake:"{sentence:8}" yaml:"comment,omitempty"
 	Comment string `protobuf:"bytes,4,opt,name=comment,proto3" json:"comment,omitempty" fake:"{sentence:8}" yaml:"comment,omitempty"`
-	// @inject_tag: fake:"{sentence:4}" yaml:"description,omitempty"
-	Description string `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty" fake:"{sentence:4}" yaml:"description,omitempty"`
+	// @inject_tag: fake:"{jobtitle}" yaml:"description,omitempty"
+	Description string `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty" fake:"{jobtitle}" yaml:"description,omitempty"`
 	// @inject_tag: fake:"{randomstring:[days,weeks,months]}" yaml:"unit_of_measures,omitempty"
 	UnitOfMeasures string `protobuf:"bytes,6,opt,name=unit_of_measures,json=unitOfMeasures,proto3" json:"unit_of_measures,omitempty" fake:"{randomstring:[days,weeks,months]}" yaml:"unit_of_measures,omitempty"`
 }

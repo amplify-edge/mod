@@ -57,7 +57,7 @@ message NewSupportRoleType {
   string name = 3;
   // @inject_tag: fake:"{sentence:8}" yaml:"comment,omitempty"
   string comment = 4;
-  // @inject_tag: fake:"{sentence:4}" yaml:"description,omitempty"
+  // @inject_tag: fake:"{jobtitle}" yaml:"description,omitempty"
   string description = 5;
   // @inject_tag: fake:"{randomstring:[days,weeks,months]}" yaml:"unit_of_measures,omitempty"
   string unit_of_measures = 6;

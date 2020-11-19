@@ -32,6 +32,7 @@ class SurveySupportRoleView extends StatelessWidget {
         newSurveyUserRequest: this.surveyUserRequest,
         surveyProjectList: this.surveyProjectList,
       ),
+      onModelReady: (SupportRoleViewModel model) => model.initOnReady(),
       builder: (context, SupportRoleViewModel model, child) => Scaffold(
         appBar: AppBar(
           title:
@@ -43,46 +44,47 @@ class SurveySupportRoleView extends StatelessWidget {
                 children: [
                   ProjectHeader(project: this.project),
                   Expanded(
-                    // child: _buildSupportRolesList(context, model),
-                    child: Text('TODO'),
+                    child: _buildSupportRolesList(context, model),
                   ),
                 ],
               ),
       ),
     );
   }
-// Widget _getNextButton(BuildContext context, SurveySupportRoleViewModel model) =>
-//     ButtonBar(children: [
-//       RaisedButton(
-//         onPressed: () {
-//           model.save();
-//           Modular.to.pushNamed('/account/signup');
-//         },
-//         child: Text(ModDiscoLocalizations.of(context).translate('next')),
-//       )
-//     ]);
-//
-// Widget _buildSupportRolesList(context, SupportRoleViewModel model) {
-//   return ListView.builder(
-//     itemCount: model.supportRoles.length + 1, // +1 is for the next button
-//     itemBuilder: (BuildContext context, int index) {
-//       //add next button as last item to the list
-//       if (index == model.supportRoles.length) {
-//         return _getNextButton(context, model);
-//       } else {
-//         SupportRole sp = model.supportRoles[index];
-//         return DynamicSlider(
-//           title: sp.name,
-//           question: sp.description,
-//           current: model.minHours[sp.id] ?? 0.0,
-//           min: 0.0,
-//           max: 8.0,
-//           callbackInjection: (String value) {
-//             model.selectMinHours(double.tryParse(value) ?? 0.0, sp.id);
-//           },
-//         );
-//       }
-//     },
-//   );
-// }
+
+  Widget _getNextButton(BuildContext context, SupportRoleViewModel model) =>
+      ButtonBar(children: [
+        RaisedButton(
+          onPressed: () {
+            print("PLEASE SAVE THE RESPONSE TO SYS_ACCOUNT");
+            // model.save();
+            // Modular.to.pushNamed('/account/signup');
+          },
+          child: Text(ModDiscoLocalizations.of(context).translate('next')),
+        )
+      ]);
+
+  Widget _buildSupportRolesList(context, SupportRoleViewModel model) {
+    return ListView.builder(
+      itemCount: model.supportRoles.length + 1, // +1 is for the next button
+      itemBuilder: (BuildContext context, int index) {
+        //add next button as last item to the list
+        if (index == model.supportRoles.length) {
+          return _getNextButton(context, model);
+        } else {
+          SupportRoleType sp = model.supportRoles[index];
+          return DynamicSlider(
+            title: sp.name,
+            question: sp.description,
+            current: model.minHours[sp.id] ?? 0.0,
+            min: 0.0,
+            max: 8.0,
+            callbackInjection: (String value) {
+              model.selectMinHours(double.tryParse(value) ?? 0.0, sp.id);
+            },
+          );
+        }
+      },
+    );
+  }
 }

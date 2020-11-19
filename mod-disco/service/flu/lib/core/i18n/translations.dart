@@ -16,9 +16,9 @@ class Translations {
 
   String videoUrl() {
     return Intl.message(
-      'Video',
-      name: 'video',
-      desc: 'Video',
+      'Video Url',
+      name: 'videoUrl',
+      desc: 'Video Url',
       locale: locale.toString(),
     );
   }
@@ -103,7 +103,6 @@ class Translations {
       locale: locale.toString(),
     );
   }
-
 
   // ORGS
 
