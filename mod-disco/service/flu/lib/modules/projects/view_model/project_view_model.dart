@@ -7,6 +7,7 @@ import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_re
     as repo;
 
 class ProjectViewModel extends BaseModel {
+  int perPageEntriesDefault = 20;
   List<Project> projects = List<Project>();
   List<DiscoProject> projectDetails = List<DiscoProject>();
 
@@ -40,7 +41,7 @@ class ProjectViewModel extends BaseModel {
     await repo.OrgProjRepo.listUserProjects(
       orderBy: 'name',
       isDescending: false,
-      perPageEntries: 20,
+      perPageEntries: perPageEntriesDefault,
       filters: filters,
     ).then((res) async {
       this.projects = res.projects;
@@ -75,7 +76,7 @@ class ProjectViewModel extends BaseModel {
         _setHasMoreItems(false);
       }
       final lastFetchedNanos = ps.last.createdAt.nanos;
-      if (_nextPageId == lastFetchedNanos) {
+      if (_nextPageId == lastFetchedNanos ) {
         _setHasMoreItems(false);
       } else {
         _setNextPageId(lastFetchedNanos);

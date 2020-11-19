@@ -2136,10 +2136,10 @@ type NewSurveyProjectRequest struct {
 
 	// @inject_tag: fake:"skip" yaml:"sys_account_project_ref_id,omitempty"
 	SysAccountProjectRefId string `protobuf:"bytes,1,opt,name=sys_account_project_ref_id,json=sysAccountProjectRefId,proto3" json:"sys_account_project_ref_id,omitempty" fake:"skip" yaml:"sys_account_project_ref_id,omitempty"`
-	// @inject_tag: fakesize:"3" yaml:"support_role_types"
-	SupportRoleTypes []*NewSupportRoleType `protobuf:"bytes,2,rep,name=support_role_types,json=supportRoleTypes,proto3" json:"support_role_types,omitempty" fakesize:"3" yaml:"support_role_types"`
-	// @inject_tag: fakesize:"3" yaml:"user_need_types"
-	UserNeedTypes []*NewUserNeedsType `protobuf:"bytes,3,rep,name=user_need_types,json=userNeedTypes,proto3" json:"user_need_types,omitempty" fakesize:"3" yaml:"user_need_types"`
+	// @inject_tag: fakesize:"8" yaml:"support_role_types"
+	SupportRoleTypes []*NewSupportRoleType `protobuf:"bytes,2,rep,name=support_role_types,json=supportRoleTypes,proto3" json:"support_role_types,omitempty" fakesize:"8" yaml:"support_role_types"`
+	// @inject_tag: fakesize:"8" yaml:"user_need_types"
+	UserNeedTypes []*NewUserNeedsType `protobuf:"bytes,3,rep,name=user_need_types,json=userNeedTypes,proto3" json:"user_need_types,omitempty" fakesize:"8" yaml:"user_need_types"`
 	// @inject_tag: fake:"{nameseq:sys_account_project,true,sys_account_project,true,false}" yaml:"sys_account_project_ref_name"
 	SysAccountProjectRefName string `protobuf:"bytes,4,opt,name=sys_account_project_ref_name,json=sysAccountProjectRefName,proto3" json:"sys_account_project_ref_name,omitempty" fake:"{nameseq:sys_account_project,true,sys_account_project,true,false}" yaml:"sys_account_project_ref_name"`
 	// @inject_tag: fake:"{nameseq:survey_project,false,none,false,false}" yaml:"survey_project_name"
@@ -2222,10 +2222,10 @@ type NewSurveyUserRequest struct {
 	SurveyProjectRefId string `protobuf:"bytes,1,opt,name=survey_project_ref_id,json=surveyProjectRefId,proto3" json:"survey_project_ref_id,omitempty" fake:"skip" yaml:"survey_project_ref_id,omitempty"`
 	// @inject_tag: fake:"skip" yaml:"sys_account_user_ref_id,omitempty"
 	SysAccountUserRefId string `protobuf:"bytes,2,opt,name=sys_account_user_ref_id,json=sysAccountUserRefId,proto3" json:"sys_account_user_ref_id,omitempty" fake:"skip" yaml:"sys_account_user_ref_id,omitempty"`
-	// @inject_tag: fakesize:"3" yaml:"support_role_values"
-	SupportRoleValues []*NewSupportRoleValue `protobuf:"bytes,3,rep,name=support_role_values,json=supportRoleValues,proto3" json:"support_role_values,omitempty" fakesize:"3" yaml:"support_role_values"`
-	// @inject_tag: fakesize:"3" yaml:"user_need_values"
-	UserNeedValues []*NewUserNeedsValue `protobuf:"bytes,4,rep,name=user_need_values,json=userNeedValues,proto3" json:"user_need_values,omitempty" fakesize:"3" yaml:"user_need_values"`
+	// @inject_tag: fakesize:"5" yaml:"support_role_values"
+	SupportRoleValues []*NewSupportRoleValue `protobuf:"bytes,3,rep,name=support_role_values,json=supportRoleValues,proto3" json:"support_role_values,omitempty" fakesize:"5" yaml:"support_role_values"`
+	// @inject_tag: fakesize:"5" yaml:"user_need_values"
+	UserNeedValues []*NewUserNeedsValue `protobuf:"bytes,4,rep,name=user_need_values,json=userNeedValues,proto3" json:"user_need_values,omitempty" fakesize:"5" yaml:"user_need_values"`
 	// @inject_tag: fake:"{nameseq:survey_project,true,survey_project,false,false}" yaml:"survey_project_ref_name"
 	SurveyProjectRefName string `protobuf:"bytes,5,opt,name=survey_project_ref_name,json=surveyProjectRefName,proto3" json:"survey_project_ref_name,omitempty" fake:"{nameseq:survey_project,true,survey_project,false,false}" yaml:"survey_project_ref_name"`
 	// @inject_tag: fake:"{mailseq:ops,true,sys_account_email,true}" yaml:"sys_account_user_ref_name"

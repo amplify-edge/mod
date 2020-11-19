@@ -278,9 +278,9 @@ message ListResponse {
 message NewSurveyProjectRequest {
   // @inject_tag: fake:"skip" yaml:"sys_account_project_ref_id,omitempty"
   string sys_account_project_ref_id = 1;
-  // @inject_tag: fakesize:"3" yaml:"support_role_types"
+  // @inject_tag: fakesize:"8" yaml:"support_role_types"
   repeated NewSupportRoleType support_role_types = 2;
-  // @inject_tag: fakesize:"3" yaml:"user_need_types"
+  // @inject_tag: fakesize:"8" yaml:"user_need_types"
   repeated NewUserNeedsType user_need_types = 3;
   // @inject_tag: fake:"{nameseq:sys_account_project,true,sys_account_project,true,false}" yaml:"sys_account_project_ref_name"
   string sys_account_project_ref_name = 4;
@@ -293,9 +293,9 @@ message NewSurveyUserRequest {
   string survey_project_ref_id = 1;
   // @inject_tag: fake:"skip" yaml:"sys_account_user_ref_id,omitempty"
   string sys_account_user_ref_id = 2;
-  // @inject_tag: fakesize:"3" yaml:"support_role_values"
+  // @inject_tag: fakesize:"5" yaml:"support_role_values"
   repeated NewSupportRoleValue support_role_values = 3;
-  // @inject_tag: fakesize:"3" yaml:"user_need_values"
+  // @inject_tag: fakesize:"5" yaml:"user_need_values"
   repeated NewUserNeedsValue user_need_values = 4;
   // @inject_tag: fake:"{nameseq:survey_project,true,survey_project,false,false}" yaml:"survey_project_ref_name"
   string survey_project_ref_name = 5;
