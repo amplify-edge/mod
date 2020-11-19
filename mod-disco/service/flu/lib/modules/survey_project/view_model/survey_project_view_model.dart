@@ -21,7 +21,7 @@ class SurveyProjectViewModel extends BaseModel {
       Map<String, Map<String, List<UserNeedsType>>>();
   bool _isLoggedOn = false;
 
-  DynamicWidgetService dwService = DynamicWidgetService();
+  Map<String, Map<String, String>> dwService = {};
   bool _isLoading = false;
 
   String get projectId => _projectId;
@@ -80,6 +80,7 @@ class SurveyProjectViewModel extends BaseModel {
           SurveyProjectRepo.getGroupedUserNeedsType(_userNeedsLists);
       notifyListeners();
     });
+    initializeDropdownSelectionData();
     _setLoading(false);
   }
 
@@ -92,13 +93,26 @@ class SurveyProjectViewModel extends BaseModel {
   }
 
 //
-  void initializeDropdownSelectionData(
-      List<List<UserNeedsType>> userNeedsList) {
-    if (this.dwService.selectedDropdownOptions.length == 0) {
+  void initializeDropdownSelectionData() {
+    if (this.dwService.length == 0) {
       // We need to track which option of the dropdown was selected
-      userNeedsList.forEach((group) {
-        String key = generateDropdownKey(group);
-        this.dwService.selectedDropdownOptions[key] = null;
+      // userNeedsList.forEach((group) {
+      //   String key = generateDropdownKey(group);
+      //   this.dwService[key] = null;
+      // });
+      this._userNeedsQuestionMap.forEach((key, value) {
+        _userNeedsQuestionMap[key]
+            .forEach((questionTypeKey, questionTypeValues) {
+          if (questionTypeKey == "dropdown") {
+            // group by its question group
+            final grouped = groupBy(
+                questionTypeValues, (UserNeedsType unt) => unt.questionGroup);
+            grouped.forEach((k, v) {
+              String key = generateDropdownKey(v);
+              this.dwService[k] = {key: null};
+            });
+          }
+        });
       });
     }
   }
@@ -151,47 +165,12 @@ class SurveyProjectViewModel extends BaseModel {
             // group by its question group
             final grouped = groupBy(
                 questionTypeValues, (UserNeedsType unt) => unt.questionGroup);
-            Map<String, Map<String, String>> questionDataMap = {};
             grouped.forEach((k, v) {
               Map<String, String> questionData = {};
               v.forEach(
                   (userNeed) => questionData[userNeed.name] = userNeed.id);
-              questionDataMap[k] = questionData;
               String dropdownOptionKey =
                   generateDropdownKey(questionTypeValues);
-              DynamicDropdownButton ddb = DynamicDropdownButton(
-                  data: questionDataMap[k],
-                  selectedOption: this.dwService.selectedDropdownOptions[
-                      dropdownOptionKey], // The selected description
-                  callbackInjection: (data, selected) {
-                    // the onChangedCallback
-                    // Because each dropdown option is technically a "question" in the db
-                    // We need to set each option/question as true/false based on its relative selection
-                    data.forEach((userNeedAnswer, userNeedId) {
-                      // Needs to go through each "option" in the dropdown
-                      if (userNeedAnswer == selected) {
-                        // If we selected it this time set that question id to true
-                        this.selectNeed(userNeedId, true, deferNotify: true);
-                        final newUserNeedValue =
-                            SurveyProjectRepo.createUserNeedsValue(
-                          surveyUserRefName: _surveyUser.surveyUserName,
-                          comment: _accountId + "answer",
-                          userNeedsTypeRefId: userNeedId,
-                        );
-                        _appendUserNeedsValue(
-                            newUserNeedValue, dropdownOptionKey);
-                        this
-                                .dwService
-                                .selectedDropdownOptions[dropdownOptionKey] =
-                            selected;
-                      } else {
-                        // Otherwise set the others to false
-                        this.selectNeed(userNeedId, false, deferNotify: true);
-                      }
-                      notifyListeners();
-                    });
-                  });
-
               viewWidgetList.add(
                 Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -205,7 +184,40 @@ class SurveyProjectViewModel extends BaseModel {
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                       spacer,
-                      ddb,
+                      DynamicDropdownButton(
+                        data: questionData,
+                        selectedOption: this.dwService[k]
+                            [dropdownOptionKey], // The selected description
+                        callbackInjection: (data, selected) {
+                          // the onChangedCallback
+                          // Because each dropdown option is technically a "question" in the db
+                          // We need to set each option/question as true/false based on its relative selection
+                          data.forEach((userNeedAnswer, userNeedId) {
+                            // Needs to go through each "option" in the dropdown
+                            if (userNeedAnswer == selected) {
+                              // If we selected it this time set that question id to true
+                              this.selectNeed(userNeedId, true,
+                                  deferNotify: true);
+                              final newUserNeedValue =
+                                  SurveyProjectRepo.createUserNeedsValue(
+                                surveyUserRefName: _surveyUser.surveyUserName,
+                                comment: _accountId + "answer",
+                                userNeedsTypeRefId: userNeedId,
+                              );
+                              _appendUserNeedsValue(
+                                  newUserNeedValue, dropdownOptionKey);
+                              this.dwService[k][dropdownOptionKey] = selected;
+                              print(
+                                  "DROPDOWN DATA: ${this.dwService.toString()}");
+                            } else {
+                              // Otherwise set the others to false
+                              this.selectNeed(userNeedId, false,
+                                  deferNotify: true);
+                            }
+                            notifyListeners();
+                          });
+                        },
+                      ),
                     ],
                   ),
                 ),
