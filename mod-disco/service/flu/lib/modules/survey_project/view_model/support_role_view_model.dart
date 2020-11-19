@@ -57,4 +57,8 @@ class SupportRoleViewModel extends BaseModel {
     _minHours[id] = value;
     notifyListeners();
   }
+  
+  void onSave() {
+
+  }
 }
