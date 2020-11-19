@@ -8,7 +8,7 @@ class BaseModel extends  ChangeNotifier{
   bool get buzy => _buzy;
 
 
-  void setBuzy(buzy){
+  void setBuzy(bool buzy){
     _buzy = buzy;
     notifyListeners();
   }

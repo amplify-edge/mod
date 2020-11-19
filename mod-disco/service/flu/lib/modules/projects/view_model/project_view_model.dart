@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:fixnum/fixnum.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/core/shared_repositories/disco_project_repo.dart';
@@ -7,13 +10,14 @@ import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_re
     as repo;
 
 class ProjectViewModel extends BaseModel {
-  List<Project> projects = List<Project>();
+  int perPageEntriesDefault = 30;
+  List<Project> projects = [];
   List<DiscoProject> projectDetails = List<DiscoProject>();
 
   // constructor
   ProjectViewModel({this.projects});
 
-  int _nextPageId = 0;
+  Int64 _nextPageId = Int64(0);
   List<bool> _selected = List<bool>();
   bool _isLoading = false;
   bool _hasMoreItems = false;
@@ -34,18 +38,24 @@ class ProjectViewModel extends BaseModel {
     notifyListeners();
   }
 
-  Future<void> _fetchProjects(void Function(List<Project>) f,
-      {Map<String, dynamic> filters}) async {
+  Future<void> _fetchProjects(
+      {Map<String, dynamic> filters,
+      void Function(String, List<Project>) nextPageFunc}) async {
     _setLoading(true);
     await repo.OrgProjRepo.listUserProjects(
       orderBy: 'name',
       isDescending: false,
-      perPageEntries: 20,
+      perPageEntries: perPageEntriesDefault,
       filters: filters,
+      currentPageId: _nextPageId,
     ).then((res) async {
-      this.projects = res.projects;
+      if (projects == null) {
+        projects = res.projects;
+      } else {
+        projects.addAll(res.projects);
+      }
       notifyListeners();
-      this.projects.forEach((p) async {
+      projects.forEach((p) async {
         await DiscoProjectRepo.getProjectDetails(accountProjRefId: p.id)
             .then((details) {
           projectDetails.add(details);
@@ -53,7 +63,8 @@ class ProjectViewModel extends BaseModel {
         }).catchError((e) => print(e));
       });
       notifyListeners();
-      f(this.projects);
+      // f(this.projects);
+      nextPageFunc(res.nextPageId, projects);
     }).catchError((e) {
       throw e;
     });
@@ -61,21 +72,23 @@ class ProjectViewModel extends BaseModel {
   }
 
   Future<void> fetchInitialProjects() async {
-    await _fetchProjects((ps) {
-      if (ps.isNotEmpty && ps.last.createdAt.nanos != 0) {
-        _setNextPageId(ps.last.createdAt.nanos);
+    await _fetchProjects(nextPageFunc: (tkn, ps) {
+      final nanos = Int64.parseInt(tkn);
+      if (ps.isNotEmpty && nanos != Int64.ZERO) {
+        _setNextPageId(nanos);
         _setHasMoreItems(true);
       }
     });
   }
 
   Future<void> fetchNextProjects() async {
-    await _fetchProjects((ps) {
+    await _fetchProjects(nextPageFunc: (tkn, ps) {
       if (ps.isEmpty) {
         _setHasMoreItems(false);
       }
-      final lastFetchedNanos = ps.last.createdAt.nanos;
-      if (_nextPageId == lastFetchedNanos) {
+      final lastFetchedNanos = Int64.parseInt(tkn);
+      if (_nextPageId == lastFetchedNanos ||
+          ps.length < perPageEntriesDefault) {
         _setHasMoreItems(false);
       } else {
         _setNextPageId(lastFetchedNanos);
@@ -85,15 +98,17 @@ class ProjectViewModel extends BaseModel {
   }
 
   Future<void> searchProjects(String name) async {
-    await _fetchProjects((ps) {
-      if (ps != null && ps.isNotEmpty) {
-        _resetProjects();
-        projects.addAll(ps);
-        _setHasMoreItems(false);
-      }
-    }, filters: {
-      "name": name,
-    });
+    await _fetchProjects(
+        nextPageFunc: (tkn, ps) {
+          if (ps != null && ps.isNotEmpty) {
+            _resetProjects();
+            projects.addAll(ps);
+            _setHasMoreItems(false);
+          }
+        },
+        filters: {
+          "name": name,
+        });
   }
 
   Future<void> onResetSearchProjects() async {
@@ -106,7 +121,7 @@ class ProjectViewModel extends BaseModel {
     notifyListeners();
   }
 
-  void _setNextPageId(int val) {
+  void _setNextPageId(Int64 val) {
     _nextPageId = val;
     notifyListeners();
   }

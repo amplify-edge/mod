@@ -1,3 +1,4 @@
+import 'package:fixnum/fixnum.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
@@ -10,7 +11,7 @@ class NewOrgViewModel extends BaseModel {
   // constructor
   NewOrgViewModel({this.orgs});
 
-  int _nextPageId = 0;
+  Int64 _nextPageId = Int64.ZERO;
   List<bool> _selected = List<bool>();
   bool _isLoading = false;
 
@@ -28,7 +29,7 @@ class NewOrgViewModel extends BaseModel {
     notifyListeners();
     return projList;
   }
-  
+
   Future<void> fetchInitialOrgs() async {
     _setLoading(true);
     await repo.OrgProjRepo.listUserOrgs(
@@ -45,13 +46,13 @@ class NewOrgViewModel extends BaseModel {
   Future<void> fetchNextOrgs() async {
     _setLoading(true);
     await repo.OrgProjRepo.listUserOrgs(
-      currentPageId: _nextPageId.toString(),
+      currentPageId: _nextPageId,
       filters: List<int>(),
       orderBy: 'name',
       isDescending: false,
     ).then((res) {
       orgs.addAll(res.orgs);
-      _setnextPageId(int.parse(res.nextPageId));
+      _setnextPageId(Int64.parseInt(res.nextPageId));
       notifyListeners();
     }).catchError((e) {
       throw e;
@@ -64,7 +65,7 @@ class NewOrgViewModel extends BaseModel {
     notifyListeners();
   }
 
-  void _setnextPageId(int val) {
+  void _setnextPageId(Int64 val) {
     _nextPageId = val;
     notifyListeners();
   }

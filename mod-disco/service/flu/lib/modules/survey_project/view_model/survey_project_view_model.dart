@@ -6,7 +6,6 @@ import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:random_string/random_string.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
-import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 import 'package:collection/collection.dart';
 
@@ -15,7 +14,7 @@ class SurveyProjectViewModel extends BaseModel {
   Project _project;
   List<SurveyProject> _surveyProjects = List<SurveyProject>();
   List<List<UserNeedsType>> _userNeedsLists = List<List<UserNeedsType>>();
-  Map<String, NewUserNeedsValue> _userNeedsValueList = {};
+  Map<String, NewUserNeedsValue> _userNeedsValueMap = {};
   NewSurveyUserRequest _surveyUser = NewSurveyUserRequest();
   String _accountId = "";
   Map<String, Map<String, List<UserNeedsType>>> _userNeedsQuestionMap =
@@ -43,7 +42,7 @@ class SurveyProjectViewModel extends BaseModel {
   }
 
   void _appendUserNeedsValue(NewUserNeedsValue unv, String uniqueWidgetKey) {
-    _userNeedsValueList[uniqueWidgetKey] = unv;
+    _userNeedsValueMap[uniqueWidgetKey] = unv;
     // notifyListeners();
   }
 
@@ -60,20 +59,15 @@ class SurveyProjectViewModel extends BaseModel {
   }
 
   Future<void> fetchSurveyProject() async {
+    _setLoading(true);
     await _isLoggedIn();
     if (_isLoggedOn) {
       _accountId = await getAccountId();
-      notifyListeners();
     } else {
       _accountId = await SurveyProjectRepo.getNewTempId();
-      notifyListeners();
     }
     _surveyUser.sysAccountUserRefId = _accountId;
     notifyListeners();
-    // await OrgProjRepo.getProject(id: _projectId).then((res) {
-    //   _project = res;
-    //   notifyListeners();
-    // });
     await SurveyProjectRepo.listSurveyProjects(
             sysAccountProjectRefId: _projectId, orderBy: 'name')
         .then((res) {
@@ -86,20 +80,9 @@ class SurveyProjectViewModel extends BaseModel {
           SurveyProjectRepo.getGroupedUserNeedsType(_userNeedsLists);
       notifyListeners();
     });
+    _setLoading(false);
   }
 
-// initializeData(String projectId) {
-//   setBuzy(true);
-//
-//   _orgId = orgId;
-//   _org = orgService.getOrgById(orgId);
-//   _userNeedsByGroup = userNeedService.getGroupedUserNeedsByOrgId(orgId);
-//
-//   this.initializeDropdownSelectionData(_userNeedsByGroup);
-//
-//   setBuzy(false);
-// }
-//
   void selectNeed(String key, value, {bool deferNotify: false}) {
     _value[key] = value;
 
@@ -128,28 +111,6 @@ class SurveyProjectViewModel extends BaseModel {
     return key.substring(1);
   }
 
-  String _formatData(dynamic data) {
-    if (data.runtimeType == 'bool') {
-      return data == true ? '1' : '0';
-    }
-
-    return data.toString();
-  }
-
-// TODO create the ones that don't already exist, update the ones that do
-// void save() {
-//   this.value.forEach((key, value) {
-//     this.userNeedAnswerService.repository.createUserNeedAnswer(
-//       answer: this._formatData(value),
-//       refQuestionId: key,
-//       refUserId: "199",
-//       // TODO update with user session data
-//       prod: "1",
-//       comment: "n/a",
-//     );
-//   });
-// }
-
   void navigateNext(BuildContext context) {
     showActionDialogBox(
       onPressedNo: () {
@@ -158,10 +119,17 @@ class SurveyProjectViewModel extends BaseModel {
         // Modular.to.pushNamed('/account/signup');
       },
       onPressedYes: () {
-        print("SAVE THE TEMP USER RESPONSE HERE");
-        // Modular.to.pop();
-        // Modular.to.pushNamed(
-        //     Modular.get<Paths>().supportRoles.replaceAll(':id', _projectId));
+        List<NewUserNeedsValue> _untList = [];
+        _userNeedsValueMap.forEach((key, value) {
+          _untList.add(value);
+        });
+        Modular.to.pop();
+        Modular.to.pushNamed(Modular.get<Paths>().supportRoles, arguments: {
+          'surveyProjectList': _surveyProjects,
+          'surveyUserRequest': _surveyUser,
+          'project': project,
+          'accountId': _accountId
+        });
       },
       title: ModDiscoLocalizations.of(context).translate('supportRole'),
       description:
@@ -176,7 +144,6 @@ class SurveyProjectViewModel extends BaseModel {
     const SizedBox spacer = SizedBox(height: 8.0);
     List<Widget> viewWidgetList = [];
     _surveyUser..surveyUserName = _accountId + randomString(8);
-
     this._userNeedsQuestionMap.forEach((key, value) {
       _userNeedsQuestionMap[key].forEach((questionTypeKey, questionTypeValues) {
         switch (questionTypeKey) {
@@ -184,14 +151,16 @@ class SurveyProjectViewModel extends BaseModel {
             // group by its question group
             final grouped = groupBy(
                 questionTypeValues, (UserNeedsType unt) => unt.questionGroup);
+            Map<String, Map<String, String>> questionDataMap = {};
             grouped.forEach((k, v) {
               Map<String, String> questionData = {};
-              v.forEach((userNeed) =>
-                  questionData[userNeed.dropdownQuestion] = userNeed.id);
+              v.forEach(
+                  (userNeed) => questionData[userNeed.name] = userNeed.id);
+              questionDataMap[k] = questionData;
               String dropdownOptionKey =
                   generateDropdownKey(questionTypeValues);
               DynamicDropdownButton ddb = DynamicDropdownButton(
-                  data: questionData,
+                  data: questionDataMap[k],
                   selectedOption: this.dwService.selectedDropdownOptions[
                       dropdownOptionKey], // The selected description
                   callbackInjection: (data, selected) {
@@ -219,8 +188,8 @@ class SurveyProjectViewModel extends BaseModel {
                         // Otherwise set the others to false
                         this.selectNeed(userNeedId, false, deferNotify: true);
                       }
+                      notifyListeners();
                     });
-                    notifyListeners();
                   });
 
               viewWidgetList.add(
@@ -291,7 +260,6 @@ class SurveyProjectViewModel extends BaseModel {
         }
       });
     });
-    print("NEW USER NEEDS VALUE MAP: " + _userNeedsValueList.toString());
     return viewWidgetList;
   }
 }

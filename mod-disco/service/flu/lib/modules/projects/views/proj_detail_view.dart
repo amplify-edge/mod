@@ -198,7 +198,7 @@ class ProjectDetailView extends StatelessWidget {
                     RaisedButton(
                       onPressed: () {
                         Modular.to
-                            .pushNamed('/survey/project/', arguments: project);
+                            .pushNamed('/survey/projects/', arguments: project);
                       },
                       child: Text(
                           ModDiscoLocalizations.of(context).translate("ready")),

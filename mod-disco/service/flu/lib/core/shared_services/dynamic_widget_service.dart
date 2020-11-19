@@ -29,12 +29,16 @@ class _DynamicDropdownButtonState extends State<DynamicDropdownButton> {
   @override
   Widget build(BuildContext context) {
     List<DropdownMenuItem<String>> dropdownItems = widget._data.keys
-        .map((question) => DropdownMenuItem(
+        .map(
+          (answer) => DropdownMenuItem(
+            key: Key(answer),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Text(question),
+              child: Text(answer),
             ),
-            value: question))
+            value: answer,
+          ),
+        )
         .toList();
 
     return Padding(
@@ -65,10 +69,12 @@ class DynamicMultilineTextFormField extends StatefulWidget {
         this._callbackInjection = callbackInjection;
 
   @override
-  _DynamicMultilineTextFormFieldState createState() => _DynamicMultilineTextFormFieldState();
+  _DynamicMultilineTextFormFieldState createState() =>
+      _DynamicMultilineTextFormFieldState();
 }
 
-class _DynamicMultilineTextFormFieldState extends State<DynamicMultilineTextFormField> {
+class _DynamicMultilineTextFormFieldState
+    extends State<DynamicMultilineTextFormField> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -114,7 +120,7 @@ class _DynamicMultilineTextFormFieldState extends State<DynamicMultilineTextForm
 
 class DynamicSlider extends StatefulWidget {
   final StandardCallbackInjection _callbackInjection;
-  final String _title, _question;
+  final String _title, _question, _uom;
   final double _min, _max, _current;
 
   DynamicSlider(
@@ -123,12 +129,14 @@ class DynamicSlider extends StatefulWidget {
       double current,
       double min,
       double max,
+      String uom,
       StandardCallbackInjection callbackInjection})
       : this._question = question,
         this._title = title,
         this._current = current,
         this._min = min,
         this._max = max,
+        this._uom = uom,
         this._callbackInjection = callbackInjection;
 
   @override
@@ -159,11 +167,11 @@ class _DynamicSliderState extends State<DynamicSlider> {
               const SizedBox(height: 8.0),
               ListTile(
                 title: Text(
-                  'Minimum hours you can dedicate  : ',
+                  'Minimum pledged time: ',
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
                 trailing: Text(
-                  '${this.widget._current} hr',
+                  '${this.widget._current} ${this.widget._uom}',
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2

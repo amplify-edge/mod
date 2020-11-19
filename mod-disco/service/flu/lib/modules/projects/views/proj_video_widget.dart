@@ -34,12 +34,15 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
             },
           ).toList(),
           // Defining custom playlist
-          startAt: Duration(seconds: 30),
+          playsInline: true,
+          enableCaption: true,
+          autoPlay: false,
           showControls: true,
           showFullscreenButton: true,
         ),
       );
     });
+    controller.setSize(Size(200, 200));
     super.initState();
   }
 
@@ -50,9 +53,12 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return YoutubePlayerIFrame(
-      controller: controller,
-      aspectRatio: 16 / 9,
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
+      child: YoutubePlayerIFrame(
+        controller: controller,
+        aspectRatio: 16 / 9,
+      ),
     );
   }
 }
