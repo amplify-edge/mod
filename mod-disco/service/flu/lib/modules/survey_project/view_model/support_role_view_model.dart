@@ -55,6 +55,7 @@ class SupportRoleViewModel extends BaseModel {
 
   void selectMinHours(double value, String id) {
     _minHours[id] = value;
+    print("CHOSEN ID: $id");
     notifyListeners();
   }
   
