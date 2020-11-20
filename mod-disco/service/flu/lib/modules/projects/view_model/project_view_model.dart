@@ -11,11 +11,16 @@ import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_re
 
 class ProjectViewModel extends BaseModel {
   int perPageEntriesDefault = 30;
-  List<Project> projects = [];
+  List<Org> orgs = [];
+
+  // List<Project> projects = [];
   List<DiscoProject> projectDetails = List<DiscoProject>();
 
   // constructor
-  ProjectViewModel({this.projects});
+  ProjectViewModel({this.orgs});
+
+  Project _selectedProject;
+  DiscoProject _selectedDiscoProject;
 
   Int64 _nextPageId = Int64(0);
   List<bool> _selected = List<bool>();
@@ -27,6 +32,10 @@ class ProjectViewModel extends BaseModel {
   bool get isLoading => _isLoading;
 
   bool get hasMoreItems => _hasMoreItems;
+
+  Project get selectedProject => _selectedProject;
+
+  DiscoProject get selectedProjectDetails => _selectedDiscoProject;
 
   void changeSelection(bool value, int index) {
     _selected[index] = value;
@@ -40,31 +49,33 @@ class ProjectViewModel extends BaseModel {
 
   Future<void> _fetchProjects(
       {Map<String, dynamic> filters,
-      void Function(String, List<Project>) nextPageFunc}) async {
+      void Function(String, List<Org>) nextPageFunc}) async {
     _setLoading(true);
-    await repo.OrgProjRepo.listUserProjects(
+    await repo.OrgProjRepo.listUserOrgs(
       orderBy: 'name',
       isDescending: false,
       perPageEntries: perPageEntriesDefault,
       filters: filters,
       currentPageId: _nextPageId,
     ).then((res) async {
-      if (projects == null) {
-        projects = res.projects;
+      if (orgs == null) {
+        orgs = res.orgs;
       } else {
-        projects.addAll(res.projects);
+        orgs.addAll(res.orgs);
       }
       notifyListeners();
-      projects.forEach((p) async {
-        await DiscoProjectRepo.getProjectDetails(accountProjRefId: p.id)
-            .then((details) {
-          projectDetails.add(details);
-          notifyListeners();
-        }).catchError((e) => print(e));
+      orgs.forEach((org) async {
+        org.projects.forEach((p) async {
+          await DiscoProjectRepo.getProjectDetails(accountProjRefId: p.id)
+              .then((details) {
+            projectDetails.add(details);
+            notifyListeners();
+          }).catchError((e) => print(e));
+        });
       });
       notifyListeners();
       // f(this.projects);
-      nextPageFunc(res.nextPageId, projects);
+      nextPageFunc(res.nextPageId, orgs);
     }).catchError((e) {
       throw e;
     });
@@ -102,7 +113,7 @@ class ProjectViewModel extends BaseModel {
         nextPageFunc: (tkn, ps) {
           if (ps != null && ps.isNotEmpty) {
             _resetProjects();
-            projects.addAll(ps);
+            orgs.addAll(ps);
             _setHasMoreItems(false);
           }
         },
@@ -117,7 +128,7 @@ class ProjectViewModel extends BaseModel {
   }
 
   void _resetProjects() {
-    projects = List<Project>();
+    orgs = List<Org>();
     notifyListeners();
   }
 
@@ -127,8 +138,8 @@ class ProjectViewModel extends BaseModel {
   }
 
   void _updateSelectedList() {
-    final _count = projects.length;
-    List<bool> _projListBool = projects.map((o) => false);
+    final _count = orgs.length;
+    List<bool> _projListBool = orgs.map((o) => false);
     _selected = _projListBool;
     notifyListeners();
   }
@@ -143,4 +154,19 @@ class ProjectViewModel extends BaseModel {
   }
 
   void navigateToNotReady(int index) {}
+
+  void getSelectedProjectAndDetails(String orgId, String id) {
+    Project _proj;
+    print("ORGID: $orgId, PROJECTID: $id");
+    final _org = orgs.firstWhere((org) => org.id == orgId);
+    final p = _org.projects.firstWhere((element) => element.id == id);
+    if (p != null) {
+      _proj = p;
+    } else {
+      throw "Error no project found";
+    }
+    _selectedProject = _proj;
+    _selectedDiscoProject = projectDetails
+        .firstWhere((element) => element.sysAccountProjectRefId == _proj.id);
+  }
 }

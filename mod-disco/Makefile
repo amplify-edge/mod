@@ -48,8 +48,8 @@ this-build: this-build-delete
 	@mkdir -p bin-all/{cli,client,server}/{go,flu}
 	@echo 'Building Golang binaries'
 	# Commented Out, Nothing there yet
-	go build -v -o bin-all/cli/go/ ./example/cli/go/main.go
-	go build -v -o bin-all/server/go/ ./example/server/go/main.go
+#	go build -v -o bin-all/cli/go/ ./example/cli/go/main.go
+#	go build -v -o bin-all/server/go/ ./example/server/go/main.go
 	@echo 'Building flutter binary'
 	$(MAKE) flu-web-build
 	@#cp -Rv ./example/client/flu/build ./bin-all/client/flu/
