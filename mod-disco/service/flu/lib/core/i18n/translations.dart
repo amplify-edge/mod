@@ -391,4 +391,49 @@ class Translations {
       locale: locale.toString(),
     );
   }
+
+  String pleaseSelectAnOptionFromTheList() {
+    return Intl.message(
+      'Please select an option from the list',
+      name: 'pleaseSelectAnOptionFromTheList',
+      desc: 'Please select an option from the list',
+      locale: locale.toString(),
+    );
+  }
+
+  String pleaseClickToSelectAvailableedOptions() {
+    return Intl.message(
+      'Please click to select available options',
+      name: 'pleaseClickToSelectAvailableOptions',
+      desc: 'Please click to select available options',
+      locale: locale.toString(),
+    );
+  }
+
+  String hours() {
+    return Intl.message(
+      'hours',
+      name: 'hours',
+      desc: 'hours',
+      locale: locale.toString(),
+    );
+  }
+
+  String minimumPledgedTime() {
+    return Intl.message(
+      'Minimum pledged time',
+      name: 'minimumPledgedTime',
+      desc: 'Minimum pledged time',
+      locale: locale.toString(),
+    );
+  }
+
+  String typeYourAnswerHere() {
+    return Intl.message(
+      'Tap your answer here',
+      name: 'typeYourAnswerHere',
+      desc: 'Tap your answer here',
+      locale: locale.toString(),
+    );
+  }
 }

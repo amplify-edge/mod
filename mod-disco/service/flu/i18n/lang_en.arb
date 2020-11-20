@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-11-19T07:43:17.473094",
+  "@@last_modified": "2020-11-20T22:20:28.965809",
   "country": "Country",
   "@country": {
     "description": "Country",
@@ -249,6 +249,30 @@
   "supportRoles": "Support Roles",
   "@supportRoles": {
     "description": "Support Roles",
+    "placeholders": {},
+    "type": "text"
+  },
+  "pleaseSelectAnOptionFromTheList": "Please select an option from the list",
+  "@pleaseSelectAnOptionFromTheList": {
+    "description": "Please select an option from the list",
+    "placeholders": {},
+    "type": "text"
+  },
+  "hours": "hours",
+  "@hours": {
+    "description": "hours",
+    "placeholders": {},
+    "type": "text"
+  },
+  "minimumPledgedTime": "Minimum pledged time",
+  "@minimumPledgedTime": {
+    "description": "Minimum pledged time",
+    "placeholders": {},
+    "type": "text"
+  },
+  "typeYourAnswerHere": "Tap your answer here",
+  "@typeYourAnswerHere": {
+    "description": "Tap your answer here",
     "placeholders": {},
     "type": "text"
   }

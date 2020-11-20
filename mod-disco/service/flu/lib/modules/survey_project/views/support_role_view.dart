@@ -74,6 +74,7 @@ class SurveySupportRoleView extends StatelessWidget {
         } else {
           SupportRoleType sp = model.supportRoles[index];
           return DynamicSlider(
+            uom: sp.unitOfMeasures,
             title: sp.name,
             question: sp.description,
             current: model.minHours[sp.id] ?? 0.0,

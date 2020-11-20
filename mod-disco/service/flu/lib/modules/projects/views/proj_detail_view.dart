@@ -188,9 +188,9 @@ class ProjectDetailView extends StatelessWidget {
                   ButtonBar(children: [
                     FlatButton(
                       onPressed: () {
-                        Modular.to.pushNamed(Modular.get<Paths>()
-                            .myNeeds
-                            .replaceAll(':id', project.id));
+                        // Modular.to.pushNamed(Modular.get<Paths>()
+                        //     .myNeeds
+                        //     .replaceAll(':id', project.id));
                       },
                       child: Text(ModDiscoLocalizations.of(context)
                           .translate("notReady")),
