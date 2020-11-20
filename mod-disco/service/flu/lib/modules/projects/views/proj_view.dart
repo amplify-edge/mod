@@ -57,6 +57,9 @@ class ProjectView extends StatelessWidget {
           hasMoreItems: model.hasMoreItems,
           searchFunction: model.searchProjects,
           resetSearchFunction: model.onResetSearchProjects,
+          childrenBuilder: (item) => [Container(
+            child: Text('BOY'),
+          )],
         ),
       ),
     );
