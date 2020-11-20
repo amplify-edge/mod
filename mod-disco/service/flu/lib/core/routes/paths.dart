@@ -22,7 +22,7 @@ class Paths {
         orgs = '$baseRoute/orgs',
         orgsId = '$baseRoute/orgs/:id',
         projects = '$baseRoute/projects',
-        projectsId = '$baseRoute/projects/:id',
+        projectsId = '$baseRoute/projects/:orgId/:id',
         ready = '$baseRoute/ready',
         supportRoles = '$baseRoute/support_roles/projects/',
         myNeeds = '$baseRoute/myneeds/projects/:id',

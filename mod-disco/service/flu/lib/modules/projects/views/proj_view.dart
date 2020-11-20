@@ -11,15 +11,16 @@ import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart
 import 'proj_detail_view.dart';
 
 class ProjectView extends StatelessWidget {
+  final String orgId;
   final String id;
 
-  const ProjectView({Key key, this.id = ''}) : super(key: key);
+  const ProjectView({Key key, this.id = '', this.orgId = ''}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
       viewModelBuilder: () => ProjectViewModel(),
-      viewModel: ProjectViewModel(),
+      // viewModel: ProjectViewModel(),
       onModelReady: (ProjectViewModel model) async {
         if (model.orgs == null || model.orgs.isEmpty) {
           await model.fetchInitialProjects();
@@ -28,18 +29,20 @@ class ProjectView extends StatelessWidget {
       builder: (context, ProjectViewModel model, child) => Scaffold(
         body: NewGetCourageMasterDetail<Org, Project>(
           enableSearchBar: true,
-          id: id,
+          parentId: orgId,
+          childId: id,
           items: model.orgs,
           labelBuilder: (item) => item.name,
           imageBuilder: (item) => item.logo,
           routeWithIdPlaceholder: Modular.get<Paths>().projectsId,
-          detailsBuilder: (context, detailsId, isFullScreen) {
-              model.getSelectedProjectAndDetails(detailsId);
-              return ProjectDetailView(
-            project: model.selectedProject,
-            projectDetails: model.selectedProjectDetails,
-            showBackButton: isFullScreen,
-          );},
+          detailsBuilder: (context, parentId, detailsId, isFullScreen) {
+            model.getSelectedProjectAndDetails(parentId, detailsId);
+            return ProjectDetailView(
+              project: model.selectedProject,
+              projectDetails: model.selectedProjectDetails,
+              showBackButton: isFullScreen,
+            );
+          },
           noItemsAvailable: Center(
             child: Text(
               ModDiscoLocalizations.of(context).translate('noCampaigns'),

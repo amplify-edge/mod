@@ -19,7 +19,6 @@ class NewOrgView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
       viewModelBuilder: () => NewOrgViewModel(),
-      viewModel: NewOrgViewModel(),
       onModelReady: (NewOrgViewModel model) async {
         if (model.orgs == null || model.orgs.isEmpty) {
           await model.fetchInitialOrgs();
@@ -32,12 +31,12 @@ class NewOrgView extends StatelessWidget {
           : Scaffold(
               body: NewGetCourageMasterDetail<Org, Project>(
                 enableSearchBar: true,
-                id: id,
+                parentId: id,
                 items: model.orgs,
                 labelBuilder: (item) => item.name,
                 imageBuilder: (item) => item.logo,
                 routeWithIdPlaceholder: Modular.get<Paths>().orgsId,
-                detailsBuilder: (context, detailsId, isFullScreen) =>
+                detailsBuilder: (context, parentId, detailsId, isFullScreen) =>
                     NewOrgDetailView(
                         org:
                             model.orgs.firstWhere((org) => org.id == detailsId),

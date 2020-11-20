@@ -155,19 +155,18 @@ class ProjectViewModel extends BaseModel {
 
   void navigateToNotReady(int index) {}
 
-  void getSelectedProjectAndDetails(String id) {
+  void getSelectedProjectAndDetails(String orgId, String id) {
     Project _proj;
-    orgs.forEach((org) {
-      _proj = org.projects.firstWhere((element) => element.id == id);
-    });
-    if (_proj != null) {
-      print("FOUND PROJECT: $_proj");
-      _selectedProject = _proj;
-      _selectedDiscoProject = projectDetails
-          .firstWhere((element) => element.sysAccountProjectRefId == _proj.id);
-      notifyListeners();
+    print("ORGID: $orgId, PROJECTID: $id");
+    final _org = orgs.firstWhere((org) => org.id == orgId);
+    final p = _org.projects.firstWhere((element) => element.id == id);
+    if (p != null) {
+      _proj = p;
     } else {
-      throw "Error No Project Found";
+      throw "Error no project found";
     }
+    _selectedProject = _proj;
+    _selectedDiscoProject = projectDetails
+        .firstWhere((element) => element.sysAccountProjectRefId == _proj.id);
   }
 }
