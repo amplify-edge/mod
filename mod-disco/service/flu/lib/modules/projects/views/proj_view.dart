@@ -21,26 +21,25 @@ class ProjectView extends StatelessWidget {
       viewModelBuilder: () => ProjectViewModel(),
       viewModel: ProjectViewModel(),
       onModelReady: (ProjectViewModel model) async {
-        if (model.projects == null || model.projects.isEmpty) {
+        if (model.orgs == null || model.orgs.isEmpty) {
           await model.fetchInitialProjects();
         }
       },
       builder: (context, ProjectViewModel model, child) => Scaffold(
-        body: NewGetCourageMasterDetail<Project>(
+        body: NewGetCourageMasterDetail<Org, Project>(
           enableSearchBar: true,
           id: id,
-          items: model.projects,
+          items: model.orgs,
           labelBuilder: (item) => item.name,
           imageBuilder: (item) => item.logo,
           routeWithIdPlaceholder: Modular.get<Paths>().projectsId,
-          detailsBuilder: (context, detailsId, isFullScreen) =>
-              ProjectDetailView(
-            project: model.projects.firstWhere((p) => p.id == detailsId),
-            projectDetails: model.projectDetails.firstWhere(
-              (projDet) => projDet.sysAccountProjectRefId == detailsId,
-            ),
+          detailsBuilder: (context, detailsId, isFullScreen) {
+              model.getSelectedProjectAndDetails(detailsId);
+              return ProjectDetailView(
+            project: model.selectedProject,
+            projectDetails: model.selectedProjectDetails,
             showBackButton: isFullScreen,
-          ),
+          );},
           noItemsAvailable: Center(
             child: Text(
               ModDiscoLocalizations.of(context).translate('noCampaigns'),
@@ -57,9 +56,34 @@ class ProjectView extends StatelessWidget {
           hasMoreItems: model.hasMoreItems,
           searchFunction: model.searchProjects,
           resetSearchFunction: model.onResetSearchProjects,
-          childrenBuilder: (item) => [Container(
-            child: Text('BOY'),
-          )],
+          itemChildren: (org) => org.projects,
+          childBuilder: (project, id) => <Widget>[
+            ...[
+              SizedBox(width: 16),
+              CircleAvatar(
+                radius: 20,
+                backgroundImage: MemoryImage(
+                  Uint8List.fromList(project.logo),
+                ),
+              ),
+            ],
+            SizedBox(width: 16),
+            //logic taken from ListTile
+            Expanded(
+              child: Text(
+                project.name,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.subtitle1.merge(
+                      TextStyle(
+                        color: project.id != id
+                            ? Theme.of(context).textTheme.subtitle1.color
+                            : Theme.of(context).accentColor,
+                      ),
+                    ),
+              ),
+            ),
+            SizedBox(width: 30),
+          ],
         ),
       ),
     );

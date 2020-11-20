@@ -30,7 +30,7 @@ class NewOrgView extends StatelessWidget {
               child: CircularProgressIndicator(),
             )
           : Scaffold(
-              body: NewGetCourageMasterDetail<Org>(
+              body: NewGetCourageMasterDetail<Org, Project>(
                 enableSearchBar: true,
                 id: id,
                 items: model.orgs,
@@ -53,46 +53,34 @@ class NewOrgView extends StatelessWidget {
                 disableBackButtonOnNoItemSelected: false,
                 masterAppBarTitle: Text(ModDiscoLocalizations.of(context)
                     .translate('selectCampaign')),
-                // item.projects != null && item.projects.isNotEmpty
-                //     ? item.projects
-                //         .map(
-                //   (project) => InkWell(
-                //     child: Container(
-                //       height: 56,
-                //       child: Row(
-                //         children: [
-                //           SizedBox(width: 16),
-                //           CircleAvatar(
-                //             radius: 20,
-                //             backgroundImage: MemoryImage(
-                //                 Uint8List.fromList(project.logo)),
-                //           ),
-                //           SizedBox(width: 16),
-                //           Expanded(
-                //             child: Text(
-                //               project.name,
-                //               textAlign: TextAlign.center,
-                //               style: Theme.of(context)
-                //                   .textTheme
-                //                   .subtitle1
-                //                   .merge(
-                //                     TextStyle(
-                //                       color: Theme.of(context)
-                //                           .accentColor,
-                //                     ),
-                //                   ),
-                //             ),
-                //           ),
-                //           SizedBox(width: 30),
-                //         ],
-                //       ),
-                //     ),
-                //     onTap: () {
-                //       _pushDetailsRoute(project.id, context);
-                //     },
-                //   ),
-                // )
-                // .toList()
+                itemChildren: (org) => org.projects,
+                childBuilder: (project, id) => <Widget>[
+                  ...[
+                    SizedBox(width: 16),
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundImage: MemoryImage(
+                        Uint8List.fromList(project.logo),
+                      ),
+                    ),
+                  ],
+                  SizedBox(width: 16),
+                  //logic taken from ListTile
+                  Expanded(
+                    child: Text(
+                      project.name,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.subtitle1.merge(
+                            TextStyle(
+                              color: project.id != id
+                                  ? Theme.of(context).textTheme.subtitle1.color
+                                  : Theme.of(context).accentColor,
+                            ),
+                          ),
+                    ),
+                  ),
+                  SizedBox(width: 30),
+                ],
               ),
             ),
     );

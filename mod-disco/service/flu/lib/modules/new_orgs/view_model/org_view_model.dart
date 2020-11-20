@@ -33,7 +33,9 @@ class NewOrgViewModel extends BaseModel {
   Future<void> fetchInitialOrgs() async {
     _setLoading(true);
     await repo.OrgProjRepo.listUserOrgs(
-            filters: List<int>(), orderBy: 'name', isDescending: false)
+            filters: Map<String, dynamic>(),
+            orderBy: 'name',
+            isDescending: false)
         .then((res) {
       orgs = res.orgs;
       notifyListeners();
@@ -47,7 +49,7 @@ class NewOrgViewModel extends BaseModel {
     _setLoading(true);
     await repo.OrgProjRepo.listUserOrgs(
       currentPageId: _nextPageId,
-      filters: List<int>(),
+      filters: Map<String, dynamic>(),
       orderBy: 'name',
       isDescending: false,
     ).then((res) {
