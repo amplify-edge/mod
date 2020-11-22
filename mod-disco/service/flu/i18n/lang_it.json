@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-11-21T14:20:29.576313",
+  "@@last_modified": "2020-11-23T00:20:18.830359",
   "country": "Nazione",
   "@country": {
     "description": "Country",
@@ -144,7 +144,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "extrapolatedSimilarPastActions": "Le cifre seguenti sono estrapolate da azioni passate simili che sono riuscite e non sono riuscite",
+  "extrapolatedSimilarPastActions": "Le cifre seguenti sono estrapolate da azioni passate simili che sono riuscite e fallite",
   "@extrapolatedSimilarPastActions": {
     "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
     "placeholders": {},

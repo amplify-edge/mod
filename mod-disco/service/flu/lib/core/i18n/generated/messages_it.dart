@@ -32,7 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "contactDetails" : MessageLookupByLibrary.simpleMessage("Dettagli del contatto"),
     "country" : MessageLookupByLibrary.simpleMessage("Nazione"),
     "distanceInKM" : MessageLookupByLibrary.simpleMessage("Immettere la distanza in chilometri"),
-    "extrapolatedSimilarPastActions" : MessageLookupByLibrary.simpleMessage("Le cifre seguenti sono estrapolate da azioni passate simili che sono riuscite e non sono riuscite"),
+    "extrapolatedSimilarPastActions" : MessageLookupByLibrary.simpleMessage("Le cifre seguenti sono estrapolate da azioni passate simili che sono riuscite e fallite"),
     "goal" : MessageLookupByLibrary.simpleMessage("Obbiettivo"),
     "historicalPrecedents" : MessageLookupByLibrary.simpleMessage("Precedenti storici"),
     "hours" : MessageLookupByLibrary.simpleMessage("ore"),
