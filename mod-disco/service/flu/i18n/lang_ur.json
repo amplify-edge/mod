@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-11-20T22:20:28.965809",
+  "@@last_modified": "2020-11-21T14:20:29.576313",
   "country": "ملک",
   "@country": {
     "description": "Country",
@@ -255,6 +255,12 @@
   "pleaseSelectAnOptionFromTheList": "براہ کرم فہرست میں سے ایک آپشن منتخب کریں",
   "@pleaseSelectAnOptionFromTheList": {
     "description": "Please select an option from the list",
+    "placeholders": {},
+    "type": "text"
+  },
+  "pleaseClickToSelectAvailableOptions": "دستیاب اختیارات کو منتخب کرنے کے لئے براہ کرم کلک کریں",
+  "@pleaseClickToSelectAvailableOptions": {
+    "description": "Please click to select available options",
     "placeholders": {},
     "type": "text"
   },

@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-11-20T22:20:28.965809",
+  "@@last_modified": "2020-11-21T14:20:29.576313",
   "country": "Country",
   "@country": {
     "description": "Country",
@@ -255,6 +255,12 @@
   "pleaseSelectAnOptionFromTheList": "Please select an option from the list",
   "@pleaseSelectAnOptionFromTheList": {
     "description": "Please select an option from the list",
+    "type": "text",
+    "placeholders": {}
+  },
+  "pleaseClickToSelectAvailableOptions": "Please click to select available options",
+  "@pleaseClickToSelectAvailableOptions": {
+    "description": "Please click to select available options",
     "type": "text",
     "placeholders": {}
   },

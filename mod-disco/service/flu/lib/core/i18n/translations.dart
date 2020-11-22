@@ -401,7 +401,7 @@ class Translations {
     );
   }
 
-  String pleaseClickToSelectAvailableedOptions() {
+  String pleaseClickToSelectAvailableOptions() {
     return Intl.message(
       'Please click to select available options',
       name: 'pleaseClickToSelectAvailableOptions',
