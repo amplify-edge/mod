@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-11-19T07:43:17.473094",
+  "@@last_modified": "2020-11-23T00:20:18.830359",
   "country": "Nazione",
   "@country": {
     "description": "Country",
@@ -144,7 +144,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "extrapolatedSimilarPastActions": "Le cifre seguenti sono estrapolate da azioni passate simili che sono riuscite e non sono riuscite",
+  "extrapolatedSimilarPastActions": "Le cifre seguenti sono estrapolate da azioni passate simili che sono riuscite e fallite",
   "@extrapolatedSimilarPastActions": {
     "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
     "placeholders": {},
@@ -249,6 +249,36 @@
   "supportRoles": "Ruoli di supporto",
   "@supportRoles": {
     "description": "Support Roles",
+    "placeholders": {},
+    "type": "text"
+  },
+  "pleaseSelectAnOptionFromTheList": "Seleziona un'opzione dall'elenco",
+  "@pleaseSelectAnOptionFromTheList": {
+    "description": "Please select an option from the list",
+    "placeholders": {},
+    "type": "text"
+  },
+  "pleaseClickToSelectAvailableOptions": "Fare clic per selezionare le opzioni disponibili",
+  "@pleaseClickToSelectAvailableOptions": {
+    "description": "Please click to select available options",
+    "placeholders": {},
+    "type": "text"
+  },
+  "hours": "ore",
+  "@hours": {
+    "description": "hours",
+    "placeholders": {},
+    "type": "text"
+  },
+  "minimumPledgedTime": "Tempo minimo garantito",
+  "@minimumPledgedTime": {
+    "description": "Minimum pledged time",
+    "placeholders": {},
+    "type": "text"
+  },
+  "typeYourAnswerHere": "Tocca la tua risposta qui",
+  "@typeYourAnswerHere": {
+    "description": "Tap your answer here",
     "placeholders": {},
     "type": "text"
   }

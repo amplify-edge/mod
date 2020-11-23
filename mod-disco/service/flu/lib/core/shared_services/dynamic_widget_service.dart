@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_material_pickers/flutter_material_pickers.dart';
+import 'package:mod_disco/core/i18n/mod_disco_localization.dart';
 
 typedef void StandardCallbackInjection(String selected);
 typedef void DropdownCallbackInjection(Map<String, String> data,
@@ -53,7 +54,7 @@ class _DynamicMaterialPickerState extends State<DynamicMaterialPicker> {
       child: InkWell(
         child: Text(
           widget._selected == null
-              ? 'Please click to select one of the option listed'
+              ? ModDiscoLocalizations.of(context).translate('pleaseClickToSelectAvailableOptions')
               : selected,
           style: Theme
               .of(context)
@@ -109,7 +110,7 @@ class DynamicDropdownButton extends StatelessWidget {
     return Padding(
         padding: EdgeInsets.fromLTRB(10, 0, 25, 0),
         child: DropdownButton(
-          hint: Text('Please Select an option from the list'),
+          hint: Text(ModDiscoLocalizations.of(context).translate('pleaseSelectAnOptionFromTheList')),
           items: dropdownItems,
           icon: Icon(Icons.arrow_drop_down),
           iconSize: 24,
@@ -158,7 +159,7 @@ class _DynamicMultilineTextFormFieldState
             maxLines: 5,
             decoration: InputDecoration(
               alignLabelWithHint: true,
-              hintText: 'Type your answer here',
+              hintText: ModDiscoLocalizations.of(context).translate('typeYourAnswerHere'),
               fillColor: Theme
                   .of(context)
                   .inputDecorationTheme
@@ -243,14 +244,14 @@ class _DynamicSliderState extends State<DynamicSlider> {
               const SizedBox(height: 8.0),
               ListTile(
                 title: Text(
-                  'Minimum pledged time: ',
+                  ModDiscoLocalizations.of(context).translate('minimumPledgedTime'),
                   style: Theme
                       .of(context)
                       .textTheme
                       .subtitle2,
                 ),
                 trailing: Text(
-                  '${this.widget._current} ${this.widget._uom}',
+                  '${this.widget._current} ${ModDiscoLocalizations.of(context).translate('hours')}/${this.widget._uom}',
                   style: Theme
                       .of(context)
                       .textTheme

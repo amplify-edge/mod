@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-11-19T07:43:17.473094",
+  "@@last_modified": "2020-11-23T00:20:18.830359",
   "country": "ملک",
   "@country": {
     "description": "Country",
@@ -228,7 +228,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "provideSupportRole": "اگر ہم آپ کے منتخب کردہ شرائط کو پورا نہیں کرسکتے ہیں ، تو کیا آپ ہڑتال پر جانے کے خواہشمند افراد کو مدد فراہم کرنے پر غور کریں گے؟",
+  "provideSupportRole": "اگر ہم آپ کے منتخب کردہ شرائط کو پورا نہیں کرسکتے ہیں ، تو کیا آپ ہڑتال پر جانے کے خواہشمند افراد کو معاون کردار فراہم کرنے پر غور کریں گے؟",
   "@provideSupportRole": {
     "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
     "placeholders": {},
@@ -249,6 +249,36 @@
   "supportRoles": "معاون کردار",
   "@supportRoles": {
     "description": "Support Roles",
+    "placeholders": {},
+    "type": "text"
+  },
+  "pleaseSelectAnOptionFromTheList": "براہ کرم فہرست میں سے ایک آپشن منتخب کریں",
+  "@pleaseSelectAnOptionFromTheList": {
+    "description": "Please select an option from the list",
+    "placeholders": {},
+    "type": "text"
+  },
+  "pleaseClickToSelectAvailableOptions": "دستیاب اختیارات کو منتخب کرنے کے لئے براہ کرم کلک کریں",
+  "@pleaseClickToSelectAvailableOptions": {
+    "description": "Please click to select available options",
+    "placeholders": {},
+    "type": "text"
+  },
+  "hours": "گھنٹے",
+  "@hours": {
+    "description": "hours",
+    "placeholders": {},
+    "type": "text"
+  },
+  "minimumPledgedTime": "کم سے کم گروی والا وقت",
+  "@minimumPledgedTime": {
+    "description": "Minimum pledged time",
+    "placeholders": {},
+    "type": "text"
+  },
+  "typeYourAnswerHere": "اپنا جواب یہاں ٹیپ کریں",
+  "@typeYourAnswerHere": {
+    "description": "Tap your answer here",
     "placeholders": {},
     "type": "text"
   }
