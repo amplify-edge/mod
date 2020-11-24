@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sys_core/sys_core.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/core/shared_repositories/survey_project_repo.dart';
@@ -138,7 +139,7 @@ class SurveyProjectViewModel extends BaseModel {
         _userRole
           ..role = Roles.USER
           ..projectId = _projectId
-          ..orgId = _project.org.id;
+          ..orgId = _project.orgId;
         if (!_isLoggedOn) {
           showDialog(
             context: context,
@@ -152,7 +153,14 @@ class SurveyProjectViewModel extends BaseModel {
                   sysAccountAccountRefId: _surveyUser.sysAccountUserRefId,
                   surveyUserName: _surveyUser.surveyUserName,
                   userNeedsValueList: _untList,
-                );
+                ).then((_) {
+                  notify(
+                    context: context,
+                    message:
+                        "You joined ${project.name}, login to see your detail",
+                    error: false,
+                  );
+                });
               },
               navigatorKey: Modular.navigatorKey,
             ),
@@ -164,6 +172,7 @@ class SurveyProjectViewModel extends BaseModel {
             surveyUserName: _surveyUser.surveyUserName,
             userNeedsValueList: _untList,
           );
+          Modular.to.pop();
         }
       },
       onPressedYes: () {

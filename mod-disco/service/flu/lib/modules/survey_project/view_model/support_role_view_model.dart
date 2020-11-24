@@ -29,6 +29,7 @@ class SupportRoleViewModel extends BaseModel {
   List<SupportRoleType> get supportRoles => _srtList;
 
   Map<String, double> get minHours => _minHours;
+  Map<String, NewSupportRoleValue> _supportRoleMap = {};
 
   // Constructor
   SupportRoleViewModel(
@@ -55,10 +56,14 @@ class SupportRoleViewModel extends BaseModel {
 
   void selectMinHours(double value, String id) {
     _minHours[id] = value;
-    print("CHOSEN ID: $id");
+    _supportRoleMap[id] = SurveyProjectRepo.createSupportRoleValue(
+      pledged: value.toInt(),
+      surveyUserRefName: _nsuReq.surveyUserName,
+      supportRoleTypeRefId: id,
+    );
     notifyListeners();
   }
-  
+
   void onSave() {
 
   }

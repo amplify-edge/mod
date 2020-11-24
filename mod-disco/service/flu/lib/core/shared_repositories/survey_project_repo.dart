@@ -190,6 +190,18 @@ class SurveyProjectRepo {
     return req;
   }
 
+  static NewSupportRoleValue createSupportRoleValue({
+    @required int pledged,
+    @required String surveyUserRefName,
+    @required String supportRoleTypeRefId,
+  }) {
+    final req = NewSupportRoleValue()
+      ..pledged = Int64(pledged)
+      ..surveyUserRefName =surveyUserRefName
+      ..supportRoleTypeRefId = supportRoleTypeRefId;
+    return req;
+  }
+
   static Future<SurveyServiceClient> discoClient() async {
     return SurveyServiceClient(await BaseRepo.grpcWebClientChannel());
   }
