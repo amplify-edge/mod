@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/core/shared_repositories/survey_project_repo.dart';
+import 'package:mod_disco/core/shared_repositories/survey_user_repo.dart';
 import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:random_string/random_string.dart';
@@ -23,6 +24,7 @@ class SurveyProjectViewModel extends BaseModel {
 
   Map<String, Map<String, String>> dwService = {};
   bool _isLoading = false;
+  UserRoles _userRole = UserRoles();
 
   String get projectId => _projectId;
 
@@ -126,17 +128,45 @@ class SurveyProjectViewModel extends BaseModel {
   }
 
   void navigateNext(BuildContext context) {
+    List<NewUserNeedsValue> _untList = [];
+    _userNeedsValueMap.forEach((key, value) {
+      _untList.add(value);
+    });
     showActionDialogBox(
-      onPressedNo: () {
-        print("SAVE THE TEMP USER RESPONSE HERE");
-        // this.save();
-        // Modular.to.pushNamed('/account/signup');
+      onPressedNo: () async {
+        Modular.to.pop();
+        _userRole
+          ..role = Roles.USER
+          ..projectId = _projectId
+          ..orgId = _project.org.id;
+        if (!_isLoggedOn) {
+          showDialog(
+            context: context,
+            builder: (context) => AuthDialog(
+              userRole: _userRole,
+              callback: () async {
+                _accountId = await getTempAccountId();
+                _surveyUser.sysAccountUserRefId = _accountId;
+                await SurveyUserRepo.newSurveyUser(
+                  surveyProjectId: _surveyUser.surveyProjectRefId,
+                  sysAccountAccountRefId: _surveyUser.sysAccountUserRefId,
+                  surveyUserName: _surveyUser.surveyUserName,
+                  userNeedsValueList: _untList,
+                );
+              },
+              navigatorKey: Modular.navigatorKey,
+            ),
+          );
+        } else {
+          await SurveyUserRepo.newSurveyUser(
+            surveyProjectId: _surveyUser.surveyProjectRefId,
+            sysAccountAccountRefId: _surveyUser.sysAccountUserRefId,
+            surveyUserName: _surveyUser.surveyUserName,
+            userNeedsValueList: _untList,
+          );
+        }
       },
       onPressedYes: () {
-        List<NewUserNeedsValue> _untList = [];
-        _userNeedsValueMap.forEach((key, value) {
-          _untList.add(value);
-        });
         Modular.to.pop();
         Modular.to.pushNamed(Modular.get<Paths>().supportRoles, arguments: {
           'surveyProjectList': _surveyProjects,
@@ -171,6 +201,9 @@ class SurveyProjectViewModel extends BaseModel {
                   (userNeed) => questionData[userNeed.name] = userNeed.id);
               String dropdownOptionKey =
                   generateDropdownKey(questionTypeValues);
+              _surveyUser
+                ..surveyProjectRefId =
+                    questionTypeValues.first.surveyProjectRefId;
               viewWidgetList.add(
                 Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -207,8 +240,6 @@ class SurveyProjectViewModel extends BaseModel {
                               _appendUserNeedsValue(
                                   newUserNeedValue, dropdownOptionKey);
                               this.dwService[k][dropdownOptionKey] = selected;
-                              print(
-                                  "DROPDOWN DATA: ${this.dwService.toString()}");
                             } else {
                               // Otherwise set the others to false
                               this.selectNeed(userNeedId, false,
@@ -232,6 +263,8 @@ class SurveyProjectViewModel extends BaseModel {
                 question: qcount.toString() + ". " + userNeedsType.description,
                 callbackInjection: (String value) {
                   this.selectNeed(userNeedsType.id, value);
+                  _surveyUser
+                    ..surveyProjectRefId = userNeedsType.surveyProjectRefId;
                   final newUserNeedValue =
                       SurveyProjectRepo.createUserNeedsValue(
                     surveyUserRefName: _surveyUser.surveyUserName,
@@ -255,6 +288,8 @@ class SurveyProjectViewModel extends BaseModel {
                 value: this.value[userNeedsType.id] ?? false,
                 onChanged: (bool value) {
                   this.selectNeed(userNeedsType.id, value);
+                  _surveyUser
+                    ..surveyProjectRefId = userNeedsType.surveyProjectRefId;
                   final newUserNeedValue =
                       SurveyProjectRepo.createUserNeedsValue(
                     surveyUserRefName: _surveyUser.surveyUserName,

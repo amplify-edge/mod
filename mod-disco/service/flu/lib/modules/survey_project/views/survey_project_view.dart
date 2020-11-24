@@ -1,8 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
 import 'package:mod_disco/modules/survey_project/view_model/survey_project_view_model.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 import 'package:provider_architecture/provider_architecture.dart';

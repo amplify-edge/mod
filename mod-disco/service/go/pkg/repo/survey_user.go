@@ -21,6 +21,11 @@ func (md *ModDiscoRepo) NewSurveyUser(ctx context.Context, in *discoRpc.NewSurve
 		return nil, status.Errorf(codes.InvalidArgument, "no survey project exists with id: %s or name: %s", in.SurveyProjectRefId, in.SurveyProjectRefName)
 	}
 	in.SurveyProjectRefId = surveyProjectId
+	exists, accountId, err := md.sysAccountUserExists(ctx, in.SysAccountUserRefId, in.SysAccountUserRefName)
+	if err != nil || !exists {
+		return nil, status.Errorf(codes.InvalidArgument, "no user account exists with id: %s or name: %s", in.SysAccountUserRefId, in.SysAccountUserRefName)
+	}
+	in.SysAccountUserRefId = accountId
 	sp, err := md.store.InsertSurveyUser(in)
 	if err != nil {
 		return nil, err
