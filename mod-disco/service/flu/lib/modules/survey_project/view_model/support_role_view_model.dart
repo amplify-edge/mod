@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/core/shared_repositories/survey_project_repo.dart';
+import 'package:mod_disco/core/shared_repositories/survey_user_repo.dart';
 import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
+import 'package:sys_core/sys_core.dart';
 
 class SupportRoleViewModel extends BaseModel {
-  String _projectId;
   Project _project;
   String _accountId = "";
   List<SurveyProject> _surveyProjects;
@@ -17,8 +19,7 @@ class SupportRoleViewModel extends BaseModel {
   Map<String, double> _minHours = {};
   DynamicWidgetService dwService = DynamicWidgetService();
   bool _isLoading = false;
-
-  String get projectId => _projectId;
+  bool _isLoggedOn = false;
 
   Project get project => _project;
 
@@ -30,6 +31,12 @@ class SupportRoleViewModel extends BaseModel {
 
   Map<String, double> get minHours => _minHours;
   Map<String, NewSupportRoleValue> _supportRoleMap = {};
+
+  Future<void> _isLoggedIn() async {
+    final isLoggedOn = await isLoggedIn();
+    _isLoggedOn = isLoggedOn;
+    notifyListeners();
+  }
 
   // Constructor
   SupportRoleViewModel(
@@ -44,12 +51,13 @@ class SupportRoleViewModel extends BaseModel {
   }
 
   // init
-  void initOnReady() {
+  Future<void> initOnReady() async {
     setBuzy(true);
     _surveyProjects.forEach((element) {
       _srtLists.add(element.supportRoleTypes);
     });
     _srtList = _srtLists.expand((i) => i).toList();
+    await _isLoggedIn();
     notifyListeners();
     setBuzy(false);
   }
@@ -61,10 +69,44 @@ class SupportRoleViewModel extends BaseModel {
       surveyUserRefName: _nsuReq.surveyUserName,
       supportRoleTypeRefId: id,
     );
+    print("SUPPORT ROLE MAP: $_supportRoleMap");
     notifyListeners();
   }
 
-  void onSave() {
-
+  Future<void> onSave(BuildContext context) async {
+    List<NewSupportRoleValue> _srvList = [];
+    _supportRoleMap.forEach((key, value) {
+      _srvList.add(value);
+    });
+    final _userRole = UserRoles()
+      ..role = Roles.USER
+      ..projectId = _project.id
+      ..orgId = _project.orgId;
+    if (!_isLoggedOn) {
+      showDialog(
+        context: context,
+        builder: (context) => AuthDialog(
+          userRole: _userRole,
+          callback: () async {
+            _accountId = await getTempAccountId();
+            _nsuReq.sysAccountUserRefId = _accountId;
+            await SurveyUserRepo.newSurveyUser(
+              surveyProjectId: _nsuReq.surveyProjectRefId,
+              sysAccountAccountRefId: _nsuReq.sysAccountUserRefId,
+              surveyUserName: _nsuReq.surveyUserName,
+              userNeedsValueList: _nsuReq.userNeedValues,
+              supportRoleValueList: _srvList,
+            ).then((_) {
+              notify(
+                context: context,
+                message: "You joined ${project.name}, login to see your detail",
+                error: false,
+              );
+            });
+          },
+          navigatorKey: Modular.navigatorKey,
+        ),
+      );
+    }
   }
 }
