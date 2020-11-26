@@ -54,9 +54,7 @@ class SurveySupportRoleView extends StatelessWidget {
       ButtonBar(children: [
         RaisedButton(
           onPressed: () async {
-            print("PLEASE SAVE THE RESPONSE TO SYS_ACCOUNT");
             await model.onSave(context);
-            // Modular.to.pushNamed('/account/signup');
           },
           child: Text(ModDiscoLocalizations.of(context).translate('next')),
         )
