@@ -83,7 +83,7 @@ class MainAppModule extends ChildModule {
         ModularRouter("/dashboard/orgs",
             child: (_, args) => OrgMasterDetailView()),
         ModularRouter(
-          "/dashboard/orgs/:id",
+          "/dashboard/orgs/:orgId/:id",
           child: (_, args) => OrgMasterDetailView(
             id: args.params['id'] ?? '',
             orgId: args.params['orgId'] ?? '',

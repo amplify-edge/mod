@@ -54,6 +54,10 @@ class BaseModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> isUserLoggedIn() async {
+    return await _isLoggedIn();
+  }
+
   Future<void> _fetchOrgs(
       {Map<String, dynamic> filters,
       void Function(String, List<Org>) nextPageFunc}) async {
