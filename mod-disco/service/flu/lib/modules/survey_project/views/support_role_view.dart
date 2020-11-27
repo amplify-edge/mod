@@ -36,7 +36,7 @@ class SurveySupportRoleView extends StatelessWidget {
           title:
               Text(ModDiscoLocalizations.of(context).translate('supportRoles')),
         ),
-        body: (model.buzy)
+        body: (model.isLoading)
             ? Center(child: Offstage())
             : Column(
                 children: [

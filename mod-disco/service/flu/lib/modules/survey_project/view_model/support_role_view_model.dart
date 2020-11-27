@@ -52,14 +52,14 @@ class SupportRoleViewModel extends BaseModel {
 
   // init
   Future<void> initOnReady() async {
-    setBuzy(true);
+    setLoading(true);
     _surveyProjects.forEach((element) {
       _srtLists.add(element.supportRoleTypes);
     });
     _srtList = _srtLists.expand((i) => i).toList();
     await _isLoggedIn();
     notifyListeners();
-    setBuzy(false);
+    setLoading(false);
   }
 
   void selectMinHours(double value, String id) {
