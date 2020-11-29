@@ -1,15 +1,18 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class FilterPane extends StatelessWidget {
   final SizingInformation sizingInfo;
 
   const FilterPane({Key key, this.sizingInfo}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return  _filterPane(context, sizingInfo);
+    // return ViewModelProvider.withConsumer(
+    //   viewModelBuilder: () => FilterPaneViewModel()
+    // );
+    return _filterPane(context, sizingInfo);
   }
 
   Widget _filterPane(context, SizingInformation sizingInfo) {
@@ -35,67 +38,14 @@ class FilterPane extends StatelessWidget {
             Divider(
               height: 0,
             ),
-            _findPeople(context),
-            Divider(height: 0),
             _conditions(context),
             Divider(height: 0),
             _roles(context),
-             Divider(height: 0),
-            _rewards(context),
-             Divider(height: 0),
+            Divider(height: 0),
             _date(context),
           ],
         ),
       ),
-    );
-  }
-
-   Widget _findPeople(context) {
-    return ExpansionTile(
-      title: Text(
-        "Find people by",
-        style: Theme.of(context)
-            .textTheme
-            .bodyText1
-            .copyWith(fontWeight: FontWeight.bold),
-      ),
-      children: <Widget>[
-         Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 0.0, vertical: 8.0),
-              child: Row(
-                children: <Widget>[
-                  Checkbox(value: true, onChanged: (value) {}),
-                  Text("Distance",
-                      style: Theme.of(context).textTheme.bodyText1),
-                ],
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    hintText: "Mi",
-                    hintStyle: Theme.of(context).textTheme.caption),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 0.0, vertical: 8.0),
-              child: Row(
-                children: <Widget>[
-                  Checkbox(value: true, onChanged: (value) {}),
-                  Text("Campaign",
-                      style: Theme.of(context).textTheme.bodyText1),
-                ],
-              ),
-            ),
-      ],
-      
-      
-      
     );
   }
 
@@ -149,25 +99,6 @@ class FilterPane extends StatelessWidget {
             ],
           ),
         ),
-        ExpansionTile(
-          title: Text(
-            'Show More',
-            style: Theme.of(context).textTheme.caption,
-          ),
-          children: <Widget>[
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 0.0, vertical: 8.0),
-              child: Row(
-                children: <Widget>[
-                  Checkbox(value: false, onChanged: (value) {}),
-                  Text("Candidate has 50%\nchance of winning",
-                      style: Theme.of(context).textTheme.bodyText1),
-                ],
-              ),
-            ),
-          ],
-        )
       ],
     );
   }
@@ -221,25 +152,6 @@ class FilterPane extends StatelessWidget {
             ],
           ),
         ),
-        ExpansionTile(
-          title: Text(
-            'Show More',
-            style: Theme.of(context).textTheme.caption,
-          ),
-          children: <Widget>[
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 0.0, vertical: 8.0),
-              child: Row(
-                children: <Widget>[
-                  Checkbox(value: false, onChanged: (value) {}),
-                  Text("Event Organizer",
-                      style: Theme.of(context).textTheme.bodyText1),
-                ],
-              ),
-            ),
-          ],
-        )
       ],
     );
   }
@@ -293,25 +205,6 @@ class FilterPane extends StatelessWidget {
             ],
           ),
         ),
-        ExpansionTile(
-          title: Text(
-            'Show More',
-            style: Theme.of(context).textTheme.caption,
-          ),
-          children: <Widget>[
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 0.0, vertical: 8.0),
-              child: Row(
-                children: <Widget>[
-                  Checkbox(value: false, onChanged: (value) {}),
-                  Text("Event Organizer",
-                      style: Theme.of(context).textTheme.bodyText1),
-                ],
-              ),
-            ),
-          ],
-        )
       ],
     );
   }
@@ -365,25 +258,6 @@ class FilterPane extends StatelessWidget {
             ],
           ),
         ),
-        ExpansionTile(
-          title: Text(
-            'Show More',
-            style: Theme.of(context).textTheme.caption,
-          ),
-          children: <Widget>[
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 0.0, vertical: 8.0),
-              child: Row(
-                children: <Widget>[
-                  Checkbox(value: false, onChanged: (value) {}),
-                  Text("Event Organizer",
-                      style: Theme.of(context).textTheme.bodyText1),
-                ],
-              ),
-            ),
-          ],
-        )
       ],
     );
   }

@@ -9,6 +9,8 @@ class DashboardDetailViewModel extends BaseModel {
   String _projectId;
   List<SurveyProject> _surveyProjects = [];
   Map<String, List<SurveyUser>> _surveyUserMap = {};
+  Map<String, Map<String, List<UserNeedsType>>> _userNeedsQuestionMap =
+      Map<String, Map<String, List<UserNeedsType>>>();
 
   DashboardDetailViewModel({String orgId, String projectId}) {
     this._orgId = orgId;
@@ -29,14 +31,18 @@ class DashboardDetailViewModel extends BaseModel {
   }
 
   Future<void> _fetchRelatedSurveyUsers() async {
+    List<List<UserNeedsType>> _userNeedsTypeList = [];
     _surveyProjects.forEach((sp) async {
       await SurveyUserRepo.listSurveyUsers(
         surveyProjectId: sp.surveyProjectId,
         orderBy: 'survey_user_id',
       ).then((res) {
         _surveyUserMap[sp.surveyProjectId] = res;
+        _userNeedsTypeList.add(sp.userNeedTypes);
       });
     });
+    _userNeedsQuestionMap =
+        SurveyProjectRepo.getGroupedUserNeedsType(_userNeedsTypeList);
     notifyListeners();
   }
 

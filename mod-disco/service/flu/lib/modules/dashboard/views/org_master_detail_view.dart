@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/modules/dashboard/view_model/dashboard_detail_view_model.dart';
 import 'package:mod_disco/modules/dashboard/view_model/dashboard_view_model.dart';
+import 'package:mod_disco/modules/dashboard/widgets/filter_pane.dart';
 
 // import 'package:mod_disco/modules/org_manager/orgs/data/org_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
@@ -114,20 +115,14 @@ class OrgMasterDetailView extends StatelessWidget {
                     onPressed: () async {
                       String link =
                           "${Modular.get<EnvConfig>().url}/${Modular.get<Paths>().dashboardId.replaceFirst("/", "").replaceAll(":orgId", "$parentId").replaceAll(":id", childId)}";
-                      print(Modular.get<Paths>().baseRoute);
                       await Clipboard.setData(new ClipboardData(text: link));
-                      print(link);
-                      print(Modular.get<Paths>()
-                          .dashboardId
-                          .replaceFirst("/", "")
-                          .replaceAll(":id", "1"));
                     })
               ],
             ),
             drawer: (sizingInfo.screenSize.width > 1100)
                 ? null
-                // : Drawer(child: FilterPane(sizingInfo: sizingInfo)),
-                : Drawer(child: Container(child: Text('Filter Pane here'))),
+                : Drawer(child: FilterPane(sizingInfo: sizingInfo)),
+            // : Drawer(child: Container(child: Text('Filter Pane here'))),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -144,8 +139,8 @@ class OrgMasterDetailView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       (sizingInfo.screenSize.width > 1100)
-                          // ? FilterPane(sizingInfo: sizingInfo)
-                          ? Container(child: Text('FilterPane here'))
+                          ? FilterPane(sizingInfo: sizingInfo)
+                          // ? Container(child: Text('FilterPane here'))
                           : Offstage(),
                       SizedBox(width: 16),
                       // Expanded(
