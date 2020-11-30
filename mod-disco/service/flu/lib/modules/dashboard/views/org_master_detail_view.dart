@@ -94,68 +94,87 @@ class OrgMasterDetailView extends StatelessWidget {
   Widget _getDetailsView(BuildContext context, String parentId, String childId,
       bool isFullScreen) {
     return ViewModelProvider.withConsumer(
-      viewModelBuilder: () =>
-          DashboardDetailViewModel(orgId: parentId, projectId: childId),
-      onModelReady: (DashboardDetailViewModel model) async {
-        await model.fetchUserDatas();
-      },
-      builder: (context, DashboardDetailViewModel model, child) =>
-          ResponsiveBuilder(
-        builder: (context, sizingInfo) {
-          return Scaffold(
-            appBar: AppBar(
-              // iconTheme: Theme.of(context).iconTheme,
-              automaticallyImplyLeading: isFullScreen,
-              title: Text('Project Dashboard'),
-              // this the mock data
-              actions: <Widget>[
-                IconButton(
-                    tooltip: "Copy Link",
-                    icon: Icon(Icons.link),
-                    onPressed: () async {
-                      String link =
-                          "${Modular.get<EnvConfig>().url}/${Modular.get<Paths>().dashboardId.replaceFirst("/", "").replaceAll(":orgId", "$parentId").replaceAll(":id", childId)}";
-                      await Clipboard.setData(new ClipboardData(text: link));
-                    })
-              ],
-            ),
-            drawer: (sizingInfo.screenSize.width > 1100)
-                ? null
-                : Drawer(child: FilterPane(sizingInfo: sizingInfo)),
-            // : Drawer(child: Container(child: Text('Filter Pane here'))),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                (sizingInfo.screenSize.width <= 768)
-                    ? IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        onPressed: () {
-                          return Modular.to.pop(false);
-                        },
-                      )
-                    : Offstage(),
-                Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      (sizingInfo.screenSize.width > 1100)
-                          ? FilterPane(sizingInfo: sizingInfo)
-                          // ? Container(child: Text('FilterPane here'))
-                          : Offstage(),
-                      SizedBox(width: 16),
-                      // Expanded(
-                      //     child: DataPane(
-                      //   sizingInfo: sizingInfo,
-                      //   model: model,
-                      // )),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
+      viewModelBuilder: () => DashboardDetailViewModel(
+        orgId: parentId,
+        projectId: childId,
       ),
+      onModelReady: (DashboardDetailViewModel model) async =>
+          await model.fetchUserDatas(),
+      builder: (BuildContext context, DashboardDetailViewModel model, child) {
+        return ResponsiveBuilder(
+          builder: (context, sizingInfo) {
+            return Scaffold(
+              appBar: AppBar(
+                // iconTheme: Theme.of(context).iconTheme,
+                automaticallyImplyLeading: isFullScreen,
+                title: Text('Project Dashboard'),
+                // this the mock data
+                actions: <Widget>[
+                  IconButton(
+                      tooltip: "Copy Link",
+                      icon: Icon(Icons.link),
+                      onPressed: () async {
+                        String link =
+                            "${Modular.get<EnvConfig>().url}/#/${Modular.get<Paths>().dashboardId.replaceFirst("/", "").replaceAll(":orgId", "$parentId").replaceAll(":id", childId)}";
+                        await Clipboard.setData(new ClipboardData(text: link));
+                      })
+                ],
+              ),
+              drawer: (sizingInfo.screenSize.width > 1100)
+                  ? null
+                  : Drawer(
+                      child: FilterPane(
+                        isLoading: model.isLoading,
+                        conditionsFilterWidget:
+                            model.buildConditionsFilter(context),
+                        rolesFilterWidget: model.buildRolesFilter(context),
+                        // TODO: roles filter
+                        sizingInfo: sizingInfo,
+                      ),
+                    ),
+              // : Drawer(child: Container(child: Text('Filter Pane here'))),
+              body: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  (sizingInfo.screenSize.width <= 768)
+                      ? IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          onPressed: () {
+                            return Modular.to.pop(false);
+                          },
+                        )
+                      : Offstage(),
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        (sizingInfo.screenSize.width > 1100)
+                            ? FilterPane(
+                                isLoading: model.isLoading,
+                                conditionsFilterWidget:
+                                    model.buildConditionsFilter(context),
+                                rolesFilterWidget:
+                                    model.buildRolesFilter(context),
+                                // TODO: roles filter
+                                sizingInfo: sizingInfo,
+                              )
+                            // ? Container(child: Text('FilterPane here'))
+                            : Offstage(),
+                        SizedBox(width: 16),
+                        // Expanded(
+                        //     child: DataPane(
+                        //   sizingInfo: sizingInfo,
+                        //   model: model,
+                        // )),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

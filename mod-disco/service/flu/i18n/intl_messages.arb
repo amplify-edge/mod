@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-11-23T00:20:18.830359",
+  "@@last_modified": "2020-11-30T06:08:50.092803",
   "country": "Country",
   "@country": {
     "description": "Country",
@@ -279,6 +279,18 @@
   "typeYourAnswerHere": "Tap your answer here",
   "@typeYourAnswerHere": {
     "description": "Tap your answer here",
+    "type": "text",
+    "placeholders": {}
+  },
+  "conditions": "Conditions",
+  "@conditions": {
+    "description": "Conditions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "roles": "Roles",
+  "@roles": {
+    "description": "Roles",
     "type": "text",
     "placeholders": {}
   }

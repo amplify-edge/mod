@@ -33,6 +33,8 @@ class BaseModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   bool get hasMoreItems => _hasMoreItems;
+  
+  bool get isLoggedOn => _isLoggedOn;
 
   Project get selectedProject => _selectedProject;
 

@@ -229,7 +229,7 @@ class SurveyProjectViewModel extends BaseModel {
                       DynamicDropdownButton(
                         data: questionData,
                         selectedOption: this.dwService[k]
-                            [dropdownOptionKey], // The selected description
+                            [dropdownOptionKey], // The selected answer
                         callbackInjection: (data, selected) {
                           // the onChangedCallback
                           // Because each dropdown option is technically a "question" in the db

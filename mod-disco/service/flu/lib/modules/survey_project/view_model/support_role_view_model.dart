@@ -19,7 +19,6 @@ class SupportRoleViewModel extends BaseModel {
   Map<String, double> _minHours = {};
   DynamicWidgetService dwService = DynamicWidgetService();
   bool _isLoading = false;
-  bool _isLoggedOn = false;
 
   Project get project => _project;
 
@@ -31,12 +30,6 @@ class SupportRoleViewModel extends BaseModel {
 
   Map<String, double> get minHours => _minHours;
   Map<String, NewSupportRoleValue> _supportRoleMap = {};
-
-  Future<void> _isLoggedIn() async {
-    final isLoggedOn = await isLoggedIn();
-    _isLoggedOn = isLoggedOn;
-    notifyListeners();
-  }
 
   // Constructor
   SupportRoleViewModel(
@@ -57,7 +50,7 @@ class SupportRoleViewModel extends BaseModel {
       _srtLists.add(element.supportRoleTypes);
     });
     _srtList = _srtLists.expand((i) => i).toList();
-    await _isLoggedIn();
+    await isUserLoggedIn();
     notifyListeners();
     setLoading(false);
   }
@@ -69,7 +62,6 @@ class SupportRoleViewModel extends BaseModel {
       surveyUserRefName: _nsuReq.surveyUserName,
       supportRoleTypeRefId: id,
     );
-    print("SUPPORT ROLE MAP: $_supportRoleMap");
     notifyListeners();
   }
 
@@ -82,7 +74,7 @@ class SupportRoleViewModel extends BaseModel {
       ..role = Roles.USER
       ..projectId = _project.id
       ..orgId = _project.orgId;
-    if (!_isLoggedOn) {
+    if (!isLoggedOn) {
       showDialog(
         context: context,
         builder: (context) => AuthDialog(
@@ -99,7 +91,8 @@ class SupportRoleViewModel extends BaseModel {
             ).then((_) {
               notify(
                 context: context,
-                message: "You joined ${project.name}, login to see your detail",
+                message:
+                    "You've joined ${project.name}, login to see your detail",
                 error: false,
               );
             });

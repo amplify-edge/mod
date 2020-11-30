@@ -195,6 +195,10 @@ func (m *ModDiscoDB) ListDiscoProject(filters map[string]interface{}, orderBy st
 		return nil, nil, err
 	}
 	res.Close()
+	if len(discoProjects) == 1 {
+		next := int64(0)
+		return discoProjects, &next, nil
+	}
 	return discoProjects, &discoProjects[len(discoProjects)-1].CreatedAt, nil
 }
 

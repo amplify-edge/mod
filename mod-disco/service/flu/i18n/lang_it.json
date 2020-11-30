@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-11-23T00:20:18.830359",
+  "@@last_modified": "2020-11-30T06:08:50.092803",
   "country": "Nazione",
   "@country": {
     "description": "Country",
@@ -144,7 +144,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "extrapolatedSimilarPastActions": "Le cifre seguenti sono estrapolate da azioni passate simili che sono riuscite e fallite",
+  "extrapolatedSimilarPastActions": "Le cifre seguenti sono estrapolate da azioni passate simili che sono riuscite e non sono riuscite",
   "@extrapolatedSimilarPastActions": {
     "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
     "placeholders": {},
@@ -279,6 +279,18 @@
   "typeYourAnswerHere": "Tocca la tua risposta qui",
   "@typeYourAnswerHere": {
     "description": "Tap your answer here",
+    "placeholders": {},
+    "type": "text"
+  },
+  "conditions": "Condizioni",
+  "@conditions": {
+    "description": "Conditions",
+    "placeholders": {},
+    "type": "text"
+  },
+  "roles": "Ruoli",
+  "@roles": {
+    "description": "Roles",
     "placeholders": {},
     "type": "text"
   }
