@@ -15,7 +15,7 @@ class ProjectDetailViewModel extends BaseModel {
 
   bool get isLoading => _isLoading;
 
-  DiscoProject get projectDetails => _discoProject;
+  DiscoProject get selectedProjectDetails => _discoProject;
 
   Future<void> fetchProjectDetail() async {
     _setLoading(true);

@@ -15,7 +15,7 @@ class Paths {
   Paths(this.baseRoute)
       : dashboard = '$baseRoute/dashboard/orgs',
         // Admin dashboard routes
-        dashboardId = '$baseRoute/dashboard/orgs/:id',
+        dashboardId = '$baseRoute/dashboard/orgs/:orgId/:id',
         // Admin dashboard routes
         userInfo = '$baseRoute/userInfo',
         // Non-Admin routes

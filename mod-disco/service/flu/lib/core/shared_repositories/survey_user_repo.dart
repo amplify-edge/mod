@@ -11,16 +11,17 @@ class SurveyUserRepo {
     @required String surveyProjectId,
     @required String sysAccountAccountRefId,
     @required String surveyUserName,
-    @required String supportRoleTypeNames,
     @required List<NewUserNeedsValue> userNeedsValueList,
-    @required List<NewSupportRoleValue> supportRoleValueList,
+    List<NewSupportRoleValue> supportRoleValueList,
   }) async {
     final req = NewSurveyUserRequest()
       ..surveyUserName = surveyUserName
       ..sysAccountUserRefId = sysAccountAccountRefId
       ..surveyProjectRefId = surveyProjectId;
     req.userNeedValues.addAll(userNeedsValueList);
-    req.supportRoleValues.addAll(supportRoleValueList);
+    if (supportRoleValueList != null) {
+      req.supportRoleValues.addAll(supportRoleValueList);
+    }
     try {
       final client = await discoClient();
       final resp = await client

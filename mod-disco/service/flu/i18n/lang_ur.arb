@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-11-23T00:20:18.830359",
+  "@@last_modified": "2020-11-30T06:08:50.092803",
   "country": "ملک",
   "@country": {
     "description": "Country",
@@ -252,7 +252,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "pleaseSelectAnOptionFromTheList": "براہ کرم فہرست میں سے ایک آپشن منتخب کریں",
+  "pleaseSelectAnOptionFromTheList": "براہ کرم فہرست میں سے کوئی آپشن منتخب کریں",
   "@pleaseSelectAnOptionFromTheList": {
     "description": "Please select an option from the list",
     "placeholders": {},
@@ -279,6 +279,18 @@
   "typeYourAnswerHere": "اپنا جواب یہاں ٹیپ کریں",
   "@typeYourAnswerHere": {
     "description": "Tap your answer here",
+    "placeholders": {},
+    "type": "text"
+  },
+  "conditions": "شرائط",
+  "@conditions": {
+    "description": "Conditions",
+    "placeholders": {},
+    "type": "text"
+  },
+  "roles": "کردار",
+  "@roles": {
+    "description": "Roles",
     "placeholders": {},
     "type": "text"
   }

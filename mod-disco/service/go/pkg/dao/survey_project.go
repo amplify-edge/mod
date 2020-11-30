@@ -114,7 +114,7 @@ func (m *ModDiscoDB) GetSurveyProject(filters map[string]interface{}) (*SurveyPr
 }
 
 func (m *ModDiscoDB) ListSurveyProject(filters map[string]interface{}, orderBy string, limit, cursor int64) ([]*SurveyProject, *int64, error) {
-	var surveyProjects []*SurveyProject
+	surveyProjects := []*SurveyProject{}
 	baseStmt := m.surveyProjectQueryFilter(filters)
 	selectStmt, args, err := m.listSelectStatement(baseStmt, orderBy, limit, &cursor)
 	if err != nil {
@@ -135,7 +135,14 @@ func (m *ModDiscoDB) ListSurveyProject(filters map[string]interface{}, orderBy s
 	if err != nil {
 		return nil, nil, err
 	}
-	res.Close()
+	_ = res.Close()
+	if len(surveyProjects) == 0 {
+		return surveyProjects, nil, nil
+	}
+	if len(surveyProjects) == 1 {
+		next := int64(0)
+		return surveyProjects, &next, nil
+	}
 	return surveyProjects, &surveyProjects[len(surveyProjects)-1].CreatedAt, nil
 }
 
