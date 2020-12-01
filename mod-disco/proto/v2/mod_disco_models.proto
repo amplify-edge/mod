@@ -233,7 +233,7 @@ message NewDiscoProjectRequest {
   string sys_account_org_ref_name = 19;
   // @inject_tag: fake:"{avatargen:./bootstrap-data/client/generated,300}" fakesize:"3" yaml:"image_filepath,omitempty"
   repeated string image_filepath = 20;
-  // @inject_tag yaml:"image_uploads,omitempty"
+  // @inject_tag: fake:"skip" yaml:"image_upload_arrays,omitempty"
   repeated bytes image_upload_arrays = 21;
 }
 
