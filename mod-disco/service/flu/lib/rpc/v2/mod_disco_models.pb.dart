@@ -977,6 +977,138 @@ class UserNeedsValue extends $pb.GeneratedMessage {
   void clearPledged() => clearField(5);
 }
 
+class UserNeedsValuePlusAccount extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserNeedsValuePlusAccount', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountUserRefName')
+    ..aOM<$2.Timestamp>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', subBuilder: $2.Timestamp.create)
+    ..hasRequiredFields = false
+  ;
+
+  UserNeedsValuePlusAccount._() : super();
+  factory UserNeedsValuePlusAccount() => create();
+  factory UserNeedsValuePlusAccount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserNeedsValuePlusAccount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UserNeedsValuePlusAccount clone() => UserNeedsValuePlusAccount()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserNeedsValuePlusAccount copyWith(void Function(UserNeedsValuePlusAccount) updates) => super.copyWith((message) => updates(message as UserNeedsValuePlusAccount)); // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UserNeedsValuePlusAccount create() => UserNeedsValuePlusAccount._();
+  UserNeedsValuePlusAccount createEmptyInstance() => create();
+  static $pb.PbList<UserNeedsValuePlusAccount> createRepeated() => $pb.PbList<UserNeedsValuePlusAccount>();
+  @$core.pragma('dart2js:noInline')
+  static UserNeedsValuePlusAccount getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserNeedsValuePlusAccount>(create);
+  static UserNeedsValuePlusAccount _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get sysAccountUserRefName => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set sysAccountUserRefName($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasSysAccountUserRefName() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSysAccountUserRefName() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $2.Timestamp get createdAt => $_getN(2);
+  @$pb.TagNumber(3)
+  set createdAt($2.Timestamp v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasCreatedAt() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearCreatedAt() => clearField(3);
+  @$pb.TagNumber(3)
+  $2.Timestamp ensureCreatedAt() => $_ensure(2);
+}
+
+class SupportRoleValuePlusAccount extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SupportRoleValuePlusAccount', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountUserRefName')
+    ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOM<$2.Timestamp>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', subBuilder: $2.Timestamp.create)
+    ..hasRequiredFields = false
+  ;
+
+  SupportRoleValuePlusAccount._() : super();
+  factory SupportRoleValuePlusAccount() => create();
+  factory SupportRoleValuePlusAccount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SupportRoleValuePlusAccount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  SupportRoleValuePlusAccount clone() => SupportRoleValuePlusAccount()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SupportRoleValuePlusAccount copyWith(void Function(SupportRoleValuePlusAccount) updates) => super.copyWith((message) => updates(message as SupportRoleValuePlusAccount)); // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static SupportRoleValuePlusAccount create() => SupportRoleValuePlusAccount._();
+  SupportRoleValuePlusAccount createEmptyInstance() => create();
+  static $pb.PbList<SupportRoleValuePlusAccount> createRepeated() => $pb.PbList<SupportRoleValuePlusAccount>();
+  @$core.pragma('dart2js:noInline')
+  static SupportRoleValuePlusAccount getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SupportRoleValuePlusAccount>(create);
+  static SupportRoleValuePlusAccount _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get sysAccountUserRefName => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set sysAccountUserRefName($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasSysAccountUserRefName() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSysAccountUserRefName() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get pledged => $_getI64(2);
+  @$pb.TagNumber(3)
+  set pledged($fixnum.Int64 v) { $_setInt64(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasPledged() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPledged() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $2.Timestamp get createdAt => $_getN(3);
+  @$pb.TagNumber(4)
+  set createdAt($2.Timestamp v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasCreatedAt() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearCreatedAt() => clearField(4);
+  @$pb.TagNumber(4)
+  $2.Timestamp ensureCreatedAt() => $_ensure(3);
+}
+
 class NewUserNeedsValue extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewUserNeedsValue', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUserRefName')
@@ -2441,5 +2573,151 @@ class GenIdResponse extends $pb.GeneratedMessage {
   $core.bool hasTempId() => $_has(0);
   @$pb.TagNumber(1)
   void clearTempId() => clearField(1);
+}
+
+class StatisticRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'StatisticRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tableName')
+    ..aOB(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'includeCounts')
+    ..a<$core.List<$core.int>>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filters', $pb.PbFieldType.OY)
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPageId')
+    ..aInt64(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'limit')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'orderBy')
+    ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isDescending')
+    ..hasRequiredFields = false
+  ;
+
+  StatisticRequest._() : super();
+  factory StatisticRequest() => create();
+  factory StatisticRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory StatisticRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  StatisticRequest clone() => StatisticRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  StatisticRequest copyWith(void Function(StatisticRequest) updates) => super.copyWith((message) => updates(message as StatisticRequest)); // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static StatisticRequest create() => StatisticRequest._();
+  StatisticRequest createEmptyInstance() => create();
+  static $pb.PbList<StatisticRequest> createRepeated() => $pb.PbList<StatisticRequest>();
+  @$core.pragma('dart2js:noInline')
+  static StatisticRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<StatisticRequest>(create);
+  static StatisticRequest _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get tableName => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set tableName($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasTableName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearTableName() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.bool get includeCounts => $_getBF(1);
+  @$pb.TagNumber(2)
+  set includeCounts($core.bool v) { $_setBool(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasIncludeCounts() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearIncludeCounts() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.List<$core.int> get filters => $_getN(2);
+  @$pb.TagNumber(3)
+  set filters($core.List<$core.int> v) { $_setBytes(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasFilters() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearFilters() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get nextPageId => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set nextPageId($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasNextPageId() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearNextPageId() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $fixnum.Int64 get limit => $_getI64(4);
+  @$pb.TagNumber(5)
+  set limit($fixnum.Int64 v) { $_setInt64(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasLimit() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearLimit() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get orderBy => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set orderBy($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasOrderBy() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearOrderBy() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.bool get isDescending => $_getBF(6);
+  @$pb.TagNumber(7)
+  set isDescending($core.bool v) { $_setBool(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasIsDescending() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearIsDescending() => clearField(7);
+}
+
+class StatisticResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'StatisticResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..pc<SupportRoleValuePlusAccount>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportRoleValuesPlusAccount', $pb.PbFieldType.PM, subBuilder: SupportRoleValuePlusAccount.create)
+    ..pc<UserNeedsValuePlusAccount>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedValuesPlusAccount', $pb.PbFieldType.PM, subBuilder: UserNeedsValuePlusAccount.create)
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPageId')
+    ..hasRequiredFields = false
+  ;
+
+  StatisticResponse._() : super();
+  factory StatisticResponse() => create();
+  factory StatisticResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory StatisticResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  StatisticResponse clone() => StatisticResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  StatisticResponse copyWith(void Function(StatisticResponse) updates) => super.copyWith((message) => updates(message as StatisticResponse)); // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static StatisticResponse create() => StatisticResponse._();
+  StatisticResponse createEmptyInstance() => create();
+  static $pb.PbList<StatisticResponse> createRepeated() => $pb.PbList<StatisticResponse>();
+  @$core.pragma('dart2js:noInline')
+  static StatisticResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<StatisticResponse>(create);
+  static StatisticResponse _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<SupportRoleValuePlusAccount> get supportRoleValuesPlusAccount => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $core.List<UserNeedsValuePlusAccount> get userNeedValuesPlusAccount => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $core.String get nextPageId => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set nextPageId($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasNextPageId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearNextPageId() => clearField(3);
 }
 

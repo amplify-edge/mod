@@ -130,6 +130,19 @@ message UserNeedsValue {
   uint64 pledged = 5;
 }
 
+message UserNeedsValuePlusAccount {
+  string id = 1;
+  string sys_account_user_ref_name = 2;
+  google.protobuf.Timestamp created_at = 3;
+}
+
+message SupportRoleValuePlusAccount {
+  string id = 1;
+  string sys_account_user_ref_name = 2;
+  uint64 pledged = 3;
+  google.protobuf.Timestamp created_at = 4;
+}
+
 message NewUserNeedsValue {
   // @inject_tag: fake:"skip" yaml:"survey_user_ref_name,omitempty"
   string survey_user_ref_name = 1;
@@ -327,4 +340,20 @@ message UpdateSurveyUserRequest {
 
 message GenIdResponse {
   string temp_id = 1;
+}
+
+message StatisticRequest {
+  string table_name = 1;
+  bool include_counts = 2;
+  bytes filters = 3; // json
+  string next_page_id = 4;
+  int64 limit = 5;
+  string order_by = 6;
+  bool is_descending = 7;
+}
+
+message StatisticResponse {
+  repeated SupportRoleValuePlusAccount support_role_values_plus_account = 1;
+  repeated UserNeedsValuePlusAccount user_need_values_plus_account = 2;
+  string next_page_id = 3;
 }

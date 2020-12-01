@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-12-01T07:40:13.478214",
+  "@@last_modified": "2020-12-01T08:53:46.714075",
   "country": "ملک",
   "@country": {
     "description": "Country",
@@ -282,15 +282,9 @@
     "placeholders": {},
     "type": "text"
   },
-  "conditions": "شرائط",
-  "@conditions": {
-    "description": "Conditions",
-    "placeholders": {},
-    "type": "text"
-  },
-  "roles": "کردار",
-  "@roles": {
-    "description": "Roles",
+  "userNeeds": "صارف کی ضرورت ہے",
+  "@userNeeds": {
+    "description": "User Needs",
     "placeholders": {},
     "type": "text"
   }

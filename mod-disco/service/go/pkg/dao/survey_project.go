@@ -76,19 +76,16 @@ func (sp SurveyProject) CreateSQL() []string {
 	return tbl.CreateTable()
 }
 
-func (m *ModDiscoDB) surveyProjectQueryFilter(filter map[string]interface{}) sq.SelectBuilder {
-	baseStmt := sq.Select(m.surveyProjectColumns).From(SurveyProjectTableName)
-	if filter != nil {
-		for k, v := range filter {
-			baseStmt = baseStmt.Where(sq.Eq{k: v})
-		}
-	}
-	return baseStmt
-}
-
 func (m *ModDiscoDB) GetSurveyProject(filters map[string]interface{}) (*SurveyProject, error) {
 	var sp SurveyProject
-	selectStmt, args, err := m.surveyProjectQueryFilter(filters).ToSql()
+	selectStmt, args, err := sysCoreSvc.BaseQueryBuilder(
+		filters,
+		SurveyProjectTableName,
+		m.surveyProjectColumns,
+		func(k string, v interface{}) sysCoreSvc.StmtIFacer {
+			return sq.Eq{k: v}
+		},
+	).ToSql()
 	if err != nil {
 		return nil, err
 	}
@@ -115,8 +112,15 @@ func (m *ModDiscoDB) GetSurveyProject(filters map[string]interface{}) (*SurveyPr
 
 func (m *ModDiscoDB) ListSurveyProject(filters map[string]interface{}, orderBy string, limit, cursor int64) ([]*SurveyProject, *int64, error) {
 	surveyProjects := []*SurveyProject{}
-	baseStmt := m.surveyProjectQueryFilter(filters)
-	selectStmt, args, err := m.listSelectStatement(baseStmt, orderBy, limit, &cursor)
+	baseStmt := sysCoreSvc.BaseQueryBuilder(
+		filters,
+		SurveyProjectTableName,
+		m.surveyProjectColumns,
+		func(k string, v interface{}) sysCoreSvc.StmtIFacer {
+			return sq.Like{k: m.BuildSearchQuery(v.(string))}
+		},
+	)
+	selectStmt, args, err := sysCoreSvc.ListSelectStatement(baseStmt, orderBy, limit, &cursor, DefaultCursor)
 	if err != nil {
 		return nil, nil, err
 	}

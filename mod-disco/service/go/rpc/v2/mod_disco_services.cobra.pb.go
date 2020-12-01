@@ -32,6 +32,7 @@ func SurveyServiceClientCommand(options ...client.Option) *cobra.Command {
 		_SurveyServiceListSurveyUserCommand(cfg),
 		_SurveyServiceUpdateSurveyUserCommand(cfg),
 		_SurveyServiceDeleteSurveyUserCommand(cfg),
+		_SurveyServiceGetProjectStatisticsCommand(cfg),
 		_SurveyServiceNewDiscoProjectCommand(cfg),
 		_SurveyServiceGetDiscoProjectCommand(cfg),
 		_SurveyServiceListDiscoProjectCommand(cfg),
@@ -518,6 +519,55 @@ func _SurveyServiceDeleteSurveyUserCommand(cfg *client.Config) *cobra.Command {
 	cmd.PersistentFlags().StringVar(&req.SysAccountAccountId, cfg.FlagNamer("SysAccountAccountId"), "", "")
 	cmd.PersistentFlags().StringVar(&req.DiscoProjectId, cfg.FlagNamer("DiscoProjectId"), "", "")
 	cmd.PersistentFlags().StringVar(&req.SysAccountOrgId, cfg.FlagNamer("SysAccountOrgId"), "", "")
+
+	return cmd
+}
+
+func _SurveyServiceGetProjectStatisticsCommand(cfg *client.Config) *cobra.Command {
+	req := &StatisticRequest{}
+
+	cmd := &cobra.Command{
+		Use:    cfg.CommandNamer("GetProjectStatistics"),
+		Short:  "GetProjectStatistics RPC client",
+		Long:   "",
+		Hidden: false,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			if cfg.UseEnvVars {
+				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
+					return err
+				}
+				if err := flag.SetFlagsFromEnv(cmd.PersistentFlags(), false, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService", "GetProjectStatistics"); err != nil {
+					return err
+				}
+			}
+			return client.RoundTrip(cmd.Context(), cfg, func(cc grpc.ClientConnInterface, in iocodec.Decoder, out iocodec.Encoder) error {
+				cli := NewSurveyServiceClient(cc)
+				v := &StatisticRequest{}
+
+				if err := in(v); err != nil {
+					return err
+				}
+				proto.Merge(v, req)
+
+				res, err := cli.GetProjectStatistics(cmd.Context(), v)
+
+				if err != nil {
+					return err
+				}
+
+				return out(res)
+
+			})
+		},
+	}
+
+	cmd.PersistentFlags().StringVar(&req.TableName, cfg.FlagNamer("TableName"), "", "")
+	cmd.PersistentFlags().BoolVar(&req.IncludeCounts, cfg.FlagNamer("IncludeCounts"), false, "")
+	flag.BytesBase64Var(cmd.PersistentFlags(), &req.Filters, cfg.FlagNamer("Filters"), "")
+	cmd.PersistentFlags().StringVar(&req.NextPageId, cfg.FlagNamer("NextPageId"), "", "")
+	cmd.PersistentFlags().Int64Var(&req.Limit, cfg.FlagNamer("Limit"), 0, "")
+	cmd.PersistentFlags().StringVar(&req.OrderBy, cfg.FlagNamer("OrderBy"), "", "")
+	cmd.PersistentFlags().BoolVar(&req.IsDescending, cfg.FlagNamer("IsDescending"), false, "")
 
 	return cmd
 }

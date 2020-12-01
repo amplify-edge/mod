@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-12-01T07:40:13.478214",
+  "@@last_modified": "2020-12-01T08:53:46.714075",
   "country": "Nazione",
   "@country": {
     "description": "Country",
@@ -282,15 +282,9 @@
     "placeholders": {},
     "type": "text"
   },
-  "conditions": "Condizioni",
-  "@conditions": {
-    "description": "Conditions",
-    "placeholders": {},
-    "type": "text"
-  },
-  "roles": "Ruoli",
-  "@roles": {
-    "description": "Roles",
+  "userNeeds": "Esigenze dell'utente",
+  "@userNeeds": {
+    "description": "User Needs",
     "placeholders": {},
     "type": "text"
   }

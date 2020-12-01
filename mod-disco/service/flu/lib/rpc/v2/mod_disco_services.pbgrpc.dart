@@ -64,6 +64,12 @@ class SurveyServiceClient extends $grpc.Client {
       '/v2.mod_disco.services.SurveyService/DeleteSurveyUser',
       ($0.IdRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$getProjectStatistics =
+      $grpc.ClientMethod<$0.StatisticRequest, $0.StatisticResponse>(
+          '/v2.mod_disco.services.SurveyService/GetProjectStatistics',
+          ($0.StatisticRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.StatisticResponse.fromBuffer(value));
   static final _$newDiscoProject =
       $grpc.ClientMethod<$0.NewDiscoProjectRequest, $0.DiscoProject>(
           '/v2.mod_disco.services.SurveyService/NewDiscoProject',
@@ -178,6 +184,15 @@ class SurveyServiceClient extends $grpc.Client {
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$deleteSurveyUser, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.StatisticResponse> getProjectStatistics(
+      $0.StatisticRequest request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$getProjectStatistics, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
@@ -312,6 +327,13 @@ abstract class SurveyServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.IdRequest.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.StatisticRequest, $0.StatisticResponse>(
+        'GetProjectStatistics',
+        getProjectStatistics_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.StatisticRequest.fromBuffer(value),
+        ($0.StatisticResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.NewDiscoProjectRequest, $0.DiscoProject>(
         'NewDiscoProject',
         newDiscoProject_Pre,
@@ -410,6 +432,12 @@ abstract class SurveyServiceBase extends $grpc.Service {
     return deleteSurveyUser(call, await request);
   }
 
+  $async.Future<$0.StatisticResponse> getProjectStatistics_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.StatisticRequest> request) async {
+    return getProjectStatistics(call, await request);
+  }
+
   $async.Future<$0.DiscoProject> newDiscoProject_Pre($grpc.ServiceCall call,
       $async.Future<$0.NewDiscoProjectRequest> request) async {
     return newDiscoProject(call, await request);
@@ -460,6 +488,8 @@ abstract class SurveyServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.UpdateSurveyUserRequest request);
   $async.Future<$1.Empty> deleteSurveyUser(
       $grpc.ServiceCall call, $0.IdRequest request);
+  $async.Future<$0.StatisticResponse> getProjectStatistics(
+      $grpc.ServiceCall call, $0.StatisticRequest request);
   $async.Future<$0.DiscoProject> newDiscoProject(
       $grpc.ServiceCall call, $0.NewDiscoProjectRequest request);
   $async.Future<$0.DiscoProject> getDiscoProject(

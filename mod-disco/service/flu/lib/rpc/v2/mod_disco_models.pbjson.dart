@@ -137,6 +137,25 @@ const UserNeedsValue$json = const {
   ],
 };
 
+const UserNeedsValuePlusAccount$json = const {
+  '1': 'UserNeedsValuePlusAccount',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    const {'1': 'sys_account_user_ref_name', '3': 2, '4': 1, '5': 9, '10': 'sysAccountUserRefName'},
+    const {'1': 'created_at', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
+  ],
+};
+
+const SupportRoleValuePlusAccount$json = const {
+  '1': 'SupportRoleValuePlusAccount',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    const {'1': 'sys_account_user_ref_name', '3': 2, '4': 1, '5': 9, '10': 'sysAccountUserRefName'},
+    const {'1': 'pledged', '3': 3, '4': 1, '5': 4, '10': 'pledged'},
+    const {'1': 'created_at', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
+  ],
+};
+
 const NewUserNeedsValue$json = const {
   '1': 'NewUserNeedsValue',
   '2': const [
@@ -336,6 +355,28 @@ const GenIdResponse$json = const {
   '1': 'GenIdResponse',
   '2': const [
     const {'1': 'temp_id', '3': 1, '4': 1, '5': 9, '10': 'tempId'},
+  ],
+};
+
+const StatisticRequest$json = const {
+  '1': 'StatisticRequest',
+  '2': const [
+    const {'1': 'table_name', '3': 1, '4': 1, '5': 9, '10': 'tableName'},
+    const {'1': 'include_counts', '3': 2, '4': 1, '5': 8, '10': 'includeCounts'},
+    const {'1': 'filters', '3': 3, '4': 1, '5': 12, '10': 'filters'},
+    const {'1': 'next_page_id', '3': 4, '4': 1, '5': 9, '10': 'nextPageId'},
+    const {'1': 'limit', '3': 5, '4': 1, '5': 3, '10': 'limit'},
+    const {'1': 'order_by', '3': 6, '4': 1, '5': 9, '10': 'orderBy'},
+    const {'1': 'is_descending', '3': 7, '4': 1, '5': 8, '10': 'isDescending'},
+  ],
+};
+
+const StatisticResponse$json = const {
+  '1': 'StatisticResponse',
+  '2': const [
+    const {'1': 'support_role_values_plus_account', '3': 1, '4': 3, '5': 11, '6': '.v2.mod_disco.services.SupportRoleValuePlusAccount', '10': 'supportRoleValuesPlusAccount'},
+    const {'1': 'user_need_values_plus_account', '3': 2, '4': 3, '5': 11, '6': '.v2.mod_disco.services.UserNeedsValuePlusAccount', '10': 'userNeedValuesPlusAccount'},
+    const {'1': 'next_page_id', '3': 3, '4': 1, '5': 9, '10': 'nextPageId'},
   ],
 };
 

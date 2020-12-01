@@ -184,15 +184,6 @@ class ProjectDetailView extends StatelessWidget {
                   ),
                   const SizedBox(height: 16.0),
                   ButtonBar(children: [
-                    FlatButton(
-                      onPressed: () {
-                        // Modular.to.pushNamed(Modular.get<Paths>()
-                        //     .myNeeds
-                        //     .replaceAll(':id', project.id));
-                      },
-                      child: Text(ModDiscoLocalizations.of(context)
-                          .translate("notReady")),
-                    ),
                     RaisedButton(
                       onPressed: () {
                         Modular.to

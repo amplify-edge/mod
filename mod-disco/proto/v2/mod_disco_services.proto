@@ -20,6 +20,7 @@ service SurveyService {
   rpc ListSurveyUser(v2.mod_disco.services.ListRequest) returns (v2.mod_disco.services.ListResponse) {};
   rpc UpdateSurveyUser(v2.mod_disco.services.UpdateSurveyUserRequest) returns (v2.mod_disco.services.SurveyUser) {};
   rpc DeleteSurveyUser(v2.mod_disco.services.IdRequest) returns (google.protobuf.Empty) {};
+  rpc GetProjectStatistics(v2.mod_disco.services.StatisticRequest) returns (v2.mod_disco.services.StatisticResponse) {};
   // DiscoProjects
   rpc NewDiscoProject(v2.mod_disco.services.NewDiscoProjectRequest) returns (v2.mod_disco.services.DiscoProject) {};
   rpc GetDiscoProject(v2.mod_disco.services.IdRequest) returns (v2.mod_disco.services.DiscoProject) {};

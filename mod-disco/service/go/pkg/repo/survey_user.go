@@ -142,3 +142,8 @@ func (md *ModDiscoRepo) DeleteSurveyUser(ctx context.Context, in *discoRpc.IdReq
 	}
 	return &emptypb.Empty{}, nil
 }
+
+func (md *ModDiscoRepo) GetProjectStatistics(ctx context.Context, in *discoRpc.StatisticRequest) (*discoRpc.StatisticResponse, error) {
+	// TODO
+	return nil, nil
+}

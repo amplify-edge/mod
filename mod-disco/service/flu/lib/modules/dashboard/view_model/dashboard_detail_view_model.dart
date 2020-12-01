@@ -159,7 +159,7 @@ class DashboardDetailViewModel extends BaseModel {
     });
     return ExpansionTile(
       title: Text(
-        ModDiscoLocalizations.of(context).translate('conditions'),
+        ModDiscoLocalizations.of(context).translate('userNeeds'),
         style: Theme.of(context)
             .textTheme
             .bodyText1
@@ -186,7 +186,7 @@ class DashboardDetailViewModel extends BaseModel {
     });
     return ExpansionTile(
       title: Text(
-        ModDiscoLocalizations.of(context).translate('roles'),
+        ModDiscoLocalizations.of(context).translate('supportRoles'),
         style: Theme.of(context)
             .textTheme
             .bodyText1
