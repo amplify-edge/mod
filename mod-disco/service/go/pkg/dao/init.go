@@ -58,8 +58,8 @@ func NewModDiscoDB(db *sysCoreSvc.CoreDB, l *log.Entry) (*ModDiscoDB, error) {
 
 func (m *ModDiscoDB) BuildSearchQuery(qs string) string {
 	var sb strings.Builder
-	sb.WriteString("%s")
+	sb.WriteString("%")
 	sb.WriteString(qs)
-	sb.WriteString("%s")
+	sb.WriteString("%")
 	return sb.String()
 }

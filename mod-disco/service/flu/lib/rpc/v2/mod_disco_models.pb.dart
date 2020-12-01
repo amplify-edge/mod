@@ -2580,10 +2580,11 @@ class StatisticRequest extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tableName')
     ..aOB(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'includeCounts')
     ..a<$core.List<$core.int>>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filters', $pb.PbFieldType.OY)
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPageId')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currentPageId')
     ..aInt64(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'limit')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'orderBy')
     ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isDescending')
+    ..aInt64(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'perPageEntries')
     ..hasRequiredFields = false
   ;
 
@@ -2638,13 +2639,13 @@ class StatisticRequest extends $pb.GeneratedMessage {
   void clearFilters() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get nextPageId => $_getSZ(3);
+  $core.String get currentPageId => $_getSZ(3);
   @$pb.TagNumber(4)
-  set nextPageId($core.String v) { $_setString(3, v); }
+  set currentPageId($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasNextPageId() => $_has(3);
+  $core.bool hasCurrentPageId() => $_has(3);
   @$pb.TagNumber(4)
-  void clearNextPageId() => clearField(4);
+  void clearCurrentPageId() => clearField(4);
 
   @$pb.TagNumber(5)
   $fixnum.Int64 get limit => $_getI64(4);
@@ -2672,6 +2673,15 @@ class StatisticRequest extends $pb.GeneratedMessage {
   $core.bool hasIsDescending() => $_has(6);
   @$pb.TagNumber(7)
   void clearIsDescending() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $fixnum.Int64 get perPageEntries => $_getI64(7);
+  @$pb.TagNumber(8)
+  set perPageEntries($fixnum.Int64 v) { $_setInt64(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasPerPageEntries() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearPerPageEntries() => clearField(8);
 }
 
 class StatisticResponse extends $pb.GeneratedMessage {

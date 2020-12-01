@@ -364,10 +364,11 @@ const StatisticRequest$json = const {
     const {'1': 'table_name', '3': 1, '4': 1, '5': 9, '10': 'tableName'},
     const {'1': 'include_counts', '3': 2, '4': 1, '5': 8, '10': 'includeCounts'},
     const {'1': 'filters', '3': 3, '4': 1, '5': 12, '10': 'filters'},
-    const {'1': 'next_page_id', '3': 4, '4': 1, '5': 9, '10': 'nextPageId'},
+    const {'1': 'current_page_id', '3': 4, '4': 1, '5': 9, '10': 'currentPageId'},
     const {'1': 'limit', '3': 5, '4': 1, '5': 3, '10': 'limit'},
     const {'1': 'order_by', '3': 6, '4': 1, '5': 9, '10': 'orderBy'},
     const {'1': 'is_descending', '3': 7, '4': 1, '5': 8, '10': 'isDescending'},
+    const {'1': 'per_page_entries', '3': 8, '4': 1, '5': 3, '10': 'perPageEntries'},
   ],
 };
 

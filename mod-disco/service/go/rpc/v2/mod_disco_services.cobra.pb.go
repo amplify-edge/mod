@@ -564,10 +564,11 @@ func _SurveyServiceGetProjectStatisticsCommand(cfg *client.Config) *cobra.Comman
 	cmd.PersistentFlags().StringVar(&req.TableName, cfg.FlagNamer("TableName"), "", "")
 	cmd.PersistentFlags().BoolVar(&req.IncludeCounts, cfg.FlagNamer("IncludeCounts"), false, "")
 	flag.BytesBase64Var(cmd.PersistentFlags(), &req.Filters, cfg.FlagNamer("Filters"), "")
-	cmd.PersistentFlags().StringVar(&req.NextPageId, cfg.FlagNamer("NextPageId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.CurrentPageId, cfg.FlagNamer("CurrentPageId"), "", "")
 	cmd.PersistentFlags().Int64Var(&req.Limit, cfg.FlagNamer("Limit"), 0, "")
 	cmd.PersistentFlags().StringVar(&req.OrderBy, cfg.FlagNamer("OrderBy"), "", "")
 	cmd.PersistentFlags().BoolVar(&req.IsDescending, cfg.FlagNamer("IsDescending"), false, "")
+	cmd.PersistentFlags().Int64Var(&req.PerPageEntries, cfg.FlagNamer("PerPageEntries"), 0, "")
 
 	return cmd
 }

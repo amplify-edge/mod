@@ -144,6 +144,31 @@ func (md *ModDiscoRepo) DeleteSurveyUser(ctx context.Context, in *discoRpc.IdReq
 }
 
 func (md *ModDiscoRepo) GetProjectStatistics(ctx context.Context, in *discoRpc.StatisticRequest) (*discoRpc.StatisticResponse, error) {
-	// TODO
-	return nil, nil
+	if in == nil {
+		return nil, status.Errorf(codes.InvalidArgument, "cannot get project statistics: %v", "invalid argument")
+	}
+	var cursor int64
+	orderBy := in.GetOrderBy()
+	var err error
+	filter := map[string]interface{}{}
+	if in.GetFilters() != nil && len(in.GetFilters()) > 0 {
+		filter, err = sysCoreSvc.UnmarshalToMap(in.GetFilters())
+		if err != nil {
+			return nil, err
+		}
+	}
+	cursor, err = md.getCursor(in.GetCurrentPageId())
+	if err != nil {
+		return nil, err
+	}
+	if in.GetIsDescending() {
+		orderBy += " DESC"
+	} else {
+		orderBy += " ASC"
+	}
+	limit := in.GetPerPageEntries()
+	if limit == 0 {
+		limit = dao.DefaultLimit
+	}
+	return md.store.GetStats(filter, limit, cursor, in.GetTableName(), orderBy)
 }
