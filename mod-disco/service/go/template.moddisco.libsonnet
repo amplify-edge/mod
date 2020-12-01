@@ -16,6 +16,17 @@ local tokencfg = import "vendor/github.com/getcouragenow/sys-share/sys-core/serv
         rotateSchedule: "@every 24h",
         backupDir: cfg.CoreDB.dbDir + "/backup"
     },
+    FileDB:: dbcfg.DB {
+        name: "disco-file.db",
+        encryptKey: "testEncryptKey",
+        dbDir: "./db/mod",
+        deletePrevious: true,
+    },
+    FileCron:: {
+        backupSchedule: "@daily",
+        rotateSchedule: "@every 24h",
+        backupDir: cfg.FileDB.dbDir + "/file-backup"
+    },
     AccessToken:: tokencfg.Token {
         secret: "some_jwt_access_secret",
         expiry: 3600,
@@ -38,6 +49,10 @@ local tokencfg = import "vendor/github.com/getcouragenow/sys-share/sys-core/serv
         sysCoreConfig: {
             db: cfg.CoreDB,
             cron: cfg.CoreCron,
+       },
+       sysFileConfig: {
+            db: cfg.FileDB,
+            cron: cfg.FileCron,
        },
         jwt: {
             access: cfg.AccessToken,

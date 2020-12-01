@@ -22,7 +22,8 @@ func (m *ModDiscoConfig) Validate() error {
 }
 
 type Config struct {
-	SysCoreConfig         commonCfg.Config `yaml:"sysCoreConfig" mapstructure:"sysCoreConfig"`
+	SysCoreConfig         commonCfg.Config `json:"sysCoreConfig" yaml:"sysCoreConfig" mapstructure:"sysCoreConfig"`
+	SysFileConfig         commonCfg.Config `json:"sysFileConfig" yaml:"sysFileConfig" mapstructure:"sysFileConfig"`
 	UnauthenticatedRoutes []string         `json:"unauthenticatedRoutes" yaml:"unauthenticatedRoutes"`
 	JWTConfig             JWTConfig        `json:"jwt" yaml:"jwt"`
 	BusClientRoutes       []string         `json:"busClientRoutes" yaml:"busClientRoutes"`
@@ -36,6 +37,9 @@ func (c Config) validate() error {
 		return fmt.Errorf(errNoBusClientRoutes)
 	}
 	if err := c.SysCoreConfig.Validate(); err != nil {
+		return err
+	}
+	if err := c.SysFileConfig.Validate(); err != nil {
 		return err
 	}
 	return c.JWTConfig.Validate()

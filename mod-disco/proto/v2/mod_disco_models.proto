@@ -188,6 +188,8 @@ message DiscoProject {
   string unit_of_measures = 19;
   google.protobuf.Timestamp created_at = 20;
   google.protobuf.Timestamp updated_at = 21;
+  repeated string image_resource_ids = 22;
+  repeated bytes project_images = 23;
 }
 
 message NewDiscoProjectRequest {
@@ -229,6 +231,10 @@ message NewDiscoProjectRequest {
   string sys_account_project_ref_name = 18;
   // @inject_tag: fake:"{nameseq:sys_account_org,true,sys_account_org,false,false}" yaml:"sys_account_org_ref_name,omitempty"
   string sys_account_org_ref_name = 19;
+  // @inject_tag: fake:"{avatargen:./bootstrap-data/client/generated,300}" fakesize:"3" yaml:"image_filepath,omitempty"
+  repeated string image_filepath = 20;
+  // @inject_tag yaml:"image_uploads,omitempty"
+  repeated bytes image_upload_arrays = 21;
 }
 
 message UpdateDiscoProjectRequest {
@@ -248,6 +254,8 @@ message UpdateDiscoProjectRequest {
   string strategy = 14;
   string video_url = 15;
   string unit_of_measures = 16;
+  repeated bytes image_uploads = 17;
+  repeated string image_resource_ids = 18;
 }
 
 message IdRequest {

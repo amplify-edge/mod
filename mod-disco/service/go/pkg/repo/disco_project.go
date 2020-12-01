@@ -25,10 +25,42 @@ func (md *ModDiscoRepo) NewDiscoProject(ctx context.Context, in *discoRpc.NewDis
 		return nil, status.Errorf(codes.InvalidArgument, "cannot insert disco project: non-existent sys-account-project", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
 	in.SysAccountProjectRefId = sysAccountProjectId
-	dp, err := md.store.InsertDiscoProject(in)
+	var imgResourceIds []string
+	if len(in.GetImageFilepath()) != 0 {
+		for _, imgPath := range in.GetImageFilepath() {
+			resId, err := md.frepo.UploadFile(imgPath, nil)
+			if err != nil {
+				return nil, err
+			}
+			imgResourceIds = append(imgResourceIds, resId.ResourceId)
+		}
+	}
+	if len(in.GetImageUploadArrays()) != 0 {
+		for _, imgData := range in.GetImageUploadArrays() {
+			resId, err := md.frepo.UploadFile("", imgData)
+			if err != nil {
+				return nil, err
+			}
+			imgResourceIds = append(imgResourceIds, resId.ResourceId)
+		}
+	}
+	dp, err := md.store.InsertDiscoProject(in, imgResourceIds)
 	if err != nil {
 		return nil, err
 	}
+	return md.fetchProjectImages(dp)
+}
+
+func (md *ModDiscoRepo) fetchProjectImages(dp *discoRpc.DiscoProject) (*discoRpc.DiscoProject, error) {
+	var imgData [][]byte
+	for _, resId := range dp.ImageResourceIds {
+		img, err := md.frepo.DownloadFile("", resId)
+		if err != nil {
+			return nil, err
+		}
+		imgData = append(imgData, img.Binary)
+	}
+	dp.ProjectImages = imgData
 	return dp, nil
 }
 
@@ -47,7 +79,11 @@ func (md *ModDiscoRepo) GetDiscoProject(ctx context.Context, in *discoRpc.IdRequ
 	if err != nil {
 		return nil, err
 	}
-	return dp.ToPkgDiscoProject()
+	dproj, err := dp.ToPkgDiscoProject()
+	if err != nil {
+		return nil, err
+	}
+	return md.fetchProjectImages(dproj)
 }
 
 func (md *ModDiscoRepo) ListDiscoProject(ctx context.Context, in *discoRpc.ListRequest) (*discoRpc.ListResponse, error) {
@@ -88,11 +124,15 @@ func (md *ModDiscoRepo) ListDiscoProject(ctx context.Context, in *discoRpc.ListR
 	}
 	var pkgDiscoProjects []*discoRpc.DiscoProject
 	for _, su := range daoDiscoProjects {
-		surveyUser, err := su.ToPkgDiscoProject()
+		dp, err := su.ToPkgDiscoProject()
 		if err != nil {
 			return nil, err
 		}
-		pkgDiscoProjects = append(pkgDiscoProjects, surveyUser)
+		dp, err = md.fetchProjectImages(dp)
+		if err != nil {
+			return nil, err
+		}
+		pkgDiscoProjects = append(pkgDiscoProjects, dp)
 	}
 	return &discoRpc.ListResponse{
 		DiscoProjects: pkgDiscoProjects,
@@ -104,6 +144,15 @@ func (md *ModDiscoRepo) UpdateDiscoProject(ctx context.Context, in *discoRpc.Upd
 	if in == nil || in.ProjectId == "" {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot update disco project: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
+	if in.GetImageUploads() != nil && len(in.GetImageUploads()) != 0 {
+		for _, imgBytes := range in.GetImageUploads() {
+			res, err := md.frepo.UploadFile("", imgBytes)
+			if err != nil {
+				return nil, err
+			}
+			in.ImageResourceIds = append(in.ImageResourceIds, res.ResourceId)
+		}
+	}
 	if err := md.store.UpdateDiscoProject(in); err != nil {
 		return nil, err
 	}
@@ -111,7 +160,11 @@ func (md *ModDiscoRepo) UpdateDiscoProject(ctx context.Context, in *discoRpc.Upd
 	if err != nil {
 		return nil, err
 	}
-	return daoDiscoProject.ToPkgDiscoProject()
+	dp, err := daoDiscoProject.ToPkgDiscoProject()
+	if err != nil {
+		return nil, err
+	}
+	return md.fetchProjectImages(dp)
 }
 
 func (md *ModDiscoRepo) DeleteDiscoProject(ctx context.Context, in *discoRpc.IdRequest) (*emptypb.Empty, error) {

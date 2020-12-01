@@ -579,6 +579,8 @@ func _SurveyServiceNewDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 	cmd.PersistentFlags().StringVar(&req.UnitOfMeasures, cfg.FlagNamer("UnitOfMeasures"), "", "@inject_tag: fake:\"{randomstring:[days,weeks,months]}\" yaml:\"unit_of_measures\"")
 	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefName, cfg.FlagNamer("SysAccountProjectRefName"), "", "@inject_tag: fake:\"{nameseq:sys_account_project,true,sys_account_project,true,false}\" yaml:\"sys_account_project_ref_name\"")
 	cmd.PersistentFlags().StringVar(&req.SysAccountOrgRefName, cfg.FlagNamer("SysAccountOrgRefName"), "", "@inject_tag: fake:\"{nameseq:sys_account_org,true,sys_account_org,false,false}\" yaml:\"sys_account_org_ref_name,omitempty\"")
+	cmd.PersistentFlags().StringSliceVar(&req.ImageFilepath, cfg.FlagNamer("ImageFilepath"), nil, "@inject_tag: fake:\"{avatargen:./bootstrap-data/client/generated,300}\" fakesize:\"3\" yaml:\"image_filepath,omitempty\"")
+	flag.BytesBase64SliceVar(cmd.PersistentFlags(), &req.ImageUploadArrays, cfg.FlagNamer("ImageUploadArrays"), "@inject_tag yaml:\"image_uploads,omitempty\"")
 
 	return cmd
 }

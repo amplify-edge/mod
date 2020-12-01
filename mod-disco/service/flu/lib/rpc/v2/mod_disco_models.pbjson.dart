@@ -200,6 +200,8 @@ const DiscoProject$json = const {
     const {'1': 'unit_of_measures', '3': 19, '4': 1, '5': 9, '10': 'unitOfMeasures'},
     const {'1': 'created_at', '3': 20, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
     const {'1': 'updated_at', '3': 21, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updatedAt'},
+    const {'1': 'image_resource_ids', '3': 22, '4': 3, '5': 9, '10': 'imageResourceIds'},
+    const {'1': 'project_images', '3': 23, '4': 3, '5': 12, '10': 'projectImages'},
   ],
 };
 
@@ -225,6 +227,8 @@ const NewDiscoProjectRequest$json = const {
     const {'1': 'unit_of_measures', '3': 17, '4': 1, '5': 9, '10': 'unitOfMeasures'},
     const {'1': 'sys_account_project_ref_name', '3': 18, '4': 1, '5': 9, '10': 'sysAccountProjectRefName'},
     const {'1': 'sys_account_org_ref_name', '3': 19, '4': 1, '5': 9, '10': 'sysAccountOrgRefName'},
+    const {'1': 'image_filepath', '3': 20, '4': 3, '5': 9, '10': 'imageFilepath'},
+    const {'1': 'image_upload_arrays', '3': 21, '4': 3, '5': 12, '10': 'imageUploadArrays'},
   ],
 };
 
@@ -247,6 +251,8 @@ const UpdateDiscoProjectRequest$json = const {
     const {'1': 'strategy', '3': 14, '4': 1, '5': 9, '10': 'strategy'},
     const {'1': 'video_url', '3': 15, '4': 1, '5': 9, '10': 'videoUrl'},
     const {'1': 'unit_of_measures', '3': 16, '4': 1, '5': 9, '10': 'unitOfMeasures'},
+    const {'1': 'image_uploads', '3': 17, '4': 3, '5': 12, '10': 'imageUploads'},
+    const {'1': 'image_resource_ids', '3': 18, '4': 3, '5': 9, '10': 'imageResourceIds'},
   ],
 };
 
