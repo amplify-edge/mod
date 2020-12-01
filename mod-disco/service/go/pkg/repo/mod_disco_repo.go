@@ -10,6 +10,7 @@ import (
 	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	corebus "github.com/getcouragenow/sys-share/sys-core/service/go/pkg/bus"
 	"github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
+	corefile "github.com/getcouragenow/sys/sys-core/service/go/pkg/filesvc/repo"
 	l "github.com/sirupsen/logrus"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
@@ -28,6 +29,7 @@ type (
 		unauthenticatedRoutes []string
 		busClientRoutes       []string
 		accountClient         *sharedAccountPkg.SysAccountProxyServiceClient
+		frepo                 *corefile.SysFileRepo
 	}
 )
 
@@ -36,6 +38,7 @@ func NewDiscoRepo(
 	cfg *service.ModDiscoConfig,
 	busClient *corebus.CoreBus,
 	accountClient *sharedAccountPkg.SysAccountProxyServiceClient,
+	frepo *corefile.SysFileRepo,
 ) (*ModDiscoRepo, error) {
 	discodb, err := dao.NewModDiscoDB(db, l)
 	if err != nil {
@@ -48,6 +51,7 @@ func NewDiscoRepo(
 		busClientRoutes:       cfg.ModDiscoConfig.BusClientRoutes,
 		busClient:             busClient,
 		accountClient:         accountClient,
+		frepo:                 frepo,
 	}
 	busClient.RegisterAction("onDeleteDiscoProject", mdr.onDeleteDiscoProject)
 	busClient.RegisterAction("onDeleteSurveyProject", mdr.onDeleteSurveyProject)

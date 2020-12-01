@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"fmt"
+	corefile "github.com/getcouragenow/sys/sys-core/service/go/pkg/filesvc/repo"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 
@@ -48,7 +49,15 @@ func NewModDiscoServiceConfig(l *logrus.Entry, db *coredb.CoreDB, discoCfg *serv
 
 func NewModDiscoService(cfg *ModDiscoServiceConfig) (*ModDiscoService, error) {
 	cfg.logger.Infoln("Initializing Mod-Disco Service")
-	discoRepo, err := repo.NewDiscoRepo(cfg.logger, cfg.store, cfg.Cfg, cfg.bus, cfg.authProxyClient)
+	fileDb, err := coredb.NewCoreDB(cfg.logger, &cfg.Cfg.ModDiscoConfig.SysFileConfig, nil)
+	if err != nil {
+		return nil, err
+	}
+	fileRepo, err := corefile.NewSysFileRepo(fileDb, cfg.logger)
+	if err != nil {
+		return nil, err
+	}
+	discoRepo, err := repo.NewDiscoRepo(cfg.logger, cfg.store, cfg.Cfg, cfg.bus, cfg.authProxyClient, fileRepo)
 	if err != nil {
 		return nil, err
 	}

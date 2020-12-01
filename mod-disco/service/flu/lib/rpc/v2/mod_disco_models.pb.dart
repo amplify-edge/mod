@@ -1290,6 +1290,8 @@ class DiscoProject extends $pb.GeneratedMessage {
     ..aOS(19, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'unitOfMeasures')
     ..aOM<$2.Timestamp>(20, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', subBuilder: $2.Timestamp.create)
     ..aOM<$2.Timestamp>(21, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updatedAt', subBuilder: $2.Timestamp.create)
+    ..pPS(22, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'imageResourceIds')
+    ..p<$core.List<$core.int>>(23, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'projectImages', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -1495,6 +1497,12 @@ class DiscoProject extends $pb.GeneratedMessage {
   void clearUpdatedAt() => clearField(21);
   @$pb.TagNumber(21)
   $2.Timestamp ensureUpdatedAt() => $_ensure(19);
+
+  @$pb.TagNumber(22)
+  $core.List<$core.String> get imageResourceIds => $_getList(20);
+
+  @$pb.TagNumber(23)
+  $core.List<$core.List<$core.int>> get projectImages => $_getList(21);
 }
 
 class NewDiscoProjectRequest extends $pb.GeneratedMessage {
@@ -1518,6 +1526,8 @@ class NewDiscoProjectRequest extends $pb.GeneratedMessage {
     ..aOS(17, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'unitOfMeasures')
     ..aOS(18, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountProjectRefName')
     ..aOS(19, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountOrgRefName')
+    ..pPS(20, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'imageFilepath')
+    ..p<$core.List<$core.int>>(21, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'imageUploadArrays', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -1708,6 +1718,12 @@ class NewDiscoProjectRequest extends $pb.GeneratedMessage {
   $core.bool hasSysAccountOrgRefName() => $_has(18);
   @$pb.TagNumber(19)
   void clearSysAccountOrgRefName() => clearField(19);
+
+  @$pb.TagNumber(20)
+  $core.List<$core.String> get imageFilepath => $_getList(19);
+
+  @$pb.TagNumber(21)
+  $core.List<$core.List<$core.int>> get imageUploadArrays => $_getList(20);
 }
 
 class UpdateDiscoProjectRequest extends $pb.GeneratedMessage {
@@ -1728,6 +1744,8 @@ class UpdateDiscoProjectRequest extends $pb.GeneratedMessage {
     ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'strategy')
     ..aOS(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'videoUrl')
     ..aOS(16, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'unitOfMeasures')
+    ..p<$core.List<$core.int>>(17, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'imageUploads', $pb.PbFieldType.PY)
+    ..pPS(18, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'imageResourceIds')
     ..hasRequiredFields = false
   ;
 
@@ -1899,6 +1917,12 @@ class UpdateDiscoProjectRequest extends $pb.GeneratedMessage {
   $core.bool hasUnitOfMeasures() => $_has(15);
   @$pb.TagNumber(16)
   void clearUnitOfMeasures() => clearField(16);
+
+  @$pb.TagNumber(17)
+  $core.List<$core.List<$core.int>> get imageUploads => $_getList(16);
+
+  @$pb.TagNumber(18)
+  $core.List<$core.String> get imageResourceIds => $_getList(17);
 }
 
 class IdRequest extends $pb.GeneratedMessage {

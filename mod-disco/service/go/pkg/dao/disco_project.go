@@ -29,6 +29,7 @@ type DiscoProject struct {
 	HistPrecedents         string   `json:"histPrecedents,omitempty" genji:"hist_precedents"`
 	Strategy               string   `json:"strategy,omitempty" genji:"strategy"`
 	VideoUrl               []string `json:"videoUrl,omitempty" genji:"video_url"`
+	ImageResourceIds       []string `json:"imageResourceId,omitempty" genji:"image_resource_ids"`
 	UnitOfMeasures         string   `json:"unitOfMeasures,omitempty" genji:"unit_of_measures"`
 	CreatedAt              int64    `json:"createdAt,omitempty" genji:"created_at"`
 	UpdatedAt              int64    `json:"updatedAt,omitempty" genji:"updated_at"`
@@ -71,10 +72,14 @@ func (m *ModDiscoDB) FromPkgDiscoProject(dp *discoRpc.DiscoProject) (*DiscoProje
 	}, nil
 }
 
-func (m *ModDiscoDB) FromNewPkgDiscoProject(dp *discoRpc.NewDiscoProjectRequest) (*DiscoProject, error) {
+func (m *ModDiscoDB) FromNewPkgDiscoProject(dp *discoRpc.NewDiscoProjectRequest, imageResourceIds []string) (*DiscoProject, error) {
 	vidUrl := []string{}
 	if dp.GetVideoUrl() == nil {
 		dp.VideoUrl = vidUrl
+	}
+	imgResourceIds := []string{}
+	if imageResourceIds == nil {
+		imageResourceIds = imgResourceIds
 	}
 	return &DiscoProject{
 		ProjectId:              sharedConfig.NewID(),
@@ -97,6 +102,7 @@ func (m *ModDiscoDB) FromNewPkgDiscoProject(dp *discoRpc.NewDiscoProjectRequest)
 		UnitOfMeasures:         dp.GetUnitOfMeasures(),
 		CreatedAt:              sharedConfig.CurrentTimestamp(),
 		UpdatedAt:              sharedConfig.CurrentTimestamp(),
+		ImageResourceIds:       imageResourceIds,
 	}, nil
 }
 
@@ -122,6 +128,7 @@ func (dp *DiscoProject) ToPkgDiscoProject() (*discoRpc.DiscoProject, error) {
 		UnitOfMeasures:         dp.UnitOfMeasures,
 		CreatedAt:              sharedConfig.UnixToUtcTS(dp.CreatedAt),
 		UpdatedAt:              sharedConfig.UnixToUtcTS(dp.UpdatedAt),
+		ImageResourceIds:       dp.ImageResourceIds,
 	}, nil
 }
 
@@ -202,8 +209,8 @@ func (m *ModDiscoDB) ListDiscoProject(filters map[string]interface{}, orderBy st
 	return discoProjects, &discoProjects[len(discoProjects)-1].CreatedAt, nil
 }
 
-func (m *ModDiscoDB) InsertDiscoProject(dp *discoRpc.NewDiscoProjectRequest) (*discoRpc.DiscoProject, error) {
-	newPkgDiscoReq, err := m.FromNewPkgDiscoProject(dp)
+func (m *ModDiscoDB) InsertDiscoProject(dp *discoRpc.NewDiscoProjectRequest, imageResourceIds []string) (*discoRpc.DiscoProject, error) {
+	newPkgDiscoReq, err := m.FromNewPkgDiscoProject(dp, imageResourceIds)
 	if err != nil {
 		return nil, err
 	}
@@ -291,6 +298,14 @@ func (m *ModDiscoDB) UpdateDiscoProject(udp *discoRpc.UpdateDiscoProjectRequest)
 	} else {
 		dp.VideoUrl = append(dp.VideoUrl, udp.GetVideoUrl())
 		filterParam.Params["video_url"] = dp.VideoUrl
+	}
+	if udp.GetImageResourceIds() == nil {
+		delete(filterParam.Params, "image_resource_ids")
+	} else {
+		for _, v := range dp.ImageResourceIds {
+			dp.ImageResourceIds = append(dp.ImageResourceIds, v)
+		}
+		filterParam.Params["image_resource_ids"] = dp.ImageResourceIds
 	}
 	if udp.GetUnitOfMeasures() == "" {
 		delete(filterParam.Params, "unit_of_measures")
