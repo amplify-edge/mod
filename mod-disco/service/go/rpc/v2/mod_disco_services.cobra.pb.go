@@ -6,10 +6,10 @@ import (
 	client "github.com/getcouragenow/protoc-gen-cobra/client"
 	flag "github.com/getcouragenow/protoc-gen-cobra/flag"
 	iocodec "github.com/getcouragenow/protoc-gen-cobra/iocodec"
-	empty "github.com/golang/protobuf/ptypes/empty"
 	cobra "github.com/spf13/cobra"
 	grpc "google.golang.org/grpc"
 	proto "google.golang.org/protobuf/proto"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 func SurveyServiceClientCommand(options ...client.Option) *cobra.Command {
@@ -831,7 +831,7 @@ func _SurveyServiceDeleteDiscoProjectCommand(cfg *client.Config) *cobra.Command 
 }
 
 func _SurveyServiceGenTempIdCommand(cfg *client.Config) *cobra.Command {
-	req := &empty.Empty{}
+	req := &emptypb.Empty{}
 
 	cmd := &cobra.Command{
 		Use:    cfg.CommandNamer("GenTempId"),
@@ -849,7 +849,7 @@ func _SurveyServiceGenTempIdCommand(cfg *client.Config) *cobra.Command {
 			}
 			return client.RoundTrip(cmd.Context(), cfg, func(cc grpc.ClientConnInterface, in iocodec.Decoder, out iocodec.Encoder) error {
 				cli := NewSurveyServiceClient(cc)
-				v := &empty.Empty{}
+				v := &emptypb.Empty{}
 
 				if err := in(v); err != nil {
 					return err

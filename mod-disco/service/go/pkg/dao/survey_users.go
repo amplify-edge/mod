@@ -177,6 +177,11 @@ func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*disco
 	}
 	if sp.GetSupportRoleValues() != nil && len(sp.GetSupportRoleValues()) != 0 {
 		for _, srv := range sp.GetSupportRoleValues() {
+			supportRoleType, err := m.GetSupportRoleType(srv.GetSupportRoleTypeRefId(), srv.GetSupportRoleTypeRefName())
+			if err != nil {
+				return nil, err
+			}
+			srv.SupportRoleTypeRefId = supportRoleType.Id
 			srv.SurveyUserRefId = suser.SurveyUserId
 			if err = m.InsertFromNewSupportRoleValue(srv); err != nil {
 				return nil, err
@@ -184,14 +189,19 @@ func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*disco
 		}
 	}
 
-	if sp.GetUserNeedValues() != nil && len(sp.GetUserNeedValues()) != 0 {
+	// if sp.GetUserNeedValues() != nil && len(sp.GetUserNeedValues()) != 0 {
 		for _, srv := range sp.GetUserNeedValues() {
+			userNeedsType, err := m.GetUserNeedsType(srv.GetUserNeedsTypeRefId(), srv.GetUserNeedsTypeRefName())
+			if err != nil {
+				return nil, err
+			}
+			srv.UserNeedsTypeRefId = userNeedsType.Id
 			srv.SurveyUserRefId = suser.SurveyUserId
 			if err = m.InsertFromNewUserNeedsValue(srv); err != nil {
 				return nil, err
 			}
 		}
-	}
+	// }
 
 	daoSurvey, err := m.GetSurveyUser(map[string]interface{}{"survey_user_id": newPkgSurveyUser.SurveyUserId})
 	if err != nil {

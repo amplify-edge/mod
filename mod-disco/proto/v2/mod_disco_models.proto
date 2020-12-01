@@ -357,4 +357,5 @@ message StatisticResponse {
   repeated SupportRoleValuePlusAccount support_role_values_plus_account = 1;
   repeated UserNeedsValuePlusAccount user_need_values_plus_account = 2;
   string next_page_id = 3;
+  int64 total_count = 4;
 }

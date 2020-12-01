@@ -176,6 +176,12 @@ class SurveyProjectViewModel extends BaseModel {
         }
       },
       onPressedYes: () {
+        if (_surveyUser.userNeedValues.isEmpty) {
+          _surveyUser.userNeedValues.addAll(_untList);
+        } else {
+          _surveyUser.userNeedValues.clear();
+          _surveyUser.userNeedValues.addAll(_untList);
+        }
         Modular.to.pop();
         Modular.to.pushNamed(Modular.get<Paths>().supportRoles, arguments: {
           'surveyProjectList': _surveyProjects,

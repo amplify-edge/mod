@@ -378,6 +378,7 @@ const StatisticResponse$json = const {
     const {'1': 'support_role_values_plus_account', '3': 1, '4': 3, '5': 11, '6': '.v2.mod_disco.services.SupportRoleValuePlusAccount', '10': 'supportRoleValuesPlusAccount'},
     const {'1': 'user_need_values_plus_account', '3': 2, '4': 3, '5': 11, '6': '.v2.mod_disco.services.UserNeedsValuePlusAccount', '10': 'userNeedValuesPlusAccount'},
     const {'1': 'next_page_id', '3': 3, '4': 1, '5': 9, '10': 'nextPageId'},
+    const {'1': 'total_count', '3': 4, '4': 1, '5': 3, '10': 'totalCount'},
   ],
 };
 

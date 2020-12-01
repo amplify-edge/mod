@@ -87,19 +87,37 @@ class DashboardDetailViewModel extends BaseModel {
     });
   }
 
-  void _toggleselectedCondData(String id, bool val) {
+  Future<void> _toggleSelectedCondData(String id, bool val) async {
     _selectedCondData.forEach((key, value) {
       key == id ? _selectedCondData[key] = val : _selectedCondData[key] = false;
     });
+    final resp = await SurveyUserRepo.getDashboardTable(
+      currentPageId: '',
+      tableName: 'user_need_values',
+      filters: {
+        'user_needs_type_ref_id': id,
+      },
+      orderBy: 'id',
+    );
+    print('Statistics response: $resp');
     notifyListeners();
   }
 
-  void _toggleSelectedRolesData(String id, bool val) {
+  Future<void> _toggleSelectedRolesData(String id, bool val) async {
     _selectedRolesData.forEach((key, value) {
       key == id
           ? _selectedRolesData[key] = val
           : _selectedRolesData[key] = false;
     });
+    final resp = await SurveyUserRepo.getDashboardTable(
+      currentPageId: '',
+      tableName: 'support_role_values',
+      filters: {
+        'support_role_type_ref_id': id,
+      },
+      orderBy: 'id',
+    );
+    print('Statistics response: $resp');
     notifyListeners();
   }
 
@@ -113,7 +131,7 @@ class DashboardDetailViewModel extends BaseModel {
               conditionsFilterList.add(
                 FilterCheckbox(
                   checkboxVal: _selectedCondData[unt.id],
-                  onChanged: (val) => _toggleselectedCondData(unt.id, val),
+                  onChanged: (val) async => await _toggleSelectedCondData(unt.id, val),
                   description: unt.description,
                 ),
               );
@@ -124,7 +142,7 @@ class DashboardDetailViewModel extends BaseModel {
               conditionsFilterList.add(
                 FilterCheckbox(
                   checkboxVal: _selectedCondData[unt.id],
-                  onChanged: (val) => _toggleselectedCondData(unt.id, val),
+                  onChanged: (val) async => await _toggleSelectedCondData(unt.id, val),
                   description: unt.description,
                 ),
               );
@@ -144,7 +162,7 @@ class DashboardDetailViewModel extends BaseModel {
                   children: v.map((unt) {
                     return FilterCheckbox(
                       checkboxVal: _selectedCondData[unt.id],
-                      onChanged: (val) => _toggleselectedCondData(unt.id, val),
+                      onChanged: (val) async => await _toggleSelectedCondData(unt.id, val),
                       description: unt.comment,
                     );
                   }).toList(),
@@ -177,7 +195,7 @@ class DashboardDetailViewModel extends BaseModel {
           rolesFilterList.add(
             FilterCheckbox(
               checkboxVal: _selectedRolesData[srt.id],
-              onChanged: (val) => _toggleSelectedRolesData(srt.id, val),
+              onChanged: (val) async => await _toggleSelectedRolesData(srt.id, val),
               description: srt.description,
             ),
           );

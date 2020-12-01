@@ -2689,6 +2689,7 @@ class StatisticResponse extends $pb.GeneratedMessage {
     ..pc<SupportRoleValuePlusAccount>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportRoleValuesPlusAccount', $pb.PbFieldType.PM, subBuilder: SupportRoleValuePlusAccount.create)
     ..pc<UserNeedsValuePlusAccount>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedValuesPlusAccount', $pb.PbFieldType.PM, subBuilder: UserNeedsValuePlusAccount.create)
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPageId')
+    ..aInt64(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'totalCount')
     ..hasRequiredFields = false
   ;
 
@@ -2729,5 +2730,14 @@ class StatisticResponse extends $pb.GeneratedMessage {
   $core.bool hasNextPageId() => $_has(2);
   @$pb.TagNumber(3)
   void clearNextPageId() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $fixnum.Int64 get totalCount => $_getI64(3);
+  @$pb.TagNumber(4)
+  set totalCount($fixnum.Int64 v) { $_setInt64(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasTotalCount() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearTotalCount() => clearField(4);
 }
 

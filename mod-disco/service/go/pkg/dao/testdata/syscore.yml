@@ -4,16 +4,22 @@
   "productName": "SOME_PRODUCT"
   "senderMail": "gutterbacon@example.com"
   "senderName": "gutterbacon"
-  "sendgridApiKey": "BLAHBLAH"
+  "sendgrid":
+    "apiKey": "SENDGRID_API_KEY_HERE"
+  "smtp":
+    "email": "winwisely268@gmail.com"
+    "host": "smtp.gmail.com"
+    "password": "blablabla"
+    "port": 465
   "troubleContact": "SOME_TROUBLESHOOT_CONTACT_HERE"
 "sysCoreConfig":
   "cron":
-    "backupDir": "./db/backup"
+    "backupDir": "./db/mod/backup"
     "backupSchedule": "@daily"
     "rotateSchedule": "@every 24h"
   "db":
-    "dbDir": "./db"
+    "dbDir": "./db/mod"
     "deletePrevious": true
-    "encryptKey": "yYz8Xjb4HBn4irGQpBWulURjQk2XmwES"
-    "name": "gcn.db"
+    "encryptKey": "testEncryptKey"
+    "name": "disco.db"
     "rotationDuration": 1

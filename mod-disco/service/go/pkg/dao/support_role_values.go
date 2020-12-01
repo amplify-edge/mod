@@ -165,8 +165,8 @@ func (m *ModDiscoDB) DeleteSupportRoleValue(id, SurveyUserRefId string) error {
 	return m.db.Exec(stmt, args...)
 }
 
-func (m *ModDiscoDB) CountRecords() (int, error) {
-	stmt, args, err := sq.Select("COUNT(*)").From(SupportRoleValuesTable).Where(sq.GtOrEq{"pledged": 8}).ToSql()
+func (m *ModDiscoDB) CountRecords() (int64, error) {
+	stmt, args, err := sq.Select("COUNT(*)").From(DiscoProjectTableName).ToSql()
 	if err != nil {
 		return 0, err
 	}
@@ -180,5 +180,5 @@ func (m *ModDiscoDB) CountRecords() (int, error) {
 		return 0, err
 	}
 	m.log.Warnf("COUNTS: %v", f)
-	return 0, nil
+	return f.V.(int64), nil
 }

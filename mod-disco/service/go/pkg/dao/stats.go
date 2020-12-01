@@ -4,6 +4,7 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
+
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
@@ -14,6 +15,10 @@ func (m *ModDiscoDB) GetStats(filters map[string]interface{}, limit, cursor int6
 	srvpas := []*discoRpc.SupportRoleValuePlusAccount{}
 	switch tableName {
 	case "user_need_values":
+		counts, err := m.countValues(filters, UserNeedValuesTable)
+		if err != nil {
+			return nil, err
+		}
 		unvs, err := m.paginatedListUserNeedsValue(filters, orderBy, limit, cursor)
 		if err != nil {
 			return nil, err
@@ -35,14 +40,20 @@ func (m *ModDiscoDB) GetStats(filters map[string]interface{}, limit, cursor int6
 				SupportRoleValuesPlusAccount: srvpas,
 				UserNeedValuesPlusAccount:    unvpas,
 				NextPageId:                   unvpas[0].Id,
+				TotalCount:                   *counts,
 			}, nil
 		}
 		return &discoRpc.StatisticResponse{
 			SupportRoleValuesPlusAccount: srvpas,
 			UserNeedValuesPlusAccount:    unvpas,
 			NextPageId:                   unvpas[len(unvpas)-1].Id,
+			TotalCount:                   *counts,
 		}, nil
 	case "support_role_values":
+		counts, err := m.countValues(filters, SupportRoleValuesTable)
+		if err != nil {
+			return nil, err
+		}
 		srvs, err := m.paginatedListSupportRoleValue(filters, orderBy, limit, cursor)
 		if err != nil {
 			return nil, err
@@ -65,12 +76,14 @@ func (m *ModDiscoDB) GetStats(filters map[string]interface{}, limit, cursor int6
 				SupportRoleValuesPlusAccount: nil,
 				UserNeedValuesPlusAccount:    unvpas,
 				NextPageId:                   unvpas[0].Id,
+				TotalCount:                   *counts,
 			}, nil
 		}
 		return &discoRpc.StatisticResponse{
 			SupportRoleValuesPlusAccount: nil,
 			UserNeedValuesPlusAccount:    unvpas,
 			NextPageId:                   unvpas[len(unvpas)-1].Id,
+			TotalCount:                   *counts,
 		}, nil
 	default:
 		return nil, fmt.Errorf("unknown table")
@@ -125,4 +138,26 @@ func (m *ModDiscoDB) paginatedListSupportRoleValue(filters map[string]interface{
 	})
 	_ = res.Close()
 	return srvs, nil
+}
+
+func (m *ModDiscoDB) countValues(filters map[string]interface{}, tableName string) (*int64, error) {
+	baseStmt := sq.Select("COUNT(*)").
+		From(tableName)
+	for k, v := range filters {
+		baseStmt = baseStmt.Where(sq.Like{k: m.BuildSearchQuery(v.(string))})
+	}
+	stmt, args, err := baseStmt.ToSql()
+	if err != nil {
+		return nil, err
+	}
+	doc, err := m.db.QueryOne(stmt, args...)
+	if err != nil {
+		return nil, err
+	}
+	f, err := doc.Doc.GetByField("COUNT(*")
+	if err != nil {
+		return nil, err
+	}
+	v := f.V.(int64)
+	return &v, nil
 }

@@ -58,7 +58,7 @@ var (
 func testInsertDiscoProject(t *testing.T) {
 	t.Log("on inserting new disco projects")
 	for _, dp := range newDiscoProjects {
-		discoProject, err := mdb.InsertDiscoProject(dp)
+		discoProject, err := mdb.InsertDiscoProject(dp, nil)
 		assert.NoError(t, err)
 		discoProjects = append(discoProjects, discoProject)
 	}

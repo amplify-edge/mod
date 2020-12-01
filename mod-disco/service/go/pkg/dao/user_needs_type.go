@@ -84,10 +84,18 @@ func (m *ModDiscoDB) InsertUserNeedsType(srt *UserNeedsType) error {
 	return m.db.Exec(stmt, args...)
 }
 
-func (m *ModDiscoDB) GetUserNeedsType(id string) (*UserNeedsType, error) {
+func (m *ModDiscoDB) GetUserNeedsType(id, name string) (*UserNeedsType, error) {
 	var srt UserNeedsType
-	stmt := fmt.Sprintf("SELECT %s FROM %s WHERE id = ?", m.userNeedTypeColumns, UserNeedTypesTable)
-	args := []interface{}{id}
+	var stmt string
+	var args []interface{}
+	if id != "" {
+		stmt = fmt.Sprintf("SELECT %s FROM %s WHERE id = ?", m.userNeedTypeColumns, UserNeedTypesTable)
+		args = []interface{}{id}
+	}
+	if name != "" {
+		stmt = fmt.Sprintf("SELECT %s FROM %s WHERE name = ?", m.userNeedTypeColumns, UserNeedTypesTable)
+		args = []interface{}{name}
+	}
 	doc, err := m.db.QueryOne(stmt, args...)
 	if err != nil {
 		return nil, err
@@ -130,7 +138,7 @@ func (m *ModDiscoDB) ListUserNeedsType(filters map[string]interface{}) ([]*UserN
 }
 
 func (m *ModDiscoDB) UpdateUserNeedsType(usrt *UserNeedsType) error {
-	srt, err := m.GetUserNeedsType(usrt.Id)
+	srt, err := m.GetUserNeedsType(usrt.Id, "")
 	if err != nil {
 		return err
 	}

@@ -235,7 +235,7 @@ func (m *ModDiscoDB) UpdateSurveyProject(usp *discoRpc.UpdateSurveyProjectReques
 			if err := json.Unmarshal(srvBytes, &s); err != nil {
 				return err
 			}
-			actualSrv, err := m.GetSupportRoleType(s.Id)
+			actualSrv, err := m.GetSupportRoleType(s.Id, "")
 			if err != nil {
 				if err.Error() == "document not found" {
 					s.SurveyProjectRefId = sp.SurveyProjectId
@@ -265,7 +265,7 @@ func (m *ModDiscoDB) UpdateSurveyProject(usp *discoRpc.UpdateSurveyProjectReques
 			if err := json.Unmarshal(untBytes, &u); err != nil {
 				return err
 			}
-			actualUnv, err := m.GetUserNeedsType(u.Id)
+			actualUnv, err := m.GetUserNeedsType(u.Id, "")
 			if err != nil {
 				if err.Error() == "document not found" {
 					u.SurveyProjectRefId = sp.SurveyProjectId

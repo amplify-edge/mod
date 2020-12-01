@@ -70,6 +70,9 @@ class SupportRoleViewModel extends BaseModel {
     _supportRoleMap.forEach((key, value) {
       _srvList.add(value);
     });
+    print("SUPPORT ROLE MAP: $_supportRoleMap");
+    print("SUPPORT ROLE LIST: $_srvList");
+    print("USER NEEDS VALUE LIST: ${_nsuReq.userNeedValues}");
     final _userRole = UserRoles()
       ..role = Roles.USER
       ..projectId = _project.id
