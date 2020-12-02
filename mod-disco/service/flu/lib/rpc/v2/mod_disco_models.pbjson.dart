@@ -133,7 +133,6 @@ const UserNeedsValue$json = const {
     const {'1': 'survey_user_ref_id', '3': 2, '4': 1, '5': 9, '10': 'surveyUserRefId'},
     const {'1': 'user_needs_type_ref_id', '3': 3, '4': 1, '5': 9, '10': 'userNeedsTypeRefId'},
     const {'1': 'comments', '3': 4, '4': 1, '5': 9, '10': 'comments'},
-    const {'1': 'pledged', '3': 5, '4': 1, '5': 4, '10': 'pledged'},
   ],
 };
 
@@ -164,7 +163,6 @@ const NewUserNeedsValue$json = const {
     const {'1': 'user_needs_type_ref_id', '3': 3, '4': 1, '5': 9, '10': 'userNeedsTypeRefId'},
     const {'1': 'user_needs_type_ref_name', '3': 4, '4': 1, '5': 9, '10': 'userNeedsTypeRefName'},
     const {'1': 'comments', '3': 5, '4': 1, '5': 9, '10': 'comments'},
-    const {'1': 'pledged', '3': 6, '4': 1, '5': 4, '10': 'pledged'},
   ],
 };
 

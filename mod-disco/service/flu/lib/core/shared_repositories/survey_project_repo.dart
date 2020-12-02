@@ -178,12 +178,10 @@ class SurveyProjectRepo {
     @required String surveyUserRefName,
     @required String comment,
     @required String userNeedsTypeRefId,
-    int pledged = 1,
   }) {
     final req = NewUserNeedsValue()
       ..userNeedsTypeRefId = userNeedsTypeRefId
-      ..surveyUserRefName = surveyUserRefName
-      ..pledged = Int64(pledged);
+      ..surveyUserRefName = surveyUserRefName;
     if (comment != null) {
       req..comments = comment;
     }
@@ -197,7 +195,7 @@ class SurveyProjectRepo {
   }) {
     final req = NewSupportRoleValue()
       ..pledged = Int64(pledged)
-      ..surveyUserRefName =surveyUserRefName
+      ..surveyUserRefName = surveyUserRefName
       ..supportRoleTypeRefId = supportRoleTypeRefId;
     return req;
   }

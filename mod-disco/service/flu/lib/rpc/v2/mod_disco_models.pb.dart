@@ -904,7 +904,6 @@ class UserNeedsValue extends $pb.GeneratedMessage {
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUserRefId')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedsTypeRefId')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comments')
-    ..a<$fixnum.Int64>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
@@ -966,15 +965,6 @@ class UserNeedsValue extends $pb.GeneratedMessage {
   $core.bool hasComments() => $_has(3);
   @$pb.TagNumber(4)
   void clearComments() => clearField(4);
-
-  @$pb.TagNumber(5)
-  $fixnum.Int64 get pledged => $_getI64(4);
-  @$pb.TagNumber(5)
-  set pledged($fixnum.Int64 v) { $_setInt64(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasPledged() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearPledged() => clearField(5);
 }
 
 class UserNeedsValuePlusAccount extends $pb.GeneratedMessage {
@@ -1116,7 +1106,6 @@ class NewUserNeedsValue extends $pb.GeneratedMessage {
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedsTypeRefId')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedsTypeRefName')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comments')
-    ..a<$fixnum.Int64>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
@@ -1187,15 +1176,6 @@ class NewUserNeedsValue extends $pb.GeneratedMessage {
   $core.bool hasComments() => $_has(4);
   @$pb.TagNumber(5)
   void clearComments() => clearField(5);
-
-  @$pb.TagNumber(6)
-  $fixnum.Int64 get pledged => $_getI64(5);
-  @$pb.TagNumber(6)
-  set pledged($fixnum.Int64 v) { $_setInt64(5, v); }
-  @$pb.TagNumber(6)
-  $core.bool hasPledged() => $_has(5);
-  @$pb.TagNumber(6)
-  void clearPledged() => clearField(6);
 }
 
 class SurveyProject extends $pb.GeneratedMessage {

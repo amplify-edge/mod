@@ -127,7 +127,6 @@ message UserNeedsValue {
   string survey_user_ref_id = 2;
   string user_needs_type_ref_id = 3;
   string comments = 4;
-  uint64 pledged = 5;
 }
 
 message UserNeedsValuePlusAccount {
@@ -154,8 +153,6 @@ message NewUserNeedsValue {
   string user_needs_type_ref_name = 4;
   // @inject_tag: fake:"{sentence:4}" yaml:"comments,omitempty"
   string comments = 5;
-  // @inject_tag: fake:"{number:1,100}" yaml:"pledged,omitempty"
-  uint64 pledged = 6;
 }
 
 message SurveyProject {

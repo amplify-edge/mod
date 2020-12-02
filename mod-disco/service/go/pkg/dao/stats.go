@@ -4,6 +4,7 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
+	"strconv"
 
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
@@ -39,14 +40,14 @@ func (m *ModDiscoDB) GetStats(filters map[string]interface{}, limit, cursor int6
 			return &discoRpc.StatisticResponse{
 				SupportRoleValuesPlusAccount: srvpas,
 				UserNeedValuesPlusAccount:    unvpas,
-				NextPageId:                   unvpas[0].Id,
+				NextPageId:                   strconv.FormatInt(sharedConfig.TsToUnixUTC(unvpas[0].CreatedAt), 10),
 				TotalCount:                   *counts,
 			}, nil
 		}
 		return &discoRpc.StatisticResponse{
 			SupportRoleValuesPlusAccount: srvpas,
 			UserNeedValuesPlusAccount:    unvpas,
-			NextPageId:                   unvpas[len(unvpas)-1].Id,
+			NextPageId:                   strconv.FormatInt(sharedConfig.TsToUnixUTC(unvpas[len(unvpas)-1].CreatedAt), 10),
 			TotalCount:                   *counts,
 		}, nil
 	case "support_role_values":
@@ -67,22 +68,22 @@ func (m *ModDiscoDB) GetStats(filters map[string]interface{}, limit, cursor int6
 				Id:                    srv.Id,
 				SysAccountUserRefName: surveyUser.SysAccountAccountRefId,
 				Pledged:               srv.Pledged,
-				CreatedAt:             sharedConfig.UnixToUtcTS(surveyUser.CreatedAt),
+				CreatedAt:             sharedConfig.UnixToUtcTS(srv.CreatedAt),
 			}
 			srvpas = append(srvpas, srvpa)
 		}
-		if len(unvpas) == 1 {
+		if len(srvpas) == 1 {
 			return &discoRpc.StatisticResponse{
-				SupportRoleValuesPlusAccount: nil,
+				SupportRoleValuesPlusAccount: srvpas,
 				UserNeedValuesPlusAccount:    unvpas,
-				NextPageId:                   unvpas[0].Id,
+				NextPageId:                   strconv.FormatInt(sharedConfig.TsToUnixUTC(srvpas[0].CreatedAt), 10),
 				TotalCount:                   *counts,
 			}, nil
 		}
 		return &discoRpc.StatisticResponse{
-			SupportRoleValuesPlusAccount: nil,
+			SupportRoleValuesPlusAccount: srvpas,
 			UserNeedValuesPlusAccount:    unvpas,
-			NextPageId:                   unvpas[len(unvpas)-1].Id,
+			NextPageId:                   strconv.FormatInt(sharedConfig.TsToUnixUTC(srvpas[len(srvpas)-1].CreatedAt), 10),
 			TotalCount:                   *counts,
 		}, nil
 	default:
@@ -95,7 +96,7 @@ func (m *ModDiscoDB) paginatedListUserNeedsValue(filters map[string]interface{},
 	baseStmt := sysCoreSvc.BaseQueryBuilder(filters, UserNeedValuesTable, m.userNeedValueColumns, func(k string, v interface{}) sysCoreSvc.StmtIFacer {
 		return sq.Like{k: m.BuildSearchQuery(v.(string))}
 	})
-	stmt, args, err := sysCoreSvc.ListSelectStatement(baseStmt, orderBy, limit, &cursor, "id")
+	stmt, args, err := sysCoreSvc.ListSelectStatement(baseStmt, orderBy, limit, &cursor, DefaultCursor)
 	if err != nil {
 		return nil, err
 	}
@@ -115,12 +116,12 @@ func (m *ModDiscoDB) paginatedListUserNeedsValue(filters map[string]interface{},
 	return userNeedValues, nil
 }
 
-func (m *ModDiscoDB) paginatedListSupportRoleValue(filters map[string]interface{}, orderBy string, limit, cursor int64) ([]*SupportRoleValue, error) {
+func (m *ModDiscoDB) paginatedListSupportRoleValue(filters map[string]interface{}, orderBy string, limit int64, cursor int64) ([]*SupportRoleValue, error) {
 	var srvs []*SupportRoleValue
 	baseStmt := sysCoreSvc.BaseQueryBuilder(filters, SupportRoleValuesTable, m.supportRoleValueColumns, func(k string, v interface{}) sysCoreSvc.StmtIFacer {
 		return sq.Like{k: m.BuildSearchQuery(v.(string))}
 	})
-	stmt, args, err := sysCoreSvc.ListSelectStatement(baseStmt, orderBy, limit, &cursor, "id")
+	stmt, args, err := sysCoreSvc.ListSelectStatement(baseStmt, orderBy, limit, &cursor, DefaultCursor)
 	if err != nil {
 		return nil, err
 	}
@@ -154,7 +155,7 @@ func (m *ModDiscoDB) countValues(filters map[string]interface{}, tableName strin
 	if err != nil {
 		return nil, err
 	}
-	f, err := doc.Doc.GetByField("COUNT(*")
+	f, err := doc.Doc.GetByField("COUNT(*)")
 	if err != nil {
 		return nil, err
 	}

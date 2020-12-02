@@ -15,7 +15,8 @@ type UserNeedsValue struct {
 	SurveyUserRefId    string `json:"surveyUserRefId" genji:"survey_user_ref_id" coredb:"not_null"`
 	UserNeedsTypeRefId string `json:"userNeedsTypeRefId" genji:"user_needs_type_ref_id" coredb:"not_null"`
 	Comment            string `json:"comment" genji:"comment"`
-	Pledged            uint64 `json:"pledged" genji:"pledged"`
+	CreatedAt          int64  `json:"createdAt" genji:"created_at"`
+	UpdatedAt          int64  `json:"updatedAt" genji:"updated_at"`
 }
 
 func NewUserNeedsValue(id, surveyUserRefId, userNeedsTypeRefId, comment string, pledged uint64) *UserNeedsValue {
@@ -28,7 +29,8 @@ func NewUserNeedsValue(id, surveyUserRefId, userNeedsTypeRefId, comment string, 
 		SurveyUserRefId:    surveyUserRefId,
 		UserNeedsTypeRefId: userNeedsTypeRefId,
 		Comment:            comment,
-		Pledged:            pledged,
+		CreatedAt:          sharedConfig.CurrentTimestamp(),
+		UpdatedAt:          sharedConfig.CurrentTimestamp(),
 	}
 }
 
@@ -38,7 +40,6 @@ func (s *UserNeedsValue) ToProto() *discoRpc.UserNeedsValue {
 		SurveyUserRefId:    s.SurveyUserRefId,
 		UserNeedsTypeRefId: s.UserNeedsTypeRefId,
 		Comments:           s.Comment,
-		Pledged:            s.Pledged,
 	}
 }
 
@@ -48,7 +49,8 @@ func (m *ModDiscoDB) InsertFromNewUserNeedsValue(in *discoRpc.NewUserNeedsValue)
 		SurveyUserRefId:    in.GetSurveyUserRefId(),
 		UserNeedsTypeRefId: in.GetUserNeedsTypeRefId(),
 		Comment:            in.GetComments(),
-		Pledged:            in.GetPledged(),
+		CreatedAt:          sharedConfig.CurrentTimestamp(),
+		UpdatedAt:          sharedConfig.CurrentTimestamp(),
 	}
 	err := m.InsertUserNeedsValue(nunt)
 	if err != nil {
@@ -120,7 +122,7 @@ func (m *ModDiscoDB) ListUserNeedsValue(filters map[string]interface{}) ([]*User
 		unvs = append(unvs, &unv)
 		return nil
 	})
-	res.Close()
+	_ = res.Close()
 	if err != nil {
 		return nil, err
 	}
@@ -139,6 +141,7 @@ func (m *ModDiscoDB) UpdateUserNeedsValue(uunv *UserNeedsValue) error {
 	delete(filterParam.Params, "id")
 	delete(filterParam.Params, "survey_user_ref_id")
 	delete(filterParam.Params, "user_needs_type_ref_id")
+	filterParam.Params["updated_at"] = sharedConfig.CurrentTimestamp()
 	stmt, args, err := sq.Update(UserNeedValuesTable).SetMap(filterParam.Params).
 		Where(sq.Eq{"id": uunv.Id}).ToSql()
 	if err != nil {

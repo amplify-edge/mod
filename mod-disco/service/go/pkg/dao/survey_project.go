@@ -4,15 +4,13 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
+	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/segmentio/encoding/json"
 	log "github.com/sirupsen/logrus"
-	"google.golang.org/protobuf/types/known/timestamppb"
-
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
-	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
 type SurveyProject struct {
@@ -37,8 +35,18 @@ func (m *ModDiscoDB) FromPkgSurveyProject(sp *discoRpc.SurveyProject) (*SurveyPr
 		SurveyProjectId:        surveyProjectId,
 		SurveyProjectName:      sp.SurveyProjectName,
 		SysAccountProjectRefId: sp.SysAccountProjectRefId,
-		CreatedAt:              sp.CreatedAt.Seconds,
-		UpdatedAt:              sp.UpdatedAt.Seconds,
+		CreatedAt:              sharedConfig.TsToUnixUTC(sp.GetCreatedAt()),
+		UpdatedAt:              sharedConfig.TsToUnixUTC(sp.GetUpdatedAt()),
+	}, nil
+}
+
+func (m *ModDiscoDB) FromNewPkgSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (*SurveyProject, error) {
+	return &SurveyProject{
+		SurveyProjectId:        sharedConfig.NewID(),
+		SurveyProjectName:      sp.SurveyProjectName,
+		SysAccountProjectRefId: sp.SysAccountProjectRefId,
+		CreatedAt:              sharedConfig.CurrentTimestamp(),
+		UpdatedAt:              sharedConfig.CurrentTimestamp(),
 	}, nil
 }
 
@@ -151,14 +159,7 @@ func (m *ModDiscoDB) ListSurveyProject(filters map[string]interface{}, orderBy s
 }
 
 func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (*discoRpc.SurveyProject, error) {
-	newPkgSurveyProject := &discoRpc.SurveyProject{
-		SurveyProjectId:        sharedConfig.NewID(),
-		SurveyProjectName:      sp.GetSurveyProjectName(),
-		SysAccountProjectRefId: sp.SysAccountProjectRefId,
-		CreatedAt:              timestamppb.Now(),
-		UpdatedAt:              timestamppb.Now(),
-	}
-	sproj, err := m.FromPkgSurveyProject(newPkgSurveyProject)
+	sproj, err := m.FromNewPkgSurveyProject(sp)
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +204,7 @@ func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (
 		}
 	}
 
-	dsp, err := m.GetSurveyProject(map[string]interface{}{"survey_project_id": newPkgSurveyProject.SurveyProjectId})
+	dsp, err := m.GetSurveyProject(map[string]interface{}{"survey_project_id": sproj.SurveyProjectId})
 	if err != nil {
 		return nil, err
 	}

@@ -50,9 +50,7 @@ func (md *ModDiscoRepo) GetSurveyUser(ctx context.Context, in *discoRpc.IdReques
 	if in.GetSysAccountProjectId() != "" {
 		params["sys_account_project_ref_id"] = in.GetSysAccountProjectId()
 	}
-	sp, err := md.store.GetSurveyUser(map[string]interface{}{
-		"survey_user_id": in.SurveyUserId,
-	})
+	sp, err := md.store.GetSurveyUser(params)
 	if err != nil {
 		return nil, err
 	}
