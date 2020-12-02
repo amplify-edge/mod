@@ -129,13 +129,7 @@ message UserNeedsValue {
   string comments = 4;
 }
 
-message UserNeedsValuePlusAccount {
-  string id = 1;
-  string sys_account_user_ref_name = 2;
-  google.protobuf.Timestamp created_at = 3;
-}
-
-message SupportRoleValuePlusAccount {
+message SurveyValuePlusAccount {
   string id = 1;
   string sys_account_user_ref_name = 2;
   uint64 pledged = 3;
@@ -352,8 +346,7 @@ message StatisticRequest {
 }
 
 message StatisticResponse {
-  repeated SupportRoleValuePlusAccount support_role_values_plus_account = 1;
-  repeated UserNeedsValuePlusAccount user_need_values_plus_account = 2;
-  string next_page_id = 3;
-  int64 total_count = 4;
+  repeated SurveyValuePlusAccount survey_value_plus_account = 1;
+  string next_page_id = 2;
+  int64 total_count = 3;
 }

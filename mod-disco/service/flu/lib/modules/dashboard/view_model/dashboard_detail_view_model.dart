@@ -8,10 +8,13 @@ import 'package:mod_disco/core/shared_widgets/filter_widget.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
 import 'package:collection/collection.dart';
+import 'package:fixnum/fixnum.dart';
 
 class DashboardDetailViewModel extends BaseModel {
   String _orgId;
   String _projectId;
+  String _errMsg;
+  bool _hasError;
   List<SurveyProject> _surveyProjects = [];
   Map<String, List<SurveyUser>> _surveyUserMap = {};
   Map<String, Map<String, List<UserNeedsType>>> _userNeedsQuestionMap =
@@ -20,6 +23,21 @@ class DashboardDetailViewModel extends BaseModel {
       Map<String, Map<String, List<SupportRoleType>>>();
   Map<String, bool> _selectedCondData = {};
   Map<String, bool> _selectedRolesData = {};
+  StatisticResponse _statisticsResponse;
+  int _totalCount = 0;
+  int _rowsPerPage = 20;
+  Int64 _nextPageId = Int64.ZERO;
+
+  int get rowsPerPage => _rowsPerPage;
+
+  int get totalCount => _totalCount;
+
+  String get errMsg => _errMsg;
+
+  bool get hasError => _hasError;
+
+  List<SurveyValuePlusAccount> get surveyDatas => _statisticsResponse?.surveyValuePlusAccount;
+
 
   DashboardDetailViewModel(
       {@required String orgId, @required String projectId}) {
@@ -52,22 +70,6 @@ class DashboardDetailViewModel extends BaseModel {
     setLoading(false);
   }
 
-  Future<void> _fetchRelatedSurveyUsers() async {
-    setLoading(true);
-    _surveyProjects.forEach((sp) async {
-      await SurveyUserRepo.listSurveyUsers(
-        surveyProjectId: sp.surveyProjectId,
-        orderBy: 'survey_user_id',
-      ).then((res) {
-        if (res != null && res.isNotEmpty) {
-          _surveyUserMap[sp.surveyProjectId] = res;
-        }
-      });
-    });
-    notifyListeners();
-    setLoading(false);
-  }
-
   Future<void> fetchUserDatas() async {
     await _fetchSurveyProject();
     // await _fetchRelatedSurveyUsers();
@@ -87,6 +89,31 @@ class DashboardDetailViewModel extends BaseModel {
     });
   }
 
+  void _setStatisticsResp(StatisticResponse resp) {
+    _statisticsResponse = resp;
+    notifyListeners();
+  }
+
+  void _setTotalCount(Int64 val) {
+    _totalCount = val.toInt();
+    notifyListeners();
+  }
+
+  void _setErrMsg(String msg) {
+    _errMsg = msg;
+    notifyListeners();
+  }
+
+  void _setHasError(bool val) {
+    _hasError = val;
+    notifyListeners();
+  }
+
+  void setChangeRowsPerPage(int val) {
+    _rowsPerPage = val;
+    notifyListeners();
+  }
+
   Future<void> _toggleSelectedCondData(String id, bool val) async {
     _selectedCondData.forEach((key, value) {
       key == id ? _selectedCondData[key] = val : _selectedCondData[key] = false;
@@ -98,8 +125,12 @@ class DashboardDetailViewModel extends BaseModel {
         'user_needs_type_ref_id': id,
       },
       orderBy: 'id',
-    );
-    print('Statistics response: $resp');
+    ).catchError((e) {
+      _setErrMsg(e.toString());
+      _setHasError(true);
+    });
+    _setStatisticsResp(resp);
+    _setTotalCount(resp.totalCount);
     notifyListeners();
   }
 
@@ -116,8 +147,13 @@ class DashboardDetailViewModel extends BaseModel {
         'support_role_type_ref_id': id,
       },
       orderBy: 'id',
-    );
-    print('Statistics response: $resp');
+    ).catchError((e) {
+      _setErrMsg(e.toString());
+      _setHasError(true);
+    });
+    _setStatisticsResp(resp);
+    _setTotalCount(resp.totalCount);
+    print('Statistics response: $_statisticsResponse');
     notifyListeners();
   }
 
@@ -131,7 +167,8 @@ class DashboardDetailViewModel extends BaseModel {
               conditionsFilterList.add(
                 FilterCheckbox(
                   checkboxVal: _selectedCondData[unt.id],
-                  onChanged: (val) async => await _toggleSelectedCondData(unt.id, val),
+                  onChanged: (val) async =>
+                      await _toggleSelectedCondData(unt.id, val),
                   description: unt.description,
                 ),
               );
@@ -142,7 +179,8 @@ class DashboardDetailViewModel extends BaseModel {
               conditionsFilterList.add(
                 FilterCheckbox(
                   checkboxVal: _selectedCondData[unt.id],
-                  onChanged: (val) async => await _toggleSelectedCondData(unt.id, val),
+                  onChanged: (val) async =>
+                      await _toggleSelectedCondData(unt.id, val),
                   description: unt.description,
                 ),
               );
@@ -162,7 +200,8 @@ class DashboardDetailViewModel extends BaseModel {
                   children: v.map((unt) {
                     return FilterCheckbox(
                       checkboxVal: _selectedCondData[unt.id],
-                      onChanged: (val) async => await _toggleSelectedCondData(unt.id, val),
+                      onChanged: (val) async =>
+                          await _toggleSelectedCondData(unt.id, val),
                       description: unt.comment,
                     );
                   }).toList(),
@@ -195,7 +234,8 @@ class DashboardDetailViewModel extends BaseModel {
           rolesFilterList.add(
             FilterCheckbox(
               checkboxVal: _selectedRolesData[srt.id],
-              onChanged: (val) async => await _toggleSelectedRolesData(srt.id, val),
+              onChanged: (val) async =>
+                  await _toggleSelectedRolesData(srt.id, val),
               description: srt.description,
             ),
           );

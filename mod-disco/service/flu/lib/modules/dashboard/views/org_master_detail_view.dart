@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/modules/dashboard/view_model/dashboard_detail_view_model.dart';
 import 'package:mod_disco/modules/dashboard/view_model/dashboard_view_model.dart';
+import 'package:mod_disco/modules/dashboard/widgets/data_pane/data_pane.dart';
 import 'package:mod_disco/modules/dashboard/widgets/filter_pane.dart';
 
 // import 'package:mod_disco/modules/org_manager/orgs/data/org_model.dart';
@@ -162,11 +163,19 @@ class OrgMasterDetailView extends StatelessWidget {
                             // ? Container(child: Text('FilterPane here'))
                             : Offstage(),
                         SizedBox(width: 16),
-                        // Expanded(
-                        //     child: DataPane(
-                        //   sizingInfo: sizingInfo,
-                        //   model: model,
-                        // )),
+                        Expanded(
+                            child: DataPane(
+                          totalCount: model.totalCount,
+                          rowsPerPage: model.rowsPerPage,
+                          isLoading: model.isLoading,
+                          sizingInfo: sizingInfo,
+                          handleNext: () {},
+                          onRowsPerPageChanged: model.setChangeRowsPerPage,
+                          rowsOffset: 0,
+                          handlePrevious: () {},
+                          items: model.surveyDatas,
+                          onRefresh: () {},
+                        )),
                       ],
                     ),
                   ),

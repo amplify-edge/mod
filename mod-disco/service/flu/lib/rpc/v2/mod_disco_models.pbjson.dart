@@ -136,17 +136,8 @@ const UserNeedsValue$json = const {
   ],
 };
 
-const UserNeedsValuePlusAccount$json = const {
-  '1': 'UserNeedsValuePlusAccount',
-  '2': const [
-    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-    const {'1': 'sys_account_user_ref_name', '3': 2, '4': 1, '5': 9, '10': 'sysAccountUserRefName'},
-    const {'1': 'created_at', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
-  ],
-};
-
-const SupportRoleValuePlusAccount$json = const {
-  '1': 'SupportRoleValuePlusAccount',
+const SurveyValuePlusAccount$json = const {
+  '1': 'SurveyValuePlusAccount',
   '2': const [
     const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     const {'1': 'sys_account_user_ref_name', '3': 2, '4': 1, '5': 9, '10': 'sysAccountUserRefName'},
@@ -374,10 +365,9 @@ const StatisticRequest$json = const {
 const StatisticResponse$json = const {
   '1': 'StatisticResponse',
   '2': const [
-    const {'1': 'support_role_values_plus_account', '3': 1, '4': 3, '5': 11, '6': '.v2.mod_disco.services.SupportRoleValuePlusAccount', '10': 'supportRoleValuesPlusAccount'},
-    const {'1': 'user_need_values_plus_account', '3': 2, '4': 3, '5': 11, '6': '.v2.mod_disco.services.UserNeedsValuePlusAccount', '10': 'userNeedValuesPlusAccount'},
-    const {'1': 'next_page_id', '3': 3, '4': 1, '5': 9, '10': 'nextPageId'},
-    const {'1': 'total_count', '3': 4, '4': 1, '5': 3, '10': 'totalCount'},
+    const {'1': 'survey_value_plus_account', '3': 1, '4': 3, '5': 11, '6': '.v2.mod_disco.services.SurveyValuePlusAccount', '10': 'surveyValuePlusAccount'},
+    const {'1': 'next_page_id', '3': 2, '4': 1, '5': 9, '10': 'nextPageId'},
+    const {'1': 'total_count', '3': 3, '4': 1, '5': 3, '10': 'totalCount'},
   ],
 };
 

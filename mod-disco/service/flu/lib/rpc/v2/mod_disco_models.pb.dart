@@ -967,69 +967,8 @@ class UserNeedsValue extends $pb.GeneratedMessage {
   void clearComments() => clearField(4);
 }
 
-class UserNeedsValuePlusAccount extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserNeedsValuePlusAccount', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountUserRefName')
-    ..aOM<$2.Timestamp>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', subBuilder: $2.Timestamp.create)
-    ..hasRequiredFields = false
-  ;
-
-  UserNeedsValuePlusAccount._() : super();
-  factory UserNeedsValuePlusAccount() => create();
-  factory UserNeedsValuePlusAccount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UserNeedsValuePlusAccount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  UserNeedsValuePlusAccount clone() => UserNeedsValuePlusAccount()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  UserNeedsValuePlusAccount copyWith(void Function(UserNeedsValuePlusAccount) updates) => super.copyWith((message) => updates(message as UserNeedsValuePlusAccount)); // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UserNeedsValuePlusAccount create() => UserNeedsValuePlusAccount._();
-  UserNeedsValuePlusAccount createEmptyInstance() => create();
-  static $pb.PbList<UserNeedsValuePlusAccount> createRepeated() => $pb.PbList<UserNeedsValuePlusAccount>();
-  @$core.pragma('dart2js:noInline')
-  static UserNeedsValuePlusAccount getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserNeedsValuePlusAccount>(create);
-  static UserNeedsValuePlusAccount _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get id => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set id($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasId() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearId() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get sysAccountUserRefName => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set sysAccountUserRefName($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasSysAccountUserRefName() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearSysAccountUserRefName() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $2.Timestamp get createdAt => $_getN(2);
-  @$pb.TagNumber(3)
-  set createdAt($2.Timestamp v) { setField(3, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasCreatedAt() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearCreatedAt() => clearField(3);
-  @$pb.TagNumber(3)
-  $2.Timestamp ensureCreatedAt() => $_ensure(2);
-}
-
-class SupportRoleValuePlusAccount extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SupportRoleValuePlusAccount', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+class SurveyValuePlusAccount extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SurveyValuePlusAccount', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountUserRefName')
     ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
@@ -1037,28 +976,28 @@ class SupportRoleValuePlusAccount extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  SupportRoleValuePlusAccount._() : super();
-  factory SupportRoleValuePlusAccount() => create();
-  factory SupportRoleValuePlusAccount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory SupportRoleValuePlusAccount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  SurveyValuePlusAccount._() : super();
+  factory SurveyValuePlusAccount() => create();
+  factory SurveyValuePlusAccount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SurveyValuePlusAccount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  SupportRoleValuePlusAccount clone() => SupportRoleValuePlusAccount()..mergeFromMessage(this);
+  SurveyValuePlusAccount clone() => SurveyValuePlusAccount()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  SupportRoleValuePlusAccount copyWith(void Function(SupportRoleValuePlusAccount) updates) => super.copyWith((message) => updates(message as SupportRoleValuePlusAccount)); // ignore: deprecated_member_use
+  SurveyValuePlusAccount copyWith(void Function(SurveyValuePlusAccount) updates) => super.copyWith((message) => updates(message as SurveyValuePlusAccount)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static SupportRoleValuePlusAccount create() => SupportRoleValuePlusAccount._();
-  SupportRoleValuePlusAccount createEmptyInstance() => create();
-  static $pb.PbList<SupportRoleValuePlusAccount> createRepeated() => $pb.PbList<SupportRoleValuePlusAccount>();
+  static SurveyValuePlusAccount create() => SurveyValuePlusAccount._();
+  SurveyValuePlusAccount createEmptyInstance() => create();
+  static $pb.PbList<SurveyValuePlusAccount> createRepeated() => $pb.PbList<SurveyValuePlusAccount>();
   @$core.pragma('dart2js:noInline')
-  static SupportRoleValuePlusAccount getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SupportRoleValuePlusAccount>(create);
-  static SupportRoleValuePlusAccount _defaultInstance;
+  static SurveyValuePlusAccount getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SurveyValuePlusAccount>(create);
+  static SurveyValuePlusAccount _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get id => $_getSZ(0);
@@ -2676,10 +2615,9 @@ class StatisticRequest extends $pb.GeneratedMessage {
 
 class StatisticResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'StatisticResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
-    ..pc<SupportRoleValuePlusAccount>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportRoleValuesPlusAccount', $pb.PbFieldType.PM, subBuilder: SupportRoleValuePlusAccount.create)
-    ..pc<UserNeedsValuePlusAccount>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedValuesPlusAccount', $pb.PbFieldType.PM, subBuilder: UserNeedsValuePlusAccount.create)
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPageId')
-    ..aInt64(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'totalCount')
+    ..pc<SurveyValuePlusAccount>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyValuePlusAccount', $pb.PbFieldType.PM, subBuilder: SurveyValuePlusAccount.create)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPageId')
+    ..aInt64(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'totalCount')
     ..hasRequiredFields = false
   ;
 
@@ -2707,27 +2645,24 @@ class StatisticResponse extends $pb.GeneratedMessage {
   static StatisticResponse _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<SupportRoleValuePlusAccount> get supportRoleValuesPlusAccount => $_getList(0);
+  $core.List<SurveyValuePlusAccount> get surveyValuePlusAccount => $_getList(0);
 
   @$pb.TagNumber(2)
-  $core.List<UserNeedsValuePlusAccount> get userNeedValuesPlusAccount => $_getList(1);
+  $core.String get nextPageId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set nextPageId($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasNextPageId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearNextPageId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get nextPageId => $_getSZ(2);
+  $fixnum.Int64 get totalCount => $_getI64(2);
   @$pb.TagNumber(3)
-  set nextPageId($core.String v) { $_setString(2, v); }
+  set totalCount($fixnum.Int64 v) { $_setInt64(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasNextPageId() => $_has(2);
+  $core.bool hasTotalCount() => $_has(2);
   @$pb.TagNumber(3)
-  void clearNextPageId() => clearField(3);
-
-  @$pb.TagNumber(4)
-  $fixnum.Int64 get totalCount => $_getI64(3);
-  @$pb.TagNumber(4)
-  set totalCount($fixnum.Int64 v) { $_setInt64(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasTotalCount() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearTotalCount() => clearField(4);
+  void clearTotalCount() => clearField(3);
 }
 

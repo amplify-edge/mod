@@ -11,8 +11,7 @@ import (
 )
 
 func (m *ModDiscoDB) GetStats(filters map[string]interface{}, limit, cursor int64, tableName, orderBy string) (*discoRpc.StatisticResponse, error) {
-	unvpas := []*discoRpc.UserNeedsValuePlusAccount{}
-	srvpas := []*discoRpc.SupportRoleValuePlusAccount{}
+	svpas := []*discoRpc.SurveyValuePlusAccount{}
 	switch tableName {
 	case "user_need_values":
 		counts, err := m.countValues(filters, UserNeedValuesTable)
@@ -28,26 +27,25 @@ func (m *ModDiscoDB) GetStats(filters map[string]interface{}, limit, cursor int6
 			if err != nil {
 				return nil, err
 			}
-			unvpa := &discoRpc.UserNeedsValuePlusAccount{
+			svpa := &discoRpc.SurveyValuePlusAccount{
 				Id:                    unv.Id,
 				SysAccountUserRefName: surveyUser.SysAccountAccountRefId,
 				CreatedAt:             sharedConfig.UnixToUtcTS(surveyUser.CreatedAt),
+				Pledged:               0,
 			}
-			unvpas = append(unvpas, unvpa)
+			svpas = append(svpas, svpa)
 		}
-		if len(unvpas) == 1 {
+		if len(svpas) == 1 {
 			return &discoRpc.StatisticResponse{
-				SupportRoleValuesPlusAccount: srvpas,
-				UserNeedValuesPlusAccount:    unvpas,
-				NextPageId:                   strconv.FormatInt(sharedConfig.TsToUnixUTC(unvpas[0].CreatedAt), 10),
-				TotalCount:                   *counts,
+				SurveyValuePlusAccount: svpas,
+				NextPageId:             strconv.FormatInt(sharedConfig.TsToUnixUTC(svpas[0].CreatedAt), 10),
+				TotalCount:             *counts,
 			}, nil
 		}
 		return &discoRpc.StatisticResponse{
-			SupportRoleValuesPlusAccount: srvpas,
-			UserNeedValuesPlusAccount:    unvpas,
-			NextPageId:                   strconv.FormatInt(sharedConfig.TsToUnixUTC(unvpas[len(unvpas)-1].CreatedAt), 10),
-			TotalCount:                   *counts,
+			SurveyValuePlusAccount: svpas,
+			NextPageId:             strconv.FormatInt(sharedConfig.TsToUnixUTC(svpas[len(svpas)-1].CreatedAt), 10),
+			TotalCount:             *counts,
 		}, nil
 	case "support_role_values":
 		counts, err := m.countValues(filters, SupportRoleValuesTable)
@@ -63,27 +61,25 @@ func (m *ModDiscoDB) GetStats(filters map[string]interface{}, limit, cursor int6
 			if err != nil {
 				return nil, err
 			}
-			srvpa := &discoRpc.SupportRoleValuePlusAccount{
+			svpa := &discoRpc.SurveyValuePlusAccount{
 				Id:                    srv.Id,
 				SysAccountUserRefName: surveyUser.SysAccountAccountRefId,
 				Pledged:               srv.Pledged,
 				CreatedAt:             sharedConfig.UnixToUtcTS(srv.CreatedAt),
 			}
-			srvpas = append(srvpas, srvpa)
+			svpas = append(svpas, svpa)
 		}
-		if len(srvpas) == 1 {
+		if len(svpas) == 1 {
 			return &discoRpc.StatisticResponse{
-				SupportRoleValuesPlusAccount: srvpas,
-				UserNeedValuesPlusAccount:    unvpas,
-				NextPageId:                   strconv.FormatInt(sharedConfig.TsToUnixUTC(srvpas[0].CreatedAt), 10),
-				TotalCount:                   *counts,
+				SurveyValuePlusAccount: svpas,
+				NextPageId:             strconv.FormatInt(sharedConfig.TsToUnixUTC(svpas[0].CreatedAt), 10),
+				TotalCount:             *counts,
 			}, nil
 		}
 		return &discoRpc.StatisticResponse{
-			SupportRoleValuesPlusAccount: srvpas,
-			UserNeedValuesPlusAccount:    unvpas,
-			NextPageId:                   strconv.FormatInt(sharedConfig.TsToUnixUTC(srvpas[len(srvpas)-1].CreatedAt), 10),
-			TotalCount:                   *counts,
+			SurveyValuePlusAccount: svpas,
+			NextPageId:             strconv.FormatInt(sharedConfig.TsToUnixUTC(svpas[len(svpas)-1].CreatedAt), 10),
+			TotalCount:             *counts,
 		}, nil
 	default:
 		return nil, fmt.Errorf("unknown table")
