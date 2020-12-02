@@ -133,7 +133,16 @@ const UserNeedsValue$json = const {
     const {'1': 'survey_user_ref_id', '3': 2, '4': 1, '5': 9, '10': 'surveyUserRefId'},
     const {'1': 'user_needs_type_ref_id', '3': 3, '4': 1, '5': 9, '10': 'userNeedsTypeRefId'},
     const {'1': 'comments', '3': 4, '4': 1, '5': 9, '10': 'comments'},
-    const {'1': 'pledged', '3': 5, '4': 1, '5': 4, '10': 'pledged'},
+  ],
+};
+
+const SurveyValuePlusAccount$json = const {
+  '1': 'SurveyValuePlusAccount',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    const {'1': 'sys_account_user_ref_name', '3': 2, '4': 1, '5': 9, '10': 'sysAccountUserRefName'},
+    const {'1': 'pledged', '3': 3, '4': 1, '5': 4, '10': 'pledged'},
+    const {'1': 'created_at', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
   ],
 };
 
@@ -145,7 +154,6 @@ const NewUserNeedsValue$json = const {
     const {'1': 'user_needs_type_ref_id', '3': 3, '4': 1, '5': 9, '10': 'userNeedsTypeRefId'},
     const {'1': 'user_needs_type_ref_name', '3': 4, '4': 1, '5': 9, '10': 'userNeedsTypeRefName'},
     const {'1': 'comments', '3': 5, '4': 1, '5': 9, '10': 'comments'},
-    const {'1': 'pledged', '3': 6, '4': 1, '5': 4, '10': 'pledged'},
   ],
 };
 
@@ -277,6 +285,7 @@ const ListRequest$json = const {
     const {'1': 'current_page_id', '3': 4, '4': 1, '5': 9, '10': 'currentPageId'},
     const {'1': 'filters', '3': 5, '4': 1, '5': 12, '10': 'filters'},
     const {'1': 'isDescending', '3': 6, '4': 1, '5': 8, '10': 'isDescending'},
+    const {'1': 'matcher', '3': 7, '4': 1, '5': 9, '10': 'matcher'},
   ],
 };
 
@@ -336,6 +345,29 @@ const GenIdResponse$json = const {
   '1': 'GenIdResponse',
   '2': const [
     const {'1': 'temp_id', '3': 1, '4': 1, '5': 9, '10': 'tempId'},
+  ],
+};
+
+const StatisticRequest$json = const {
+  '1': 'StatisticRequest',
+  '2': const [
+    const {'1': 'table_name', '3': 1, '4': 1, '5': 9, '10': 'tableName'},
+    const {'1': 'include_counts', '3': 2, '4': 1, '5': 8, '10': 'includeCounts'},
+    const {'1': 'filters', '3': 3, '4': 1, '5': 12, '10': 'filters'},
+    const {'1': 'current_page_id', '3': 4, '4': 1, '5': 9, '10': 'currentPageId'},
+    const {'1': 'limit', '3': 5, '4': 1, '5': 3, '10': 'limit'},
+    const {'1': 'order_by', '3': 6, '4': 1, '5': 9, '10': 'orderBy'},
+    const {'1': 'is_descending', '3': 7, '4': 1, '5': 8, '10': 'isDescending'},
+    const {'1': 'per_page_entries', '3': 8, '4': 1, '5': 3, '10': 'perPageEntries'},
+  ],
+};
+
+const StatisticResponse$json = const {
+  '1': 'StatisticResponse',
+  '2': const [
+    const {'1': 'survey_value_plus_account', '3': 1, '4': 3, '5': 11, '6': '.v2.mod_disco.services.SurveyValuePlusAccount', '10': 'surveyValuePlusAccount'},
+    const {'1': 'next_page_id', '3': 2, '4': 1, '5': 9, '10': 'nextPageId'},
+    const {'1': 'total_count', '3': 3, '4': 1, '5': 3, '10': 'totalCount'},
   ],
 };
 

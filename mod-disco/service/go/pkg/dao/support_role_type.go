@@ -90,10 +90,18 @@ func (m *ModDiscoDB) InsertSupportRoleType(srt *SupportRoleType) error {
 	return m.db.Exec(stmt, args...)
 }
 
-func (m *ModDiscoDB) GetSupportRoleType(id string) (*SupportRoleType, error) {
+func (m *ModDiscoDB) GetSupportRoleType(id, name string) (*SupportRoleType, error) {
 	var srt SupportRoleType
-	stmt := fmt.Sprintf("SELECT %s FROM %s WHERE id = ?", m.supportRoleTypeColumns, SupportRoleTypesTable)
-	args := []interface{}{id}
+	var args []interface{}
+	var stmt string
+	if id != "" {
+		stmt = fmt.Sprintf("SELECT %s FROM %s WHERE id = ?", m.supportRoleTypeColumns, SupportRoleTypesTable)
+		args = append(args, id)
+	}
+	if name != "" {
+		stmt = fmt.Sprintf("SELECT %s FROM %s WHERE name = ?", m.supportRoleTypeColumns, SupportRoleTypesTable)
+		args = append(args, name)
+	}
 	doc, err := m.db.QueryOne(stmt, args...)
 	if err != nil {
 		return nil, err
@@ -136,7 +144,7 @@ func (m *ModDiscoDB) ListSupportRoleType(filters map[string]interface{}) ([]*Sup
 }
 
 func (m *ModDiscoDB) UpdateSupportRoleType(usrt *SupportRoleType) error {
-	srt, err := m.GetSupportRoleType(usrt.Id)
+	srt, err := m.GetSupportRoleType(usrt.Id, "")
 	if err != nil {
 		return err
 	}

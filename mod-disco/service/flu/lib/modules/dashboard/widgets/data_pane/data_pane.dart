@@ -1,104 +1,90 @@
 import 'package:data_tables/data_tables.dart';
 import 'package:flutter/material.dart';
-import 'package:mod_disco/modules/dashboard/view_model/dashboard_view_model.dart';
+import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class DataPane extends StatelessWidget {
-  final DashboardViewModel model;
   final SizingInformation sizingInfo;
+  final bool isLoading;
+  final int rowsPerPage;
+  final int totalCount;
+  final void Function() handleNext;
+  final void Function() handlePrevious;
+  final int rowsOffset;
+  final List<SurveyValuePlusAccount> items;
+  final void Function() onRefresh;
+  final void Function(int) onRowsPerPageChanged;
 
-  const DataPane({Key key, this.model, this.sizingInfo}) : super(key: key);
+  const DataPane({
+    Key key,
+    @required this.totalCount,
+    @required this.isLoading,
+    @required this.rowsPerPage,
+    @required this.handleNext,
+    @required this.handlePrevious,
+    @required this.rowsOffset,
+    @required this.items,
+    @required this.sizingInfo,
+    @required this.onRefresh,
+    @required this.onRowsPerPageChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container();
-    // (widget.model.buzy)
-    //     ? Center(child: CircularProgressIndicator()):
-    //     NativeDataTable.builder(
-    //   rowsPerPage: model.rowsPerPage,
-    //   firstRowIndex: model.firstRowIndex,
-    //   itemCount: model.orgs.length ?? 0,
-    //   header: Text("Organization Details"),
-    //   handleNext: () {
-    //     model.handleNextPage();
-    //   },
-    //   handlePrevious: () {
-    //     model.handlePrevPage();
-    //   },
-    //   sortColumnIndex: model.sortColumnIndex,
-    //   sortAscending: model.sortAscending,
-    //   onRefresh: () async {
-    //     await new Future.delayed(new Duration(seconds: 3));
-    //
-    //     return null;
-    //   },
-    //   onRowsPerPageChanged: (int value) {
-    //     model.setRowsPerPage(value);
-    //   },
-    //   noItems: Text("No Orgs"),
-    //   // mobileItemBuilder: (BuildContext context, int index) {
-    //   //   final org = model.orgs[index];
-    //   //   return Text("${index} - ${org.organization}");
-    //
-    //   // },
-    //   onSelectAll: (bool value) {
-    //     model.onSelectAll(value);
-    //   },
-    //   rowCountApproximate: true,
-    //   actions: <Widget>[
-    //     // IconButton(
-    //     //   icon: Icon(Icons.info_outline),
-    //     //   onPressed: () {},
-    //     // ),
-    //   ],
-    //   selectedActions: <Widget>[
-    //     IconButton(
-    //       icon: Icon(Icons.delete),
-    //       onPressed: () {},
-    //     ),
-    //   ],
-    //
-    //   itemBuilder: (int index) {
-    //     final org = model.orgs[index];
-    //     return DataRow.byIndex(
-    //       index: index,
-    //       onSelectChanged: (value) {
-    //         model.changeSelection(value, index);
-    //       },
-    //       selected: model.selected[index],
-    //       cells: [
-    //         DataCell(Text(org.organization)),
-    //         DataCell(Text(org.campaignName)),
-    //         DataCell(Text(org.category)),
-    //         DataCell(Text(org.actionType)),
-    //         DataCell(Text(org.actionLocation)),
-    //         DataCell(Text(org.actionLength)),
-    //         DataCell(Text(org.actionTime.toString())),
-    //         DataCell(Text(org.histPrecedents)),
-    //         DataCell(Text(org.strategy)),
-    //         DataCell(Text(org.goal)),
-    //       ],
-    //     );
-    //   },
-    //   columns: [
-    //     DataColumn(
-    //         label: Text("Organization"),
-    //         onSort: (int columnIndex, bool ascending) =>
-    //             model.sort((org) => org.organization, columnIndex, ascending)),
-    //     DataColumn(
-    //         label: Text("Campaign"),
-    //         onSort: (int columnIndex, bool ascending) {
-    //           model.sort((org) => org.campaignName, columnIndex, ascending);
-    //         }),
-    //     DataColumn(label: Text("Category")),
-    //     DataColumn(label: Text("Action Type")),
-    //     DataColumn(label: Text("Action Location")),
-    //     DataColumn(label: Text("Action Length")),
-    //     DataColumn(label: Text("Action Time")),
-    //     DataColumn(label: Text("Historical Precedents")),
-    //     DataColumn(label: Text("Strategy")),
-    //     DataColumn(label: Text("Goal")),
-    //   ],
-    // );
+    return isLoading
+        ? Center(child: CircularProgressIndicator())
+        : NativeDataTable.builder(
+            sortAscending: false,
+            rowsPerPage: rowsPerPage,
+            itemCount: totalCount,
+            firstRowIndex: rowsOffset ?? 0,
+            handleNext: handleNext,
+            handlePrevious: handlePrevious,
+            itemBuilder: (int index) {
+              final SurveyValuePlusAccount item = items[index];
+              return DataRow.byIndex(index: index,
+                  // selected: item.selected,
+                  // onSelectChanged: (bool value) {},
+                  cells: <DataCell>[
+                    DataCell(Text('${item.id}')),
+                    DataCell(Text('${item.sysAccountUserRefName}')),
+                    DataCell(Text('${item.pledged.toInt()}')),
+                    DataCell(Text('${item.createdAt.toDateTime().toString()}')),
+                  ]);
+            },
+            header: const Text('Survey Value'),
+            // sortColumnIndex: _sortColumnIndex,
+            // sortAscending: _sortAscending,
+            onRefresh: onRefresh,
+            onRowsPerPageChanged: onRowsPerPageChanged,
+            // mobileItemBuilder: (BuildContext context, int index) {
+            //   final i = _desserts[index];
+            //   return ListTile(
+            //     title: Text(i?.name),
+            //   );
+            // },
+            rowCountApproximate: true,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.info_outline),
+                onPressed: () {},
+              ),
+            ],
+            columns: <DataColumn>[
+              DataColumn(label: const Text('id')),
+              DataColumn(
+                label: const Text('Account'),
+                tooltip: 'Account name.',
+              ),
+              DataColumn(
+                label: const Text('Pledged'),
+                numeric: true,
+              ),
+              DataColumn(
+                label: const Text('Date Posted'),
+                tooltip: 'Date created',
+              ),
+            ],
+          );
   }
 }

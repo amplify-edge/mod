@@ -4,15 +4,13 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
+	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/segmentio/encoding/json"
 	log "github.com/sirupsen/logrus"
-	"google.golang.org/protobuf/types/known/timestamppb"
-
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
-	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
 type SurveyProject struct {
@@ -37,8 +35,18 @@ func (m *ModDiscoDB) FromPkgSurveyProject(sp *discoRpc.SurveyProject) (*SurveyPr
 		SurveyProjectId:        surveyProjectId,
 		SurveyProjectName:      sp.SurveyProjectName,
 		SysAccountProjectRefId: sp.SysAccountProjectRefId,
-		CreatedAt:              sp.CreatedAt.Seconds,
-		UpdatedAt:              sp.UpdatedAt.Seconds,
+		CreatedAt:              sharedConfig.TsToUnixUTC(sp.GetCreatedAt()),
+		UpdatedAt:              sharedConfig.TsToUnixUTC(sp.GetUpdatedAt()),
+	}, nil
+}
+
+func (m *ModDiscoDB) FromNewPkgSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (*SurveyProject, error) {
+	return &SurveyProject{
+		SurveyProjectId:        sharedConfig.NewID(),
+		SurveyProjectName:      sp.SurveyProjectName,
+		SysAccountProjectRefId: sp.SysAccountProjectRefId,
+		CreatedAt:              sharedConfig.CurrentTimestamp(),
+		UpdatedAt:              sharedConfig.CurrentTimestamp(),
 	}, nil
 }
 
@@ -76,19 +84,14 @@ func (sp SurveyProject) CreateSQL() []string {
 	return tbl.CreateTable()
 }
 
-func (m *ModDiscoDB) surveyProjectQueryFilter(filter map[string]interface{}) sq.SelectBuilder {
-	baseStmt := sq.Select(m.surveyProjectColumns).From(SurveyProjectTableName)
-	if filter != nil {
-		for k, v := range filter {
-			baseStmt = baseStmt.Where(sq.Eq{k: v})
-		}
-	}
-	return baseStmt
-}
-
 func (m *ModDiscoDB) GetSurveyProject(filters map[string]interface{}) (*SurveyProject, error) {
 	var sp SurveyProject
-	selectStmt, args, err := m.surveyProjectQueryFilter(filters).ToSql()
+	selectStmt, args, err := sysCoreSvc.BaseQueryBuilder(
+		filters,
+		SurveyProjectTableName,
+		m.surveyProjectColumns,
+		"eq",
+	).ToSql()
 	if err != nil {
 		return nil, err
 	}
@@ -113,10 +116,15 @@ func (m *ModDiscoDB) GetSurveyProject(filters map[string]interface{}) (*SurveyPr
 	return nil, fmt.Errorf("document not found")
 }
 
-func (m *ModDiscoDB) ListSurveyProject(filters map[string]interface{}, orderBy string, limit, cursor int64) ([]*SurveyProject, *int64, error) {
+func (m *ModDiscoDB) ListSurveyProject(filters map[string]interface{}, orderBy string, limit, cursor int64, sqlMatcher string) ([]*SurveyProject, *int64, error) {
 	surveyProjects := []*SurveyProject{}
-	baseStmt := m.surveyProjectQueryFilter(filters)
-	selectStmt, args, err := m.listSelectStatement(baseStmt, orderBy, limit, &cursor)
+	baseStmt := sysCoreSvc.BaseQueryBuilder(
+		filters,
+		SurveyProjectTableName,
+		m.surveyProjectColumns,
+		sqlMatcher,
+	)
+	selectStmt, args, err := sysCoreSvc.ListSelectStatement(baseStmt, orderBy, limit, &cursor, DefaultCursor)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -147,14 +155,7 @@ func (m *ModDiscoDB) ListSurveyProject(filters map[string]interface{}, orderBy s
 }
 
 func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (*discoRpc.SurveyProject, error) {
-	newPkgSurveyProject := &discoRpc.SurveyProject{
-		SurveyProjectId:        sharedConfig.NewID(),
-		SurveyProjectName:      sp.GetSurveyProjectName(),
-		SysAccountProjectRefId: sp.SysAccountProjectRefId,
-		CreatedAt:              timestamppb.Now(),
-		UpdatedAt:              timestamppb.Now(),
-	}
-	sproj, err := m.FromPkgSurveyProject(newPkgSurveyProject)
+	sproj, err := m.FromNewPkgSurveyProject(sp)
 	if err != nil {
 		return nil, err
 	}
@@ -199,7 +200,7 @@ func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (
 		}
 	}
 
-	dsp, err := m.GetSurveyProject(map[string]interface{}{"survey_project_id": newPkgSurveyProject.SurveyProjectId})
+	dsp, err := m.GetSurveyProject(map[string]interface{}{"survey_project_id": sproj.SurveyProjectId})
 	if err != nil {
 		return nil, err
 	}
@@ -231,7 +232,7 @@ func (m *ModDiscoDB) UpdateSurveyProject(usp *discoRpc.UpdateSurveyProjectReques
 			if err := json.Unmarshal(srvBytes, &s); err != nil {
 				return err
 			}
-			actualSrv, err := m.GetSupportRoleType(s.Id)
+			actualSrv, err := m.GetSupportRoleType(s.Id, "")
 			if err != nil {
 				if err.Error() == "document not found" {
 					s.SurveyProjectRefId = sp.SurveyProjectId
@@ -261,7 +262,7 @@ func (m *ModDiscoDB) UpdateSurveyProject(usp *discoRpc.UpdateSurveyProjectReques
 			if err := json.Unmarshal(untBytes, &u); err != nil {
 				return err
 			}
-			actualUnv, err := m.GetUserNeedsType(u.Id)
+			actualUnv, err := m.GetUserNeedsType(u.Id, "")
 			if err != nil {
 				if err.Error() == "document not found" {
 					u.SurveyProjectRefId = sp.SurveyProjectId

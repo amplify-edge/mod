@@ -904,7 +904,6 @@ class UserNeedsValue extends $pb.GeneratedMessage {
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyUserRefId')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedsTypeRefId')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comments')
-    ..a<$fixnum.Int64>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
@@ -966,15 +965,77 @@ class UserNeedsValue extends $pb.GeneratedMessage {
   $core.bool hasComments() => $_has(3);
   @$pb.TagNumber(4)
   void clearComments() => clearField(4);
+}
 
-  @$pb.TagNumber(5)
-  $fixnum.Int64 get pledged => $_getI64(4);
-  @$pb.TagNumber(5)
-  set pledged($fixnum.Int64 v) { $_setInt64(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasPledged() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearPledged() => clearField(5);
+class SurveyValuePlusAccount extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SurveyValuePlusAccount', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sysAccountUserRefName')
+    ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOM<$2.Timestamp>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', subBuilder: $2.Timestamp.create)
+    ..hasRequiredFields = false
+  ;
+
+  SurveyValuePlusAccount._() : super();
+  factory SurveyValuePlusAccount() => create();
+  factory SurveyValuePlusAccount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SurveyValuePlusAccount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  SurveyValuePlusAccount clone() => SurveyValuePlusAccount()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SurveyValuePlusAccount copyWith(void Function(SurveyValuePlusAccount) updates) => super.copyWith((message) => updates(message as SurveyValuePlusAccount)); // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static SurveyValuePlusAccount create() => SurveyValuePlusAccount._();
+  SurveyValuePlusAccount createEmptyInstance() => create();
+  static $pb.PbList<SurveyValuePlusAccount> createRepeated() => $pb.PbList<SurveyValuePlusAccount>();
+  @$core.pragma('dart2js:noInline')
+  static SurveyValuePlusAccount getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SurveyValuePlusAccount>(create);
+  static SurveyValuePlusAccount _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get sysAccountUserRefName => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set sysAccountUserRefName($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasSysAccountUserRefName() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSysAccountUserRefName() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get pledged => $_getI64(2);
+  @$pb.TagNumber(3)
+  set pledged($fixnum.Int64 v) { $_setInt64(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasPledged() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPledged() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $2.Timestamp get createdAt => $_getN(3);
+  @$pb.TagNumber(4)
+  set createdAt($2.Timestamp v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasCreatedAt() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearCreatedAt() => clearField(4);
+  @$pb.TagNumber(4)
+  $2.Timestamp ensureCreatedAt() => $_ensure(3);
 }
 
 class NewUserNeedsValue extends $pb.GeneratedMessage {
@@ -984,7 +1045,6 @@ class NewUserNeedsValue extends $pb.GeneratedMessage {
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedsTypeRefId')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userNeedsTypeRefName')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comments')
-    ..a<$fixnum.Int64>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pledged', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
@@ -1055,15 +1115,6 @@ class NewUserNeedsValue extends $pb.GeneratedMessage {
   $core.bool hasComments() => $_has(4);
   @$pb.TagNumber(5)
   void clearComments() => clearField(5);
-
-  @$pb.TagNumber(6)
-  $fixnum.Int64 get pledged => $_getI64(5);
-  @$pb.TagNumber(6)
-  set pledged($fixnum.Int64 v) { $_setInt64(5, v); }
-  @$pb.TagNumber(6)
-  $core.bool hasPledged() => $_has(5);
-  @$pb.TagNumber(6)
-  void clearPledged() => clearField(6);
 }
 
 class SurveyProject extends $pb.GeneratedMessage {
@@ -2022,6 +2073,7 @@ class ListRequest extends $pb.GeneratedMessage {
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currentPageId')
     ..a<$core.List<$core.int>>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filters', $pb.PbFieldType.OY)
     ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isDescending', protoName: 'isDescending')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'matcher')
     ..hasRequiredFields = false
   ;
 
@@ -2103,6 +2155,15 @@ class ListRequest extends $pb.GeneratedMessage {
   $core.bool hasIsDescending() => $_has(5);
   @$pb.TagNumber(6)
   void clearIsDescending() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get matcher => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set matcher($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasMatcher() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearMatcher() => clearField(7);
 }
 
 class ListResponse extends $pb.GeneratedMessage {
@@ -2441,5 +2502,167 @@ class GenIdResponse extends $pb.GeneratedMessage {
   $core.bool hasTempId() => $_has(0);
   @$pb.TagNumber(1)
   void clearTempId() => clearField(1);
+}
+
+class StatisticRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'StatisticRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tableName')
+    ..aOB(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'includeCounts')
+    ..a<$core.List<$core.int>>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filters', $pb.PbFieldType.OY)
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currentPageId')
+    ..aInt64(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'limit')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'orderBy')
+    ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isDescending')
+    ..aInt64(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'perPageEntries')
+    ..hasRequiredFields = false
+  ;
+
+  StatisticRequest._() : super();
+  factory StatisticRequest() => create();
+  factory StatisticRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory StatisticRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  StatisticRequest clone() => StatisticRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  StatisticRequest copyWith(void Function(StatisticRequest) updates) => super.copyWith((message) => updates(message as StatisticRequest)); // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static StatisticRequest create() => StatisticRequest._();
+  StatisticRequest createEmptyInstance() => create();
+  static $pb.PbList<StatisticRequest> createRepeated() => $pb.PbList<StatisticRequest>();
+  @$core.pragma('dart2js:noInline')
+  static StatisticRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<StatisticRequest>(create);
+  static StatisticRequest _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get tableName => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set tableName($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasTableName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearTableName() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.bool get includeCounts => $_getBF(1);
+  @$pb.TagNumber(2)
+  set includeCounts($core.bool v) { $_setBool(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasIncludeCounts() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearIncludeCounts() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.List<$core.int> get filters => $_getN(2);
+  @$pb.TagNumber(3)
+  set filters($core.List<$core.int> v) { $_setBytes(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasFilters() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearFilters() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get currentPageId => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set currentPageId($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasCurrentPageId() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearCurrentPageId() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $fixnum.Int64 get limit => $_getI64(4);
+  @$pb.TagNumber(5)
+  set limit($fixnum.Int64 v) { $_setInt64(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasLimit() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearLimit() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get orderBy => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set orderBy($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasOrderBy() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearOrderBy() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.bool get isDescending => $_getBF(6);
+  @$pb.TagNumber(7)
+  set isDescending($core.bool v) { $_setBool(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasIsDescending() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearIsDescending() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $fixnum.Int64 get perPageEntries => $_getI64(7);
+  @$pb.TagNumber(8)
+  set perPageEntries($fixnum.Int64 v) { $_setInt64(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasPerPageEntries() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearPerPageEntries() => clearField(8);
+}
+
+class StatisticResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'StatisticResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'v2.mod_disco.services'), createEmptyInstance: create)
+    ..pc<SurveyValuePlusAccount>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'surveyValuePlusAccount', $pb.PbFieldType.PM, subBuilder: SurveyValuePlusAccount.create)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPageId')
+    ..aInt64(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'totalCount')
+    ..hasRequiredFields = false
+  ;
+
+  StatisticResponse._() : super();
+  factory StatisticResponse() => create();
+  factory StatisticResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory StatisticResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  StatisticResponse clone() => StatisticResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  StatisticResponse copyWith(void Function(StatisticResponse) updates) => super.copyWith((message) => updates(message as StatisticResponse)); // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static StatisticResponse create() => StatisticResponse._();
+  StatisticResponse createEmptyInstance() => create();
+  static $pb.PbList<StatisticResponse> createRepeated() => $pb.PbList<StatisticResponse>();
+  @$core.pragma('dart2js:noInline')
+  static StatisticResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<StatisticResponse>(create);
+  static StatisticResponse _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<SurveyValuePlusAccount> get surveyValuePlusAccount => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $core.String get nextPageId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set nextPageId($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasNextPageId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearNextPageId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get totalCount => $_getI64(2);
+  @$pb.TagNumber(3)
+  set totalCount($fixnum.Int64 v) { $_setInt64(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTotalCount() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTotalCount() => clearField(3);
 }
 

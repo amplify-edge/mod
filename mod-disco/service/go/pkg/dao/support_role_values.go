@@ -16,6 +16,8 @@ type SupportRoleValue struct {
 	SupportRoleTypeRefId string `json:"supportRoleTypeRefId" genji:"support_role_type_ref_id" coredb:"not_null"`
 	Pledged              uint64 `json:"pledged" genji:"pledged"`
 	Comment              string `json:"comment" genji:"comment"`
+	CreatedAt            int64  `json:"createdAt" genji:"created_at"`
+	UpdatedAt            int64  `json:"updatedAt" genji:"updated_at"`
 }
 
 func NewSupportRoleValue(id, surveyUserRefId, supportRoleTypeRefId, comment string, pledged uint64) *SupportRoleValue {
@@ -29,6 +31,8 @@ func NewSupportRoleValue(id, surveyUserRefId, supportRoleTypeRefId, comment stri
 		SupportRoleTypeRefId: supportRoleTypeRefId,
 		Comment:              comment,
 		Pledged:              pledged,
+		CreatedAt:            sharedConfig.CurrentTimestamp(),
+		UpdatedAt:            sharedConfig.CurrentTimestamp(),
 	}
 }
 
@@ -49,6 +53,8 @@ func (m *ModDiscoDB) InsertFromNewSupportRoleValue(in *discoRpc.NewSupportRoleVa
 		SupportRoleTypeRefId: in.GetSupportRoleTypeRefId(),
 		Pledged:              in.GetPledged(),
 		Comment:              in.GetComment(),
+		CreatedAt:            sharedConfig.CurrentTimestamp(),
+		UpdatedAt:            sharedConfig.CurrentTimestamp(),
 	}
 	err := m.InsertSupportRoleValue(nsprt)
 	if err != nil {
@@ -138,6 +144,7 @@ func (m *ModDiscoDB) UpdateSupportRoleValue(usrt *SupportRoleValue) error {
 	}
 	delete(filterParam.Params, "id")
 	delete(filterParam.Params, "survey_user_ref_id")
+	filterParam.Params["updated_at"] = sharedConfig.CurrentTimestamp()
 	stmt, args, err := sq.Update(SurveyProjectTableName).SetMap(filterParam.Params).
 		Where(sq.Eq{"id": usrt.Id}).ToSql()
 	if err != nil {
@@ -165,8 +172,8 @@ func (m *ModDiscoDB) DeleteSupportRoleValue(id, SurveyUserRefId string) error {
 	return m.db.Exec(stmt, args...)
 }
 
-func (m *ModDiscoDB) CountRecords() (int, error) {
-	stmt, args, err := sq.Select("COUNT(*)").From(SupportRoleValuesTable).Where(sq.GtOrEq{"pledged": 8}).ToSql()
+func (m *ModDiscoDB) CountRecords() (int64, error) {
+	stmt, args, err := sq.Select("COUNT(*)").From(DiscoProjectTableName).ToSql()
 	if err != nil {
 		return 0, err
 	}
@@ -180,5 +187,5 @@ func (m *ModDiscoDB) CountRecords() (int, error) {
 		return 0, err
 	}
 	m.log.Warnf("COUNTS: %v", f)
-	return 0, nil
+	return f.V.(int64), nil
 }

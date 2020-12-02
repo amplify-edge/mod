@@ -11,7 +11,7 @@ import (
 )
 
 type bootstrapSurveyProject struct {
-	NewSurveyProject []*discoRpc.NewSurveyProjectRequest `fakesize:"100" json:"new_survey_projects" yaml:"new_survey_projects"`
+	NewSurveyProject []*discoRpc.NewSurveyProjectRequest `fakesize:"8" json:"new_survey_projects" yaml:"new_survey_projects"`
 }
 
 func genFakeSurveyProject(sysAccProjRc *fakehelper.RefCount) (*fakehelper.RefCount, bootstrapSurveyProject) {
@@ -62,7 +62,7 @@ func genFakeSurveyProject(sysAccProjRc *fakehelper.RefCount) (*fakehelper.RefCou
 }
 
 type bootstrapSurveyUser struct {
-	NewSurveyUser []*discoRpc.NewSurveyUserRequest `fakesize:"4" json:"new_survey_users" yaml:"new_survey_users"`
+	NewSurveyUser []*discoRpc.NewSurveyUserRequest `fakesize:"100" json:"new_survey_users" yaml:"new_survey_users"`
 }
 
 func genFakeSurveyUser(domain string, sysAccRc, sysAccProjRc, surveyProjectRc *fakehelper.RefCount) bootstrapSurveyUser {
@@ -144,7 +144,7 @@ func genFakeSurveyUser(domain string, sysAccRc, sysAccProjRc, surveyProjectRc *f
 }
 
 type bootstrapDiscoProject struct {
-	NewDiscoProject []*discoRpc.NewDiscoProjectRequest `fakesize:"100" json:"new_disco_projects" yaml:"new_disco_projects"`
+	NewDiscoProject []*discoRpc.NewDiscoProjectRequest `fakesize:"10" json:"new_disco_projects" yaml:"new_disco_projects"`
 }
 
 func genFakeDiscoProject(sysAccOrgRc, sysAccProjRc *fakehelper.RefCount) bootstrapDiscoProject {

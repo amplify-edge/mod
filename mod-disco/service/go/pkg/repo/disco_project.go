@@ -118,7 +118,7 @@ func (md *ModDiscoRepo) ListDiscoProject(ctx context.Context, in *discoRpc.ListR
 	if limit == 0 {
 		limit = dao.DefaultLimit
 	}
-	daoDiscoProjects, next, err := md.store.ListDiscoProject(filter, orderBy, limit, cursor)
+	daoDiscoProjects, next, err := md.store.ListDiscoProject(filter, orderBy, limit, cursor, in.GetMatcher())
 	if err != nil {
 		return nil, err
 	}

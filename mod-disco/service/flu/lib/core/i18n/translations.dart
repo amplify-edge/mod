@@ -437,20 +437,11 @@ class Translations {
     );
   }
 
-  String conditions() {
+  String userNeeds() {
     return Intl.message(
-      'Conditions',
-      name: 'conditions',
-      desc: 'Conditions',
-      locale: locale.toString(),
-    );
-  }
-
-  String roles() {
-    return Intl.message(
-      'Roles',
-      name: 'roles',
-      desc: 'Roles',
+      'User Needs',
+      name: 'userNeeds',
+      desc: 'User Needs',
       locale: locale.toString(),
     );
   }

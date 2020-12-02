@@ -50,9 +50,7 @@ func (md *ModDiscoRepo) GetSurveyUser(ctx context.Context, in *discoRpc.IdReques
 	if in.GetSysAccountProjectId() != "" {
 		params["sys_account_project_ref_id"] = in.GetSysAccountProjectId()
 	}
-	sp, err := md.store.GetSurveyUser(map[string]interface{}{
-		"survey_user_id": in.SurveyUserId,
-	})
+	sp, err := md.store.GetSurveyUser(params)
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +98,7 @@ func (md *ModDiscoRepo) ListSurveyUser(ctx context.Context, in *discoRpc.ListReq
 	if limit == 0 {
 		limit = dao.DefaultLimit
 	}
-	daoSurveyUsers, next, err := md.store.ListSurveyUser(filter, orderBy, limit, cursor)
+	daoSurveyUsers, next, err := md.store.ListSurveyUser(filter, orderBy, limit, cursor, in.GetMatcher())
 	if err != nil {
 		return nil, err
 	}
@@ -141,4 +139,34 @@ func (md *ModDiscoRepo) DeleteSurveyUser(ctx context.Context, in *discoRpc.IdReq
 		return nil, err
 	}
 	return &emptypb.Empty{}, nil
+}
+
+func (md *ModDiscoRepo) GetProjectStatistics(ctx context.Context, in *discoRpc.StatisticRequest) (*discoRpc.StatisticResponse, error) {
+	if in == nil {
+		return nil, status.Errorf(codes.InvalidArgument, "cannot get project statistics: %v", "invalid argument")
+	}
+	var cursor int64
+	orderBy := in.GetOrderBy()
+	var err error
+	filter := map[string]interface{}{}
+	if in.GetFilters() != nil && len(in.GetFilters()) > 0 {
+		filter, err = sysCoreSvc.UnmarshalToMap(in.GetFilters())
+		if err != nil {
+			return nil, err
+		}
+	}
+	cursor, err = md.getCursor(in.GetCurrentPageId())
+	if err != nil {
+		return nil, err
+	}
+	if in.GetIsDescending() {
+		orderBy += " DESC"
+	} else {
+		orderBy += " ASC"
+	}
+	limit := in.GetPerPageEntries()
+	if limit == 0 {
+		limit = dao.DefaultLimit
+	}
+	return md.store.GetStats(filter, limit, cursor, in.GetTableName(), orderBy)
 }

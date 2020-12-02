@@ -4,15 +4,13 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
+	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/segmentio/encoding/json"
 	log "github.com/sirupsen/logrus"
-	"google.golang.org/protobuf/types/known/timestamppb"
-
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
-	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
 type SurveyUser struct {
@@ -38,8 +36,19 @@ func (m *ModDiscoDB) FromPkgSurveyUser(sp *discoRpc.SurveyUser) (*SurveyUser, er
 		SurveyUserName:         sp.GetSurveyUserName(),
 		SurveyProjectRefId:     sp.SurveyProjectRefId,
 		SysAccountAccountRefId: sp.SysAccountAccountRefId,
-		CreatedAt:              sp.CreatedAt.Seconds,
-		UpdatedAt:              sp.UpdatedAt.Seconds,
+		CreatedAt:              sharedConfig.TsToUnixUTC(sp.CreatedAt),
+		UpdatedAt:              sharedConfig.TsToUnixUTC(sp.UpdatedAt),
+	}, nil
+}
+
+func (m *ModDiscoDB) FromNewPkgSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*SurveyUser, error) {
+	return &SurveyUser{
+		SurveyUserId:           sharedConfig.NewID(),
+		SurveyUserName:         sp.GetSurveyUserName(),
+		SurveyProjectRefId:     sp.SurveyProjectRefId,
+		SysAccountAccountRefId: sp.SysAccountUserRefId,
+		CreatedAt:              sharedConfig.CurrentTimestamp(),
+		UpdatedAt:              sharedConfig.CurrentTimestamp(),
 	}, nil
 }
 
@@ -78,19 +87,10 @@ func (sp SurveyUser) CreateSQL() []string {
 	return tbl.CreateTable()
 }
 
-func (m *ModDiscoDB) SurveyUserQueryFilter(filter map[string]interface{}) sq.SelectBuilder {
-	baseStmt := sq.Select(m.surveyUserColumns).From(SurveyUsersTableName)
-	if filter != nil {
-		for k, v := range filter {
-			baseStmt = baseStmt.Where(sq.Eq{k: v})
-		}
-	}
-	return baseStmt
-}
-
 func (m *ModDiscoDB) GetSurveyUser(filters map[string]interface{}) (*SurveyUser, error) {
 	var sp SurveyUser
-	selectStmt, args, err := m.SurveyUserQueryFilter(filters).ToSql()
+	selectStmt, args, err := sysCoreSvc.BaseQueryBuilder(filters, SurveyUsersTableName, m.surveyUserColumns,
+		"eq").ToSql()
 	if err != nil {
 		return nil, err
 	}
@@ -109,10 +109,11 @@ func (m *ModDiscoDB) GetSurveyUser(filters map[string]interface{}) (*SurveyUser,
 	return &sp, nil
 }
 
-func (m *ModDiscoDB) ListSurveyUser(filters map[string]interface{}, orderBy string, limit, cursor int64) ([]*SurveyUser, *int64, error) {
+func (m *ModDiscoDB) ListSurveyUser(filters map[string]interface{}, orderBy string, limit, cursor int64, sqlMatcher string) ([]*SurveyUser, *int64, error) {
 	surveyUsers := []*SurveyUser{}
-	baseStmt := m.SurveyUserQueryFilter(filters)
-	selectStmt, args, err := m.listSelectStatement(baseStmt, orderBy, limit, &cursor)
+	baseStmt := sysCoreSvc.BaseQueryBuilder(filters, SurveyUsersTableName, m.surveyUserColumns,
+		sqlMatcher)
+	selectStmt, args, err := sysCoreSvc.ListSelectStatement(baseStmt, orderBy, limit, &cursor, DefaultCursor)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -143,16 +144,7 @@ func (m *ModDiscoDB) ListSurveyUser(filters map[string]interface{}, orderBy stri
 }
 
 func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*discoRpc.SurveyUser, error) {
-	newPkgSurveyUser := &discoRpc.SurveyUser{
-		SurveyUserId:           sharedConfig.NewID(),
-		SurveyUserName:         sp.GetSurveyUserName(),
-		SysAccountAccountRefId: sp.SysAccountUserRefId,
-		SurveyProjectRefId:     sp.SurveyProjectRefId,
-		CreatedAt:              timestamppb.Now(),
-		UpdatedAt:              timestamppb.Now(),
-	}
-
-	suser, err := m.FromPkgSurveyUser(newPkgSurveyUser)
+	suser, err := m.FromNewPkgSurveyUser(sp)
 	if err != nil {
 		return nil, err
 	}
@@ -181,6 +173,11 @@ func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*disco
 	}
 	if sp.GetSupportRoleValues() != nil && len(sp.GetSupportRoleValues()) != 0 {
 		for _, srv := range sp.GetSupportRoleValues() {
+			supportRoleType, err := m.GetSupportRoleType(srv.GetSupportRoleTypeRefId(), srv.GetSupportRoleTypeRefName())
+			if err != nil {
+				return nil, err
+			}
+			srv.SupportRoleTypeRefId = supportRoleType.Id
 			srv.SurveyUserRefId = suser.SurveyUserId
 			if err = m.InsertFromNewSupportRoleValue(srv); err != nil {
 				return nil, err
@@ -188,16 +185,21 @@ func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*disco
 		}
 	}
 
-	if sp.GetUserNeedValues() != nil && len(sp.GetUserNeedValues()) != 0 {
-		for _, srv := range sp.GetUserNeedValues() {
-			srv.SurveyUserRefId = suser.SurveyUserId
-			if err = m.InsertFromNewUserNeedsValue(srv); err != nil {
-				return nil, err
-			}
+	// if sp.GetUserNeedValues() != nil && len(sp.GetUserNeedValues()) != 0 {
+	for _, srv := range sp.GetUserNeedValues() {
+		userNeedsType, err := m.GetUserNeedsType(srv.GetUserNeedsTypeRefId(), srv.GetUserNeedsTypeRefName())
+		if err != nil {
+			return nil, err
+		}
+		srv.UserNeedsTypeRefId = userNeedsType.Id
+		srv.SurveyUserRefId = suser.SurveyUserId
+		if err = m.InsertFromNewUserNeedsValue(srv); err != nil {
+			return nil, err
 		}
 	}
+	// }
 
-	daoSurvey, err := m.GetSurveyUser(map[string]interface{}{"survey_user_id": newPkgSurveyUser.SurveyUserId})
+	daoSurvey, err := m.GetSurveyUser(map[string]interface{}{"survey_user_id": suser.SurveyUserId})
 	if err != nil {
 		return nil, err
 	}

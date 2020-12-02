@@ -104,6 +104,36 @@ class SurveyUserRepo {
     }
   }
 
+  static Future<StatisticResponse> getDashboardTable({
+    int perPageEntries = 10,
+    String currentPageId,
+    @required String tableName,
+    bool includeCounts = true,
+    @required Map<String, dynamic> filters,
+    int limit = 20,
+    String orderBy = 'id',
+    bool isDescending = false,
+  }) async {
+    final req = StatisticRequest()
+      ..currentPageId = currentPageId
+      ..limit = Int64(limit)
+      ..tableName = tableName
+      ..includeCounts = includeCounts
+      ..orderBy = orderBy
+      ..isDescending = isDescending;
+    if (filters != null) {
+      final jsonFilter = utf8.encode(jsonEncode(filters));
+      req..filters = jsonFilter;
+    }
+    try {
+      final client = await discoClient();
+      final resp = await client.getProjectStatistics(req, options: await getCallOptions());
+      return resp;
+    } catch (e) {
+      throw e;
+    }
+  }
+
   static Future<List<SurveyUser>> listSurveyUsers({
     String surveyUserId,
     String sysAccountUserRefId,

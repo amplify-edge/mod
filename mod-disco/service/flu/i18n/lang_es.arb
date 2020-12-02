@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-12-01T07:40:13.478214",
+  "@@last_modified": "2020-12-02T20:28:14.135732",
   "country": "País",
   "@country": {
     "description": "Country",
@@ -210,7 +210,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "needsSatisifiedRequirement": "Elija todos los apoyos o necesidades que necesite para unirse a la acción.",
+  "needsSatisifiedRequirement": "Elija tantos apoyos o necesidades que necesite para unirse a la acción.",
   "@needsSatisifiedRequirement": {
     "description": "Please choose as many supports or needs you need satisfied to join the action.",
     "placeholders": {},
@@ -282,15 +282,9 @@
     "placeholders": {},
     "type": "text"
   },
-  "conditions": "Condiciones",
-  "@conditions": {
-    "description": "Conditions",
-    "placeholders": {},
-    "type": "text"
-  },
-  "roles": "Roles",
-  "@roles": {
-    "description": "Roles",
+  "userNeeds": "Necesidades del usuario",
+  "@userNeeds": {
+    "description": "User Needs",
     "placeholders": {},
     "type": "text"
   }

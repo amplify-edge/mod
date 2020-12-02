@@ -64,6 +64,12 @@ class SurveyServiceClient extends $grpc.Client {
       '/v2.mod_disco.services.SurveyService/DeleteSurveyUser',
       ($0.IdRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$getProjectStatistics =
+      $grpc.ClientMethod<$0.StatisticRequest, $0.StatisticResponse>(
+          '/v2.mod_disco.services.SurveyService/GetProjectStatistics',
+          ($0.StatisticRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.StatisticResponse.fromBuffer(value));
   static final _$newDiscoProject =
       $grpc.ClientMethod<$0.NewDiscoProjectRequest, $0.DiscoProject>(
           '/v2.mod_disco.services.SurveyService/NewDiscoProject',
@@ -94,141 +100,102 @@ class SurveyServiceClient extends $grpc.Client {
       ($1.Empty value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.GenIdResponse.fromBuffer(value));
 
-  SurveyServiceClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
-      : super(channel, options: options);
+  SurveyServiceClient($grpc.ClientChannel channel,
+      {$grpc.CallOptions options,
+      $core.Iterable<$grpc.ClientInterceptor> interceptors})
+      : super(channel, options: options, interceptors: interceptors);
 
   $grpc.ResponseFuture<$0.SurveyProject> newSurveyProject(
       $0.NewSurveyProjectRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$newSurveyProject, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$newSurveyProject, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.SurveyProject> getSurveyProject($0.IdRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$getSurveyProject, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$getSurveyProject, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.ListResponse> listSurveyProject(
       $0.ListRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$listSurveyProject, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$listSurveyProject, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.SurveyProject> updateSurveyProject(
       $0.UpdateSurveyProjectRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$updateSurveyProject, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$updateSurveyProject, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.Empty> deleteSurveyProject($0.IdRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$deleteSurveyProject, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$deleteSurveyProject, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.SurveyUser> newSurveyUser(
       $0.NewSurveyUserRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$newSurveyUser, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$newSurveyUser, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.SurveyUser> getSurveyUser($0.IdRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$getSurveyUser, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$getSurveyUser, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.ListResponse> listSurveyUser($0.ListRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$listSurveyUser, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$listSurveyUser, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.SurveyUser> updateSurveyUser(
       $0.UpdateSurveyUserRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$updateSurveyUser, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$updateSurveyUser, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.Empty> deleteSurveyUser($0.IdRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$deleteSurveyUser, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$deleteSurveyUser, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.StatisticResponse> getProjectStatistics(
+      $0.StatisticRequest request,
+      {$grpc.CallOptions options}) {
+    return $createUnaryCall(_$getProjectStatistics, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.DiscoProject> newDiscoProject(
       $0.NewDiscoProjectRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$newDiscoProject, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$newDiscoProject, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.DiscoProject> getDiscoProject($0.IdRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$getDiscoProject, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$getDiscoProject, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.ListResponse> listDiscoProject($0.ListRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$listDiscoProject, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$listDiscoProject, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.DiscoProject> updateDiscoProject(
       $0.UpdateSurveyProjectRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$updateDiscoProject, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$updateDiscoProject, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.Empty> deleteDiscoProject($0.IdRequest request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$deleteDiscoProject, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$deleteDiscoProject, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.GenIdResponse> genTempId($1.Empty request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(_$genTempId, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$genTempId, request, options: options);
   }
 }
 
@@ -312,6 +279,13 @@ abstract class SurveyServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.IdRequest.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.StatisticRequest, $0.StatisticResponse>(
+        'GetProjectStatistics',
+        getProjectStatistics_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.StatisticRequest.fromBuffer(value),
+        ($0.StatisticResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.NewDiscoProjectRequest, $0.DiscoProject>(
         'NewDiscoProject',
         newDiscoProject_Pre,
@@ -410,6 +384,12 @@ abstract class SurveyServiceBase extends $grpc.Service {
     return deleteSurveyUser(call, await request);
   }
 
+  $async.Future<$0.StatisticResponse> getProjectStatistics_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.StatisticRequest> request) async {
+    return getProjectStatistics(call, await request);
+  }
+
   $async.Future<$0.DiscoProject> newDiscoProject_Pre($grpc.ServiceCall call,
       $async.Future<$0.NewDiscoProjectRequest> request) async {
     return newDiscoProject(call, await request);
@@ -460,6 +440,8 @@ abstract class SurveyServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.UpdateSurveyUserRequest request);
   $async.Future<$1.Empty> deleteSurveyUser(
       $grpc.ServiceCall call, $0.IdRequest request);
+  $async.Future<$0.StatisticResponse> getProjectStatistics(
+      $grpc.ServiceCall call, $0.StatisticRequest request);
   $async.Future<$0.DiscoProject> newDiscoProject(
       $grpc.ServiceCall call, $0.NewDiscoProjectRequest request);
   $async.Future<$0.DiscoProject> getDiscoProject(

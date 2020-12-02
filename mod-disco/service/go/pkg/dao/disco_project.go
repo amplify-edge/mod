@@ -138,29 +138,14 @@ func (dp DiscoProject) CreateSQL() []string {
 	return tbl.CreateTable()
 }
 
-func (m *ModDiscoDB) discoProjectQueryFilter(filter map[string]interface{}) sq.SelectBuilder {
-	baseStmt := sq.Select(m.discoProjectColumns).From(DiscoProjectTableName)
-	if filter != nil {
-		for k, v := range filter {
-			baseStmt = baseStmt.Where(sq.Eq{k: v})
-		}
-	}
-	return baseStmt
-}
-
-func (m *ModDiscoDB) discoProjectLikeFilter(filter map[string]interface{}) sq.SelectBuilder {
-	baseStmt := sq.Select(m.discoProjectColumns).From(DiscoProjectTableName)
-	if filter != nil {
-		for k, v := range filter {
-			baseStmt = baseStmt.Where(sq.Like{k: v})
-		}
-	}
-	return baseStmt
-}
-
 func (m *ModDiscoDB) GetDiscoProject(filters map[string]interface{}) (*DiscoProject, error) {
 	var dp DiscoProject
-	selectStmt, args, err := m.discoProjectQueryFilter(filters).ToSql()
+	selectStmt, args, err := sysCoreSvc.BaseQueryBuilder(
+		filters,
+		DiscoProjectTableName,
+		m.discoProjectColumns,
+		"eq",
+	).ToSql()
 	if err != nil {
 		return nil, err
 	}
@@ -179,10 +164,16 @@ func (m *ModDiscoDB) GetDiscoProject(filters map[string]interface{}) (*DiscoProj
 	return &dp, nil
 }
 
-func (m *ModDiscoDB) ListDiscoProject(filters map[string]interface{}, orderBy string, limit, cursor int64) ([]*DiscoProject, *int64, error) {
+func (m *ModDiscoDB) ListDiscoProject(filters map[string]interface{}, orderBy string, limit, cursor int64, sqlMatcher string) ([]*DiscoProject, *int64, error) {
 	var discoProjects []*DiscoProject
-	baseStmt := m.discoProjectQueryFilter(filters)
-	selectStmt, args, err := m.listSelectStatement(baseStmt, orderBy, limit, &cursor)
+	baseStmt := sysCoreSvc.BaseQueryBuilder(
+		filters,
+		DiscoProjectTableName,
+		m.discoProjectColumns,
+		sqlMatcher,
+	)
+	// baseStmt := m.discoProjectLikeFilter(filters)
+	selectStmt, args, err := sysCoreSvc.ListSelectStatement(baseStmt, orderBy, limit, &cursor, DefaultCursor)
 	if err != nil {
 		return nil, nil, err
 	}
