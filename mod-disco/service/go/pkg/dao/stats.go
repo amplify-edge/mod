@@ -2,7 +2,6 @@ package dao
 
 import (
 	"fmt"
-	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
 	"strconv"
 
@@ -93,9 +92,7 @@ func (m *ModDiscoDB) GetStats(filters map[string]interface{}, limit, cursor int6
 
 func (m *ModDiscoDB) paginatedListUserNeedsValue(filters map[string]interface{}, orderBy string, limit, cursor int64) ([]*UserNeedsValue, error) {
 	var userNeedValues []*UserNeedsValue
-	baseStmt := sysCoreSvc.BaseQueryBuilder(filters, UserNeedValuesTable, m.userNeedValueColumns, func(k string, v interface{}) sysCoreSvc.StmtIFacer {
-		return sq.Like{k: m.BuildSearchQuery(v.(string))}
-	})
+	baseStmt := sysCoreSvc.BaseQueryBuilder(filters, UserNeedValuesTable, m.userNeedValueColumns, "like")
 	stmt, args, err := sysCoreSvc.ListSelectStatement(baseStmt, orderBy, limit, &cursor, DefaultCursor)
 	if err != nil {
 		return nil, err
@@ -118,9 +115,7 @@ func (m *ModDiscoDB) paginatedListUserNeedsValue(filters map[string]interface{},
 
 func (m *ModDiscoDB) paginatedListSupportRoleValue(filters map[string]interface{}, orderBy string, limit int64, cursor int64) ([]*SupportRoleValue, error) {
 	var srvs []*SupportRoleValue
-	baseStmt := sysCoreSvc.BaseQueryBuilder(filters, SupportRoleValuesTable, m.supportRoleValueColumns, func(k string, v interface{}) sysCoreSvc.StmtIFacer {
-		return sq.Like{k: m.BuildSearchQuery(v.(string))}
-	})
+	baseStmt := sysCoreSvc.BaseQueryBuilder(filters, SupportRoleValuesTable, m.supportRoleValueColumns, "like")
 	stmt, args, err := sysCoreSvc.ListSelectStatement(baseStmt, orderBy, limit, &cursor, DefaultCursor)
 	if err != nil {
 		return nil, err
@@ -142,11 +137,7 @@ func (m *ModDiscoDB) paginatedListSupportRoleValue(filters map[string]interface{
 }
 
 func (m *ModDiscoDB) countValues(filters map[string]interface{}, tableName string) (*int64, error) {
-	baseStmt := sq.Select("COUNT(*)").
-		From(tableName)
-	for k, v := range filters {
-		baseStmt = baseStmt.Where(sq.Like{k: m.BuildSearchQuery(v.(string))})
-	}
+	baseStmt := sysCoreSvc.BaseQueryBuilder(filters, tableName, "COUNT(*)", "like")
 	stmt, args, err := baseStmt.ToSql()
 	if err != nil {
 		return nil, err

@@ -27,7 +27,8 @@ class OrgMasterDetailView extends StatelessWidget {
       viewModelBuilder: () => DashboardViewModel(),
       onModelReady: (DashboardViewModel model) async {
         if (model.orgs == null || model.orgs.isEmpty) {
-          await model.fetchInitialProjects();
+          await model.getPermissions();
+          await model.getInitialAdminOrgs();
         }
       },
       builder: (context, DashboardViewModel model, child) =>
@@ -55,10 +56,10 @@ class OrgMasterDetailView extends StatelessWidget {
         masterAppBarTitle:
             Text(ModDiscoLocalizations.of(context).translate('selectCampaign')),
         isLoadingMoreItems: model.isLoading,
-        fetchNextItems: model.fetchNextProjects,
+        fetchNextItems: model.getNextAdminOrgs,
         hasMoreItems: model.hasMoreItems,
-        searchFunction: model.searchProjects,
-        resetSearchFunction: model.onResetSearchProjects,
+        searchFunction: model.searchAdminOrgs,
+        resetSearchFunction: model.onResetSearchOrgs,
         itemChildren: (org) => org.projects,
         childBuilder: (project, id) => <Widget>[
           ...[

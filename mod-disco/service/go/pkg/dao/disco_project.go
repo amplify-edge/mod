@@ -144,9 +144,7 @@ func (m *ModDiscoDB) GetDiscoProject(filters map[string]interface{}) (*DiscoProj
 		filters,
 		DiscoProjectTableName,
 		m.discoProjectColumns,
-		func(k string, v interface{}) sysCoreSvc.StmtIFacer {
-			return sq.Eq{k: v}
-		},
+		"eq",
 	).ToSql()
 	if err != nil {
 		return nil, err
@@ -166,15 +164,13 @@ func (m *ModDiscoDB) GetDiscoProject(filters map[string]interface{}) (*DiscoProj
 	return &dp, nil
 }
 
-func (m *ModDiscoDB) ListDiscoProject(filters map[string]interface{}, orderBy string, limit, cursor int64) ([]*DiscoProject, *int64, error) {
+func (m *ModDiscoDB) ListDiscoProject(filters map[string]interface{}, orderBy string, limit, cursor int64, sqlMatcher string) ([]*DiscoProject, *int64, error) {
 	var discoProjects []*DiscoProject
 	baseStmt := sysCoreSvc.BaseQueryBuilder(
 		filters,
 		DiscoProjectTableName,
 		m.discoProjectColumns,
-		func(k string, v interface{}) sysCoreSvc.StmtIFacer {
-			return sq.Like{k: m.BuildSearchQuery(v.(string))}
-		},
+		sqlMatcher,
 	)
 	// baseStmt := m.discoProjectLikeFilter(filters)
 	selectStmt, args, err := sysCoreSvc.ListSelectStatement(baseStmt, orderBy, limit, &cursor, DefaultCursor)

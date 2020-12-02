@@ -294,6 +294,7 @@ const ListRequest$json = const {
     const {'1': 'current_page_id', '3': 4, '4': 1, '5': 9, '10': 'currentPageId'},
     const {'1': 'filters', '3': 5, '4': 1, '5': 12, '10': 'filters'},
     const {'1': 'isDescending', '3': 6, '4': 1, '5': 8, '10': 'isDescending'},
+    const {'1': 'matcher', '3': 7, '4': 1, '5': 9, '10': 'matcher'},
   ],
 };
 

@@ -284,6 +284,7 @@ message ListRequest {
   string current_page_id = 4;
   bytes filters = 5;
   bool isDescending = 6;
+  string matcher = 7;
 }
 
 message ListResponse {

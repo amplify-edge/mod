@@ -187,6 +187,7 @@ func _SurveyServiceListSurveyProjectCommand(cfg *client.Config) *cobra.Command {
 	cmd.PersistentFlags().StringVar(&req.CurrentPageId, cfg.FlagNamer("CurrentPageId"), "", "")
 	flag.BytesBase64Var(cmd.PersistentFlags(), &req.Filters, cfg.FlagNamer("Filters"), "")
 	cmd.PersistentFlags().BoolVar(&req.IsDescending, cfg.FlagNamer("IsDescending"), false, "")
+	cmd.PersistentFlags().StringVar(&req.Matcher, cfg.FlagNamer("Matcher"), "", "")
 
 	return cmd
 }
@@ -428,6 +429,7 @@ func _SurveyServiceListSurveyUserCommand(cfg *client.Config) *cobra.Command {
 	cmd.PersistentFlags().StringVar(&req.CurrentPageId, cfg.FlagNamer("CurrentPageId"), "", "")
 	flag.BytesBase64Var(cmd.PersistentFlags(), &req.Filters, cfg.FlagNamer("Filters"), "")
 	cmd.PersistentFlags().BoolVar(&req.IsDescending, cfg.FlagNamer("IsDescending"), false, "")
+	cmd.PersistentFlags().StringVar(&req.Matcher, cfg.FlagNamer("Matcher"), "", "")
 
 	return cmd
 }
@@ -735,6 +737,7 @@ func _SurveyServiceListDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 	cmd.PersistentFlags().StringVar(&req.CurrentPageId, cfg.FlagNamer("CurrentPageId"), "", "")
 	flag.BytesBase64Var(cmd.PersistentFlags(), &req.Filters, cfg.FlagNamer("Filters"), "")
 	cmd.PersistentFlags().BoolVar(&req.IsDescending, cfg.FlagNamer("IsDescending"), false, "")
+	cmd.PersistentFlags().StringVar(&req.Matcher, cfg.FlagNamer("Matcher"), "", "")
 
 	return cmd
 }

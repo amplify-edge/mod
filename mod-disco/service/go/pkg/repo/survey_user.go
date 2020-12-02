@@ -98,7 +98,7 @@ func (md *ModDiscoRepo) ListSurveyUser(ctx context.Context, in *discoRpc.ListReq
 	if limit == 0 {
 		limit = dao.DefaultLimit
 	}
-	daoSurveyUsers, next, err := md.store.ListSurveyUser(filter, orderBy, limit, cursor)
+	daoSurveyUsers, next, err := md.store.ListSurveyUser(filter, orderBy, limit, cursor, in.GetMatcher())
 	if err != nil {
 		return nil, err
 	}

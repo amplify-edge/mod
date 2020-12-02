@@ -86,7 +86,7 @@ func (md *ModDiscoRepo) ListSurveyProject(ctx context.Context, in *discoRpc.List
 	if limit == 0 {
 		limit = dao.DefaultLimit
 	}
-	daoSurveyProjects, next, err := md.store.ListSurveyProject(filter, orderBy, limit, cursor)
+	daoSurveyProjects, next, err := md.store.ListSurveyProject(filter, orderBy, limit, cursor, in.GetMatcher())
 	if err != nil {
 		return nil, err
 	}

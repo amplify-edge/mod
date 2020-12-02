@@ -90,9 +90,7 @@ func (m *ModDiscoDB) GetSurveyProject(filters map[string]interface{}) (*SurveyPr
 		filters,
 		SurveyProjectTableName,
 		m.surveyProjectColumns,
-		func(k string, v interface{}) sysCoreSvc.StmtIFacer {
-			return sq.Eq{k: v}
-		},
+		"eq",
 	).ToSql()
 	if err != nil {
 		return nil, err
@@ -118,15 +116,13 @@ func (m *ModDiscoDB) GetSurveyProject(filters map[string]interface{}) (*SurveyPr
 	return nil, fmt.Errorf("document not found")
 }
 
-func (m *ModDiscoDB) ListSurveyProject(filters map[string]interface{}, orderBy string, limit, cursor int64) ([]*SurveyProject, *int64, error) {
+func (m *ModDiscoDB) ListSurveyProject(filters map[string]interface{}, orderBy string, limit, cursor int64, sqlMatcher string) ([]*SurveyProject, *int64, error) {
 	surveyProjects := []*SurveyProject{}
 	baseStmt := sysCoreSvc.BaseQueryBuilder(
 		filters,
 		SurveyProjectTableName,
 		m.surveyProjectColumns,
-		func(k string, v interface{}) sysCoreSvc.StmtIFacer {
-			return sq.Like{k: m.BuildSearchQuery(v.(string))}
-		},
+		sqlMatcher,
 	)
 	selectStmt, args, err := sysCoreSvc.ListSelectStatement(baseStmt, orderBy, limit, &cursor, DefaultCursor)
 	if err != nil {

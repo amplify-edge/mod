@@ -2134,6 +2134,7 @@ class ListRequest extends $pb.GeneratedMessage {
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currentPageId')
     ..a<$core.List<$core.int>>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filters', $pb.PbFieldType.OY)
     ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isDescending', protoName: 'isDescending')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'matcher')
     ..hasRequiredFields = false
   ;
 
@@ -2215,6 +2216,15 @@ class ListRequest extends $pb.GeneratedMessage {
   $core.bool hasIsDescending() => $_has(5);
   @$pb.TagNumber(6)
   void clearIsDescending() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get matcher => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set matcher($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasMatcher() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearMatcher() => clearField(7);
 }
 
 class ListResponse extends $pb.GeneratedMessage {

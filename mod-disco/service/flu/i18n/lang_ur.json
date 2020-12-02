@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-12-02T05:36:26.006619",
+  "@@last_modified": "2020-12-02T07:37:21.852368",
   "country": "ملک",
   "@country": {
     "description": "Country",
@@ -144,7 +144,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "extrapolatedSimilarPastActions": "مندرجہ ذیل اعداد و شمار ماضی کی اسی طرح کی کارروائیوں سے مایوس کن ہیں جو کامیاب اور ناکام رہے",
+  "extrapolatedSimilarPastActions": "مندرجہ ذیل اعداد و شمار ماضی کی اسی طرح کی کارروائیوں سے مایوس ہیں جو کامیاب اور ناکام رہے",
   "@extrapolatedSimilarPastActions": {
     "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
     "placeholders": {},
@@ -210,7 +210,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "needsSatisifiedRequirement": "براہ کرم اس عمل میں شامل ہونے کے ل as زیادہ سے زیادہ سپورٹ یا ضروریات کا انتخاب کریں جو آپ کو مطمئن درکار ہیں۔",
+  "needsSatisifiedRequirement": "براہ کرم زیادہ سے زیادہ حمایت یا ضرورت کو منتخب کریں تاکہ آپ کو اس عمل میں شامل ہونے کے لئے مطمئن درکار ہو۔",
   "@needsSatisifiedRequirement": {
     "description": "Please choose as many supports or needs you need satisfied to join the action.",
     "placeholders": {},

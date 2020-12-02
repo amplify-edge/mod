@@ -3,7 +3,6 @@ package dao
 import (
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	log "github.com/sirupsen/logrus"
-	"strings"
 )
 
 type ModDiscoDB struct {
@@ -56,10 +55,3 @@ func NewModDiscoDB(db *sysCoreSvc.CoreDB, l *log.Entry) (*ModDiscoDB, error) {
 	}, nil
 }
 
-func (m *ModDiscoDB) BuildSearchQuery(qs string) string {
-	var sb strings.Builder
-	sb.WriteString("%")
-	sb.WriteString(qs)
-	sb.WriteString("%")
-	return sb.String()
-}

@@ -90,9 +90,7 @@ func (sp SurveyUser) CreateSQL() []string {
 func (m *ModDiscoDB) GetSurveyUser(filters map[string]interface{}) (*SurveyUser, error) {
 	var sp SurveyUser
 	selectStmt, args, err := sysCoreSvc.BaseQueryBuilder(filters, SurveyUsersTableName, m.surveyUserColumns,
-		func(k string, v interface{}) sysCoreSvc.StmtIFacer {
-			return sq.Eq{k: v}
-		}).ToSql()
+		"eq").ToSql()
 	if err != nil {
 		return nil, err
 	}
@@ -111,12 +109,10 @@ func (m *ModDiscoDB) GetSurveyUser(filters map[string]interface{}) (*SurveyUser,
 	return &sp, nil
 }
 
-func (m *ModDiscoDB) ListSurveyUser(filters map[string]interface{}, orderBy string, limit, cursor int64) ([]*SurveyUser, *int64, error) {
+func (m *ModDiscoDB) ListSurveyUser(filters map[string]interface{}, orderBy string, limit, cursor int64, sqlMatcher string) ([]*SurveyUser, *int64, error) {
 	surveyUsers := []*SurveyUser{}
 	baseStmt := sysCoreSvc.BaseQueryBuilder(filters, SurveyUsersTableName, m.surveyUserColumns,
-		func(k string, v interface{}) sysCoreSvc.StmtIFacer {
-			return sq.Like{k: m.BuildSearchQuery(v.(string))}
-		})
+		sqlMatcher)
 	selectStmt, args, err := sysCoreSvc.ListSelectStatement(baseStmt, orderBy, limit, &cursor, DefaultCursor)
 	if err != nil {
 		return nil, nil, err
