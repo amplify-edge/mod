@@ -14,7 +14,8 @@ class DashboardDetailViewModel extends BaseModel {
   String _orgId;
   String _projectId;
   String _errMsg;
-  bool _hasError;
+  bool _hasError = false;
+  bool _isLoadingSurveyData = false;
   List<SurveyProject> _surveyProjects = [];
   Map<String, List<SurveyUser>> _surveyUserMap = {};
   Map<String, Map<String, List<UserNeedsType>>> _userNeedsQuestionMap =
@@ -25,7 +26,8 @@ class DashboardDetailViewModel extends BaseModel {
   Map<String, bool> _selectedRolesData = {};
   StatisticResponse _statisticsResponse;
   int _totalCount = 0;
-  int _rowsPerPage = 20;
+  int _rowsPerPage = 0;
+  int _defaultPerPageEntries = 5;
   Int64 _nextPageId = Int64.ZERO;
 
   int get rowsPerPage => _rowsPerPage;
@@ -36,8 +38,10 @@ class DashboardDetailViewModel extends BaseModel {
 
   bool get hasError => _hasError;
 
-  List<SurveyValuePlusAccount> get surveyDatas => _statisticsResponse?.surveyValuePlusAccount;
+  bool get isLoadingSurveyData => _isLoadingSurveyData;
 
+  List<SurveyValuePlusAccount> get surveyDatas =>
+      _statisticsResponse?.surveyValuePlusAccount;
 
   DashboardDetailViewModel(
       {@required String orgId, @required String projectId}) {
@@ -89,6 +93,11 @@ class DashboardDetailViewModel extends BaseModel {
     });
   }
 
+  void _setLoadingSurveyData(bool val) {
+    _isLoadingSurveyData = val;
+    notifyListeners();
+  }
+
   void _setStatisticsResp(StatisticResponse resp) {
     _statisticsResponse = resp;
     notifyListeners();
@@ -115,6 +124,7 @@ class DashboardDetailViewModel extends BaseModel {
   }
 
   Future<void> _toggleSelectedCondData(String id, bool val) async {
+    _setLoadingSurveyData(true);
     _selectedCondData.forEach((key, value) {
       key == id ? _selectedCondData[key] = val : _selectedCondData[key] = false;
     });
@@ -125,16 +135,20 @@ class DashboardDetailViewModel extends BaseModel {
         'user_needs_type_ref_id': id,
       },
       orderBy: 'id',
+      perPageEntries: _defaultPerPageEntries,
     ).catchError((e) {
       _setErrMsg(e.toString());
       _setHasError(true);
     });
     _setStatisticsResp(resp);
     _setTotalCount(resp.totalCount);
+    setChangeRowsPerPage(resp.surveyValuePlusAccount?.length ?? 0);
     notifyListeners();
+    _setLoadingSurveyData(false);
   }
 
   Future<void> _toggleSelectedRolesData(String id, bool val) async {
+    _setLoadingSurveyData(true);
     _selectedRolesData.forEach((key, value) {
       key == id
           ? _selectedRolesData[key] = val
@@ -147,14 +161,16 @@ class DashboardDetailViewModel extends BaseModel {
         'support_role_type_ref_id': id,
       },
       orderBy: 'id',
+      perPageEntries: _defaultPerPageEntries,
     ).catchError((e) {
       _setErrMsg(e.toString());
       _setHasError(true);
     });
     _setStatisticsResp(resp);
     _setTotalCount(resp.totalCount);
-    print('Statistics response: $_statisticsResponse');
+    setChangeRowsPerPage(resp.surveyValuePlusAccount?.length ?? 0);
     notifyListeners();
+    _setLoadingSurveyData(false);
   }
 
   Widget buildConditionsFilter(BuildContext context) {

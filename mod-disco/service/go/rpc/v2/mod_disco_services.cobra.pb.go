@@ -6,10 +6,10 @@ import (
 	client "github.com/getcouragenow/protoc-gen-cobra/client"
 	flag "github.com/getcouragenow/protoc-gen-cobra/flag"
 	iocodec "github.com/getcouragenow/protoc-gen-cobra/iocodec"
+	empty "github.com/golang/protobuf/ptypes/empty"
 	cobra "github.com/spf13/cobra"
 	grpc "google.golang.org/grpc"
 	proto "google.golang.org/protobuf/proto"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 func SurveyServiceClientCommand(options ...client.Option) *cobra.Command {
@@ -324,7 +324,7 @@ func _SurveyServiceNewSurveyUserCommand(cfg *client.Config) *cobra.Command {
 	cmd.PersistentFlags().StringVar(&req.SurveyProjectRefId, cfg.FlagNamer("SurveyProjectRefId"), "", "@inject_tag: fake:\"skip\" yaml:\"survey_project_ref_id,omitempty\"")
 	cmd.PersistentFlags().StringVar(&req.SysAccountUserRefId, cfg.FlagNamer("SysAccountUserRefId"), "", "@inject_tag: fake:\"skip\" yaml:\"sys_account_user_ref_id,omitempty\"")
 	cmd.PersistentFlags().StringVar(&req.SurveyProjectRefName, cfg.FlagNamer("SurveyProjectRefName"), "", "@inject_tag: fake:\"{nameseq:survey_project,true,survey_project,false,false}\" yaml:\"survey_project_ref_name\"")
-	cmd.PersistentFlags().StringVar(&req.SysAccountUserRefName, cfg.FlagNamer("SysAccountUserRefName"), "", "@inject_tag: fake:\"{mailseq:ops,true,sys_account_email,true}\" yaml:\"sys_account_user_ref_name\"")
+	cmd.PersistentFlags().StringVar(&req.SysAccountUserRefName, cfg.FlagNamer("SysAccountUserRefName"), "", "@inject_tag: fake:\"{mailseq:user,true,sys_account_email,true}\" yaml:\"sys_account_user_ref_name\"")
 	cmd.PersistentFlags().StringVar(&req.SurveyUserName, cfg.FlagNamer("SurveyUserName"), "", "@inject_tag: fake:\"{nameseq:survey_user,false,none,false,false}\" yaml:\"survey_user_name\"")
 
 	return cmd
@@ -834,7 +834,7 @@ func _SurveyServiceDeleteDiscoProjectCommand(cfg *client.Config) *cobra.Command 
 }
 
 func _SurveyServiceGenTempIdCommand(cfg *client.Config) *cobra.Command {
-	req := &emptypb.Empty{}
+	req := &empty.Empty{}
 
 	cmd := &cobra.Command{
 		Use:    cfg.CommandNamer("GenTempId"),
@@ -852,7 +852,7 @@ func _SurveyServiceGenTempIdCommand(cfg *client.Config) *cobra.Command {
 			}
 			return client.RoundTrip(cmd.Context(), cfg, func(cc grpc.ClientConnInterface, in iocodec.Decoder, out iocodec.Encoder) error {
 				cli := NewSurveyServiceClient(cc)
-				v := &emptypb.Empty{}
+				v := &empty.Empty{}
 
 				if err := in(v); err != nil {
 					return err
