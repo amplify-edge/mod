@@ -33,8 +33,12 @@ class DataPane extends StatelessWidget {
   Widget build(BuildContext context) {
     return isLoading
         ? Center(child: CircularProgressIndicator())
-        : rowsPerPage == 0
-            ? Container()
+        : rowsPerPage == 0 || items == null || totalCount == null
+            ? Center(
+                child: Text('Not Found',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).copyWith().textTheme.headline4),
+              )
             : NativeDataTable.builder(
                 sortAscending: false,
                 rowsPerPage: rowsPerPage,
@@ -54,7 +58,8 @@ class DataPane extends StatelessWidget {
                             Text('${item.createdAt.toDateTime().toString()}')),
                       ]);
                 },
-                header: const Text('Survey Value'),
+                header: Text(
+                    'Survey Value, Total Records: ' + totalCount.toString()),
                 // sortColumnIndex: _sortColumnIndex,
                 // sortAscending: _sortAscending,
                 onRefresh: onRefresh,
