@@ -33,58 +33,64 @@ class DataPane extends StatelessWidget {
   Widget build(BuildContext context) {
     return isLoading
         ? Center(child: CircularProgressIndicator())
-        : NativeDataTable.builder(
-            sortAscending: false,
-            rowsPerPage: rowsPerPage,
-            itemCount: totalCount,
-            firstRowIndex: rowsOffset ?? 0,
-            handleNext: handleNext,
-            handlePrevious: handlePrevious,
-            itemBuilder: (int index) {
-              final SurveyValuePlusAccount item = items[index];
-              return DataRow.byIndex(index: index,
-                  // selected: item.selected,
-                  // onSelectChanged: (bool value) {},
-                  cells: <DataCell>[
-                    DataCell(Text('${item.id}')),
-                    DataCell(Text('${item.sysAccountUserRefName}')),
-                    DataCell(Text('${item.pledged.toInt()}')),
-                    DataCell(Text('${item.createdAt.toDateTime().toString()}')),
-                  ]);
-            },
-            header: const Text('Survey Value'),
-            // sortColumnIndex: _sortColumnIndex,
-            // sortAscending: _sortAscending,
-            onRefresh: onRefresh,
-            onRowsPerPageChanged: onRowsPerPageChanged,
-            // mobileItemBuilder: (BuildContext context, int index) {
-            //   final i = _desserts[index];
-            //   return ListTile(
-            //     title: Text(i?.name),
-            //   );
-            // },
-            rowCountApproximate: true,
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.info_outline),
-                onPressed: () {},
-              ),
-            ],
-            columns: <DataColumn>[
-              DataColumn(label: const Text('id')),
-              DataColumn(
-                label: const Text('Account'),
-                tooltip: 'Account name.',
-              ),
-              DataColumn(
-                label: const Text('Pledged'),
-                numeric: true,
-              ),
-              DataColumn(
-                label: const Text('Date Posted'),
-                tooltip: 'Date created',
-              ),
-            ],
-          );
+        : rowsPerPage == 0 || items == null || totalCount == null
+            ? Center(
+                child: Text('Not Found',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).copyWith().textTheme.headline4),
+              )
+            : NativeDataTable.builder(
+                sortAscending: false,
+                rowsPerPage: rowsPerPage,
+                itemCount: totalCount,
+                firstRowIndex: rowsOffset ?? 0,
+                handleNext: handleNext,
+                handlePrevious: handlePrevious,
+                itemBuilder: (int index) {
+                  final SurveyValuePlusAccount item = items[index];
+                  return DataRow.byIndex(index: index,
+                      // selected: item.selected,
+                      // onSelectChanged: (bool value) {},
+                      cells: <DataCell>[
+                        DataCell(Text('${item.sysAccountUserRefName}')),
+                        DataCell(Text('${item.pledged.toInt()}')),
+                        DataCell(
+                            Text('${item.createdAt.toDateTime().toString()}')),
+                      ]);
+                },
+                header: Text(
+                    'Survey Value, Total Records: ' + totalCount.toString()),
+                // sortColumnIndex: _sortColumnIndex,
+                // sortAscending: _sortAscending,
+                onRefresh: onRefresh,
+                onRowsPerPageChanged: onRowsPerPageChanged,
+                // mobileItemBuilder: (BuildContext context, int index) {
+                //   final i = _desserts[index];
+                //   return ListTile(
+                //     title: Text(i?.name),
+                //   );
+                // },
+                rowCountApproximate: true,
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.info_outline),
+                    onPressed: () {},
+                  ),
+                ],
+                columns: <DataColumn>[
+                  DataColumn(
+                    label: const Text('Account'),
+                    tooltip: 'Account name.',
+                  ),
+                  DataColumn(
+                    label: const Text('Pledged'),
+                    numeric: true,
+                  ),
+                  DataColumn(
+                    label: const Text('Date Posted'),
+                    tooltip: 'Date created',
+                  ),
+                ],
+              );
   }
 }
