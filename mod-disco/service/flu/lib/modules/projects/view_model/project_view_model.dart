@@ -3,6 +3,9 @@ import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart
 
 class ProjectViewModel extends BaseModel {
   ProjectViewModel({List<Org> organizations}) {
-    BaseModel(orgs: organizations);
+    if (organizations != null) {
+      this.orgs = organizations;
+      setHasMoreItems(false);
+    }
   }
 }

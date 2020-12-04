@@ -54,7 +54,9 @@ class MainAppModule extends ChildModule {
         // ModularRouter("/userInfo", child: (_, args) => UserInfoView()),
         ModularRouter(
           "/projects",
-          child: (_, args) => ProjectView(),
+          child: (_, args) => ProjectView(
+            orgs: args.data['orgs'] ?? [],
+          ),
         ),
         ModularRouter(
           "/projects/:orgId/:id",

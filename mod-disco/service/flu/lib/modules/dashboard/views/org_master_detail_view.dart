@@ -172,7 +172,7 @@ class OrgMasterDetailView extends StatelessWidget {
                           handleNext: model.handleNextPage,
                           onRowsPerPageChanged: model.setChangeRowsPerPage,
                           rowsOffset: 0,
-                          handlePrevious: null,
+                          handlePrevious: () {},
                           items: model.surveyDatas,
                           onRefresh: model.handleResetAll,
                         )),
