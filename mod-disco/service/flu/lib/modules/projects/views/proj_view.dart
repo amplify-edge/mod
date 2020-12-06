@@ -25,6 +25,8 @@ class ProjectView extends StatelessWidget {
       onModelReady: (ProjectViewModel model) async {
         if (model.orgs == null || model.orgs.isEmpty) {
           await model.fetchInitialProjects();
+        } else {
+          await model.fetchExistingOrgsProjects();
         }
       },
       builder: (context, ProjectViewModel model, child) => Scaffold(

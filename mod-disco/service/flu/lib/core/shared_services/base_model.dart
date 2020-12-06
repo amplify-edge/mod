@@ -92,7 +92,6 @@ class BaseModel extends ChangeNotifier {
           await DiscoProjectRepo.getProjectDetails(accountProjRefId: p.id)
               .then((details) {
             projectDetails.add(details);
-            notifyListeners();
           }).catchError((e) => print(e));
         });
       });
