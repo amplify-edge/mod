@@ -4,6 +4,7 @@ import 'package:mod_disco/modules/dashboard/views/org_master_detail_view.dart';
 import 'package:mod_disco/modules/projects/views/proj_view.dart';
 import 'package:mod_disco/modules/survey_project/views/support_role_view.dart';
 import 'package:mod_disco/modules/survey_project/views/survey_project_view.dart';
+import 'package:sys_share_sys_account_service/rpc/v2/sys_account_models.pb.dart';
 import 'splash/views/splash_view.dart';
 
 class MainAppModule extends ChildModule {
@@ -47,13 +48,10 @@ class MainAppModule extends ChildModule {
   @override
   List<ModularRouter> get routers => [
         ModularRouter("/", child: (_, args) => SplashView()),
-
-        /// Non-Admin Dashboard Routes
-        // ModularRouter("/userInfo", child: (_, args) => UserInfoView()),
         ModularRouter(
           "/projects",
           child: (_, args) => ProjectView(
-            orgs: args.data['orgs'] ?? [],
+            orgs: args.data,
           ),
         ),
         ModularRouter(

@@ -123,12 +123,14 @@ class DashboardViewModel extends BaseModel {
     if (!isLoggedOn) {
       throw "cannot access dashboard, user not logged in";
     }
-    // TODO: Once it's all complete don't forget to add admin check
     if (_currentAccount.id.isEmpty) {
       await _fetchAccountId();
     }
     await verifySuperuser();
     await verifyAdmin();
+    if (!_isSuperuser && !_isAdmin) {
+      throw "cannot access dashboard, user is not authorized";
+    }
     _setSubscribedProjects(getSubscribedProjects(_currentAccount));
     setLoading(false);
   }
