@@ -1,12 +1,10 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/modules/dashboard/views/org_master_detail_view.dart';
-import 'package:mod_disco/modules/new_orgs/views/org_view.dart';
 import 'package:mod_disco/modules/projects/views/proj_view.dart';
 import 'package:mod_disco/modules/survey_project/views/support_role_view.dart';
 import 'package:mod_disco/modules/survey_project/views/survey_project_view.dart';
 import 'splash/views/splash_view.dart';
-import 'userinfo/views/userinfo_view.dart';
 
 class MainAppModule extends ChildModule {
   final String baseRoute;

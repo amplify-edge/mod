@@ -33,7 +33,7 @@ dependencies:
   meta:
   flutter_modular: ^2.0.0+1
   intl: ^0.17.0-nullsafety.2
-#  intl_translation: ^0.17.10+1
+  #  intl_translation: ^0.17.10+1
   data_tables: ^1.0.3
   random_string: ^2.0.1
   flutter_platform_widgets: ^0.8.1
