@@ -19,24 +19,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
+  #  flutter_localizations:
+  #    sdk: flutter
 
   responsive_builder: ^0.3.0
   #  responsive_scaffold: ^1.3.0+2
   #  floating_search_bar: ^0.3.0
   # protobuf: ^1.0.1
-  provider: ^4.0.4
+  provider: ^4.3.2+3
   provider_architecture: ^1.0.6
   path_provider: ^1.6.7
-  equatable:
+  #  equatable:
   meta:
   flutter_modular: ^2.0.0+1
-  intl: ^0.17.0-nullsafety.2
-  #  intl_translation: ^0.17.10+1
+  intl: ^0.16.1
+  intl_translation: ^0.17.10+1
   data_tables: ^1.0.3
   random_string: ^2.0.1
-  flutter_platform_widgets: ^0.8.1
+  flutter_platform_widgets: ^0.72.0
   cupertino_icons: ^1.0.0
   #  font_awesome_flutter: ^8.7.0
   #  flutter_material_pickers: ^1.8.1

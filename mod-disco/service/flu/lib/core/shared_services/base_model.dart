@@ -180,12 +180,6 @@ class BaseModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void navigateToReady() {
-    Modular.to.pushNamed(Modular.get<Paths>().ready);
-  }
-
-  void navigateToNotReady(int index) {}
-
   void getSelectedProjectAndDetails(String orgId, String id) {
     Project _proj;
     final _org = orgs.firstWhere((org) => org.id == orgId);
