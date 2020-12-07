@@ -120,9 +120,6 @@ class DashboardViewModel extends BaseModel {
   Future<void> getPermissions() async {
     setLoading(true);
     await isUserLoggedIn();
-    if (!isLoggedOn) {
-      throw "cannot access dashboard, user not logged in";
-    }
     if (_currentAccount.id.isEmpty) {
       await _fetchAccountId();
     }

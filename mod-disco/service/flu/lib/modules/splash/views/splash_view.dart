@@ -7,6 +7,7 @@ import 'package:provider_architecture/provider_architecture.dart';
 class SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // TODO: remove this hack, use guard widget
     return ViewModelProvider.withConsumer(
       onModelReady: (model) => model.handleStartUpLogic(),
       viewModel: SplashViewModel(),

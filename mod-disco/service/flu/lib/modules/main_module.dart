@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
+import 'package:mod_disco/core/guard_overrides/dashboard/dashboard_guard_widget.dart';
 import 'package:mod_disco/modules/dashboard/views/org_master_detail_view.dart';
 import 'package:mod_disco/modules/projects/views/proj_view.dart';
 import 'package:mod_disco/modules/survey_project/views/support_role_view.dart';
@@ -79,12 +80,15 @@ class MainAppModule extends ChildModule {
 
         /// Admin Dashboard Routes
         ModularRouter("/dashboard/orgs",
-            child: (_, args) => OrgMasterDetailView()),
+            child: (_, args) =>
+                DashboardGuardianWidget(widget: OrgMasterDetailView())),
         ModularRouter(
           "/dashboard/orgs/:orgId/:id",
-          child: (_, args) => OrgMasterDetailView(
-            id: args.params['id'] ?? '',
-            orgId: args.params['orgId'] ?? '',
+          child: (_, args) => DashboardGuardianWidget(
+            widget: OrgMasterDetailView(
+              id: args.params['id'] ?? '',
+              orgId: args.params['orgId'] ?? '',
+            ),
           ),
         ),
       ];
