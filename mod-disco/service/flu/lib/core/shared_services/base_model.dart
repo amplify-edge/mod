@@ -17,7 +17,17 @@ class BaseModel extends ChangeNotifier {
   List<DiscoProject> projectDetails = List<DiscoProject>();
 
   // constructor
-  BaseModel({this.orgs});
+  BaseModel({List<Org> orglist}) {
+    if (orglist != null) {
+      this.orgs = orglist;
+      _setHasMoreItems(false);
+    }
+  }
+
+  void setHasMoreItems(bool val) {
+    _hasMoreItems = val;
+    notifyListeners();
+  }
 
   Project _selectedProject;
   DiscoProject _selectedDiscoProject;
@@ -82,7 +92,6 @@ class BaseModel extends ChangeNotifier {
           await DiscoProjectRepo.getProjectDetails(accountProjRefId: p.id)
               .then((details) {
             projectDetails.add(details);
-            notifyListeners();
           }).catchError((e) => print(e));
         });
       });
