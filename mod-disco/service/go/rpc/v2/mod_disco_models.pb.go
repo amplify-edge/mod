@@ -1620,10 +1620,10 @@ type NewDiscoProjectRequest struct {
 	SysAccountProjectRefName string `protobuf:"bytes,18,opt,name=sys_account_project_ref_name,json=sysAccountProjectRefName,proto3" json:"sys_account_project_ref_name,omitempty" fake:"{nameseq:sys_account_project,true,sys_account_project,true,false}" yaml:"sys_account_project_ref_name"`
 	// @inject_tag: fake:"{nameseq:sys_account_org,true,sys_account_org,false,false}" yaml:"sys_account_org_ref_name,omitempty"
 	SysAccountOrgRefName string `protobuf:"bytes,19,opt,name=sys_account_org_ref_name,json=sysAccountOrgRefName,proto3" json:"sys_account_org_ref_name,omitempty" fake:"{nameseq:sys_account_org,true,sys_account_org,false,false}" yaml:"sys_account_org_ref_name,omitempty"`
-	// @inject_tag: fake:"{avatargen:./bootstrap-data/client/generated,300}" fakesize:"3" yaml:"image_filepath,omitempty"
-	ImageFilepath []string `protobuf:"bytes,20,rep,name=image_filepath,json=imageFilepath,proto3" json:"image_filepath,omitempty" fake:"{avatargen:./bootstrap-data/client/generated,300}" fakesize:"3" yaml:"image_filepath,omitempty"`
-	// @inject_tag: fake:"skip" yaml:"image_upload_arrays,omitempty"
-	ImageUploadArrays [][]byte `protobuf:"bytes,21,rep,name=image_upload_arrays,json=imageUploadArrays,proto3" json:"image_upload_arrays,omitempty" fake:"skip" yaml:"image_upload_arrays,omitempty"`
+	// @inject_tag: fake:"300" fakesize:"3" yaml:"image_filepath,omitempty"
+	ImageFilepath []string `protobuf:"bytes,20,rep,name=image_filepath,json=imageFilepath,proto3" json:"image_filepath,omitempty" fake:"300" fakesize:"3" yaml:"image_filepath,omitempty"`
+	// @inject_tag: fake:"avatargenbytes:300" yaml:"image_upload_arrays,omitempty"
+	ImageUploadArrays [][]byte `protobuf:"bytes,21,rep,name=image_upload_arrays,json=imageUploadArrays,proto3" json:"image_upload_arrays,omitempty" fake:"avatargenbytes:300" yaml:"image_upload_arrays,omitempty"`
 }
 
 func (x *NewDiscoProjectRequest) Reset() {
