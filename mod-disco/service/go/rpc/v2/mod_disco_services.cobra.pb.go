@@ -6,10 +6,10 @@ import (
 	client "github.com/getcouragenow/protoc-gen-cobra/client"
 	flag "github.com/getcouragenow/protoc-gen-cobra/flag"
 	iocodec "github.com/getcouragenow/protoc-gen-cobra/iocodec"
-	empty "github.com/golang/protobuf/ptypes/empty"
 	cobra "github.com/spf13/cobra"
 	grpc "google.golang.org/grpc"
 	proto "google.golang.org/protobuf/proto"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 func SurveyServiceClientCommand(options ...client.Option) *cobra.Command {
@@ -633,7 +633,7 @@ func _SurveyServiceNewDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefName, cfg.FlagNamer("SysAccountProjectRefName"), "", "@inject_tag: fake:\"{nameseq:sys_account_project,true,sys_account_project,true,false}\" yaml:\"sys_account_project_ref_name\"")
 	cmd.PersistentFlags().StringVar(&req.SysAccountOrgRefName, cfg.FlagNamer("SysAccountOrgRefName"), "", "@inject_tag: fake:\"{nameseq:sys_account_org,true,sys_account_org,false,false}\" yaml:\"sys_account_org_ref_name,omitempty\"")
 	cmd.PersistentFlags().StringSliceVar(&req.ImageFilepath, cfg.FlagNamer("ImageFilepath"), nil, "@inject_tag: fake:\"300\" fakesize:\"3\" yaml:\"image_filepath,omitempty\"")
-	flag.BytesBase64SliceVar(cmd.PersistentFlags(), &req.ImageUploadArrays, cfg.FlagNamer("ImageUploadArrays"), "@inject_tag: fake:\"avatargenbytes:300\" yaml:\"image_upload_arrays,omitempty\"")
+	cmd.PersistentFlags().StringSliceVar(&req.ImageUploadArrays, cfg.FlagNamer("ImageUploadArrays"), nil, "@inject_tag: fake:\"{logogen:300}\" yaml:\"image_upload_arrays,omitempty\"")
 
 	return cmd
 }
@@ -834,7 +834,7 @@ func _SurveyServiceDeleteDiscoProjectCommand(cfg *client.Config) *cobra.Command 
 }
 
 func _SurveyServiceGenTempIdCommand(cfg *client.Config) *cobra.Command {
-	req := &empty.Empty{}
+	req := &emptypb.Empty{}
 
 	cmd := &cobra.Command{
 		Use:    cfg.CommandNamer("GenTempId"),
@@ -852,7 +852,7 @@ func _SurveyServiceGenTempIdCommand(cfg *client.Config) *cobra.Command {
 			}
 			return client.RoundTrip(cmd.Context(), cfg, func(cc grpc.ClientConnInterface, in iocodec.Decoder, out iocodec.Encoder) error {
 				cli := NewSurveyServiceClient(cc)
-				v := &empty.Empty{}
+				v := &emptypb.Empty{}
 
 				if err := in(v); err != nil {
 					return err

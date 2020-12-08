@@ -237,8 +237,8 @@ message NewDiscoProjectRequest {
   string sys_account_org_ref_name = 19;
   // @inject_tag: fake:"300" fakesize:"3" yaml:"image_filepath,omitempty"
   repeated string image_filepath = 20;
-  // @inject_tag: fake:"avatargenbytes:300" yaml:"image_upload_arrays,omitempty"
-  repeated bytes image_upload_arrays = 21;
+  // @inject_tag: fake:"{logogen:300}" yaml:"image_upload_arrays,omitempty"
+  repeated string image_upload_arrays = 21;
 }
 
 message UpdateDiscoProjectRequest {
