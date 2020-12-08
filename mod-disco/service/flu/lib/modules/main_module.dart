@@ -1,12 +1,12 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/core/guard_overrides/dashboard/dashboard_guard_widget.dart';
+import 'package:mod_disco/core/guard_overrides/splash/splash_guard_widget.dart';
 import 'package:mod_disco/modules/dashboard/views/org_master_detail_view.dart';
 import 'package:mod_disco/modules/projects/views/proj_view.dart';
 import 'package:mod_disco/modules/survey_project/views/support_role_view.dart';
 import 'package:mod_disco/modules/survey_project/views/survey_project_view.dart';
-import 'package:sys_share_sys_account_service/rpc/v2/sys_account_models.pb.dart';
-import 'splash/views/splash_view.dart';
 
 class MainAppModule extends ChildModule {
   final String baseRoute;
@@ -48,7 +48,8 @@ class MainAppModule extends ChildModule {
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter("/", child: (_, args) => SplashView()),
+        ModularRouter("/",
+            child: (_, args) => SplashGuardianWidget(widget: Container())),
         ModularRouter(
           "/projects",
           child: (_, args) => ProjectView(

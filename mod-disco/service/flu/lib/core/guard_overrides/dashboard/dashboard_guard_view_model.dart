@@ -4,6 +4,7 @@ import 'package:sys_share_sys_account_service/pkg/guards/guardian_view_model.dar
 class DashboardGuardViewModel extends GuardianViewModel {
   Future<void> _grantAdminAndSuperAccess(
       BuildContext context, Widget widget) async {
+    await checkUserLoggedIn(context);
     if (currentAccount.id.isEmpty) {
       await fetchAccountId();
     }
