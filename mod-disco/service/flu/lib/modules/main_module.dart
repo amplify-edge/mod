@@ -1,10 +1,12 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
+import 'package:mod_disco/core/guard_overrides/dashboard/dashboard_guard_widget.dart';
+import 'package:mod_disco/core/guard_overrides/splash/splash_guard_widget.dart';
 import 'package:mod_disco/modules/dashboard/views/org_master_detail_view.dart';
 import 'package:mod_disco/modules/projects/views/proj_view.dart';
 import 'package:mod_disco/modules/survey_project/views/support_role_view.dart';
 import 'package:mod_disco/modules/survey_project/views/survey_project_view.dart';
-import 'splash/views/splash_view.dart';
 
 class MainAppModule extends ChildModule {
   final String baseRoute;
@@ -46,14 +48,12 @@ class MainAppModule extends ChildModule {
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter("/", child: (_, args) => SplashView()),
-
-        /// Non-Admin Dashboard Routes
-        // ModularRouter("/userInfo", child: (_, args) => UserInfoView()),
+        ModularRouter("/",
+            child: (_, args) => SplashGuardianWidget(widget: Container())),
         ModularRouter(
           "/projects",
           child: (_, args) => ProjectView(
-            orgs: args.data['orgs'] ?? [],
+            orgs: args.data,
           ),
         ),
         ModularRouter(
@@ -81,12 +81,15 @@ class MainAppModule extends ChildModule {
 
         /// Admin Dashboard Routes
         ModularRouter("/dashboard/orgs",
-            child: (_, args) => OrgMasterDetailView()),
+            child: (_, args) =>
+                DashboardGuardianWidget(widget: OrgMasterDetailView())),
         ModularRouter(
           "/dashboard/orgs/:orgId/:id",
-          child: (_, args) => OrgMasterDetailView(
-            id: args.params['id'] ?? '',
-            orgId: args.params['orgId'] ?? '',
+          child: (_, args) => DashboardGuardianWidget(
+            widget: OrgMasterDetailView(
+              id: args.params['id'] ?? '',
+              orgId: args.params['orgId'] ?? '',
+            ),
           ),
         ),
       ];
