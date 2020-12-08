@@ -22,8 +22,6 @@ class SplashGuardViewModel extends GuardianViewModel {
 
   void _navigateToProject(BuildContext context) {
     Navigator.pop(context);
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (BuildContext ctx) => widget));
     Modular.to.pushNamed(Modular.get<Paths>().projects);
   }
 

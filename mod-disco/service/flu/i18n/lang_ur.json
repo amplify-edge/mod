@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-12-07T01:28:25.921716",
+  "@@last_modified": "2020-12-08T10:24:24.989920",
   "country": "ملک",
   "@country": {
     "description": "Country",
@@ -252,7 +252,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "pleaseSelectAnOptionFromTheList": "براہ کرم فہرست میں سے ایک آپشن منتخب کریں",
+  "pleaseSelectAnOptionFromTheList": "براہ کرم فہرست میں سے کوئی آپشن منتخب کریں",
   "@pleaseSelectAnOptionFromTheList": {
     "description": "Please select an option from the list",
     "placeholders": {},

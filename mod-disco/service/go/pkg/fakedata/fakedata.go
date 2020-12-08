@@ -189,6 +189,7 @@ func genFakeDiscoProject(sysAccOrgRc, sysAccProjRc *fakehelper.RefCount) bootstr
 	gofakeit.AddFuncLookup(fakehelper.FakeRandomTs())
 	gofakeit.AddFuncLookup(fakehelper.FakeYtUrls())
 	gofakeit.AddFuncLookup(fakehelper.FakeAvatarGen())
+	gofakeit.AddFuncLookup(fakehelper.FakeAvatarGenBytes())
 	var bsdp bootstrapDiscoProject
 	gofakeit.Struct(&bsdp)
 	return bsdp
