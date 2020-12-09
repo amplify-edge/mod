@@ -4,10 +4,10 @@ package v2
 
 import (
 	context "context"
-	empty "github.com/golang/protobuf/ptypes/empty"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -23,22 +23,22 @@ type SurveyServiceClient interface {
 	GetSurveyProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SurveyProject, error)
 	ListSurveyProject(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
 	UpdateSurveyProject(ctx context.Context, in *UpdateSurveyProjectRequest, opts ...grpc.CallOption) (*SurveyProject, error)
-	DeleteSurveyProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	DeleteSurveyProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// Users
 	NewSurveyUser(ctx context.Context, in *NewSurveyUserRequest, opts ...grpc.CallOption) (*SurveyUser, error)
 	GetSurveyUser(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SurveyUser, error)
 	ListSurveyUser(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
 	UpdateSurveyUser(ctx context.Context, in *UpdateSurveyUserRequest, opts ...grpc.CallOption) (*SurveyUser, error)
-	DeleteSurveyUser(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	DeleteSurveyUser(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetProjectStatistics(ctx context.Context, in *StatisticRequest, opts ...grpc.CallOption) (*StatisticResponse, error)
 	// DiscoProjects
 	NewDiscoProject(ctx context.Context, in *NewDiscoProjectRequest, opts ...grpc.CallOption) (*DiscoProject, error)
 	GetDiscoProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*DiscoProject, error)
 	ListDiscoProject(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
 	UpdateDiscoProject(ctx context.Context, in *UpdateSurveyProjectRequest, opts ...grpc.CallOption) (*DiscoProject, error)
-	DeleteDiscoProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	DeleteDiscoProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// TempIdRequest
-	GenTempId(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*GenIdResponse, error)
+	GenTempId(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GenIdResponse, error)
 }
 
 type surveyServiceClient struct {
@@ -105,8 +105,8 @@ var surveyServiceDeleteSurveyProjectStreamDesc = &grpc.StreamDesc{
 	StreamName: "DeleteSurveyProject",
 }
 
-func (c *surveyServiceClient) DeleteSurveyProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
-	out := new(empty.Empty)
+func (c *surveyServiceClient) DeleteSurveyProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/DeleteSurveyProject", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -170,8 +170,8 @@ var surveyServiceDeleteSurveyUserStreamDesc = &grpc.StreamDesc{
 	StreamName: "DeleteSurveyUser",
 }
 
-func (c *surveyServiceClient) DeleteSurveyUser(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
-	out := new(empty.Empty)
+func (c *surveyServiceClient) DeleteSurveyUser(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/DeleteSurveyUser", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -248,8 +248,8 @@ var surveyServiceDeleteDiscoProjectStreamDesc = &grpc.StreamDesc{
 	StreamName: "DeleteDiscoProject",
 }
 
-func (c *surveyServiceClient) DeleteDiscoProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
-	out := new(empty.Empty)
+func (c *surveyServiceClient) DeleteDiscoProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/DeleteDiscoProject", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -261,7 +261,7 @@ var surveyServiceGenTempIdStreamDesc = &grpc.StreamDesc{
 	StreamName: "GenTempId",
 }
 
-func (c *surveyServiceClient) GenTempId(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*GenIdResponse, error) {
+func (c *surveyServiceClient) GenTempId(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GenIdResponse, error) {
 	out := new(GenIdResponse)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/GenTempId", in, out, opts...)
 	if err != nil {
@@ -280,22 +280,22 @@ type SurveyServiceService struct {
 	GetSurveyProject    func(context.Context, *IdRequest) (*SurveyProject, error)
 	ListSurveyProject   func(context.Context, *ListRequest) (*ListResponse, error)
 	UpdateSurveyProject func(context.Context, *UpdateSurveyProjectRequest) (*SurveyProject, error)
-	DeleteSurveyProject func(context.Context, *IdRequest) (*empty.Empty, error)
+	DeleteSurveyProject func(context.Context, *IdRequest) (*emptypb.Empty, error)
 	// Users
 	NewSurveyUser        func(context.Context, *NewSurveyUserRequest) (*SurveyUser, error)
 	GetSurveyUser        func(context.Context, *IdRequest) (*SurveyUser, error)
 	ListSurveyUser       func(context.Context, *ListRequest) (*ListResponse, error)
 	UpdateSurveyUser     func(context.Context, *UpdateSurveyUserRequest) (*SurveyUser, error)
-	DeleteSurveyUser     func(context.Context, *IdRequest) (*empty.Empty, error)
+	DeleteSurveyUser     func(context.Context, *IdRequest) (*emptypb.Empty, error)
 	GetProjectStatistics func(context.Context, *StatisticRequest) (*StatisticResponse, error)
 	// DiscoProjects
 	NewDiscoProject    func(context.Context, *NewDiscoProjectRequest) (*DiscoProject, error)
 	GetDiscoProject    func(context.Context, *IdRequest) (*DiscoProject, error)
 	ListDiscoProject   func(context.Context, *ListRequest) (*ListResponse, error)
 	UpdateDiscoProject func(context.Context, *UpdateSurveyProjectRequest) (*DiscoProject, error)
-	DeleteDiscoProject func(context.Context, *IdRequest) (*empty.Empty, error)
+	DeleteDiscoProject func(context.Context, *IdRequest) (*emptypb.Empty, error)
 	// TempIdRequest
-	GenTempId func(context.Context, *empty.Empty) (*GenIdResponse, error)
+	GenTempId func(context.Context, *emptypb.Empty) (*GenIdResponse, error)
 }
 
 func (s *SurveyServiceService) newSurveyProject(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -622,7 +622,7 @@ func (s *SurveyServiceService) genTempId(_ interface{}, ctx context.Context, dec
 	if s.GenTempId == nil {
 		return nil, status.Errorf(codes.Unimplemented, "method GenTempId not implemented")
 	}
-	in := new(empty.Empty)
+	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -634,7 +634,7 @@ func (s *SurveyServiceService) genTempId(_ interface{}, ctx context.Context, dec
 		FullMethod: "/v2.mod_disco.services.SurveyService/GenTempId",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.GenTempId(ctx, req.(*empty.Empty))
+		return s.GenTempId(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -749,7 +749,7 @@ func NewSurveyServiceService(s interface{}) *SurveyServiceService {
 		ns.UpdateSurveyProject = h.UpdateSurveyProject
 	}
 	if h, ok := s.(interface {
-		DeleteSurveyProject(context.Context, *IdRequest) (*empty.Empty, error)
+		DeleteSurveyProject(context.Context, *IdRequest) (*emptypb.Empty, error)
 	}); ok {
 		ns.DeleteSurveyProject = h.DeleteSurveyProject
 	}
@@ -774,7 +774,7 @@ func NewSurveyServiceService(s interface{}) *SurveyServiceService {
 		ns.UpdateSurveyUser = h.UpdateSurveyUser
 	}
 	if h, ok := s.(interface {
-		DeleteSurveyUser(context.Context, *IdRequest) (*empty.Empty, error)
+		DeleteSurveyUser(context.Context, *IdRequest) (*emptypb.Empty, error)
 	}); ok {
 		ns.DeleteSurveyUser = h.DeleteSurveyUser
 	}
@@ -804,12 +804,12 @@ func NewSurveyServiceService(s interface{}) *SurveyServiceService {
 		ns.UpdateDiscoProject = h.UpdateDiscoProject
 	}
 	if h, ok := s.(interface {
-		DeleteDiscoProject(context.Context, *IdRequest) (*empty.Empty, error)
+		DeleteDiscoProject(context.Context, *IdRequest) (*emptypb.Empty, error)
 	}); ok {
 		ns.DeleteDiscoProject = h.DeleteDiscoProject
 	}
 	if h, ok := s.(interface {
-		GenTempId(context.Context, *empty.Empty) (*GenIdResponse, error)
+		GenTempId(context.Context, *emptypb.Empty) (*GenIdResponse, error)
 	}); ok {
 		ns.GenTempId = h.GenTempId
 	}
@@ -826,20 +826,20 @@ type UnstableSurveyServiceService interface {
 	GetSurveyProject(context.Context, *IdRequest) (*SurveyProject, error)
 	ListSurveyProject(context.Context, *ListRequest) (*ListResponse, error)
 	UpdateSurveyProject(context.Context, *UpdateSurveyProjectRequest) (*SurveyProject, error)
-	DeleteSurveyProject(context.Context, *IdRequest) (*empty.Empty, error)
+	DeleteSurveyProject(context.Context, *IdRequest) (*emptypb.Empty, error)
 	// Users
 	NewSurveyUser(context.Context, *NewSurveyUserRequest) (*SurveyUser, error)
 	GetSurveyUser(context.Context, *IdRequest) (*SurveyUser, error)
 	ListSurveyUser(context.Context, *ListRequest) (*ListResponse, error)
 	UpdateSurveyUser(context.Context, *UpdateSurveyUserRequest) (*SurveyUser, error)
-	DeleteSurveyUser(context.Context, *IdRequest) (*empty.Empty, error)
+	DeleteSurveyUser(context.Context, *IdRequest) (*emptypb.Empty, error)
 	GetProjectStatistics(context.Context, *StatisticRequest) (*StatisticResponse, error)
 	// DiscoProjects
 	NewDiscoProject(context.Context, *NewDiscoProjectRequest) (*DiscoProject, error)
 	GetDiscoProject(context.Context, *IdRequest) (*DiscoProject, error)
 	ListDiscoProject(context.Context, *ListRequest) (*ListResponse, error)
 	UpdateDiscoProject(context.Context, *UpdateSurveyProjectRequest) (*DiscoProject, error)
-	DeleteDiscoProject(context.Context, *IdRequest) (*empty.Empty, error)
+	DeleteDiscoProject(context.Context, *IdRequest) (*emptypb.Empty, error)
 	// TempIdRequest
-	GenTempId(context.Context, *empty.Empty) (*GenIdResponse, error)
+	GenTempId(context.Context, *emptypb.Empty) (*GenIdResponse, error)
 }

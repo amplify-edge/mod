@@ -9,6 +9,7 @@ import (
 	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sharedAuth "github.com/getcouragenow/sys-share/sys-account/service/go/pkg/shared"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
@@ -37,7 +38,11 @@ func (md *ModDiscoRepo) NewDiscoProject(ctx context.Context, in *discoRpc.NewDis
 	}
 	if len(in.GetImageUploadArrays()) != 0 {
 		for _, imgData := range in.GetImageUploadArrays() {
-			resId, err := md.frepo.UploadFile("", imgData)
+			imgBytes, err := sharedConfig.DecodeB64(imgData)
+			if err != nil {
+				return nil, err
+			}
+			resId, err := md.frepo.UploadFile("", imgBytes)
 			if err != nil {
 				return nil, err
 			}
