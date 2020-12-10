@@ -18,6 +18,7 @@ class SurveyProjectViewModel extends BaseModel {
   List<List<UserNeedsType>> _userNeedsLists = List<List<UserNeedsType>>();
   Map<String, NewUserNeedsValue> _userNeedsValueMap = {};
   NewSurveyUserRequest _surveyUser = NewSurveyUserRequest();
+  UpdateSurveyUserRequest _updateSurveyUserRequest = UpdateSurveyUserRequest();
   String _accountId = "";
   Map<String, Map<String, List<UserNeedsType>>> _userNeedsQuestionMap =
       Map<String, Map<String, List<UserNeedsType>>>();
