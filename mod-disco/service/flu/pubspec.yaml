@@ -1,5 +1,6 @@
 name: mod_disco
 description: A new Flutter project.
+publish_to: none
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -48,8 +49,11 @@ dependencies:
   #      url: git://github.com/getcouragenow/sys-share
   #      path: sys-core/service/flu
   sys_share_sys_account_service:
-    path: ../../../../sys-share/sys-account/service/flu
-
+    git:
+      url: git://github.com/getcouragenow/sys-share.git
+      path: sys-account/service/flu
+      ref: d7fca509165d9cb5a1abe051e1888a80e20804c8
+  #    path: ../../../../sys-share/sys-account/service/flu
   # mod_timespace:
   #   path: ../../mod-timespace/client
 
