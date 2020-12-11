@@ -52,7 +52,7 @@ dependencies:
     git:
       url: git://github.com/getcouragenow/sys-share.git
       path: sys-account/service/flu
-      ref: 414dc77722364156d453cb578fcbf1179e27f620
+      ref: 35b645d047ee71de41a99f17d8670b9bbeffd95c
   #    path: ../../../../sys-share/sys-account/service/flu
   # mod_timespace:
   #   path: ../../mod-timespace/client
