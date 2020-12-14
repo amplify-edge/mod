@@ -1,7 +1,11 @@
-# charts
+# Analytics
+
+I think its best if we just store events and display them in Flutter.
 
 For now we only want the absolute basics for V2 !!
 
+
+## Analytics for v2
 
 Golang genji / Badger DB records all events.
 - the idea is that we introduce a new Badger DB type called "Telemetry".
@@ -51,6 +55,10 @@ Query Logic
 
 Chart types
 
+- Responsiveness
+	- Must work with our responsive framework.
+	- No idea how a chart can do that. syncfusion shortens the  X axis and y axis i noticed.
+
 - Maps
 	- would be useful to show "heat map circles" on a map.
 - Bar
@@ -59,10 +67,49 @@ Chart types
 	- Not sure.. Need advice.
 
 flutter charts
-- https://github.com/imaNNeoFighT/fl_chart
+
+- found via dart pub !
+
+- https://github.com/search?l=Dart&o=desc&q=syncfusion_flutter_charts&s=indexed&type=Code
+	- code: https://github.com/imaNNeoFighT/fl_chart
 	- No web demos.
 
-- code: https://github.com/syncfusion/flutter-widgets/tree/master/packages/syncfusion_flutter_charts#get-the-demo-application
+- https://github.com/entronad/graphic
+	- no web demos.
+
+- syncfusion_flutter_charts
+	- code: https://github.com/syncfusion/flutter-widgets/tree/master/packages/syncfusion_flutter_charts#get-the-demo-application
 	- web: https://flutter.syncfusion.com/#/
-	- commervial so we cant use these !
+	- users: https://github.com/search?l=Dart&o=desc&q=syncfusion_flutter_charts&s=indexed&type=Code
+		- heaps !
+
+
+
+
+
+## Telemetry for v3
+
+Some aspects of this might be worth using now for v2, but we dont have time.
+
+Because the product is a secure self hosted thing, we need to have self hosted telemtry.
+
+Basically the approach is a side car approach.
+
+Metrics
+
+- Here is an example of this approach: https://github.com/mr-karan/store-exporter/
+- Motivation: https://github.com/mr-karan/store-exporter#motivation
+- Each Module stores its own metrics, and we export it in Prom format IF we need to to the useful tools. But the point is that we can also use FLutter as a GUI for them too.
+- Business metrics are also stored in the Module itself and exposed to Flutter because its business stuff.
+
+Tracing
+
+- Can use BadgerDB for storgae now. This solves that aspect for us.
+- https://github.com/jaegertracing/jaeger/tree/master/plugin/storage/badger
+- docs: https://www.jaegertracing.io/docs/1.12/deployment/#badger---local-storage
+- Open Telemetry with Badger store is supported: https://github.com/jaegertracing/jaeger/blob/master/cmd/opentelemetry/app/exporter/badgerexporter/factory.go#L28
+	- SO now we can use it.
+- Thee is a strong relationshop to the Campaign.md file because we want to trace the Messages that are being send and received via the Messengers for the Business Analytics, not just for OPS. I think that The same tracing badger DB backend can be for the Biz analytics and surfaced via Flutter.
+
+Logging
 
