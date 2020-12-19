@@ -32,17 +32,17 @@ dependencies:
   path_provider: ^1.6.7
   #  equatable:
   meta:
-  flutter_modular: ^2.0.0+1
-  intl: ^0.16.1
-  intl_translation: ^0.17.10+1
+  flutter_modular: ^2.0.1
+  intl: ^0.17.0-nullsafety.2
+  #  intl_translation: ^0.17.10+1
   data_tables: ^1.0.3
   random_string: ^2.0.1
-  flutter_platform_widgets: ^0.72.0
+  flutter_platform_widgets: ^1.0.0-nullsafety.0
   cupertino_icons: ^1.0.0
   #  font_awesome_flutter: ^8.7.0
   #  flutter_material_pickers: ^1.8.1
-  grpc:
-  protobuf:
+  grpc: ^2.8.0
+  protobuf: ^1.1.0
   youtube_player_iframe: ^1.1.0
   #  sys_core:
   #    git:
@@ -63,7 +63,7 @@ dev_dependencies:
 
   build_runner: ^1.10.2
   hive_generator: ^0.8.2
-  json_serializable: ^3.2.3
+  json_serializable: ^4.0.0-nullsafety.0
   flutter_launcher_icons: ^0.8.1
 
 # For information on the generic Dart part of this file, see the
