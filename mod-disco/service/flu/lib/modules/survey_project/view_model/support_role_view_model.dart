@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
+import 'package:mod_disco/core/shared_repositories/disco_project_repo.dart';
 import 'package:mod_disco/core/shared_repositories/survey_project_repo.dart';
 import 'package:mod_disco/core/shared_repositories/survey_user_repo.dart';
 import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
@@ -97,11 +98,39 @@ class SupportRoleViewModel extends BaseModel {
                 error: false,
               );
             });
+            await DiscoProjectRepo.getProjectDetails(
+                    accountProjRefId: _project.id)
+                .then((res) {
+              DiscoProjectRepo.updateDiscoProject(
+                discoProjectId: res.projectId,
+                pledged: res.alreadyPledged + 1,
+              );
+            });
           },
           navigatorKey: Modular.navigatorKey,
         ),
       );
     } else {
+      await SurveyUserRepo.newSurveyUser(
+        surveyProjectId: _nsuReq.surveyProjectRefId,
+        sysAccountAccountRefId: _nsuReq.sysAccountUserRefId,
+        surveyUserName: _nsuReq.surveyUserName,
+        userNeedsValueList: _nsuReq.userNeedValues,
+        supportRoleValueList: _srvList,
+      ).then((_) {
+        notify(
+          context: context,
+          message: "You've joined ${project.name}, login to see your detail",
+          error: false,
+        );
+      });
+      await DiscoProjectRepo.getProjectDetails(accountProjRefId: _project.id)
+          .then((res) {
+        DiscoProjectRepo.updateDiscoProject(
+          discoProjectId: res.projectId,
+          pledged: res.alreadyPledged + 1,
+        );
+      });
     }
   }
 }

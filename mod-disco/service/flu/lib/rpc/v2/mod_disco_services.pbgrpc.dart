@@ -86,9 +86,9 @@ class SurveyServiceClient extends $grpc.Client {
           ($0.ListRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.ListResponse.fromBuffer(value));
   static final _$updateDiscoProject =
-      $grpc.ClientMethod<$0.UpdateSurveyProjectRequest, $0.DiscoProject>(
+      $grpc.ClientMethod<$0.UpdateDiscoProjectRequest, $0.DiscoProject>(
           '/v2.mod_disco.services.SurveyService/UpdateDiscoProject',
-          ($0.UpdateSurveyProjectRequest value) => value.writeToBuffer(),
+          ($0.UpdateDiscoProjectRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.DiscoProject.fromBuffer(value));
   static final _$deleteDiscoProject =
       $grpc.ClientMethod<$0.IdRequest, $1.Empty>(
@@ -223,7 +223,7 @@ class SurveyServiceClient extends $grpc.Client {
   }
 
   $grpc.ResponseFuture<$0.DiscoProject> updateDiscoProject(
-      $0.UpdateSurveyProjectRequest request,
+      $0.UpdateDiscoProjectRequest request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$updateDiscoProject, $async.Stream.fromIterable([request]),
@@ -357,13 +357,13 @@ abstract class SurveyServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) => $0.ListRequest.fromBuffer(value),
         ($0.ListResponse value) => value.writeToBuffer()));
     $addMethod(
-        $grpc.ServiceMethod<$0.UpdateSurveyProjectRequest, $0.DiscoProject>(
+        $grpc.ServiceMethod<$0.UpdateDiscoProjectRequest, $0.DiscoProject>(
             'UpdateDiscoProject',
             updateDiscoProject_Pre,
             false,
             false,
             ($core.List<$core.int> value) =>
-                $0.UpdateSurveyProjectRequest.fromBuffer(value),
+                $0.UpdateDiscoProjectRequest.fromBuffer(value),
             ($0.DiscoProject value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.IdRequest, $1.Empty>(
         'DeleteDiscoProject',
@@ -454,7 +454,7 @@ abstract class SurveyServiceBase extends $grpc.Service {
   }
 
   $async.Future<$0.DiscoProject> updateDiscoProject_Pre($grpc.ServiceCall call,
-      $async.Future<$0.UpdateSurveyProjectRequest> request) async {
+      $async.Future<$0.UpdateDiscoProjectRequest> request) async {
     return updateDiscoProject(call, await request);
   }
 
@@ -497,7 +497,7 @@ abstract class SurveyServiceBase extends $grpc.Service {
   $async.Future<$0.ListResponse> listDiscoProject(
       $grpc.ServiceCall call, $0.ListRequest request);
   $async.Future<$0.DiscoProject> updateDiscoProject(
-      $grpc.ServiceCall call, $0.UpdateSurveyProjectRequest request);
+      $grpc.ServiceCall call, $0.UpdateDiscoProjectRequest request);
   $async.Future<$1.Empty> deleteDiscoProject(
       $grpc.ServiceCall call, $0.IdRequest request);
   $async.Future<$0.GenIdResponse> genTempId(

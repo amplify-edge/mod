@@ -35,7 +35,7 @@ type SurveyServiceClient interface {
 	NewDiscoProject(ctx context.Context, in *NewDiscoProjectRequest, opts ...grpc.CallOption) (*DiscoProject, error)
 	GetDiscoProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*DiscoProject, error)
 	ListDiscoProject(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
-	UpdateDiscoProject(ctx context.Context, in *UpdateSurveyProjectRequest, opts ...grpc.CallOption) (*DiscoProject, error)
+	UpdateDiscoProject(ctx context.Context, in *UpdateDiscoProjectRequest, opts ...grpc.CallOption) (*DiscoProject, error)
 	DeleteDiscoProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 	// TempIdRequest
 	GenTempId(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*GenIdResponse, error)
@@ -235,7 +235,7 @@ var surveyServiceUpdateDiscoProjectStreamDesc = &grpc.StreamDesc{
 	StreamName: "UpdateDiscoProject",
 }
 
-func (c *surveyServiceClient) UpdateDiscoProject(ctx context.Context, in *UpdateSurveyProjectRequest, opts ...grpc.CallOption) (*DiscoProject, error) {
+func (c *surveyServiceClient) UpdateDiscoProject(ctx context.Context, in *UpdateDiscoProjectRequest, opts ...grpc.CallOption) (*DiscoProject, error) {
 	out := new(DiscoProject)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/UpdateDiscoProject", in, out, opts...)
 	if err != nil {
@@ -292,7 +292,7 @@ type SurveyServiceService struct {
 	NewDiscoProject    func(context.Context, *NewDiscoProjectRequest) (*DiscoProject, error)
 	GetDiscoProject    func(context.Context, *IdRequest) (*DiscoProject, error)
 	ListDiscoProject   func(context.Context, *ListRequest) (*ListResponse, error)
-	UpdateDiscoProject func(context.Context, *UpdateSurveyProjectRequest) (*DiscoProject, error)
+	UpdateDiscoProject func(context.Context, *UpdateDiscoProjectRequest) (*DiscoProject, error)
 	DeleteDiscoProject func(context.Context, *IdRequest) (*empty.Empty, error)
 	// TempIdRequest
 	GenTempId func(context.Context, *empty.Empty) (*GenIdResponse, error)
@@ -582,7 +582,7 @@ func (s *SurveyServiceService) updateDiscoProject(_ interface{}, ctx context.Con
 	if s.UpdateDiscoProject == nil {
 		return nil, status.Errorf(codes.Unimplemented, "method UpdateDiscoProject not implemented")
 	}
-	in := new(UpdateSurveyProjectRequest)
+	in := new(UpdateDiscoProjectRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -594,7 +594,7 @@ func (s *SurveyServiceService) updateDiscoProject(_ interface{}, ctx context.Con
 		FullMethod: "/v2.mod_disco.services.SurveyService/UpdateDiscoProject",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.UpdateDiscoProject(ctx, req.(*UpdateSurveyProjectRequest))
+		return s.UpdateDiscoProject(ctx, req.(*UpdateDiscoProjectRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -799,7 +799,7 @@ func NewSurveyServiceService(s interface{}) *SurveyServiceService {
 		ns.ListDiscoProject = h.ListDiscoProject
 	}
 	if h, ok := s.(interface {
-		UpdateDiscoProject(context.Context, *UpdateSurveyProjectRequest) (*DiscoProject, error)
+		UpdateDiscoProject(context.Context, *UpdateDiscoProjectRequest) (*DiscoProject, error)
 	}); ok {
 		ns.UpdateDiscoProject = h.UpdateDiscoProject
 	}
@@ -838,7 +838,7 @@ type UnstableSurveyServiceService interface {
 	NewDiscoProject(context.Context, *NewDiscoProjectRequest) (*DiscoProject, error)
 	GetDiscoProject(context.Context, *IdRequest) (*DiscoProject, error)
 	ListDiscoProject(context.Context, *ListRequest) (*ListResponse, error)
-	UpdateDiscoProject(context.Context, *UpdateSurveyProjectRequest) (*DiscoProject, error)
+	UpdateDiscoProject(context.Context, *UpdateDiscoProjectRequest) (*DiscoProject, error)
 	DeleteDiscoProject(context.Context, *IdRequest) (*empty.Empty, error)
 	// TempIdRequest
 	GenTempId(context.Context, *empty.Empty) (*GenIdResponse, error)

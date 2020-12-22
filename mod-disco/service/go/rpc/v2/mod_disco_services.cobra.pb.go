@@ -7,6 +7,7 @@ import (
 	flag "github.com/getcouragenow/protoc-gen-cobra/flag"
 	iocodec "github.com/getcouragenow/protoc-gen-cobra/iocodec"
 	empty "github.com/golang/protobuf/ptypes/empty"
+	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	cobra "github.com/spf13/cobra"
 	grpc "google.golang.org/grpc"
 	proto "google.golang.org/protobuf/proto"
@@ -728,7 +729,9 @@ func _SurveyServiceListDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 }
 
 func _SurveyServiceUpdateDiscoProjectCommand(cfg *client.Config) *cobra.Command {
-	req := &UpdateSurveyProjectRequest{}
+	req := &UpdateDiscoProjectRequest{
+		ActionTime: &timestamp.Timestamp{},
+	}
 
 	cmd := &cobra.Command{
 		Use:   cfg.CommandNamer("UpdateDiscoProject"),
@@ -745,7 +748,7 @@ func _SurveyServiceUpdateDiscoProjectCommand(cfg *client.Config) *cobra.Command 
 			}
 			return client.RoundTrip(cmd.Context(), cfg, func(cc grpc.ClientConnInterface, in iocodec.Decoder, out iocodec.Encoder) error {
 				cli := NewSurveyServiceClient(cc)
-				v := &UpdateSurveyProjectRequest{}
+				v := &UpdateDiscoProjectRequest{}
 
 				if err := in(v); err != nil {
 					return err
@@ -764,7 +767,25 @@ func _SurveyServiceUpdateDiscoProjectCommand(cfg *client.Config) *cobra.Command 
 		},
 	}
 
-	cmd.PersistentFlags().StringVar(&req.SurveyProjectId, cfg.FlagNamer("SurveyProjectId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.ProjectId, cfg.FlagNamer("ProjectId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.Goal, cfg.FlagNamer("Goal"), "", "")
+	cmd.PersistentFlags().Uint64Var(&req.AlreadyPledged, cfg.FlagNamer("AlreadyPledged"), 0, "")
+	cmd.PersistentFlags().Int64Var(&req.ActionTime.Seconds, cfg.FlagNamer("ActionTime Seconds"), 0, "Represents seconds of UTC time since Unix epoch\n 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to\n 9999-12-31T23:59:59Z inclusive.")
+	cmd.PersistentFlags().Int32Var(&req.ActionTime.Nanos, cfg.FlagNamer("ActionTime Nanos"), 0, "Non-negative fractions of a second at nanosecond resolution. Negative\n second values with fractions must still have non-negative nanos values\n that count forward in time. Must be from 0 to 999,999,999\n inclusive.")
+	cmd.PersistentFlags().StringVar(&req.ActionLocation, cfg.FlagNamer("ActionLocation"), "", "")
+	cmd.PersistentFlags().Uint64Var(&req.MinPioneers, cfg.FlagNamer("MinPioneers"), 0, "")
+	cmd.PersistentFlags().Uint64Var(&req.MinRebelsMedia, cfg.FlagNamer("MinRebelsMedia"), 0, "")
+	cmd.PersistentFlags().Uint64Var(&req.MinRebelsToWin, cfg.FlagNamer("MinRebelsToWin"), 0, "")
+	cmd.PersistentFlags().StringVar(&req.ActionLength, cfg.FlagNamer("ActionLength"), "", "")
+	cmd.PersistentFlags().StringVar(&req.ActionType, cfg.FlagNamer("ActionType"), "", "")
+	cmd.PersistentFlags().StringVar(&req.Category, cfg.FlagNamer("Category"), "", "")
+	cmd.PersistentFlags().StringVar(&req.Contact, cfg.FlagNamer("Contact"), "", "")
+	cmd.PersistentFlags().StringVar(&req.HistPrecedents, cfg.FlagNamer("HistPrecedents"), "", "")
+	cmd.PersistentFlags().StringVar(&req.Strategy, cfg.FlagNamer("Strategy"), "", "")
+	cmd.PersistentFlags().StringVar(&req.VideoUrl, cfg.FlagNamer("VideoUrl"), "", "")
+	cmd.PersistentFlags().StringVar(&req.UnitOfMeasures, cfg.FlagNamer("UnitOfMeasures"), "", "")
+	flag.BytesBase64SliceVar(cmd.PersistentFlags(), &req.ImageUploads, cfg.FlagNamer("ImageUploads"), "")
+	cmd.PersistentFlags().StringSliceVar(&req.ImageResourceIds, cfg.FlagNamer("ImageResourceIds"), nil, "")
 
 	return cmd
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mod_disco/core/shared_repositories/disco_project_repo.dart';
 import 'package:sys_core/sys_core.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
@@ -145,6 +146,7 @@ class SurveyProjectViewModel extends BaseModel {
           showDialog(
             context: context,
             builder: (context) => AuthDialog(
+              isSignIn: false,
               userRole: _userRole,
               callback: () async {
                 _accountId = await getTempAccountId();
@@ -162,6 +164,14 @@ class SurveyProjectViewModel extends BaseModel {
                     error: false,
                   );
                 });
+                await DiscoProjectRepo.getProjectDetails(
+                        accountProjRefId: _projectId)
+                    .then((res) {
+                  DiscoProjectRepo.updateDiscoProject(
+                    discoProjectId: res.projectId,
+                    pledged: res.alreadyPledged + 1,
+                  );
+                });
               },
               navigatorKey: Modular.navigatorKey,
             ),
@@ -173,6 +183,13 @@ class SurveyProjectViewModel extends BaseModel {
             surveyUserName: _surveyUser.surveyUserName,
             userNeedsValueList: _untList,
           );
+          await DiscoProjectRepo.getProjectDetails(accountProjRefId: _projectId)
+              .then((res) {
+            DiscoProjectRepo.updateDiscoProject(
+              discoProjectId: res.projectId,
+              pledged: res.alreadyPledged + 1,
+            );
+          });
           Modular.to.pop();
         }
       },
