@@ -68,7 +68,7 @@ this-gen: this-gen-delete this-config-gen
 	@go generate
 	# Flutter langs
 	#$(MAKE) flu-gen-all
-	$(MAKE) flu-gen-lang
+	#$(MAKE) flu-gen-lang
 
 this-ex-server-run:
 	./bin-all/server/go/main
