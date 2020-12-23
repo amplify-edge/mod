@@ -16,19 +16,15 @@ class ProjectImageCarousel extends StatelessWidget {
         enableInfiniteScroll: true,
         autoPlay: true,
       ),
-      items: [1, 2, 3, 4, 5].map((i) {
+      items: images.map((i) {
         return Builder(
           builder: (BuildContext context) {
-            return Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
-                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                decoration: BoxDecoration(
-                    color: Colors.amber
-                ),
-                child: Text('text $i', style: TextStyle(fontSize: 16.0),)
+            return ClipOval(
+              child: Image.memory(
+                Uint8List.fromList(i),
+                height: 200,
+                width: 360,
+              ),
             );
           },
         );

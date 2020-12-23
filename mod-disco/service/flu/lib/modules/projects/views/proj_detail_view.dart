@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:mod_disco/modules/projects/views/proj_video_widget.dart';
+
+// import 'package:mod_disco/modules/projects/views/proj_video_widget.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 import './proj_header.dart';
@@ -19,6 +20,7 @@ class ProjectDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("PROJECT IMAGES: ${projectDetails.projectImages}");
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: showBackButton,
@@ -36,27 +38,19 @@ class ProjectDetailView extends StatelessWidget {
                   ListTile(
                     title: Text(
                       'Gallery',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline6,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     // subtitle: ProjectVideoPlayer(
                     //   projectDetails.videoUrl,
                     // ),
-                    subtitle: ProjectImageCarousel(
-                      images: projectDetails.projectImages,
-                    ),
                   ),
+                  ProjectImageCarousel(images: projectDetails.projectImages),
                   const SizedBox(height: 16.0),
                   ListTile(
                     title: Text(
                       ModDiscoLocalizations.of(context)
                           .translate('campaignName'),
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline6,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     subtitle: Text(project.name),
                   ),
@@ -64,10 +58,7 @@ class ProjectDetailView extends StatelessWidget {
                   ListTile(
                     title: Text(
                       ModDiscoLocalizations.of(context).translate('category'),
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline6,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     subtitle: Text(projectDetails.category),
                   ),
@@ -75,10 +66,7 @@ class ProjectDetailView extends StatelessWidget {
                   ListTile(
                     title: Text(
                       ModDiscoLocalizations.of(context).translate('actionType'),
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline6,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     subtitle: Text(projectDetails.actionType),
                   ),
@@ -86,41 +74,29 @@ class ProjectDetailView extends StatelessWidget {
                   ListTile(
                     title: Text(
                       ModDiscoLocalizations.of(context)
-                          .translate('actionLocation') +
+                              .translate('actionLocation') +
                           ' / ' +
                           ModDiscoLocalizations.of(context).translate('time'),
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline6,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     subtitle: Text(
-                        '${projectDetails.actionLocation} / ${DateFormat(
-                            'yyyy MMM dd HH:MM').format(
-                            projectDetails.actionTime.toDateTime())}'),
+                        '${projectDetails.actionLocation} / ${DateFormat('yyyy MMM dd HH:MM').format(projectDetails.actionTime.toDateTime())}'),
                   ),
                   const SizedBox(height: 16.0),
                   ListTile(
                     title: Text(
                       ModDiscoLocalizations.of(context)
                           .translate('lengthOfTheAction'),
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline6,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     subtitle: Text(
-                        '${projectDetails.actionLength} ${projectDetails
-                            .unitOfMeasures}'),
+                        '${projectDetails.actionLength} ${projectDetails.unitOfMeasures}'),
                   ),
                   const SizedBox(height: 16.0),
                   ListTile(
                     title: Text(
                       ModDiscoLocalizations.of(context).translate('goal'),
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline6,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     subtitle: Text(projectDetails.goal),
                   ),
@@ -128,10 +104,7 @@ class ProjectDetailView extends StatelessWidget {
                   ListTile(
                     title: Text(
                       ModDiscoLocalizations.of(context).translate('strategy'),
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline6,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     subtitle: Text(projectDetails.strategy),
                   ),
@@ -140,10 +113,7 @@ class ProjectDetailView extends StatelessWidget {
                     title: Text(
                       ModDiscoLocalizations.of(context)
                           .translate('historicalPrecedents'),
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline6,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     subtitle: Text(projectDetails.histPrecedents),
                   ),
@@ -152,10 +122,7 @@ class ProjectDetailView extends StatelessWidget {
                     title: Text(
                       ModDiscoLocalizations.of(context)
                           .translate('peopleAlreadyPledged'),
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline6,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     subtitle: Text(projectDetails.alreadyPledged.toString()),
                   ),
@@ -170,12 +137,9 @@ class ProjectDetailView extends StatelessWidget {
                             ListTile(
                               title: Text(
                                 ModDiscoLocalizations.of(context)
-                                    .translate('weNeed') +
+                                        .translate('weNeed') +
                                     ' :',
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .headline6,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                               subtitle: Text(
                                 ModDiscoLocalizations.of(context).translate(
@@ -189,9 +153,7 @@ class ProjectDetailView extends StatelessWidget {
                               trailing: Text(
                                 '${projectDetails.minPioneers}',
                                 style: TextStyle(
-                                    color: Theme
-                                        .of(context)
-                                        .accentColor),
+                                    color: Theme.of(context).accentColor),
                               ),
                             ),
                             ListTile(
@@ -200,9 +162,7 @@ class ProjectDetailView extends StatelessWidget {
                               trailing: Text(
                                 '${projectDetails.minRebelsMedia}',
                                 style: TextStyle(
-                                    color: Theme
-                                        .of(context)
-                                        .accentColor),
+                                    color: Theme.of(context).accentColor),
                               ),
                             ),
                             ListTile(
@@ -211,9 +171,7 @@ class ProjectDetailView extends StatelessWidget {
                               trailing: Text(
                                 '${projectDetails.minRebelsToWin}',
                                 style: TextStyle(
-                                    color: Theme
-                                        .of(context)
-                                        .accentColor),
+                                    color: Theme.of(context).accentColor),
                               ),
                             ),
                           ],
@@ -224,10 +182,7 @@ class ProjectDetailView extends StatelessWidget {
                     title: Text(
                       ModDiscoLocalizations.of(context)
                           .translate('contactDetails'),
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline6,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     subtitle: Text(project.org.contact),
                   ),
