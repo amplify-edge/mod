@@ -20,7 +20,6 @@ class ProjectDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("PROJECT IMAGES: ${projectDetails.projectImages}");
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: showBackButton,
