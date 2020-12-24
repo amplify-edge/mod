@@ -6,19 +6,19 @@ import (
 	client "github.com/getcouragenow/protoc-gen-cobra/client"
 	flag "github.com/getcouragenow/protoc-gen-cobra/flag"
 	iocodec "github.com/getcouragenow/protoc-gen-cobra/iocodec"
+	empty "github.com/golang/protobuf/ptypes/empty"
+	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	cobra "github.com/spf13/cobra"
 	grpc "google.golang.org/grpc"
 	proto "google.golang.org/protobuf/proto"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 func SurveyServiceClientCommand(options ...client.Option) *cobra.Command {
 	cfg := client.NewConfig(options...)
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("SurveyService"),
-		Short:  "SurveyService service client",
-		Long:   "",
-		Hidden: false,
+		Use:   cfg.CommandNamer("SurveyService"),
+		Short: "SurveyService service client",
+		Long:  "",
 	}
 	cfg.BindFlags(cmd.PersistentFlags())
 	cmd.AddCommand(
@@ -47,10 +47,9 @@ func _SurveyServiceNewSurveyProjectCommand(cfg *client.Config) *cobra.Command {
 	req := &NewSurveyProjectRequest{}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("NewSurveyProject"),
-		Short:  "NewSurveyProject RPC client",
-		Long:   "Projects",
-		Hidden: false,
+		Use:   cfg.CommandNamer("NewSurveyProject"),
+		Short: "NewSurveyProject RPC client",
+		Long:  "Projects",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -92,10 +91,9 @@ func _SurveyServiceGetSurveyProjectCommand(cfg *client.Config) *cobra.Command {
 	req := &IdRequest{}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("GetSurveyProject"),
-		Short:  "GetSurveyProject RPC client",
-		Long:   "",
-		Hidden: false,
+		Use:   cfg.CommandNamer("GetSurveyProject"),
+		Short: "GetSurveyProject RPC client",
+		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -142,10 +140,9 @@ func _SurveyServiceListSurveyProjectCommand(cfg *client.Config) *cobra.Command {
 	}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("ListSurveyProject"),
-		Short:  "ListSurveyProject RPC client",
-		Long:   "",
-		Hidden: false,
+		Use:   cfg.CommandNamer("ListSurveyProject"),
+		Short: "ListSurveyProject RPC client",
+		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -196,10 +193,9 @@ func _SurveyServiceUpdateSurveyProjectCommand(cfg *client.Config) *cobra.Command
 	req := &UpdateSurveyProjectRequest{}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("UpdateSurveyProject"),
-		Short:  "UpdateSurveyProject RPC client",
-		Long:   "",
-		Hidden: false,
+		Use:   cfg.CommandNamer("UpdateSurveyProject"),
+		Short: "UpdateSurveyProject RPC client",
+		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -239,10 +235,9 @@ func _SurveyServiceDeleteSurveyProjectCommand(cfg *client.Config) *cobra.Command
 	req := &IdRequest{}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("DeleteSurveyProject"),
-		Short:  "DeleteSurveyProject RPC client",
-		Long:   "",
-		Hidden: false,
+		Use:   cfg.CommandNamer("DeleteSurveyProject"),
+		Short: "DeleteSurveyProject RPC client",
+		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -287,10 +282,9 @@ func _SurveyServiceNewSurveyUserCommand(cfg *client.Config) *cobra.Command {
 	req := &NewSurveyUserRequest{}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("NewSurveyUser"),
-		Short:  "NewSurveyUser RPC client",
-		Long:   "Users",
-		Hidden: false,
+		Use:   cfg.CommandNamer("NewSurveyUser"),
+		Short: "NewSurveyUser RPC client",
+		Long:  "Users",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -334,10 +328,9 @@ func _SurveyServiceGetSurveyUserCommand(cfg *client.Config) *cobra.Command {
 	req := &IdRequest{}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("GetSurveyUser"),
-		Short:  "GetSurveyUser RPC client",
-		Long:   "",
-		Hidden: false,
+		Use:   cfg.CommandNamer("GetSurveyUser"),
+		Short: "GetSurveyUser RPC client",
+		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -384,10 +377,9 @@ func _SurveyServiceListSurveyUserCommand(cfg *client.Config) *cobra.Command {
 	}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("ListSurveyUser"),
-		Short:  "ListSurveyUser RPC client",
-		Long:   "",
-		Hidden: false,
+		Use:   cfg.CommandNamer("ListSurveyUser"),
+		Short: "ListSurveyUser RPC client",
+		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -438,10 +430,9 @@ func _SurveyServiceUpdateSurveyUserCommand(cfg *client.Config) *cobra.Command {
 	req := &UpdateSurveyUserRequest{}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("UpdateSurveyUser"),
-		Short:  "UpdateSurveyUser RPC client",
-		Long:   "",
-		Hidden: false,
+		Use:   cfg.CommandNamer("UpdateSurveyUser"),
+		Short: "UpdateSurveyUser RPC client",
+		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -481,10 +472,9 @@ func _SurveyServiceDeleteSurveyUserCommand(cfg *client.Config) *cobra.Command {
 	req := &IdRequest{}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("DeleteSurveyUser"),
-		Short:  "DeleteSurveyUser RPC client",
-		Long:   "",
-		Hidden: false,
+		Use:   cfg.CommandNamer("DeleteSurveyUser"),
+		Short: "DeleteSurveyUser RPC client",
+		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -529,10 +519,9 @@ func _SurveyServiceGetProjectStatisticsCommand(cfg *client.Config) *cobra.Comman
 	req := &StatisticRequest{}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("GetProjectStatistics"),
-		Short:  "GetProjectStatistics RPC client",
-		Long:   "",
-		Hidden: false,
+		Use:   cfg.CommandNamer("GetProjectStatistics"),
+		Short: "GetProjectStatistics RPC client",
+		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -579,10 +568,9 @@ func _SurveyServiceNewDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 	req := &NewDiscoProjectRequest{}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("NewDiscoProject"),
-		Short:  "NewDiscoProject RPC client",
-		Long:   "DiscoProjects",
-		Hidden: false,
+		Use:   cfg.CommandNamer("NewDiscoProject"),
+		Short: "NewDiscoProject RPC client",
+		Long:  "DiscoProjects",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -616,7 +604,7 @@ func _SurveyServiceNewDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefId, cfg.FlagNamer("SysAccountProjectRefId"), "", "@inject_tag: fake:\"skip\" yaml:\"sys_account_project_ref_id,omitempty\"")
 	cmd.PersistentFlags().StringVar(&req.SysAccountOrgRefId, cfg.FlagNamer("SysAccountOrgRefId"), "", "@inject_tag: fake:\"skip\" yaml:\"sys_account_org_ref_id,omitempty\"")
 	cmd.PersistentFlags().StringVar(&req.Goal, cfg.FlagNamer("Goal"), "", "@inject_tag: fake:\"{sentence:8}\" yaml:\"goal,omitempty\"")
-	cmd.PersistentFlags().Uint64Var(&req.AlreadyPledged, cfg.FlagNamer("AlreadyPledged"), 0, "@inject_tag: fake:\"{number:1,1000}\" yaml:\"already_pledged\"")
+	cmd.PersistentFlags().Uint64Var(&req.AlreadyPledged, cfg.FlagNamer("AlreadyPledged"), 0, "@inject_tag: fake:\"skip\" yaml:\"already_pledged,omitempty\"")
 	cmd.PersistentFlags().Int64Var(&req.ActionTimeNano, cfg.FlagNamer("ActionTimeNano"), 0, "@inject_tag: fake:\"{randomts}\" yaml:\"action_time\"")
 	cmd.PersistentFlags().StringVar(&req.ActionLocation, cfg.FlagNamer("ActionLocation"), "", "@inject_tag: fake:\"{city}\" yaml:\"action_location\"")
 	cmd.PersistentFlags().Uint64Var(&req.MinPioneers, cfg.FlagNamer("MinPioneers"), 0, "@inject_tag: fake:\"{number:1000,10000}\" yaml:\"min_pioneers\"")
@@ -642,10 +630,9 @@ func _SurveyServiceGetDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 	req := &IdRequest{}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("GetDiscoProject"),
-		Short:  "GetDiscoProject RPC client",
-		Long:   "",
-		Hidden: false,
+		Use:   cfg.CommandNamer("GetDiscoProject"),
+		Short: "GetDiscoProject RPC client",
+		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -692,10 +679,9 @@ func _SurveyServiceListDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 	}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("ListDiscoProject"),
-		Short:  "ListDiscoProject RPC client",
-		Long:   "",
-		Hidden: false,
+		Use:   cfg.CommandNamer("ListDiscoProject"),
+		Short: "ListDiscoProject RPC client",
+		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -743,13 +729,14 @@ func _SurveyServiceListDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 }
 
 func _SurveyServiceUpdateDiscoProjectCommand(cfg *client.Config) *cobra.Command {
-	req := &UpdateSurveyProjectRequest{}
+	req := &UpdateDiscoProjectRequest{
+		ActionTime: &timestamp.Timestamp{},
+	}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("UpdateDiscoProject"),
-		Short:  "UpdateDiscoProject RPC client",
-		Long:   "",
-		Hidden: false,
+		Use:   cfg.CommandNamer("UpdateDiscoProject"),
+		Short: "UpdateDiscoProject RPC client",
+		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -761,7 +748,7 @@ func _SurveyServiceUpdateDiscoProjectCommand(cfg *client.Config) *cobra.Command 
 			}
 			return client.RoundTrip(cmd.Context(), cfg, func(cc grpc.ClientConnInterface, in iocodec.Decoder, out iocodec.Encoder) error {
 				cli := NewSurveyServiceClient(cc)
-				v := &UpdateSurveyProjectRequest{}
+				v := &UpdateDiscoProjectRequest{}
 
 				if err := in(v); err != nil {
 					return err
@@ -780,7 +767,25 @@ func _SurveyServiceUpdateDiscoProjectCommand(cfg *client.Config) *cobra.Command 
 		},
 	}
 
-	cmd.PersistentFlags().StringVar(&req.SurveyProjectId, cfg.FlagNamer("SurveyProjectId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.ProjectId, cfg.FlagNamer("ProjectId"), "", "")
+	cmd.PersistentFlags().StringVar(&req.Goal, cfg.FlagNamer("Goal"), "", "")
+	cmd.PersistentFlags().Uint64Var(&req.AlreadyPledged, cfg.FlagNamer("AlreadyPledged"), 0, "")
+	cmd.PersistentFlags().Int64Var(&req.ActionTime.Seconds, cfg.FlagNamer("ActionTime Seconds"), 0, "Represents seconds of UTC time since Unix epoch\n 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to\n 9999-12-31T23:59:59Z inclusive.")
+	cmd.PersistentFlags().Int32Var(&req.ActionTime.Nanos, cfg.FlagNamer("ActionTime Nanos"), 0, "Non-negative fractions of a second at nanosecond resolution. Negative\n second values with fractions must still have non-negative nanos values\n that count forward in time. Must be from 0 to 999,999,999\n inclusive.")
+	cmd.PersistentFlags().StringVar(&req.ActionLocation, cfg.FlagNamer("ActionLocation"), "", "")
+	cmd.PersistentFlags().Uint64Var(&req.MinPioneers, cfg.FlagNamer("MinPioneers"), 0, "")
+	cmd.PersistentFlags().Uint64Var(&req.MinRebelsMedia, cfg.FlagNamer("MinRebelsMedia"), 0, "")
+	cmd.PersistentFlags().Uint64Var(&req.MinRebelsToWin, cfg.FlagNamer("MinRebelsToWin"), 0, "")
+	cmd.PersistentFlags().StringVar(&req.ActionLength, cfg.FlagNamer("ActionLength"), "", "")
+	cmd.PersistentFlags().StringVar(&req.ActionType, cfg.FlagNamer("ActionType"), "", "")
+	cmd.PersistentFlags().StringVar(&req.Category, cfg.FlagNamer("Category"), "", "")
+	cmd.PersistentFlags().StringVar(&req.Contact, cfg.FlagNamer("Contact"), "", "")
+	cmd.PersistentFlags().StringVar(&req.HistPrecedents, cfg.FlagNamer("HistPrecedents"), "", "")
+	cmd.PersistentFlags().StringVar(&req.Strategy, cfg.FlagNamer("Strategy"), "", "")
+	cmd.PersistentFlags().StringVar(&req.VideoUrl, cfg.FlagNamer("VideoUrl"), "", "")
+	cmd.PersistentFlags().StringVar(&req.UnitOfMeasures, cfg.FlagNamer("UnitOfMeasures"), "", "")
+	flag.BytesBase64SliceVar(cmd.PersistentFlags(), &req.ImageUploads, cfg.FlagNamer("ImageUploads"), "")
+	cmd.PersistentFlags().StringSliceVar(&req.ImageResourceIds, cfg.FlagNamer("ImageResourceIds"), nil, "")
 
 	return cmd
 }
@@ -789,10 +794,9 @@ func _SurveyServiceDeleteDiscoProjectCommand(cfg *client.Config) *cobra.Command 
 	req := &IdRequest{}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("DeleteDiscoProject"),
-		Short:  "DeleteDiscoProject RPC client",
-		Long:   "",
-		Hidden: false,
+		Use:   cfg.CommandNamer("DeleteDiscoProject"),
+		Short: "DeleteDiscoProject RPC client",
+		Long:  "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -834,13 +838,12 @@ func _SurveyServiceDeleteDiscoProjectCommand(cfg *client.Config) *cobra.Command 
 }
 
 func _SurveyServiceGenTempIdCommand(cfg *client.Config) *cobra.Command {
-	req := &emptypb.Empty{}
+	req := &empty.Empty{}
 
 	cmd := &cobra.Command{
-		Use:    cfg.CommandNamer("GenTempId"),
-		Short:  "GenTempId RPC client",
-		Long:   "TempIdRequest",
-		Hidden: false,
+		Use:   cfg.CommandNamer("GenTempId"),
+		Short: "GenTempId RPC client",
+		Long:  "TempIdRequest",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "SurveyService"); err != nil {
@@ -852,7 +855,7 @@ func _SurveyServiceGenTempIdCommand(cfg *client.Config) *cobra.Command {
 			}
 			return client.RoundTrip(cmd.Context(), cfg, func(cc grpc.ClientConnInterface, in iocodec.Decoder, out iocodec.Encoder) error {
 				cli := NewSurveyServiceClient(cc)
-				v := &emptypb.Empty{}
+				v := &empty.Empty{}
 
 				if err := in(v); err != nil {
 					return err

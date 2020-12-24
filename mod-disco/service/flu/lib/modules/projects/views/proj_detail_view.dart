@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:mod_disco/modules/projects/views/proj_video_widget.dart';
+
+// import 'package:mod_disco/modules/projects/views/proj_video_widget.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 import './proj_header.dart';
+import 'package:mod_disco/modules/projects/views/proj_image_carousel.dart';
 import '../../../core/core.dart';
 
 class ProjectDetailView extends StatelessWidget {
@@ -34,13 +36,14 @@ class ProjectDetailView extends StatelessWidget {
                   //   CarouselWithIndicator(imgList: campaign.videoURL),
                   ListTile(
                     title: Text(
-                      'Videos',
+                      'Gallery',
                       style: Theme.of(context).textTheme.headline6,
                     ),
-                    subtitle: ProjectVideoPlayer(
-                      projectDetails.videoUrl,
-                    ),
+                    // subtitle: ProjectVideoPlayer(
+                    //   projectDetails.videoUrl,
+                    // ),
                   ),
+                  ProjectImageCarousel(images: projectDetails.projectImages),
                   const SizedBox(height: 16.0),
                   ListTile(
                     title: Text(

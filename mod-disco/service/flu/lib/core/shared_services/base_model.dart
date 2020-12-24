@@ -14,7 +14,7 @@ class BaseModel extends ChangeNotifier {
   List<Org> orgs = [];
 
   // List<Project> projects = [];
-  List<DiscoProject> projectDetails = List<DiscoProject>();
+  List<DiscoProject> projectDetails = [];
 
   // constructor
   BaseModel({List<Org> orglist}) {
@@ -33,7 +33,7 @@ class BaseModel extends ChangeNotifier {
   DiscoProject _selectedDiscoProject;
 
   Int64 _nextPageId = Int64(0);
-  List<bool> _selected = List<bool>();
+  List<bool> _selected = [];
   bool _isLoading = false;
   bool _hasMoreItems = false;
   bool _isLoggedOn = false;

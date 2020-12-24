@@ -45,6 +45,23 @@ class DiscoProjectRepo {
     }
   }
 
+  static Future<DiscoProject> updateDiscoProject({
+    @required String discoProjectId,
+    @required Int64 pledged,
+  }) async {
+    final req = UpdateDiscoProjectRequest()
+      ..projectId = discoProjectId
+      ..alreadyPledged = pledged;
+    try {
+      final client = await discoClient();
+      final resp =
+          client.updateDiscoProject(req, options: await getCallOptions());
+      return resp;
+    } catch (e) {
+      throw e;
+    }
+  }
+
   static Future<SurveyServiceClient> discoClient() async {
     return SurveyServiceClient(await BaseRepo.grpcWebClientChannel());
   }

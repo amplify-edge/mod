@@ -29,7 +29,7 @@ type DiscoProject struct {
 	HistPrecedents         string   `json:"histPrecedents,omitempty" genji:"hist_precedents"`
 	Strategy               string   `json:"strategy,omitempty" genji:"strategy"`
 	VideoUrl               []string `json:"videoUrl,omitempty" genji:"video_url"`
-	ImageResourceIds       []string `json:"imageResourceId,omitempty" genji:"image_resource_ids"`
+	ImageResourceIds       []string `json:"imageResourceIds,omitempty" genji:"image_resource_ids"`
 	UnitOfMeasures         string   `json:"unitOfMeasures,omitempty" genji:"unit_of_measures"`
 	CreatedAt              int64    `json:"createdAt,omitempty" genji:"created_at"`
 	UpdatedAt              int64    `json:"updatedAt,omitempty" genji:"updated_at"`
@@ -78,8 +78,8 @@ func (m *ModDiscoDB) FromNewPkgDiscoProject(dp *discoRpc.NewDiscoProjectRequest,
 		dp.VideoUrl = vidUrl
 	}
 	imgResourceIds := []string{}
-	if imageResourceIds == nil {
-		imageResourceIds = imgResourceIds
+	if imageResourceIds != nil {
+		imgResourceIds = imageResourceIds
 	}
 	return &DiscoProject{
 		ProjectId:              sharedConfig.NewID(),
@@ -102,7 +102,7 @@ func (m *ModDiscoDB) FromNewPkgDiscoProject(dp *discoRpc.NewDiscoProjectRequest,
 		UnitOfMeasures:         dp.GetUnitOfMeasures(),
 		CreatedAt:              sharedConfig.CurrentTimestamp(),
 		UpdatedAt:              sharedConfig.CurrentTimestamp(),
-		ImageResourceIds:       imageResourceIds,
+		ImageResourceIds:       imgResourceIds,
 	}, nil
 }
 
