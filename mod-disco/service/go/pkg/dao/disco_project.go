@@ -257,6 +257,9 @@ func (m *ModDiscoDB) UpdateDiscoProject(udp *discoRpc.UpdateDiscoProjectRequest)
 	if udp.GetActionTime() == nil {
 		delete(filterParam.Params, "action_time")
 	}
+	if udp.GetActionTime() != nil {
+		filterParam.Params["action_time"] = sharedConfig.TsToUnixUTC(udp.GetActionTime())
+	}
 	if filterParam.Params["action_location"] == "" {
 		delete(filterParam.Params, "action_location")
 	}
