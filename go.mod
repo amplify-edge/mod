@@ -11,7 +11,7 @@ require (
 	github.com/genjidb/genji v0.9.0
 	github.com/getcouragenow/protoc-gen-cobra v0.3.1-0.20201005114840-ccc8cd57bcdc
 	github.com/getcouragenow/sys v0.0.0-20201230052306-22a6aaf34655
-	github.com/getcouragenow/sys-share v0.0.0-20201211115435-35b645d047ee
+	github.com/getcouragenow/sys-share v0.0.0-20201230222439-331d409dcd61
 	github.com/golang/protobuf v1.4.3
 	github.com/golang/snappy v0.0.2 // indirect
 	github.com/google/go-cmp v0.5.1
