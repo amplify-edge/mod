@@ -17,16 +17,16 @@ func (md *ModDiscoRepo) NewSurveyUser(ctx context.Context, in *discoRpc.NewSurve
 	if in == nil {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot insert survey user: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
-	surveyProjectExists, surveyProjectId := md.surveyProjectExists(in.SurveyProjectRefId, in.SurveyProjectRefName)
-	if !surveyProjectExists {
-		return nil, status.Errorf(codes.InvalidArgument, "no survey project exists with id: %s or name: %s", in.SurveyProjectRefId, in.SurveyProjectRefName)
-	}
-	in.SurveyProjectRefId = surveyProjectId
 	exists, accountId, err := md.sysAccountUserExists(ctx, in.SysAccountUserRefId, in.SysAccountUserRefName)
 	if err != nil || !exists {
 		return nil, status.Errorf(codes.InvalidArgument, "no user account exists with id: %s or name: %s", in.SysAccountUserRefId, in.SysAccountUserRefName)
 	}
 	in.SysAccountUserRefId = accountId
+	surveyProjectExists, surveyProjectId := md.surveyProjectExists(in.SurveyProjectRefId, in.SurveyProjectRefName)
+	if !surveyProjectExists {
+		return nil, status.Errorf(codes.InvalidArgument, "no survey project exists with id: %s or name: %s", in.SurveyProjectRefId, in.SurveyProjectRefName)
+	}
+	in.SurveyProjectRefId = surveyProjectId
 	surveyProject, err := md.GetSurveyProject(ctx, &discoRpc.IdRequest{SurveyProjectId: surveyProjectId})
 	if err != nil {
 		return nil, status.Errorf(codes.InvalidArgument, "no survey project exists with id: %s", in.SurveyProjectRefId)
@@ -35,11 +35,7 @@ func (md *ModDiscoRepo) NewSurveyUser(ctx context.Context, in *discoRpc.NewSurve
 	if err != nil {
 		return nil, status.Errorf(codes.NotFound, "no project exists with id: %s", surveyProject.SysAccountProjectRefId)
 	}
-	sp, err := md.store.InsertSurveyUser(in)
-	if err != nil {
-		return nil, err
-	}
-	md.store.UpdateDiscoProject(&discoRpc.UpdateDiscoProjectRequest{
+	if err = md.store.UpdateDiscoProject(&discoRpc.UpdateDiscoProjectRequest{
 		ProjectId:        discoProject.GetProjectId(),
 		Goal:             discoProject.GetGoal(),
 		AlreadyPledged:   discoProject.GetAlreadyPledged() + 1,
@@ -57,7 +53,15 @@ func (md *ModDiscoRepo) NewSurveyUser(ctx context.Context, in *discoRpc.NewSurve
 		VideoUrl:         strings.Join(discoProject.GetVideoUrl(), ","),
 		UnitOfMeasures:   discoProject.GetUnitOfMeasures(),
 		ImageResourceIds: discoProject.GetImageResourceIds(),
-	})
+	}); err != nil {
+		return nil, err
+	}
+
+	sp, err := md.store.InsertSurveyUser(in)
+	if err != nil {
+		return nil, err
+	}
+
 	return sp, nil
 }
 
