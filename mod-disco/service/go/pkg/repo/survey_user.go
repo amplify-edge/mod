@@ -7,6 +7,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
+	"strings"
 
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sharedAuth "github.com/getcouragenow/sys-share/sys-account/service/go/pkg/shared"
@@ -26,10 +27,37 @@ func (md *ModDiscoRepo) NewSurveyUser(ctx context.Context, in *discoRpc.NewSurve
 		return nil, status.Errorf(codes.InvalidArgument, "no user account exists with id: %s or name: %s", in.SysAccountUserRefId, in.SysAccountUserRefName)
 	}
 	in.SysAccountUserRefId = accountId
+	surveyProject, err := md.GetSurveyProject(ctx, &discoRpc.IdRequest{SurveyProjectId: surveyProjectId})
+	if err != nil {
+		return nil, status.Errorf(codes.InvalidArgument, "no survey project exists with id: %s", in.SurveyProjectRefId)
+	}
+	discoProject, err := md.GetDiscoProject(ctx, &discoRpc.IdRequest{SysAccountProjectId: surveyProject.SysAccountProjectRefId})
+	if err != nil {
+		return nil, status.Errorf(codes.NotFound, "no project exists with id: %s", surveyProject.SysAccountProjectRefId)
+	}
 	sp, err := md.store.InsertSurveyUser(in)
 	if err != nil {
 		return nil, err
 	}
+	md.store.UpdateDiscoProject(&discoRpc.UpdateDiscoProjectRequest{
+		ProjectId:        discoProject.GetProjectId(),
+		Goal:             discoProject.GetGoal(),
+		AlreadyPledged:   discoProject.GetAlreadyPledged() + 1,
+		ActionTime:       discoProject.GetActionTime(),
+		ActionLocation:   discoProject.GetActionLocation(),
+		MinPioneers:      discoProject.GetMinPioneers(),
+		MinRebelsMedia:   discoProject.GetMinRebelsMedia(),
+		MinRebelsToWin:   discoProject.GetMinRebelsToWin(),
+		ActionLength:     discoProject.GetActionLength(),
+		ActionType:       discoProject.GetActionType(),
+		Category:         discoProject.GetCategory(),
+		Contact:          discoProject.GetContact(),
+		HistPrecedents:   discoProject.GetHistPrecedents(),
+		Strategy:         discoProject.GetStrategy(),
+		VideoUrl:         strings.Join(discoProject.GetVideoUrl(), ","),
+		UnitOfMeasures:   discoProject.GetUnitOfMeasures(),
+		ImageResourceIds: discoProject.GetImageResourceIds(),
+	})
 	return sp, nil
 }
 
