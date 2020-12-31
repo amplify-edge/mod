@@ -299,6 +299,7 @@ func (m *ModDiscoDB) UpdateDiscoProject(udp *discoRpc.UpdateDiscoProjectRequest)
 		for _, v := range dp.ImageResourceIds {
 			dp.ImageResourceIds = append(dp.ImageResourceIds, v)
 		}
+		dp.ImageResourceIds = sharedConfig.DedupSlice(dp.ImageResourceIds)
 		filterParam.Params["image_resource_ids"] = dp.ImageResourceIds
 	}
 	if udp.GetUnitOfMeasures() == "" {

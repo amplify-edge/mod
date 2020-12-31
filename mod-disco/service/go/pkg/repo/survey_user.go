@@ -3,14 +3,12 @@ package repo
 import (
 	"context"
 	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedAuth "github.com/getcouragenow/sys-share/sys-account/service/go/pkg/shared"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
-	"strings"
-
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedAuth "github.com/getcouragenow/sys-share/sys-account/service/go/pkg/shared"
 )
 
 func (md *ModDiscoRepo) NewSurveyUser(ctx context.Context, in *discoRpc.NewSurveyUserRequest) (*discoRpc.SurveyUser, error) {
@@ -36,23 +34,8 @@ func (md *ModDiscoRepo) NewSurveyUser(ctx context.Context, in *discoRpc.NewSurve
 		return nil, status.Errorf(codes.NotFound, "no project exists with id: %s", surveyProject.SysAccountProjectRefId)
 	}
 	if err = md.store.UpdateDiscoProject(&discoRpc.UpdateDiscoProjectRequest{
-		ProjectId:        discoProject.GetProjectId(),
-		Goal:             discoProject.GetGoal(),
-		AlreadyPledged:   discoProject.GetAlreadyPledged() + 1,
-		ActionTime:       discoProject.GetActionTime(),
-		ActionLocation:   discoProject.GetActionLocation(),
-		MinPioneers:      discoProject.GetMinPioneers(),
-		MinRebelsMedia:   discoProject.GetMinRebelsMedia(),
-		MinRebelsToWin:   discoProject.GetMinRebelsToWin(),
-		ActionLength:     discoProject.GetActionLength(),
-		ActionType:       discoProject.GetActionType(),
-		Category:         discoProject.GetCategory(),
-		Contact:          discoProject.GetContact(),
-		HistPrecedents:   discoProject.GetHistPrecedents(),
-		Strategy:         discoProject.GetStrategy(),
-		VideoUrl:         strings.Join(discoProject.GetVideoUrl(), ","),
-		UnitOfMeasures:   discoProject.GetUnitOfMeasures(),
-		ImageResourceIds: discoProject.GetImageResourceIds(),
+		ProjectId:      discoProject.GetProjectId(),
+		AlreadyPledged: discoProject.GetAlreadyPledged() + 1,
 	}); err != nil {
 		return nil, err
 	}
