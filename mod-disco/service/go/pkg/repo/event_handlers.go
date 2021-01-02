@@ -215,3 +215,11 @@ func (md *ModDiscoRepo) onDeleteSurveyUser(ctx context.Context, in *sharedCore.E
 		"successMsg": "successfully deleted survey projects",
 	}, nil
 }
+
+func (md *ModDiscoRepo) onResetAllModDisco(ctx context.Context, in *sharedCore.EventRequest) (map[string]interface{}, error) {
+	err := md.store.ResetAll()
+	if err != nil {
+		return nil, err
+	}
+	return map[string]interface{}{}, nil
+}

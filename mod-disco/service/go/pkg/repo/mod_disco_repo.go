@@ -58,6 +58,7 @@ func NewDiscoRepo(
 	busClient.RegisterAction("onDeleteSurveyUser", mdr.onDeleteSurveyUser)
 	busClient.RegisterAction("onLoginCreateInterceptor", mdr.newClientInterceptor)
 	busClient.RegisterAction("onLogoutRemoveInterceptor", mdr.removeClientInterceptor)
+	busClient.RegisterAction("onResetAllModDisco", mdr.onResetAllModDisco)
 	return mdr, nil
 }
 
