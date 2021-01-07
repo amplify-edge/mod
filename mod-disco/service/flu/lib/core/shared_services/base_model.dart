@@ -127,12 +127,12 @@ class BaseModel extends ChangeNotifier {
       if (ps.isEmpty) {
         _setHasMoreItems(false);
       }
-      orgs.addAll(ps);
       final lastFetchedNanos = Int64.parseInt(tkn);
       if (_nextPageId == lastFetchedNanos ||
           ps.length < perPageEntriesDefault) {
         _setHasMoreItems(false);
       } else {
+        orgs.addAll(ps);
         _setNextPageId(lastFetchedNanos);
         _setHasMoreItems(true);
       }
