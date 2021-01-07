@@ -218,7 +218,6 @@ class DashboardViewModel extends BaseModel {
       if (ps.isEmpty) {
         _setHasMoreItems(false);
       }
-      orgs.addAll(ps);
       if (!_isSuperuser) {
         _commonOrgFilter();
       }
@@ -227,6 +226,7 @@ class DashboardViewModel extends BaseModel {
           ps.length < perPageEntriesDefault) {
         _setHasMoreItems(false);
       } else {
+        orgs.addAll(ps);
         setCurrentPageId(lastFetchedNanos);
         _setHasMoreItems(true);
       }
