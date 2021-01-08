@@ -14,9 +14,10 @@ import (
 func DummyServiceClientCommand(options ...client.Option) *cobra.Command {
 	cfg := client.NewConfig(options...)
 	cmd := &cobra.Command{
-		Use:   cfg.CommandNamer("DummyService"),
-		Short: "DummyService service client",
-		Long:  "",
+		Use:    cfg.CommandNamer("DummyService"),
+		Short:  "DummyService service client",
+		Long:   "",
+		Hidden: false,
 	}
 	cfg.BindFlags(cmd.PersistentFlags())
 	cmd.AddCommand(
@@ -29,9 +30,10 @@ func _DummyServiceGetAccountCommand(cfg *client.Config) *cobra.Command {
 	req := &GetAccountRequest{}
 
 	cmd := &cobra.Command{
-		Use:   cfg.CommandNamer("GetAccount"),
-		Short: "GetAccount RPC client",
-		Long:  "",
+		Use:    cfg.CommandNamer("GetAccount"),
+		Short:  "GetAccount RPC client",
+		Long:   "",
+		Hidden: false,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if cfg.UseEnvVars {
 				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "DummyService"); err != nil {

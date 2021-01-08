@@ -1,4 +1,4 @@
-name: sys_share_sys_account_example
+name: sys_share_sys_account_example # sys_share_sys_account_example
 description: A new Flutter project.
 
 # The following defines the version and build number for your application.
@@ -22,11 +22,11 @@ dependencies:
   flutter_modular: ^2.0.0+1
 
   sys_share_sys_account_service:
-    path: ../../../service/flu
+    path: ../../../../../sys-share/sys-account/service/flu
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.0
 
 dev_dependencies:
   flutter_test:
