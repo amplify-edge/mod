@@ -47,12 +47,15 @@ func NewModDiscoServiceConfig(l *logrus.Entry, db *coredb.CoreDB, discoCfg *serv
 	return mdsc, nil
 }
 
-func NewModDiscoService(cfg *ModDiscoServiceConfig) (*ModDiscoService, error) {
+func NewModDiscoService(cfg *ModDiscoServiceConfig, allDb *coredb.AllDBService) (*ModDiscoService, error) {
 	cfg.logger.Infoln("Initializing Mod-Disco Service")
 	fileDb, err := coredb.NewCoreDB(cfg.logger, &cfg.Cfg.ModDiscoConfig.SysFileConfig, nil)
 	if err != nil {
 		return nil, err
 	}
+	cfg.logger.Infoln("registering mod-disco db & filedb to allDb service")
+	allDb.RegisterCoreDB(fileDb)
+	allDb.RegisterCoreDB(cfg.store)
 	fileRepo, err := corefile.NewSysFileRepo(fileDb, cfg.logger)
 	if err != nil {
 		return nil, err
