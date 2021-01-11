@@ -1,5 +1,3 @@
 # mod
 
-modules
-
-a
+This repo holds modules used by Main.
