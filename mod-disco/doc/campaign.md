@@ -1,6 +1,6 @@
 # campaign
 
-For V3 one of the first things we need is a campaing system.
+For V3 one of the first things we need is a campaign system.
 
 They typically have a segment system.
 
@@ -10,7 +10,7 @@ https://github.com/knadh/listmonk
 	- https://listmonk.app/docs/querying-and-segmentation/
 - has different messengers: https://listmonk.app/docs/messengers/
 - smtp pool
-- Has editor for usrs to craft messages: https://listmonk.app/docs/templating/
+- Has editor for user to craft messages: https://listmonk.app/docs/templating/
 - DB
 	- it uses postresql, and we need to use genji. Genjo matches it because of the schemaless JSONB architecture that the segments and templates use.
 	- other option is to use cockroachDB in embedded mode:
@@ -30,4 +30,6 @@ https://github.com/knadh/listmonk
 twitter
 - https://github.com/creachadair/twig
 - uses the NEW experimental Twitter API: https://developer.twitter.com/en/docs/twitter-api/early-access
+
+
 
