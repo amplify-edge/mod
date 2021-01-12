@@ -2,9 +2,11 @@ package pkg
 
 import (
 	"fmt"
-	corefile "github.com/getcouragenow/sys/sys-core/service/go/pkg/filesvc/repo"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
+
+	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/telemetry"
+	corefile "github.com/getcouragenow/sys/sys-core/service/go/pkg/filesvc/repo"
 
 	service "github.com/getcouragenow/mod/mod-disco/service/go"
 	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/repo"
@@ -19,6 +21,7 @@ type ModDiscoService struct {
 	proxyService      *discoRpc.SurveyServiceService
 	ClientInterceptor *interceptor.ClientSide
 	ModDiscoRepo      *repo.ModDiscoRepo
+	BusinessTelemetry *telemetry.ModDiscoMetrics
 }
 
 type ModDiscoServiceConfig struct {
@@ -65,10 +68,12 @@ func NewModDiscoService(cfg *ModDiscoServiceConfig, allDb *coredb.AllDBService) 
 		return nil, err
 	}
 	discoService := discoRpc.NewSurveyServiceService(discoRepo)
+	modDiscoMetrics := telemetry.NewModDiscoMetrics(cfg.logger)
 	return &ModDiscoService{
 		proxyService:      discoService,
 		ModDiscoRepo:      discoRepo,
 		ClientInterceptor: discoRepo.ClientInterceptor,
+		BusinessTelemetry: modDiscoMetrics,
 	}, nil
 }
 
