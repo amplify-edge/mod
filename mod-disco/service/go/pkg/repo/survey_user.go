@@ -2,7 +2,10 @@ package repo
 
 import (
 	"context"
+	"fmt"
+	"github.com/VictoriaMetrics/metrics"
 	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
+	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/telemetry"
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sharedAuth "github.com/getcouragenow/sys-share/sys-account/service/go/pkg/shared"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
@@ -44,6 +47,11 @@ func (md *ModDiscoRepo) NewSurveyUser(ctx context.Context, in *discoRpc.NewSurve
 	if err != nil {
 		return nil, err
 	}
+
+	alreadyPledgedMetrics := metrics.GetOrCreateCounter(fmt.Sprintf(telemetry.ModDiscoLabelledMetricsFormat, telemetry.METRICS_ALREADY_PLEDGED, discoProject.SysAccountProjectRefId, discoProject.ProjectId))
+	go func() {
+		alreadyPledgedMetrics.Inc()
+	}()
 
 	return sp, nil
 }
