@@ -2,6 +2,11 @@
 
 we have none and we really need them.
 
+CoachroachDB
+- can embed: https://raw.githubusercontent.com/cockroachdb/cockroach/master/pkg/server/testserver.go
+- has formal CDC for CQRS
+- JSONB is important !!
+
 https://github.com/golang-migrate/migrate
 - looks good because its independent of SQL drivers and so then easy to use with anything.
 

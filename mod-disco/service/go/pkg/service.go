@@ -2,9 +2,11 @@ package pkg
 
 import (
 	"fmt"
-	corefile "github.com/getcouragenow/sys/sys-core/service/go/pkg/filesvc/repo"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
+
+	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/telemetry"
+	corefile "github.com/getcouragenow/sys/sys-core/service/go/pkg/filesvc/repo"
 
 	service "github.com/getcouragenow/mod/mod-disco/service/go"
 	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/repo"
@@ -19,6 +21,7 @@ type ModDiscoService struct {
 	proxyService      *discoRpc.SurveyServiceService
 	ClientInterceptor *interceptor.ClientSide
 	ModDiscoRepo      *repo.ModDiscoRepo
+	BusinessTelemetry *telemetry.ModDiscoMetrics
 }
 
 type ModDiscoServiceConfig struct {
@@ -47,12 +50,15 @@ func NewModDiscoServiceConfig(l *logrus.Entry, db *coredb.CoreDB, discoCfg *serv
 	return mdsc, nil
 }
 
-func NewModDiscoService(cfg *ModDiscoServiceConfig) (*ModDiscoService, error) {
+func NewModDiscoService(cfg *ModDiscoServiceConfig, allDb *coredb.AllDBService) (*ModDiscoService, error) {
 	cfg.logger.Infoln("Initializing Mod-Disco Service")
 	fileDb, err := coredb.NewCoreDB(cfg.logger, &cfg.Cfg.ModDiscoConfig.SysFileConfig, nil)
 	if err != nil {
 		return nil, err
 	}
+	cfg.logger.Infoln("registering mod-disco db & filedb to allDb service")
+	allDb.RegisterCoreDB(fileDb)
+	allDb.RegisterCoreDB(cfg.store)
 	fileRepo, err := corefile.NewSysFileRepo(fileDb, cfg.logger)
 	if err != nil {
 		return nil, err
@@ -62,10 +68,12 @@ func NewModDiscoService(cfg *ModDiscoServiceConfig) (*ModDiscoService, error) {
 		return nil, err
 	}
 	discoService := discoRpc.NewSurveyServiceService(discoRepo)
+	modDiscoMetrics := telemetry.NewModDiscoMetrics(cfg.logger)
 	return &ModDiscoService{
 		proxyService:      discoService,
 		ModDiscoRepo:      discoRepo,
 		ClientInterceptor: discoRepo.ClientInterceptor,
+		BusinessTelemetry: modDiscoMetrics,
 	}, nil
 }
 

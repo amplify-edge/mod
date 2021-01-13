@@ -24,6 +24,17 @@ Golang genji / Badger DB records all events.
 	- For v3 / v4 we can use the same system for Ops telemtry. After all the whole idea of this product is to be independent of the cloud and so the Telemetry needs to be part of the system itself
 	- Will almost definitly use Open Telemtry: https://github.com/open-telemetry/opentelemetry-go
 
+
+https://github.com/timshannon/badgerhold#aggregate-queries
+
+https://github.com/sipcapture/homer-app
+
+https://github.com/faceair/VictoriaLogs
+- fork: https://github.com/adubovikov/VictoriaLogs
+- https://github.com/VictoriaMetrics/VictoriaMetrics/blob/master/app/vmrestore/main.go
+
+
+
 Event Logic
 
 - sys-account.
@@ -113,3 +124,19 @@ Tracing
 
 Logging
 
+https://github.com/grafana/loki
+- easy to run and embed
+	- https://github.com/grafana/loki/blob/master/cmd/loki/main.go
+	- https://github.com/grafana/loki/blob/master/cmd/loki/loki-local-config.yaml
+- has a WAL recently added. so good option.
+- TUI: https://github.com/owen-d/louis
+	- nice
+
+
+
+
+## rudderstack
+
+https://rudderstack.com/
+
+https://github.com/rudderlabs/rudder-server
