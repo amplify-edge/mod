@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mod_disco/core/shared_repositories/disco_project_repo.dart';
+import 'package:mod_disco/core/shared_widgets/dialog_widget.dart';
 import 'package:sys_core/sys_core.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
@@ -15,8 +16,10 @@ import 'package:collection/collection.dart';
 class SurveyProjectViewModel extends BaseModel {
   String _projectId;
   Project _project;
-  List<SurveyProject> _surveyProjects = List<SurveyProject>();
-  List<List<UserNeedsType>> _userNeedsLists = List<List<UserNeedsType>>();
+  List<SurveyProject> _surveyProjects =
+      List<SurveyProject>.empty(growable: true);
+  List<List<UserNeedsType>> _userNeedsLists =
+      List<List<UserNeedsType>>.empty(growable: true);
   Map<String, NewUserNeedsValue> _userNeedsValueMap = {};
   NewSurveyUserRequest _surveyUser = NewSurveyUserRequest();
   UpdateSurveyUserRequest _updateSurveyUserRequest = UpdateSurveyUserRequest();
@@ -136,6 +139,7 @@ class SurveyProjectViewModel extends BaseModel {
       _untList.add(value);
     });
     showActionDialogBox(
+      context: context,
       onPressedNo: () async {
         Modular.to.pop();
         _userRole
@@ -173,7 +177,6 @@ class SurveyProjectViewModel extends BaseModel {
                   );
                 });
               },
-              navigatorKey: Modular.navigatorKey,
             ),
           );
         } else {

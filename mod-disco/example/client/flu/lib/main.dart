@@ -1,3 +1,4 @@
+import 'package:builders/builders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -7,6 +8,8 @@ import 'package:mod_disco/modules/main_module.dart';
 import 'package:sys_core/sys_core.dart';
 
 void main() {
+  //using Modular
+  Builders.systemInjector(Modular.get);
   runApp(ModularApp(module: AppModule()));
 }
 
@@ -21,14 +24,14 @@ class LanguageNotifier extends ChangeNotifier {
 
 class AppModule extends MainModule {
   @override
-  List<Bind> get binds => [Bind((i) => LanguageNotifier())];
+  List<Bind> get binds => [Bind.singleton((i) => LanguageNotifier())];
 
   @override
   Widget get bootstrap => App();
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter("/",
+  List<ModularRoute> get routes => [
+        ModuleRoute("/",
             module: MainAppModule(
                 baseRoute: '/',
                 url: "http://[::1]:61146/#",
@@ -60,15 +63,13 @@ class App extends StatelessWidget {
           locale: value.locale,
           debugShowCheckedModeBanner: false,
           initialRoute: "/",
-          onGenerateRoute: Modular.generateRoute,
-          navigatorKey: Modular.navigatorKey,
           supportedLocales:
               Languages.supportedLanguages.keys.map((e) => Locale(e)).toList(),
           localizationsDelegates: [
             ModDiscoLocalizationsDelegate(value.locale),
             GlobalWidgetsLocalizations.delegate,
             GlobalMaterialLocalizations.delegate
-          ]);
+          ]).modular();
     });
   }
 }
