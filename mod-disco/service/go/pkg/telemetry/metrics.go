@@ -13,7 +13,7 @@ const (
 	//METRICS_MIN_REBELS_WIN        = "mod_disco_min_rebels_win"
 	// cumulative pledged hours for certain role in support role
 	METRICS_PLEDGED_HOURS         = "mod_disco_pledged_hours"
-	ModDiscoLabelledMetricsFormat = "%s{sys_project_id=%s, disco_project_id=%s}"
+	ModDiscoLabelledMetricsFormat = `%s{sys_project_id="%s", disco_project_id="%s"}`
 )
 
 type ModDiscoMetrics struct {
