@@ -22,7 +22,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  flutter_modular: ^2.0.0+1
+  builders: ^2.0.0-0
   mod_disco:
     path: ../../../service/flu
 
