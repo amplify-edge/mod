@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/core/shared_repositories/disco_project_repo.dart';
 import 'package:mod_disco/core/shared_repositories/survey_project_repo.dart';
@@ -107,7 +106,6 @@ class SupportRoleViewModel extends BaseModel {
               );
             });
           },
-          navigatorKey: Modular.navigatorKey,
         ),
       );
     } else {
