@@ -5,7 +5,7 @@ import 'package:sys_share_sys_account_service/pkg/guards/guardian_view_model.dar
 class SplashGuard extends RouteGuard {
   @override
   Future<bool> canActivate(String path, ModularRoute router) async {
-    if (path == "/") {
+    if (path == Modular.get<Paths>().baseRoute){
       final gmod = Modular.get<GuardianViewModel>();
       await gmod.getLoginStatus();
       if (gmod.isUserLoggedIn) {

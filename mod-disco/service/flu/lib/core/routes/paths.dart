@@ -7,6 +7,7 @@ class Paths {
   String projectsId;
   String ready;
   String supportRoles;
+  String surveyProject;
   String myNeeds;
   String splash;
   String dashboard;
@@ -25,6 +26,7 @@ class Paths {
         projectsId = '$baseRoute/projects/:orgId/:id',
         ready = '$baseRoute/ready',
         supportRoles = '$baseRoute/support_roles/projects/',
+        surveyProject = '$baseRoute/survey/projects/',
         myNeeds = '$baseRoute/myneeds/projects/:id',
         splash = '$baseRoute/';
 }

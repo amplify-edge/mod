@@ -30,7 +30,7 @@ class MainAppModule extends ChildModule {
   @override
   List<ModularRoute> get routes => [
         ChildRoute(
-          "/",
+          baseRoute,
           child: (_, args) => Container(),
           guards: [SplashGuard()],
         ),
@@ -62,7 +62,6 @@ class MainAppModule extends ChildModule {
             surveyProjectList: args.data['surveyProjectList'],
           ),
         ),
-
         /// Admin Dashboard Routes
         ChildRoute(
           "/dashboard/orgs",
