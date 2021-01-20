@@ -11,7 +11,7 @@ import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_re
 
 class BaseModel extends ChangeNotifier {
   int perPageEntriesDefault = 30;
-  List<Org> orgs = [];
+  List<Org> orgs = List<Org>.empty(growable: true);
 
   // List<Project> projects = [];
   List<DiscoProject> projectDetails = [];

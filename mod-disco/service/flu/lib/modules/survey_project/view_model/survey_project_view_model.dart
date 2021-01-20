@@ -12,6 +12,7 @@ import 'package:random_string/random_string.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 import 'package:collection/collection.dart';
+import 'package:asuka/asuka.dart' as asuka;
 
 class SurveyProjectViewModel extends BaseModel {
   String _projectId;
@@ -139,16 +140,13 @@ class SurveyProjectViewModel extends BaseModel {
       _untList.add(value);
     });
     showActionDialogBox(
-      context: context,
       onPressedNo: () async {
-        Modular.to.pop();
         _userRole
           ..role = Roles.USER
           ..projectId = _projectId
           ..orgId = _project.orgId;
         if (!_isLoggedOn) {
-          showDialog(
-            context: context,
+          asuka.showDialog(
             builder: (context) => AuthDialog(
               isSignIn: false,
               userRole: _userRole,
@@ -193,7 +191,6 @@ class SurveyProjectViewModel extends BaseModel {
               pledged: res.alreadyPledged + 1,
             );
           });
-          Modular.to.pop();
         }
       },
       onPressedYes: () {
@@ -203,8 +200,7 @@ class SurveyProjectViewModel extends BaseModel {
           _surveyUser.userNeedValues.clear();
           _surveyUser.userNeedValues.addAll(_untList);
         }
-        Modular.to.pop();
-        Modular.to.pushNamed(Modular.get<Paths>().supportRoles, arguments: {
+        Modular.to.pushReplacementNamed(Modular.get<Paths>().supportRoles, arguments: {
           'surveyProjectList': _surveyProjects,
           'surveyUserRequest': _surveyUser,
           'project': project,

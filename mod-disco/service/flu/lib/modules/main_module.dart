@@ -34,27 +34,48 @@ class MainAppModule extends ChildModule {
           child: (_, args) => Container(),
           guards: [SplashGuard()],
         ),
+        // ChildRoute(
+        //   "/projects/:orgId/:id",
+        //   child: (_, args) => ProjectView(
+        //     orgs: args.data,
+        //     orgId: args.params['orgId'] ?? '',
+        //     id: args.params['id'] ?? '',
+        //   ),
+        // ),
+        ChildRoute(
+          "/selected_projects/:oid/:id",
+          child: (_, args) {
+            print("ARG_PARAMS: ${args.params.toString()}");
+            return ProjectView(
+              orgId: args.params['oid'] ?? '',
+              id: args.params['id'] ?? '',
+            );
+          },
+        ),
         ChildRoute(
           "/projects",
           child: (_, args) => ProjectView(
             orgs: args.data,
-          ),
-        ),
-        ChildRoute(
-          "/projects/:orgId/:id",
-          child: (_, args) => ProjectView(
             orgId: args.params['orgId'] ?? '',
             id: args.params['id'] ?? '',
           ),
         ),
         ChildRoute(
-          "/survey/projects/",
+          "/subscribed_projects/:id",
+          child: (_, args) {
+            return ProjectView(
+              orgId: args.params['id'],
+            );
+          },
+        ),
+        ChildRoute(
+          "/survey",
           child: (_, args) => SurveyProjectView(
             project: args.data,
           ),
         ),
         ChildRoute(
-          "/support_roles/projects/",
+          "/support_roles",
           child: (_, args) => SurveySupportRoleView(
             project: args.data['project'],
             surveyUserRequest: args.data['surveyUserRequest'],
@@ -62,9 +83,10 @@ class MainAppModule extends ChildModule {
             surveyProjectList: args.data['surveyProjectList'],
           ),
         ),
+
         /// Admin Dashboard Routes
         ChildRoute(
-          "/dashboard/orgs",
+          "/dashboard/orgs/",
           child: (_, args) => OrgMasterDetailView(),
           guards: [DashboardGuard()],
         ),

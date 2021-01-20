@@ -5,10 +5,8 @@ class Paths {
   String orgsId;
   String projects;
   String projectsId;
-  String ready;
   String supportRoles;
   String surveyProject;
-  String myNeeds;
   String splash;
   String dashboard;
   String dashboardId;
@@ -23,10 +21,8 @@ class Paths {
         orgs = '$baseRoute/orgs',
         orgsId = '$baseRoute/orgs/:id',
         projects = '$baseRoute/projects',
-        projectsId = '$baseRoute/projects/:orgId/:id',
-        ready = '$baseRoute/ready',
-        supportRoles = '$baseRoute/support_roles/projects/',
-        surveyProject = '$baseRoute/survey/projects/',
-        myNeeds = '$baseRoute/myneeds/projects/:id',
+        projectsId = '$baseRoute/selected_projects/:oid/:id',
+        supportRoles = '$baseRoute/support_roles',
+        surveyProject = '$baseRoute/survey',
         splash = '$baseRoute/';
 }

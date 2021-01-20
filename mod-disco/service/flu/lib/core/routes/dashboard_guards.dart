@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/routes/paths.dart';
 import 'package:sys_share_sys_account_service/pkg/guards/guardian_view_model.dart';
@@ -5,7 +6,7 @@ import 'package:sys_share_sys_account_service/pkg/guards/guardian_view_model.dar
 class SplashGuard extends RouteGuard {
   @override
   Future<bool> canActivate(String path, ModularRoute router) async {
-    if (path == Modular.get<Paths>().baseRoute){
+    if (path == Modular.get<Paths>().baseRoute) {
       final gmod = Modular.get<GuardianViewModel>();
       await gmod.getLoginStatus();
       if (gmod.isUserLoggedIn) {

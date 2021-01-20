@@ -23,7 +23,7 @@ class ProjectView extends StatelessWidget {
     return ViewModelProvider.withConsumer(
       viewModelBuilder: () => ProjectViewModel(organizations: orgs),
       onModelReady: (ProjectViewModel model) async {
-        if (model.orgs == null || model.orgs.isEmpty) {
+        if ((model.orgs == null || model.orgs.isEmpty)) {
           await model.fetchInitialProjects();
         } else {
           await model.fetchExistingOrgsProjects();
