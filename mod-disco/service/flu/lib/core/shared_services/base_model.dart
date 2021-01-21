@@ -1,20 +1,18 @@
-import 'package:flutter/material.dart';
 import 'package:fixnum/fixnum.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mod_disco/core/routes/paths.dart';
+import 'package:flutter/material.dart';
 import 'package:mod_disco/core/shared_repositories/disco_project_repo.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
-import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart'
     as repo;
+import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 
 class BaseModel extends ChangeNotifier {
   int perPageEntriesDefault = 30;
   List<Org> orgs = List<Org>.empty(growable: true);
 
   // List<Project> projects = [];
-  List<DiscoProject> projectDetails = [];
+  List<DiscoProject> projectDetails = List<DiscoProject>.empty(growable: true);
 
   // constructor
   BaseModel({List<Org> orglist}) {

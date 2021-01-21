@@ -21,8 +21,8 @@ class Paths {
         orgs = '$baseRoute/orgs',
         orgsId = '$baseRoute/orgs/:id',
         projects = '$baseRoute/projects',
-        projectsId = '$baseRoute/selected_projects/:oid/:id',
+        projectsId = '$baseRoute/projects/:oid/:id',
         supportRoles = '$baseRoute/support_roles',
-        surveyProject = '$baseRoute/survey',
+        surveyProject = '$baseRoute/survey/:id',
         splash = '$baseRoute/';
 }

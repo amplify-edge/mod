@@ -34,21 +34,13 @@ class MainAppModule extends ChildModule {
           child: (_, args) => Container(),
           guards: [SplashGuard()],
         ),
-        // ChildRoute(
-        //   "/projects/:orgId/:id",
-        //   child: (_, args) => ProjectView(
-        //     orgs: args.data,
-        //     orgId: args.params['orgId'] ?? '',
-        //     id: args.params['id'] ?? '',
-        //   ),
-        // ),
         ChildRoute(
-          "/selected_projects/:oid/:id",
+          "/projects/:oid/:id",
           child: (_, args) {
-            print("ARG_PARAMS: ${args.params.toString()}");
             return ProjectView(
-              orgId: args.params['oid'] ?? '',
-              id: args.params['id'] ?? '',
+              orgId: args.data['oid'] ?? '',
+              id: args.data['id'] ?? '',
+              orgs: args.data['orgs'] ?? [],
             );
           },
         ),
@@ -69,9 +61,9 @@ class MainAppModule extends ChildModule {
           },
         ),
         ChildRoute(
-          "/survey",
+          "/survey/:id",
           child: (_, args) => SurveyProjectView(
-            project: args.data,
+            projectId: args.params['id'] ?? '',
           ),
         ),
         ChildRoute(
