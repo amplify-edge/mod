@@ -10,7 +10,6 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/segmentio/encoding/json"
-	log "github.com/sirupsen/logrus"
 )
 
 type SurveyUser struct {
@@ -98,9 +97,9 @@ func (m *ModDiscoDB) GetSurveyUser(filters map[string]interface{}) (*SurveyUser,
 	if err != nil {
 		return nil, err
 	}
-	m.log.WithFields(log.Fields{
+	m.log.WithFields(map[string]string{
 		"queryStatement": selectStmt,
-		"arguments":      args,
+		"arguments":      fmt.Sprintf("%v", args),
 	}).Debugf("GetSurveyUser %s", SurveyUsersTableName)
 	err = doc.StructScan(&sp)
 	if err != nil {
@@ -163,9 +162,9 @@ func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*disco
 	if err != nil {
 		return nil, err
 	}
-	m.log.WithFields(log.Fields{
+	m.log.WithFields(map[string]string{
 		"statement": stmt,
-		"args":      args,
+		"args":      fmt.Sprintf("%v", args),
 	}).Debugf("insert to %s table", SurveyUsersTableName)
 	err = m.db.Exec(stmt, args...)
 	if err != nil {

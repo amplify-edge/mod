@@ -4,8 +4,6 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
-	log "github.com/sirupsen/logrus"
-
 	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
 	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
@@ -153,9 +151,9 @@ func (m *ModDiscoDB) GetDiscoProject(filters map[string]interface{}) (*DiscoProj
 	if err != nil {
 		return nil, err
 	}
-	m.log.WithFields(log.Fields{
+	m.log.WithFields(map[string]string{
 		"queryStatement": selectStmt,
-		"arguments":      args,
+		"arguments":      fmt.Sprintf("%v", args),
 	}).Debugf("GetDiscoProject %s", DiscoProjectTableName)
 	err = res.StructScan(&dp)
 	if err != nil {
@@ -220,9 +218,9 @@ func (m *ModDiscoDB) InsertDiscoProject(dp *discoRpc.NewDiscoProjectRequest, ima
 	if err != nil {
 		return nil, err
 	}
-	m.log.WithFields(log.Fields{
+	m.log.WithFields(map[string]string{
 		"statement": stmt,
-		"args":      args,
+		"args":      fmt.Sprintf("%v", args),
 	}).Debugf("insert to %s table", DiscoProjectTableName)
 	err = m.db.Exec(stmt, args...)
 	if err != nil {

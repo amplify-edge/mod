@@ -10,7 +10,6 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/segmentio/encoding/json"
-	log "github.com/sirupsen/logrus"
 )
 
 type SurveyProject struct {
@@ -84,8 +83,6 @@ func (sp SurveyProject) CreateSQL() []string {
 	return tbl.CreateTable()
 }
 
-
-
 func (m *ModDiscoDB) GetSurveyProject(filters map[string]interface{}) (*SurveyProject, error) {
 	var sp SurveyProject
 	selectStmt, args, err := sysCoreSvc.BaseQueryBuilder(
@@ -97,9 +94,9 @@ func (m *ModDiscoDB) GetSurveyProject(filters map[string]interface{}) (*SurveyPr
 	if err != nil {
 		return nil, err
 	}
-	m.log.WithFields(log.Fields{
+	m.log.WithFields(map[string]string{
 		"queryStatement": selectStmt,
-		"arguments":      args,
+		"arguments":      fmt.Sprintf("%v", args),
 	}).Debugf("GetSurveyProject %s", SurveyProjectTableName)
 	doc, err := m.db.Query(selectStmt, args...)
 	if err != nil {
@@ -176,9 +173,9 @@ func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (
 	if err != nil {
 		return nil, err
 	}
-	m.log.WithFields(log.Fields{
+	m.log.WithFields(map[string]string{
 		"statement": stmt,
-		"args":      args,
+		"args":      fmt.Sprintf("%v", args),
 	}).Debugf("insert to %s table", SurveyProjectTableName)
 	if err := m.db.Exec(stmt, args...); err != nil {
 		return nil, err

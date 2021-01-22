@@ -1,13 +1,13 @@
 package dao
 
 import (
+	"github.com/getcouragenow/sys-share/sys-core/service/logging"
 	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
-	log "github.com/sirupsen/logrus"
 )
 
 type ModDiscoDB struct {
 	db                      *sysCoreSvc.CoreDB
-	log                     *log.Entry
+	log                     logging.Logger
 	surveyProjectColumns    string
 	surveyUserColumns       string
 	discoProjectColumns     string
@@ -17,7 +17,7 @@ type ModDiscoDB struct {
 	userNeedValueColumns    string
 }
 
-func NewModDiscoDB(db *sysCoreSvc.CoreDB, l *log.Entry) (*ModDiscoDB, error) {
+func NewModDiscoDB(db *sysCoreSvc.CoreDB, l logging.Logger) (*ModDiscoDB, error) {
 	spColumns := sysCoreSvc.GetStructColumns(SurveyProject{})
 	suColumns := sysCoreSvc.GetStructColumns(SurveyUser{})
 	dpColumns := sysCoreSvc.GetStructColumns(DiscoProject{})
@@ -54,4 +54,3 @@ func NewModDiscoDB(db *sysCoreSvc.CoreDB, l *log.Entry) (*ModDiscoDB, error) {
 		userNeedValueColumns:    unvCols,
 	}, nil
 }
-

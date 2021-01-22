@@ -24,7 +24,7 @@ func (md *ModDiscoRepo) newClientInterceptor(ctx context.Context, in *sharedCore
 			Err:    fmt.Errorf("no valid %s or %s found", accessKey, refreshKey),
 		}
 	}
-	md.ClientInterceptor, err = interceptor.NewClientSideInterceptor(md.accountClient, rmap[accessKey].(string), rmap[refreshKey].(string), md.busClientRoutes)
+	md.ClientInterceptor, err = interceptor.NewClientSideInterceptor(md.accountClient, rmap[accessKey].(string), rmap[refreshKey].(string), md.busClientRoutes, md.log)
 	if err != nil {
 		return nil, sharedBus.Error{
 			Reason: sharedBus.ErrInvalidEventPayload,

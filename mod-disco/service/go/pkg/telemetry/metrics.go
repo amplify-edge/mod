@@ -2,7 +2,7 @@ package telemetry
 
 import (
 	"github.com/VictoriaMetrics/metrics"
-	"github.com/sirupsen/logrus"
+	"github.com/getcouragenow/sys-share/sys-core/service/logging"
 )
 
 const (
@@ -24,7 +24,7 @@ type ModDiscoMetrics struct {
 	PledgedHoursMetrics *metrics.Histogram
 }
 
-func NewModDiscoMetrics(logger *logrus.Entry) *ModDiscoMetrics {
+func NewModDiscoMetrics(logger logging.Logger) *ModDiscoMetrics {
 	logger.Infof("Registering Mod-Disco Metrics")
 	return &ModDiscoMetrics{
 		AlreadyPledgedMetrics: metrics.NewCounter(METRICS_ALREADY_PLEDGED),

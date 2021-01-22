@@ -2,7 +2,7 @@ package pkg
 
 import (
 	"fmt"
-	"github.com/sirupsen/logrus"
+	"github.com/getcouragenow/sys-share/sys-core/service/logging"
 	"google.golang.org/grpc"
 
 	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/telemetry"
@@ -29,14 +29,14 @@ type ModDiscoServiceConfig struct {
 	store           *coredb.CoreDB
 	Cfg             *service.ModDiscoConfig
 	bus             *sharedBus.CoreBus
-	logger          *logrus.Entry
+	logger          logging.Logger
 }
 
-func NewModDiscoServiceConfig(l *logrus.Entry, db *coredb.CoreDB, discoCfg *service.ModDiscoConfig, bus *sharedBus.CoreBus, grpcClientOpts grpc.ClientConnInterface) (*ModDiscoServiceConfig, error) {
+func NewModDiscoServiceConfig(l logging.Logger, db *coredb.CoreDB, discoCfg *service.ModDiscoConfig, bus *sharedBus.CoreBus, grpcClientOpts grpc.ClientConnInterface) (*ModDiscoServiceConfig, error) {
 	if db == nil {
 		return nil, fmt.Errorf("error creating mod disco service: database is null")
 	}
-	modDiscoLogger := l.WithFields(logrus.Fields{
+	modDiscoLogger := l.WithFields(map[string]string{
 		"mod": "mod-disco",
 	})
 	newAuthProxyClient := sharedAccountPkg.NewSysAccountProxyServiceClient(grpcClientOpts)
@@ -51,12 +51,12 @@ func NewModDiscoServiceConfig(l *logrus.Entry, db *coredb.CoreDB, discoCfg *serv
 }
 
 func NewModDiscoService(cfg *ModDiscoServiceConfig, allDb *coredb.AllDBService) (*ModDiscoService, error) {
-	cfg.logger.Infoln("Initializing Mod-Disco Service")
+	cfg.logger.Info("Initializing Mod-Disco Service")
 	fileDb, err := coredb.NewCoreDB(cfg.logger, &cfg.Cfg.ModDiscoConfig.SysFileConfig, nil)
 	if err != nil {
 		return nil, err
 	}
-	cfg.logger.Infoln("registering mod-disco db & filedb to allDb service")
+	cfg.logger.Info("registering mod-disco db & filedb to allDb service")
 	allDb.RegisterCoreDB(fileDb)
 	allDb.RegisterCoreDB(cfg.store)
 	fileRepo, err := corefile.NewSysFileRepo(fileDb, cfg.logger)
