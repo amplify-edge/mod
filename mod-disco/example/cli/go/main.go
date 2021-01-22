@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	l := zaplog.NewZapLogger("debug", "mod-cli", true)
+	l := zaplog.NewZapLogger(zaplog.DEBUG, "mod-cli", true, "")
 	l.InitLogger(nil)
 	rootCmd := discoRpc.SurveyServiceClientCommand()
 	if err := rootCmd.Execute(); err != nil {

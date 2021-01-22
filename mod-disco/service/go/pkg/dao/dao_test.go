@@ -27,7 +27,7 @@ var (
 )
 
 func init() {
-	logger := zaplog.NewZapLogger("debug", "mod-disco-dao-test", true)
+	logger := zaplog.NewZapLogger(zaplog.DEBUG, "mod-disco-dao-test", true, "./testdata/gcn.log")
 	logger.InitLogger(nil)
 
 	var csc *corecfg.SysCoreConfig

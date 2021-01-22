@@ -36,9 +36,7 @@ func NewModDiscoServiceConfig(l logging.Logger, db *coredb.CoreDB, discoCfg *ser
 	if db == nil {
 		return nil, fmt.Errorf("error creating mod disco service: database is null")
 	}
-	modDiscoLogger := l.WithFields(map[string]string{
-		"mod": "mod-disco",
-	})
+	modDiscoLogger := l.WithFields(map[string]interface{}{"service": "mod-disco"})
 	newAuthProxyClient := sharedAccountPkg.NewSysAccountProxyServiceClient(grpcClientOpts)
 	mdsc := &ModDiscoServiceConfig{
 		store:           db,

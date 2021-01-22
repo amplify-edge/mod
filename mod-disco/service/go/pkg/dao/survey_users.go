@@ -4,12 +4,13 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
-	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/segmentio/encoding/json"
+
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
+	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
 type SurveyUser struct {
@@ -97,9 +98,9 @@ func (m *ModDiscoDB) GetSurveyUser(filters map[string]interface{}) (*SurveyUser,
 	if err != nil {
 		return nil, err
 	}
-	m.log.WithFields(map[string]string{
+	m.log.WithFields(map[string]interface{}{
 		"queryStatement": selectStmt,
-		"arguments":      fmt.Sprintf("%v", args),
+		"arguments": args,
 	}).Debugf("GetSurveyUser %s", SurveyUsersTableName)
 	err = doc.StructScan(&sp)
 	if err != nil {
@@ -162,10 +163,7 @@ func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*disco
 	if err != nil {
 		return nil, err
 	}
-	m.log.WithFields(map[string]string{
-		"statement": stmt,
-		"args":      fmt.Sprintf("%v", args),
-	}).Debugf("insert to %s table", SurveyUsersTableName)
+	m.log.WithFields(map[string]interface{}{"stmt": stmt, "args": args}).Debugf("insert to %s table", SurveyUsersTableName)
 	err = m.db.Exec(stmt, args...)
 	if err != nil {
 		return nil, err

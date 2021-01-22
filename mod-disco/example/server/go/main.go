@@ -31,7 +31,7 @@ func recoveryHandler(l logging.Logger) func(panic interface{}) error {
 func main() {
 	rootCmd.PersistentFlags().StringVarP(&discoCfgPath, "mod-disco-config-path", "c", defaultModDiscoConfigPath, "mod-disco config path to use")
 
-	log := zaplog.NewZapLogger("debug", "mod-disco-example", true)
+	log := zaplog.NewZapLogger(zaplog.DEBUG, "mod-disco-example", true, "")
 	log.InitLogger(nil)
 
 	rootCmd.RunE = func(cmd *cobra.Command, args []string) error {
