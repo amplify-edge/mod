@@ -6,6 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:sys_core/sys_core.dart';
 import './translations.dart';
 
+String modDiscoTranslate(String key) {
+  return ModDiscoLocalizationsDelegate.instance.translate(key);
+}
+
 class ModDiscoLocalizations extends Translations {
   final Locale locale;
   static Map<String, String> _localizedStrings;
@@ -13,8 +17,8 @@ class ModDiscoLocalizations extends Translations {
   ModDiscoLocalizations(this.locale);
 
   Future<bool> load() async {
-    String jsonString = await rootBundle
-        .loadString('packages/mod_disco/i18n/lang_${locale.languageCode}.json');
+    String jsonString = await rootBundle.loadString(
+        'packages/mod-disco/i18n/lang_${locale.languageCode}.json');
 
     Map<String, dynamic> jsonMap = Map.from(json.decode(jsonString))
       ..removeWhere((key, value) => key[0] == '@');
@@ -38,9 +42,10 @@ class ModDiscoLocalizations extends Translations {
 
 class ModDiscoLocalizationsDelegate
     extends LocalizationsDelegate<ModDiscoLocalizations> {
-  final Locale overriddenLocale;
+  // final Locale overriddenLocale;
+  static ModDiscoLocalizations instance;
 
-  ModDiscoLocalizationsDelegate(this.overriddenLocale);
+  const ModDiscoLocalizationsDelegate();
 
   @override
   bool shouldReload(ModDiscoLocalizationsDelegate old) => true;
@@ -55,6 +60,7 @@ class ModDiscoLocalizationsDelegate
   Future<ModDiscoLocalizations> load(Locale locale) async {
     ModDiscoLocalizations localizations = new ModDiscoLocalizations(locale);
     await localizations.load();
+    instance = localizations;
     return localizations;
   }
 }
