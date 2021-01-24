@@ -17,8 +17,8 @@ class ModDiscoLocalizations extends Translations {
   ModDiscoLocalizations(this.locale);
 
   Future<bool> load() async {
-    String jsonString = await rootBundle.loadString(
-        'packages/mod-disco/i18n/lang_${locale.languageCode}.json');
+    String jsonString = await rootBundle
+        .loadString('packages/mod_disco/i18n/lang_${locale.languageCode}.json');
 
     Map<String, dynamic> jsonMap = Map.from(json.decode(jsonString))
       ..removeWhere((key, value) => key[0] == '@');
