@@ -58,6 +58,11 @@ class MainAppModule extends ChildModule {
 
   @override
   List<ModularRoute> get routes => [
+        WildcardRoute(
+          child: (_, args) => ProjectView(
+            orgs: args.data,
+          ),
+        ),
         ChildRoute(
           baseRoute,
           child: (_, args) => ProjectView(
