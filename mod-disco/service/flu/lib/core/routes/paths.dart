@@ -8,15 +8,9 @@ class Paths {
   String supportRoles;
   String surveyProject;
   String splash;
-  String dashboard;
-  String dashboardId;
 
   Paths(this.baseRoute)
-      : dashboard = '$baseRoute/dashboard/orgs',
-        // Admin dashboard routes
-        dashboardId = '$baseRoute/dashboard/orgs/:orgId/:id',
-        // Admin dashboard routes
-        userInfo = '$baseRoute/userInfo',
+      : userInfo = '$baseRoute/userInfo',
         // Non-Admin routes
         orgs = '$baseRoute/orgs',
         orgsId = '$baseRoute/orgs/:id',
@@ -25,4 +19,15 @@ class Paths {
         supportRoles = '$baseRoute/support_roles',
         surveyProject = '$baseRoute/survey/:id',
         splash = '$baseRoute/';
+}
+
+class DashboardPaths {
+  final String baseRoute;
+  String dashboard;
+  String dashboardId;
+
+  DashboardPaths(this.baseRoute)
+      : dashboard = '$baseRoute/orgs',
+        // Admin dashboard routes
+        dashboardId = '$baseRoute/:orgId/:id';
 }
