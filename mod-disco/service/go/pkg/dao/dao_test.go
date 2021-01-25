@@ -3,8 +3,8 @@ package dao_test
 import (
 	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/fakedata"
 	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
+	"github.com/getcouragenow/sys-share/sys-core/service/logging/zaplog"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 	"testing"
 
@@ -27,26 +27,28 @@ var (
 )
 
 func init() {
+	logger := zaplog.NewZapLogger(zaplog.DEBUG, "mod-disco-dao-test", true, "./testdata/gcn.log")
+	logger.InitLogger(nil)
+
 	var csc *corecfg.SysCoreConfig
 	csc, err = corecfg.NewConfig("./testdata/syscore.yml")
 	if err != nil {
-		log.Fatalf("error initializing db: %v", err)
+		logger.Fatalf("error initializing db: %v", err)
 	}
-	logger := log.New().WithField("test", "mod-disco")
-	logger.Level = log.DebugLevel
+
 	testDb, err = coresvc.NewCoreDB(logger, &csc.SysCoreConfig, nil)
 	if err != nil {
-		log.Fatalf("error creating CoreDB: %v", err)
+		logger.Fatalf("error creating CoreDB: %v", err)
 	}
-	log.Debug("MakeSchema testing .....")
+	logger.Debug("MakeSchema testing .....")
 	mdb, err = dao.NewModDiscoDB(testDb, logger)
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err)
 	}
-	log.Printf("successfully initialize mod-disco-db:  %v", mdb)
+	logger.Infof("successfully initialize mod-disco-db:  %v", mdb)
 	bmd, err := fakedata.BootstrapFromFilepath("./testdata/bs-mod-disco.json")
 	if err != nil {
-		log.Fatalf("unable to unmarshal bs-mod-disco.json => %v", err)
+		logger.Fatalf("unable to unmarshal bs-mod-disco.json => %v", err)
 	}
 	newSurveyProjects = bmd.GetSurveyProjects()
 	for _, nsp := range newSurveyProjects {

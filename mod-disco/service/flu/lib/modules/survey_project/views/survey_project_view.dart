@@ -1,15 +1,14 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:mod_disco/modules/survey_project/view_model/survey_project_view_model.dart';
-import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 import 'package:mod_disco/core/core.dart';
+import 'package:mod_disco/modules/survey_project/view_model/survey_project_view_model.dart';
+import 'package:provider_architecture/provider_architecture.dart';
 
 class SurveyProjectView extends StatefulWidget {
-  final Project project;
+  final String projectId;
 
-  SurveyProjectView({Key key, this.project}) : super(key: key);
+  SurveyProjectView({Key key, this.projectId}) : super(key: key);
 
   @override
   _SurveyProjectViewState createState() => _SurveyProjectViewState();
@@ -20,7 +19,7 @@ class _SurveyProjectViewState extends State<SurveyProjectView> {
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
       viewModelBuilder: () =>
-          SurveyProjectViewModel(sysAccountProject: widget.project),
+          SurveyProjectViewModel(sysAccountProjectId: widget.projectId),
       onModelReady: (SurveyProjectViewModel model) async {
         await model.fetchSurveyProject();
       },
@@ -59,9 +58,7 @@ class _SurveyProjectViewState extends State<SurveyProjectView> {
                     ),
                   ),
                   const SizedBox(height: 8.0),
-
                   ...model.buildSurveyUserNeeds(context),
-
                   ButtonBar(
                     children: <Widget>[
                       RaisedButton(

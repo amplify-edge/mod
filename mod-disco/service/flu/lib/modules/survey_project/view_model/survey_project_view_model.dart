@@ -1,17 +1,19 @@
+import 'package:asuka/asuka.dart' as asuka;
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:mod_disco/core/shared_repositories/disco_project_repo.dart';
-import 'package:mod_disco/core/shared_widgets/dialog_widget.dart';
-import 'package:sys_core/sys_core.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
+import 'package:mod_disco/core/shared_repositories/disco_project_repo.dart';
 import 'package:mod_disco/core/shared_repositories/survey_project_repo.dart';
 import 'package:mod_disco/core/shared_repositories/survey_user_repo.dart';
 import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
+import 'package:mod_disco/core/shared_widgets/dialog_widget.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:random_string/random_string.dart';
+import 'package:sys_core/sys_core.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
+import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
-import 'package:collection/collection.dart';
 
 class SurveyProjectViewModel extends BaseModel {
   String _projectId;
@@ -60,14 +62,14 @@ class SurveyProjectViewModel extends BaseModel {
     notifyListeners();
   }
 
-  SurveyProjectViewModel({@required Project sysAccountProject}) {
-    _project = sysAccountProject;
-    _projectId = sysAccountProject.id;
-    notifyListeners();
+  SurveyProjectViewModel({@required String sysAccountProjectId}) {
+    _projectId = sysAccountProjectId;
   }
 
   Future<void> fetchSurveyProject() async {
     _setLoading(true);
+    final _proj = await OrgProjRepo.getProject(id: _projectId);
+    _project = _proj;
     await _isLoggedIn();
     if (_isLoggedOn) {
       _accountId = await getAccountId();
@@ -139,16 +141,13 @@ class SurveyProjectViewModel extends BaseModel {
       _untList.add(value);
     });
     showActionDialogBox(
-      context: context,
       onPressedNo: () async {
-        Modular.to.pop();
         _userRole
           ..role = Roles.USER
           ..projectId = _projectId
           ..orgId = _project.orgId;
         if (!_isLoggedOn) {
-          showDialog(
-            context: context,
+          asuka.showDialog(
             builder: (context) => AuthDialog(
               isSignIn: false,
               userRole: _userRole,
@@ -193,7 +192,6 @@ class SurveyProjectViewModel extends BaseModel {
               pledged: res.alreadyPledged + 1,
             );
           });
-          Modular.to.pop();
         }
       },
       onPressedYes: () {
@@ -203,13 +201,13 @@ class SurveyProjectViewModel extends BaseModel {
           _surveyUser.userNeedValues.clear();
           _surveyUser.userNeedValues.addAll(_untList);
         }
-        Modular.to.pop();
-        Modular.to.pushNamed(Modular.get<Paths>().supportRoles, arguments: {
-          'surveyProjectList': _surveyProjects,
-          'surveyUserRequest': _surveyUser,
-          'project': project,
-          'accountId': _accountId
-        });
+        Modular.to.pushReplacementNamed(Modular.get<Paths>().supportRoles,
+            arguments: {
+              'surveyProjectList': _surveyProjects,
+              'surveyUserRequest': _surveyUser,
+              'project': project,
+              'accountId': _accountId
+            });
       },
       title: ModDiscoLocalizations.of(context).translate('supportRole'),
       description:

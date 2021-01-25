@@ -9,9 +9,9 @@ import (
 	"github.com/getcouragenow/sys-share/sys-account/service/go/pkg/interceptor"
 	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
 	corebus "github.com/getcouragenow/sys-share/sys-core/service/go/pkg/bus"
+	"github.com/getcouragenow/sys-share/sys-core/service/logging"
 	"github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	corefile "github.com/getcouragenow/sys/sys-core/service/go/pkg/filesvc/repo"
-	l "github.com/sirupsen/logrus"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
@@ -22,7 +22,7 @@ const (
 type (
 	ModDiscoRepo struct {
 		store                 *dao.ModDiscoDB
-		log                   *l.Entry
+		log                   logging.Logger
 		serverInterceptor     func(context.Context) (context.Context, error)
 		ClientInterceptor     *interceptor.ClientSide
 		busClient             *corebus.CoreBus
@@ -34,7 +34,7 @@ type (
 )
 
 func NewDiscoRepo(
-	l *l.Entry, db *coredb.CoreDB,
+	l logging.Logger, db *coredb.CoreDB,
 	cfg *service.ModDiscoConfig,
 	busClient *corebus.CoreBus,
 	accountClient *sharedAccountPkg.SysAccountProxyServiceClient,

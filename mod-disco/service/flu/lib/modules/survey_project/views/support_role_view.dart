@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mod_disco/core/core.dart';
+import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
 import 'package:mod_disco/modules/projects/views/proj_header.dart';
 import 'package:mod_disco/modules/survey_project/view_model/support_role_view_model.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:provider_architecture/provider_architecture.dart';
-import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
-import 'package:mod_disco/core/core.dart';
 import 'package:sys_share_sys_account_service/rpc/v2/sys_account_models.pb.dart';
 
 class SurveySupportRoleView extends StatelessWidget {
@@ -23,29 +24,36 @@ class SurveySupportRoleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider.withConsumer(
-      viewModelBuilder: () => SupportRoleViewModel(
-        project: this.project,
-        accountId: this.accountId,
-        newSurveyUserRequest: this.surveyUserRequest,
-        surveyProjectList: this.surveyProjectList,
-      ),
-      onModelReady: (SupportRoleViewModel model) => model.initOnReady(),
-      builder: (context, SupportRoleViewModel model, child) => Scaffold(
-        appBar: AppBar(
-          title:
-              Text(ModDiscoLocalizations.of(context).translate('supportRoles')),
+    return WillPopScope(
+      onWillPop: () async {
+        Modular.to.pop();
+        Modular.to.pop();
+        return true;
+      },
+      child: ViewModelProvider.withConsumer(
+        viewModelBuilder: () => SupportRoleViewModel(
+          project: this.project,
+          accountId: this.accountId,
+          newSurveyUserRequest: this.surveyUserRequest,
+          surveyProjectList: this.surveyProjectList,
         ),
-        body: (model.isLoading)
-            ? Center(child: Offstage())
-            : Column(
-                children: [
-                  ProjectHeader(project: this.project),
-                  Expanded(
-                    child: _buildSupportRolesList(context, model),
-                  ),
-                ],
-              ),
+        onModelReady: (SupportRoleViewModel model) => model.initOnReady(),
+        builder: (context, SupportRoleViewModel model, child) => Scaffold(
+          appBar: AppBar(
+            title: Text(
+                ModDiscoLocalizations.of(context).translate('supportRoles')),
+          ),
+          body: (model.isLoading)
+              ? Center(child: Offstage())
+              : Column(
+                  children: [
+                    ProjectHeader(project: this.project),
+                    Expanded(
+                      child: _buildSupportRolesList(context, model),
+                    ),
+                  ],
+                ),
+        ),
       ),
     );
   }

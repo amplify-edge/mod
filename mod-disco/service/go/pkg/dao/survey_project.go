@@ -4,13 +4,13 @@ import (
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
-	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/segmentio/encoding/json"
-	log "github.com/sirupsen/logrus"
+
+	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
+	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
 )
 
 type SurveyProject struct {
@@ -84,8 +84,6 @@ func (sp SurveyProject) CreateSQL() []string {
 	return tbl.CreateTable()
 }
 
-
-
 func (m *ModDiscoDB) GetSurveyProject(filters map[string]interface{}) (*SurveyProject, error) {
 	var sp SurveyProject
 	selectStmt, args, err := sysCoreSvc.BaseQueryBuilder(
@@ -97,9 +95,9 @@ func (m *ModDiscoDB) GetSurveyProject(filters map[string]interface{}) (*SurveyPr
 	if err != nil {
 		return nil, err
 	}
-	m.log.WithFields(log.Fields{
+	m.log.WithFields(map[string]interface{}{
 		"queryStatement": selectStmt,
-		"arguments":      args,
+		"arguments": args,
 	}).Debugf("GetSurveyProject %s", SurveyProjectTableName)
 	doc, err := m.db.Query(selectStmt, args...)
 	if err != nil {
@@ -176,9 +174,9 @@ func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (
 	if err != nil {
 		return nil, err
 	}
-	m.log.WithFields(log.Fields{
+	m.log.WithFields(map[string]interface{}{
 		"statement": stmt,
-		"args":      args,
+		"args": args,
 	}).Debugf("insert to %s table", SurveyProjectTableName)
 	if err := m.db.Exec(stmt, args...); err != nil {
 		return nil, err

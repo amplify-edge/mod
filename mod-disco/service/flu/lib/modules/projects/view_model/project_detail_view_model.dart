@@ -34,9 +34,5 @@ class ProjectDetailViewModel extends BaseModel {
     notifyListeners();
   }
 
-  void navigateToReady() {
-    Modular.to.pushNamed(Modular.get<Paths>().ready);
-  }
-
   void navigateToNotReady(int index) {}
 }

@@ -8,7 +8,6 @@ import 'package:mod_disco/modules/dashboard/view_model/dashboard_detail_view_mod
 import 'package:mod_disco/modules/dashboard/view_model/dashboard_view_model.dart';
 import 'package:mod_disco/modules/dashboard/widgets/data_pane/data_pane.dart';
 import 'package:mod_disco/modules/dashboard/widgets/filter_pane.dart';
-
 // import 'package:mod_disco/modules/org_manager/orgs/data/org_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -40,7 +39,7 @@ class OrgMasterDetailView extends StatelessWidget {
         items: model.orgs,
         labelBuilder: (item) => item.name,
         imageBuilder: (item) => item.logo,
-        routeWithIdPlaceholder: Modular.get<Paths>().dashboardId,
+        routeWithIdPlaceholder: Modular.get<DashboardPaths>().dashboardId,
         detailsBuilder: (context, parentId, childId, isFullScreen) {
           model.getSelectedProjectAndDetails(parentId, childId);
           return _getDetailsView(context, parentId, childId, isFullScreen);
@@ -117,7 +116,7 @@ class OrgMasterDetailView extends StatelessWidget {
                       icon: Icon(Icons.link),
                       onPressed: () async {
                         String link =
-                            "${Modular.get<EnvConfig>().url}/#/${Modular.get<Paths>().dashboardId.replaceFirst("/", "").replaceAll(":orgId", "$parentId").replaceAll(":id", childId)}";
+                            "${Modular.get<EnvConfig>().url}/#/${Modular.get<DashboardPaths>().dashboardId.replaceFirst("/", "").replaceAll(":orgId", "$parentId").replaceAll(":id", childId)}";
                         await Clipboard.setData(new ClipboardData(text: link));
                       })
                 ],
