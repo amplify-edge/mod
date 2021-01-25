@@ -49,7 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "peopleAlreadyPledged" : MessageLookupByLibrary.simpleMessage("لوگوں نے پہلے ہی وعدہ کیا تھا"),
     "pioneersToStart" : MessageLookupByLibrary.simpleMessage("سرخیلوں کو شروع کرنے کی ضرورت ہے"),
     "pleaseClickToSelectAvailableOptions" : MessageLookupByLibrary.simpleMessage("دستیاب اختیارات کو منتخب کرنے کے لئے براہ کرم کلک کریں"),
-    "pleaseSelectAnOptionFromTheList" : MessageLookupByLibrary.simpleMessage("براہ کرم فہرست میں سے ایک آپشن منتخب کریں"),
+    "pleaseSelectAnOptionFromTheList" : MessageLookupByLibrary.simpleMessage("براہ کرم فہرست میں سے کوئی آپشن منتخب کریں"),
     "provideSupportRole" : MessageLookupByLibrary.simpleMessage("اگر ہم آپ کے منتخب کردہ شرائط کو پورا نہیں کرسکتے ہیں ، تو کیا آپ ہڑتال پر جانے کے خواہشمند افراد کو مدد فراہم کرنے پر غور کریں گے؟"),
     "ready" : MessageLookupByLibrary.simpleMessage("تیار"),
     "rebelsMedia" : MessageLookupByLibrary.simpleMessage("میڈیا کو متحرک کرنے کے لئے باغیوں کی ضرورت ہے"),

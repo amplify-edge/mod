@@ -50,7 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pioneersToStart" : MessageLookupByLibrary.simpleMessage("Les pionniers devaient commencer"),
     "pleaseClickToSelectAvailableOptions" : MessageLookupByLibrary.simpleMessage("Veuillez cliquer pour sélectionner les options disponibles"),
     "pleaseSelectAnOptionFromTheList" : MessageLookupByLibrary.simpleMessage("Veuillez sélectionner une option dans la liste"),
-    "provideSupportRole" : MessageLookupByLibrary.simpleMessage("Si nous ne pouvons pas satisfaire les conditions que vous avez choisies, envisageriez-vous de fournir un rôle de soutien à ceux qui sont prêts à faire grève?"),
+    "provideSupportRole" : MessageLookupByLibrary.simpleMessage("Si nous ne pouvons pas remplir les conditions que vous avez choisies, envisageriez-vous de fournir un rôle de soutien à ceux qui sont prêts à faire grève?"),
     "ready" : MessageLookupByLibrary.simpleMessage("Prêt"),
     "rebelsMedia" : MessageLookupByLibrary.simpleMessage("Les rebelles nécessaires pour déclencher les médias"),
     "rebelsWin" : MessageLookupByLibrary.simpleMessage("Les rebelles devaient gagner"),

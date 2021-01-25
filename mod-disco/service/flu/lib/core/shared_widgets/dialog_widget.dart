@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:asuka/asuka.dart' as asuka;
 
 Future<void> showActionDialogBox(
     {@required String title,
     @required String description,
     Function onPressedYes,
     Function onPressedNo,
-    @required BuildContext context,
     String buttonText = "Yes",
     String buttonTextCancel = "No"}) async {
-  print("show dialog");
-  await showDialog<void>(
-    context: context,
+  await asuka.showDialog<void>(
     builder: (context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -20,14 +18,20 @@ Future<void> showActionDialogBox(
             // shape:
             //     RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Text(buttonTextCancel),
-            onPressed: onPressedNo,
+            onPressed: () async {
+              Navigator.pop(context);
+              onPressedNo();
+            },
           ),
           RaisedButton(
               // shape: RoundedRectangleBorder(
               //     borderRadius: BorderRadius.circular(10)),
               elevation: 0,
               child: Text(buttonText),
-              onPressed: onPressedYes),
+              onPressed: () async {
+                Navigator.pop(context);
+                onPressedYes();
+              }),
         ],
         content: Padding(
           padding: const EdgeInsets.all(16.0),

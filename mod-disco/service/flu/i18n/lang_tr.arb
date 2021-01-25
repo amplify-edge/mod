@@ -1,0 +1,291 @@
+{
+  "@@last_modified": "2020-12-08T20:39:11.949425",
+  "country": "Ülke",
+  "@country": {
+    "description": "Country",
+    "placeholders": {},
+    "type": "text"
+  },
+  "videoUrl": "Video linki",
+  "@videoUrl": {
+    "description": "Video Url",
+    "placeholders": {},
+    "type": "text"
+  },
+  "aboutYou": "Senin hakkında",
+  "@aboutYou": {
+    "description": "About You",
+    "placeholders": {},
+    "type": "text"
+  },
+  "newCountrySelected": "Yeni Ülke Seçildi",
+  "@newCountrySelected": {
+    "description": "New Country Selected",
+    "placeholders": {},
+    "type": "text"
+  },
+  "zipCode": "Posta kodu",
+  "@zipCode": {
+    "description": "Zip Code",
+    "placeholders": {},
+    "type": "text"
+  },
+  "whereAreYou": "Neredesin?",
+  "@whereAreYou": {
+    "description": "Where are you?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "travelDistance": "Ne kadar uzağa seyahat etmek istiyorsun?",
+  "@travelDistance": {
+    "description": "How far are you willing to travel?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "howOldAreYou": "Kaç yaşındasınız?",
+  "@howOldAreYou": {
+    "description": "How old are you?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "campaignAffiliation": "Bir kampanya bağlantınız var mı?",
+  "@campaignAffiliation": {
+    "description": "Do you have a campaign affiliation?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "distanceInKM": "Kilometre cinsinden mesafeyi girin",
+  "@distanceInKM": {
+    "description": "Enter distance in kilometers",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noItemsSelected": "Hiçbir öğe seçilmedi.",
+  "@noItemsSelected": {
+    "description": "No items selected.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "category": "Kategori",
+  "@category": {
+    "description": "Category",
+    "placeholders": {},
+    "type": "text"
+  },
+  "campaignName": "Kampanya ismi",
+  "@campaignName": {
+    "description": "campaignName",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noCampaigns": "Kampanya Yok",
+  "@noCampaigns": {
+    "description": "No Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "actionType": "Eylem Türü",
+  "@actionType": {
+    "description": "Type of Action",
+    "placeholders": {},
+    "type": "text"
+  },
+  "actionLocation": "Eylem Yeri",
+  "@actionLocation": {
+    "description": "Action Location",
+    "placeholders": {},
+    "type": "text"
+  },
+  "time": "Zaman",
+  "@time": {
+    "description": "Time",
+    "placeholders": {},
+    "type": "text"
+  },
+  "lengthOfTheAction": "Eylemin Süresi",
+  "@lengthOfTheAction": {
+    "description": "Length of the Action",
+    "placeholders": {},
+    "type": "text"
+  },
+  "goal": "Hedef",
+  "@goal": {
+    "description": "Goal",
+    "placeholders": {},
+    "type": "text"
+  },
+  "strategy": "Strateji",
+  "@strategy": {
+    "description": "strategy",
+    "placeholders": {},
+    "type": "text"
+  },
+  "historicalPrecedents": "Tarihsel Emsaller",
+  "@historicalPrecedents": {
+    "description": "Historical Precedents",
+    "placeholders": {},
+    "type": "text"
+  },
+  "backingEndorsingOrganizations": "Destekleyen / Onaylayan Kuruluşlar",
+  "@backingEndorsingOrganizations": {
+    "description": "Backing/Endorsing Organizations",
+    "placeholders": {},
+    "type": "text"
+  },
+  "peopleAlreadyPledged": "İnsanlar zaten söz verdi",
+  "@peopleAlreadyPledged": {
+    "description": "People already pledged",
+    "placeholders": {},
+    "type": "text"
+  },
+  "weNeed": "İhtiyacımız var",
+  "@weNeed": {
+    "description": "We Need",
+    "placeholders": {},
+    "type": "text"
+  },
+  "extrapolatedSimilarPastActions": "Aşağıdaki rakamlar, hem başarılı hem de başarısız olan benzer geçmiş eylemlerden çıkarılmıştır",
+  "@extrapolatedSimilarPastActions": {
+    "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
+    "placeholders": {},
+    "type": "text"
+  },
+  "pioneersToStart": "Öncülerin başlaması gerekiyor",
+  "@pioneersToStart": {
+    "description": "Pioneers needed to start",
+    "placeholders": {},
+    "type": "text"
+  },
+  "rebelsMedia": "Medyayı tetiklemek için asilere ihtiyaç var",
+  "@rebelsMedia": {
+    "description": "Rebels needed to trigger media",
+    "placeholders": {},
+    "type": "text"
+  },
+  "rebelsWin": "Asilerin kazanması gerekiyor",
+  "@rebelsWin": {
+    "description": "Rebels needed to win",
+    "placeholders": {},
+    "type": "text"
+  },
+  "contactDetails": "İletişim detayları",
+  "@contactDetails": {
+    "description": "Contact Details",
+    "placeholders": {},
+    "type": "text"
+  },
+  "notReady": "Hazır değil",
+  "@notReady": {
+    "description": "Not Ready",
+    "placeholders": {},
+    "type": "text"
+  },
+  "ready": "hazır",
+  "@ready": {
+    "description": "Ready",
+    "placeholders": {},
+    "type": "text"
+  },
+  "selectCampaign": "Kampanya Seçin",
+  "@selectCampaign": {
+    "description": "Select Campaign",
+    "placeholders": {},
+    "type": "text"
+  },
+  "campaignDetails": "Kampanya Ayrıntıları",
+  "@campaignDetails": {
+    "description": "campaignDetails",
+    "placeholders": {},
+    "type": "text"
+  },
+  "searchCampaigns": "Arama Kampanyaları",
+  "@searchCampaigns": {
+    "description": "Search Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "yourNeeds": "İhtiyaçlarınız",
+  "@yourNeeds": {
+    "description": "Your Needs",
+    "placeholders": {},
+    "type": "text"
+  },
+  "needsSatisifiedRequirement": "Lütfen eyleme katılmak için tatmin etmeniz gereken çok sayıda destek veya ihtiyaç seçin.",
+  "@needsSatisifiedRequirement": {
+    "description": "Please choose as many supports or needs you need satisfied to join the action.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "next": "Sonraki",
+  "@next": {
+    "description": "Next",
+    "placeholders": {},
+    "type": "text"
+  },
+  "supportRole": "Destek Rolü",
+  "@supportRole": {
+    "description": "Support Role",
+    "placeholders": {},
+    "type": "text"
+  },
+  "provideSupportRole": "Seçtiğiniz koşulları yerine getiremezsek, greve gitmek isteyenlere bir destek rolü sağlamayı düşünür müsünüz?",
+  "@provideSupportRole": {
+    "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "yes": "Evet",
+  "@yes": {
+    "description": "Yes",
+    "placeholders": {},
+    "type": "text"
+  },
+  "no": "Hayır",
+  "@no": {
+    "description": "No",
+    "placeholders": {},
+    "type": "text"
+  },
+  "supportRoles": "Destek Rolleri",
+  "@supportRoles": {
+    "description": "Support Roles",
+    "placeholders": {},
+    "type": "text"
+  },
+  "pleaseSelectAnOptionFromTheList": "Lütfen listeden bir seçenek seçin",
+  "@pleaseSelectAnOptionFromTheList": {
+    "description": "Please select an option from the list",
+    "placeholders": {},
+    "type": "text"
+  },
+  "pleaseClickToSelectAvailableOptions": "Mevcut seçenekleri seçmek için lütfen tıklayın",
+  "@pleaseClickToSelectAvailableOptions": {
+    "description": "Please click to select available options",
+    "placeholders": {},
+    "type": "text"
+  },
+  "hours": "saatler",
+  "@hours": {
+    "description": "hours",
+    "placeholders": {},
+    "type": "text"
+  },
+  "minimumPledgedTime": "Minimum taahhüt süresi",
+  "@minimumPledgedTime": {
+    "description": "Minimum pledged time",
+    "placeholders": {},
+    "type": "text"
+  },
+  "typeYourAnswerHere": "Cevabınıza buraya dokunun",
+  "@typeYourAnswerHere": {
+    "description": "Tap your answer here",
+    "placeholders": {},
+    "type": "text"
+  },
+  "userNeeds": "Kullanıcı İhtiyaçları",
+  "@userNeeds": {
+    "description": "User Needs",
+    "placeholders": {},
+    "type": "text"
+  }
+}

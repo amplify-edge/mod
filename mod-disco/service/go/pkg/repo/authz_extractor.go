@@ -2,7 +2,6 @@ package repo
 //
 // import (
 // 	sharedAuth "github.com/getcouragenow/sys-share/sys-account/service/go/pkg/shared"
-// 	log "github.com/sirupsen/logrus"
 // )
 //
 // func (md *ModDiscoRepo) GetUnauthenticatedRoutes() []string {
