@@ -61,7 +61,7 @@ class MainAppModule extends ChildModule {
         ChildRoute(
           baseRoute,
           child: (_, args) => ProjectView(
-            orgs: args.data,
+            orgs: args.data ?? [],
             orgId: args.queryParams['orgId'] ?? '',
             id: args.queryParams['id'] ?? '',
             routePlaceholder: Paths(this.baseRoute).projectsId,
@@ -75,20 +75,12 @@ class MainAppModule extends ChildModule {
           ),
         ),
         ChildRoute(
-          "/projects",
-          child: (_, args) => ProjectView(
-            orgs: args.data,
-            orgId: args.queryParams['orgId'] ?? '',
-            id: args.queryParams['id'] ?? '',
-            routePlaceholder: Paths(this.baseRoute).projectsId,
-          ),
-        ),
-        ChildRoute(
           "/projects/:orgId/:id",
           child: (_, args) => ProjectView(
-            orgs: args.data,
-            orgId: args.queryParams['orgId'] ?? '',
-            id: args.queryParams['id'] ?? '',
+            // body: args.data['body'],
+            orgs: args.data ?? [],
+            orgId: args.params['orgId'] ?? '',
+            id: args.params['id'] ?? '',
             routePlaceholder: Paths(this.baseRoute).projectsId,
           ),
         ),

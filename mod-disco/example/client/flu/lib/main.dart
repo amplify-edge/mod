@@ -66,7 +66,7 @@ class App extends StatelessWidget {
           supportedLocales:
               Languages.supportedLanguages.keys.map((e) => Locale(e)).toList(),
           localizationsDelegates: [
-            ModDiscoLocalizationsDelegate(value.locale),
+            ModDiscoLocalizationsDelegate(),
             GlobalWidgetsLocalizations.delegate,
             GlobalMaterialLocalizations.delegate
           ]).modular();

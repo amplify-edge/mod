@@ -10,22 +10,4 @@ class ProjectViewModel extends BaseModel {
       setHasMoreItems(false);
     }
   }
-
-  Future<void> fetchExistingOrgsProjects({String oid}) async {
-    if (oid.isNotEmpty) {
-      final _org = await OrgProjRepo.getOrg(id: oid);
-      this.orgs = [_org];
-    }
-    if (orgs != null && orgs.isNotEmpty) {
-      orgs.forEach((org) {
-        org.projects.forEach((p) async {
-          await DiscoProjectRepo.getProjectDetails(accountProjRefId: p.id)
-              .then((details) {
-            projectDetails.add(details);
-          }).catchError((e) => print(e));
-        });
-      });
-    }
-    notifyListeners();
-  }
 }

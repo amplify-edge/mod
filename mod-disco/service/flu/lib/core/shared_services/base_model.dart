@@ -5,6 +5,7 @@ import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart'
     as repo;
+import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 
 class BaseModel extends ChangeNotifier {
@@ -68,6 +69,26 @@ class BaseModel extends ChangeNotifier {
     return await _isLoggedIn();
   }
 
+  Future<void> fetchExistingOrgsProjects({String oid}) async {
+    if (oid.isNotEmpty) {
+      final _org = await OrgProjRepo.getOrg(id: oid);
+      this.orgs = [_org];
+    }
+    // await _fetchProjectDetails().then((_) => setLoading(false));
+  }
+
+  // Future<void> _fetchProjectDetails() async {
+  //   orgs.forEach((org) async {
+  //     org.projects.forEach((p) async {
+  //       await DiscoProjectRepo.getProjectDetails(accountProjRefId: p.id)
+  //           .then((details) {
+  //         projectDetails.add(details);
+  //       });
+  //     });
+  //   });
+  //   print("PROJECT DETAILS: ${projectDetails.toString()}");
+  // }
+
   Future<void> _fetchOrgs(
       {Map<String, dynamic> filters,
       void Function(String, List<Org>) nextPageFunc}) async {
@@ -85,15 +106,15 @@ class BaseModel extends ChangeNotifier {
       currentPageId: _nextPageId,
       accountId: _accountId,
     ).then((res) async {
-      res.orgs.forEach((org) async {
-        org.projects.forEach((p) async {
-          await DiscoProjectRepo.getProjectDetails(accountProjRefId: p.id)
-              .then((details) {
-            projectDetails.add(details);
-          }).catchError((e) => print(e));
-        });
-      });
-      notifyListeners();
+      // res.orgs.forEach((org) async {
+      //   org.projects.forEach((p) async {
+      //     await DiscoProjectRepo.getProjectDetails(accountProjRefId: p.id)
+      //         .then((details) {
+      //       projectDetails.add(details);
+      //     }).catchError((e) => print(e));
+      //   });
+      // });
+      // notifyListeners();
       // f(this.projects);
       nextPageFunc(res.nextPageId, res.orgs);
     }).catchError((e) {
@@ -188,7 +209,8 @@ class BaseModel extends ChangeNotifier {
       throw "Error no project found";
     }
     _selectedProject = _proj;
-    _selectedDiscoProject = projectDetails
-        .firstWhere((element) => element.sysAccountProjectRefId == _proj.id);
+    if (projectDetails == null || projectDetails.isEmpty) {
+      print("PROJECT DETAILS IS NULL");
+    }
   }
 }
