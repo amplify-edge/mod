@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/modules/projects/view_model/project_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
@@ -12,10 +11,18 @@ import 'proj_detail_view.dart';
 
 class ProjectView extends StatefulWidget {
   final List<Org> orgs;
+  final String oid;
   final String orgId;
   final String id;
+  final String routePlaceholder;
 
-  const ProjectView({Key key, this.id = '', this.orgId = '', this.orgs})
+  const ProjectView(
+      {Key key,
+      this.id = '',
+      this.orgId = '',
+      this.oid = '',
+      this.orgs,
+      this.routePlaceholder})
       : super(key: key);
 
   @override
@@ -28,21 +35,21 @@ class _ProjectViewState extends State<ProjectView> {
     return ViewModelProvider.withConsumer(
       viewModelBuilder: () => ProjectViewModel(organizations: widget.orgs),
       onModelReady: (ProjectViewModel model) async {
-        if ((model.orgs == null || model.orgs.isEmpty)) {
+        if ((model.orgs == null || model.orgs.isEmpty) && widget.oid.isEmpty) {
           await model.fetchInitialProjects();
         } else {
-          await model.fetchExistingOrgsProjects();
+          await model.fetchExistingOrgsProjects(oid: widget.oid);
         }
       },
       builder: (context, ProjectViewModel model, child) => Scaffold(
-        body: NewGetCourageMasterDetail<Org, Project>(
+        body: GCMasterDetail<Org, Project>(
           enableSearchBar: true,
           parentId: widget.orgId,
           childId: widget.id,
           items: model.orgs,
           labelBuilder: (item) => item.name,
           imageBuilder: (item) => item.logo,
-          routeWithIdPlaceholder: Modular.get<Paths>().projectsId,
+          routeWithIdPlaceholder: widget.routePlaceholder,
           detailsBuilder: (context, parentId, detailsId, isFullScreen) {
             model.getSelectedProjectAndDetails(parentId, detailsId);
             return ProjectDetailView(

@@ -1,5 +1,6 @@
 import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/core/shared_repositories/disco_project_repo.dart';
+import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 
 class ProjectViewModel extends BaseModel {
@@ -10,7 +11,11 @@ class ProjectViewModel extends BaseModel {
     }
   }
 
-  Future<void> fetchExistingOrgsProjects() async {
+  Future<void> fetchExistingOrgsProjects({String oid}) async {
+    if (oid.isNotEmpty) {
+      final _org = await OrgProjRepo.getOrg(id: oid);
+      this.orgs = [_org];
+    }
     if (orgs != null && orgs.isNotEmpty) {
       orgs.forEach((org) {
         org.projects.forEach((p) async {

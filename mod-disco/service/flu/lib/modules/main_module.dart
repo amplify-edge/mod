@@ -58,35 +58,38 @@ class MainAppModule extends ChildModule {
 
   @override
   List<ModularRoute> get routes => [
-        // WildcardRoute(
-        //   child: (_, args) => ProjectView(
-        //     orgs: args.data,
-        //   ),
-        // ),
         ChildRoute(
           baseRoute,
           child: (_, args) => ProjectView(
             orgs: args.data,
-            orgId: args.params['orgId'] ?? '',
-            id: args.params['id'] ?? '',
+            orgId: args.queryParams['orgId'] ?? '',
+            id: args.queryParams['id'] ?? '',
+            routePlaceholder: Paths(this.baseRoute).projectsId,
           ),
         ),
         ChildRoute(
-          "/projects/:oid/:id",
-          child: (_, args) {
-            return ProjectView(
-              orgId: args.data['oid'] ?? '',
-              id: args.data['id'] ?? '',
-              orgs: args.data['orgs'] ?? [],
-            );
-          },
+          '/subbed/:oid',
+          child: (_, args) => ProjectView(
+            oid: args.params['oid'] ?? '',
+            routePlaceholder: Paths(this.baseRoute).projectsId,
+          ),
         ),
         ChildRoute(
           "/projects",
           child: (_, args) => ProjectView(
             orgs: args.data,
-            orgId: args.params['orgId'] ?? '',
-            id: args.params['id'] ?? '',
+            orgId: args.queryParams['orgId'] ?? '',
+            id: args.queryParams['id'] ?? '',
+            routePlaceholder: Paths(this.baseRoute).projectsId,
+          ),
+        ),
+        ChildRoute(
+          "/projects/:orgId/:id",
+          child: (_, args) => ProjectView(
+            orgs: args.data,
+            orgId: args.queryParams['orgId'] ?? '',
+            id: args.queryParams['id'] ?? '',
+            routePlaceholder: Paths(this.baseRoute).projectsId,
           ),
         ),
         ChildRoute(

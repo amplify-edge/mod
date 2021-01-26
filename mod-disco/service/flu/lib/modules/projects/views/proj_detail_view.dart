@@ -189,11 +189,10 @@ class ProjectDetailView extends StatelessWidget {
                   ButtonBar(children: [
                     RaisedButton(
                       onPressed: () {
-                        Navigator.of(context).pop();
                         final _nextRoute = Modular.get<Paths>()
                             .surveyProject
                             .replaceAll(':id', project.id);
-                        Modular.to.pushReplacementNamed(
+                        Modular.to.pushNamed(
                           _nextRoute,
                           arguments: project.id,
                         );

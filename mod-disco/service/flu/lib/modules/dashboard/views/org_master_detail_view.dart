@@ -17,8 +17,10 @@ import 'package:sys_share_sys_account_service/rpc/v2/sys_account_models.pb.dart'
 class OrgMasterDetailView extends StatelessWidget {
   final String id;
   final String orgId;
+  final String routePlaceholder;
 
-  OrgMasterDetailView({Key key, this.id = '', this.orgId = ''})
+  OrgMasterDetailView(
+      {Key key, this.id = '', this.orgId = '', this.routePlaceholder})
       : super(key: key);
 
   @override
@@ -32,14 +34,14 @@ class OrgMasterDetailView extends StatelessWidget {
         }
       },
       builder: (context, DashboardViewModel model, child) =>
-          NewGetCourageMasterDetail<Org, Project>(
+          GCMasterDetail<Org, Project>(
         enableSearchBar: true,
         parentId: orgId,
         childId: id,
         items: model.orgs,
         labelBuilder: (item) => item.name,
         imageBuilder: (item) => item.logo,
-        routeWithIdPlaceholder: Modular.get<DashboardPaths>().dashboardId,
+        routeWithIdPlaceholder: routePlaceholder,
         detailsBuilder: (context, parentId, childId, isFullScreen) {
           model.getSelectedProjectAndDetails(parentId, childId);
           return _getDetailsView(context, parentId, childId, isFullScreen);
