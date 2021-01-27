@@ -24,16 +24,23 @@ class AdminDashboardModule extends ChildModule {
         ChildRoute(
           baseRoute,
           child: (_, args) => DashboardView(
-            routePlaceholder: Paths(baseRoute).orgsId,
+            routePlaceholder: Paths(this.baseRoute).orgsId,
           ),
           guards: [DashboardGuard()],
         ),
         ChildRoute(
-          Paths(baseRoute).orgsId,
+          DashboardPaths(baseRoute).dashboard,
+          child: (_, args) => DashboardView(
+            routePlaceholder: DashboardPaths(this.baseRoute).dashboardId,
+          ),
+          guards: [DashboardGuard()],
+        ),
+        ChildRoute(
+          DashboardPaths(baseRoute).dashboardId,
           child: (_, args) => DashboardView(
             id: args.params['id'] ?? '',
             orgId: args.params['orgId'] ?? '',
-            routePlaceholder: Paths(baseRoute).orgsId,
+            routePlaceholder: DashboardPaths(this.baseRoute).dashboardId,
           ),
           guards: [DashboardGuard()],
         ),
