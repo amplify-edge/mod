@@ -191,5 +191,5 @@ func (md *ModDiscoRepo) GetProjectStatistics(ctx context.Context, in *discoRpc.S
 	if limit == 0 {
 		limit = dao.DefaultLimit
 	}
-	return md.store.GetStats(filter, limit, cursor, in.GetTableName(), orderBy)
+	return md.store.GetStats(ctx, filter, limit, cursor, in.GetTableName(), orderBy, md.busClient)
 }
