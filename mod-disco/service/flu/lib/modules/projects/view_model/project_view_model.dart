@@ -63,10 +63,9 @@ class ProjectViewModel extends BaseModel {
   Future<void> fetchExistingOrgsProjects({String oid}) async {
     if (oid.isNotEmpty) {
       final _org = await OrgProjRepo.getOrg(id: oid);
-      orgs.add(_org);
+      orgs = [_org];
       notifyListeners();
     }
-    // await _fetchProjectDetails().then((_) => setLoading(false));
   }
 
   Future<void> _fetchOrgs(
@@ -148,7 +147,7 @@ class ProjectViewModel extends BaseModel {
   }
 
   void _resetProjects() {
-    orgs = [];
+    orgs = List<Org>.empty(growable: true);
     notifyListeners();
   }
 
