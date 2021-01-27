@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/core/routes/dashboard_guards.dart';
-import 'package:mod_disco/modules/dashboard/views/org_master_detail_view.dart';
+import 'package:mod_disco/modules/dashboard/views/dashboard_view.dart';
 import 'package:mod_disco/modules/projects/views/proj_view.dart';
 import 'package:mod_disco/modules/survey_project/views/support_role_view.dart';
 import 'package:mod_disco/modules/survey_project/views/survey_project_view.dart';
@@ -23,12 +23,12 @@ class AdminDashboardModule extends ChildModule {
         /// Admin Dashboard Routes
         ChildRoute(
           baseRoute,
-          child: (_, args) => OrgMasterDetailView(),
+          child: (_, args) => DashboardView(),
           guards: [DashboardGuard()],
         ),
         ChildRoute(
           baseRoute + "/:orgId/:id",
-          child: (_, args) => OrgMasterDetailView(
+          child: (_, args) => DashboardView(
             id: args.params['id'] ?? '',
             orgId: args.params['orgId'] ?? '',
           ),

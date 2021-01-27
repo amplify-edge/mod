@@ -1,71 +1,5 @@
 {
-  "@@last_modified": "2020-12-08T20:39:11.949425",
-  "country": "Land",
-  "@country": {
-    "description": "Country",
-    "placeholders": {},
-    "type": "text"
-  },
-  "videoUrl": "Video-URL",
-  "@videoUrl": {
-    "description": "Video Url",
-    "placeholders": {},
-    "type": "text"
-  },
-  "aboutYou": "Über dich",
-  "@aboutYou": {
-    "description": "About You",
-    "placeholders": {},
-    "type": "text"
-  },
-  "newCountrySelected": "Neues Land ausgewählt",
-  "@newCountrySelected": {
-    "description": "New Country Selected",
-    "placeholders": {},
-    "type": "text"
-  },
-  "zipCode": "Postleitzahl",
-  "@zipCode": {
-    "description": "Zip Code",
-    "placeholders": {},
-    "type": "text"
-  },
-  "whereAreYou": "Wo sind Sie?",
-  "@whereAreYou": {
-    "description": "Where are you?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "travelDistance": "Wie weit sind Sie bereit zu reisen?",
-  "@travelDistance": {
-    "description": "How far are you willing to travel?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "howOldAreYou": "Wie alt sind Sie?",
-  "@howOldAreYou": {
-    "description": "How old are you?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "campaignAffiliation": "Haben Sie eine Kampagnenzugehörigkeit?",
-  "@campaignAffiliation": {
-    "description": "Do you have a campaign affiliation?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "distanceInKM": "Geben Sie die Entfernung in Kilometern ein",
-  "@distanceInKM": {
-    "description": "Enter distance in kilometers",
-    "placeholders": {},
-    "type": "text"
-  },
-  "noItemsSelected": "Keine Elemente ausgewählt.",
-  "@noItemsSelected": {
-    "description": "No items selected.",
-    "placeholders": {},
-    "type": "text"
-  },
+  "@@last_modified": "2021-01-27T05:32:28.139995",
   "category": "Kategorie",
   "@category": {
     "description": "Category",
@@ -81,6 +15,12 @@
   "noCampaigns": "Keine Kampagnen",
   "@noCampaigns": {
     "description": "No Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "notFound": "Nicht gefunden",
+  "@notFound": {
+    "description": "Not Found",
     "placeholders": {},
     "type": "text"
   },
@@ -285,6 +225,18 @@
   "userNeeds": "Benutzeranforderungen",
   "@userNeeds": {
     "description": "User Needs",
+    "placeholders": {},
+    "type": "text"
+  },
+  "projectDashboard": "Projekt-Dashboard",
+  "@projectDashboard": {
+    "description": "Project Dashboard",
+    "placeholders": {},
+    "type": "text"
+  },
+  "copyLink": "Link kopieren",
+  "@copyLink": {
+    "description": "Copy Link",
     "placeholders": {},
     "type": "text"
   }

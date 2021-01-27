@@ -1,71 +1,5 @@
 {
-  "@@last_modified": "2020-12-08T20:39:11.949425",
-  "country": "Country",
-  "@country": {
-    "description": "Country",
-    "type": "text",
-    "placeholders": {}
-  },
-  "videoUrl": "Video Url",
-  "@videoUrl": {
-    "description": "Video Url",
-    "type": "text",
-    "placeholders": {}
-  },
-  "aboutYou": "About you",
-  "@aboutYou": {
-    "description": "About You",
-    "type": "text",
-    "placeholders": {}
-  },
-  "newCountrySelected": "New Country Selected",
-  "@newCountrySelected": {
-    "description": "New Country Selected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "zipCode": "Zip Code",
-  "@zipCode": {
-    "description": "Zip Code",
-    "type": "text",
-    "placeholders": {}
-  },
-  "whereAreYou": "Where are you?",
-  "@whereAreYou": {
-    "description": "Where are you?",
-    "type": "text",
-    "placeholders": {}
-  },
-  "travelDistance": "How far are you willing to travel?",
-  "@travelDistance": {
-    "description": "How far are you willing to travel?",
-    "type": "text",
-    "placeholders": {}
-  },
-  "howOldAreYou": "How old are you?",
-  "@howOldAreYou": {
-    "description": "How old are you?",
-    "type": "text",
-    "placeholders": {}
-  },
-  "campaignAffiliation": "Do you have a campaign affiliation?",
-  "@campaignAffiliation": {
-    "description": "Do you have a campaign affiliation?",
-    "type": "text",
-    "placeholders": {}
-  },
-  "distanceInKM": "Enter distance in kilometers",
-  "@distanceInKM": {
-    "description": "Enter distance in kilometers",
-    "type": "text",
-    "placeholders": {}
-  },
-  "noItemsSelected": "No items selected.",
-  "@noItemsSelected": {
-    "description": "No items selected.",
-    "type": "text",
-    "placeholders": {}
-  },
+  "@@last_modified": "2021-01-27T05:32:28.139995",
   "category": "Category",
   "@category": {
     "description": "Category",
@@ -81,6 +15,12 @@
   "noCampaigns": "No Campaigns",
   "@noCampaigns": {
     "description": "No Campaigns",
+    "type": "text",
+    "placeholders": {}
+  },
+  "notFound": "Not found",
+  "@notFound": {
+    "description": "Not Found",
     "type": "text",
     "placeholders": {}
   },
@@ -285,6 +225,18 @@
   "userNeeds": "User Needs",
   "@userNeeds": {
     "description": "User Needs",
+    "type": "text",
+    "placeholders": {}
+  },
+  "projectDashboard": "Project Dashboard",
+  "@projectDashboard": {
+    "description": "Project Dashboard",
+    "type": "text",
+    "placeholders": {}
+  },
+  "copyLink": "Copy Link",
+  "@copyLink": {
+    "description": "Copy Link",
     "type": "text",
     "placeholders": {}
   }

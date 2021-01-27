@@ -1,71 +1,5 @@
 {
-  "@@last_modified": "2020-12-08T20:39:11.949425",
-  "country": "Ülke",
-  "@country": {
-    "description": "Country",
-    "placeholders": {},
-    "type": "text"
-  },
-  "videoUrl": "Video linki",
-  "@videoUrl": {
-    "description": "Video Url",
-    "placeholders": {},
-    "type": "text"
-  },
-  "aboutYou": "Senin hakkında",
-  "@aboutYou": {
-    "description": "About You",
-    "placeholders": {},
-    "type": "text"
-  },
-  "newCountrySelected": "Yeni Ülke Seçildi",
-  "@newCountrySelected": {
-    "description": "New Country Selected",
-    "placeholders": {},
-    "type": "text"
-  },
-  "zipCode": "Posta kodu",
-  "@zipCode": {
-    "description": "Zip Code",
-    "placeholders": {},
-    "type": "text"
-  },
-  "whereAreYou": "Neredesin?",
-  "@whereAreYou": {
-    "description": "Where are you?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "travelDistance": "Ne kadar uzağa seyahat etmek istiyorsun?",
-  "@travelDistance": {
-    "description": "How far are you willing to travel?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "howOldAreYou": "Kaç yaşındasınız?",
-  "@howOldAreYou": {
-    "description": "How old are you?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "campaignAffiliation": "Bir kampanya bağlantınız var mı?",
-  "@campaignAffiliation": {
-    "description": "Do you have a campaign affiliation?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "distanceInKM": "Kilometre cinsinden mesafeyi girin",
-  "@distanceInKM": {
-    "description": "Enter distance in kilometers",
-    "placeholders": {},
-    "type": "text"
-  },
-  "noItemsSelected": "Hiçbir öğe seçilmedi.",
-  "@noItemsSelected": {
-    "description": "No items selected.",
-    "placeholders": {},
-    "type": "text"
-  },
+  "@@last_modified": "2021-01-27T05:32:28.139995",
   "category": "Kategori",
   "@category": {
     "description": "Category",
@@ -81,6 +15,12 @@
   "noCampaigns": "Kampanya Yok",
   "@noCampaigns": {
     "description": "No Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "notFound": "Bulunamadı",
+  "@notFound": {
+    "description": "Not Found",
     "placeholders": {},
     "type": "text"
   },
@@ -144,7 +84,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "extrapolatedSimilarPastActions": "Aşağıdaki rakamlar, hem başarılı hem de başarısız olan benzer geçmiş eylemlerden çıkarılmıştır",
+  "extrapolatedSimilarPastActions": "Aşağıdaki rakamlar, hem başarılı hem de başarısız olan benzer geçmiş eylemlerden çıkarılmıştır.",
   "@extrapolatedSimilarPastActions": {
     "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
     "placeholders": {},
@@ -285,6 +225,18 @@
   "userNeeds": "Kullanıcı İhtiyaçları",
   "@userNeeds": {
     "description": "User Needs",
+    "placeholders": {},
+    "type": "text"
+  },
+  "projectDashboard": "Proje Kontrol Paneli",
+  "@projectDashboard": {
+    "description": "Project Dashboard",
+    "placeholders": {},
+    "type": "text"
+  },
+  "copyLink": "Bağlantıyı kopyala",
+  "@copyLink": {
+    "description": "Copy Link",
     "placeholders": {},
     "type": "text"
   }

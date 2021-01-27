@@ -1,5 +1,6 @@
 import 'package:data_tables/data_tables.dart';
 import 'package:flutter/material.dart';
+import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -35,7 +36,7 @@ class DataPane extends StatelessWidget {
         ? Center(child: CircularProgressIndicator())
         : rowsPerPage == 0 || items == null || totalCount == null
             ? Center(
-                child: Text('Not Found',
+                child: Text(ModDiscoLocalizations.of(context).notFound(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context).copyWith().textTheme.headline4),
               )
@@ -48,15 +49,18 @@ class DataPane extends StatelessWidget {
                 handlePrevious: handlePrevious,
                 itemBuilder: (int index) {
                   final SurveyValuePlusAccount item = items[index];
-                  return DataRow.byIndex(index: index,
-                      // selected: item.selected,
-                      // onSelectChanged: (bool value) {},
-                      cells: <DataCell>[
-                        DataCell(Text('${item.sysAccountUserRefName}')),
-                        DataCell(Text('${item.pledged.toInt()}')),
-                        DataCell(
-                            Text('${item.createdAt.toDateTime().toString()}')),
-                      ]);
+                  return DataRow.byIndex(
+                    index: index,
+                    // selected: item.selected,
+                    // onSelectChanged: (bool value) {},
+                    cells: <DataCell>[
+                      DataCell(Text('${item.sysAccountUserRefName}')),
+                      DataCell(Text('${item.pledged.toInt()}')),
+                      DataCell(
+                        Text('${item.createdAt.toDateTime().toString()}'),
+                      ),
+                    ],
+                  );
                 },
                 header: Text(
                     'Survey Value, Total Records: ' + totalCount.toString()),
@@ -83,7 +87,7 @@ class DataPane extends StatelessWidget {
                     tooltip: 'Account name.',
                   ),
                   DataColumn(
-                    label: const Text('Pledged'),
+                    label: const Text('Pledged (Hrs)'),
                     numeric: true,
                   ),
                   DataColumn(

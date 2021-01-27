@@ -14,7 +14,7 @@ require (
 	github.com/getcouragenow/sys-share v0.0.0-20201231111816-770029a76658
 	github.com/golang/protobuf v1.4.3
 	github.com/golang/snappy v0.0.2 // indirect
-	github.com/google/go-cmp v0.5.1
+	github.com/google/go-cmp v0.5.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
 	github.com/improbable-eng/grpc-web v0.13.0
 	github.com/segmentio/encoding v0.2.2
