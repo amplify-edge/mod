@@ -68,8 +68,7 @@ class _ProjectViewState extends State<ProjectView> {
                   ),
                 ),
                 noItemsSelected: Center(
-                    child: Text(ModDiscoLocalizations.of(context)
-                        .translate('noItemsSelected'))),
+                    child: Text(ModDiscoLocalizations.of(context).notFound())),
                 disableBackButtonOnNoItemSelected: false,
                 masterAppBarTitle: Text(ModDiscoLocalizations.of(context)
                     .translate('selectCampaign')),

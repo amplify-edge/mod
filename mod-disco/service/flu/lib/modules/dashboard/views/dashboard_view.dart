@@ -48,12 +48,11 @@ class DashboardView extends StatelessWidget {
             ModDiscoLocalizations.of(context).translate('noCampaigns'),
           ),
         ),
-        noItemsSelected: Center(
-            child: Text(ModDiscoLocalizations.of(context)
-                .translate('noItemsSelected'))),
+        noItemsSelected:
+            Center(child: Text(ModDiscoLocalizations.of(context).notFound())),
         disableBackButtonOnNoItemSelected: false,
         masterAppBarTitle:
-            Text(ModDiscoLocalizations.of(context).translate('selectCampaign')),
+            Text(ModDiscoLocalizations.of(context).selectCampaign()),
         isLoadingMoreItems: model.isLoading,
         fetchNextItems: model.getNextAdminOrgs,
         hasMoreItems: model.hasMoreItems,

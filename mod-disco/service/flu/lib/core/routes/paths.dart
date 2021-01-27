@@ -13,7 +13,7 @@ class Paths {
       : userInfo = '$baseRoute/userInfo',
         // Non-Admin routes
         orgs = '$baseRoute/orgs',
-        orgsId = '$baseRoute/orgs/:id',
+        orgsId = '$baseRoute/orgs/:orgId/:id',
         projects = '$baseRoute/projects',
         projectsId = '$baseRoute/projects/:orgId/:id',
         supportRoles = '$baseRoute/support_roles',
