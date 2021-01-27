@@ -29,5 +29,5 @@ class DashboardPaths {
   DashboardPaths(this.baseRoute)
       : dashboard = '$baseRoute/orgs',
         // Admin dashboard routes
-        dashboardId = '$baseRoute/:orgId/:id';
+        dashboardId = '$baseRoute/orgs/:orgId/:id';
 }
