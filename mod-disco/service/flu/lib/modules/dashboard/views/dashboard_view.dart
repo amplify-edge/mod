@@ -29,6 +29,7 @@ class DashboardView extends StatelessWidget {
       },
       builder: (context, DashboardViewModel model, child) =>
           GCMasterDetail<Org, Project>(
+            key: key,
         enableSearchBar: true,
         parentId: orgId,
         childId: id,

@@ -35,7 +35,7 @@ class _ProjectViewState extends State<ProjectView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
-      disposeViewModel: false,
+      // disposeViewModel: false,
       viewModelBuilder: () => ProjectViewModel(organizations: widget.orgs),
       onModelReady: (ProjectViewModel model) async {
         if ((model.orgs == null || model.orgs.isEmpty) && widget.oid.isEmpty) {
@@ -48,6 +48,7 @@ class _ProjectViewState extends State<ProjectView> {
         body: widget.body != null
             ? widget.body
             : GCMasterDetail<Org, Project>(
+                key: widget.key,
                 enableSearchBar: true,
                 parentId: widget.orgId,
                 childId: widget.id,

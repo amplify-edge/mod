@@ -25,7 +25,7 @@ class ProjectDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
-      disposeViewModel: false,
+      // disposeViewModel: false,
       viewModelBuilder: () => ProjectDetailViewModel(projectId: projectId),
       onModelReady: (ProjectDetailViewModel model) async {
         await model.fetchProjectDetail();

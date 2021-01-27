@@ -20,7 +20,7 @@ class DashboardDetailView extends StatelessWidget {
     @required this.orgId,
     @required this.projectId,
     @required this.isFullScreen,
-  });
+  }): super(key: key);
 
   @override
   Widget build(BuildContext context) {

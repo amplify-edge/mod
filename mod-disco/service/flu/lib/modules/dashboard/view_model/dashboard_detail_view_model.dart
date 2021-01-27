@@ -3,19 +3,19 @@ import 'package:flutter/widgets.dart';
 import 'package:mod_disco/core/core.dart';
 import 'package:mod_disco/core/shared_repositories/survey_project_repo.dart';
 import 'package:mod_disco/core/shared_repositories/survey_user_repo.dart';
-import 'package:mod_disco/core/shared_services/base_model.dart';
 import 'package:mod_disco/core/shared_widgets/filter_widget.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
 import 'package:collection/collection.dart';
 import 'package:fixnum/fixnum.dart';
 
-class DashboardDetailViewModel extends BaseModel {
+class DashboardDetailViewModel extends ChangeNotifier {
   String _orgId;
   String _projectId;
   String _errMsg;
   Map<String, dynamic> _filter;
   String _tableName;
+  bool _isLoading = false;
   bool _hasError = false;
   bool _isLoadingSurveyData = false;
   List<SurveyProject> _surveyProjects = [];
@@ -42,6 +42,8 @@ class DashboardDetailViewModel extends BaseModel {
 
   bool get isLoadingSurveyData => _isLoadingSurveyData;
 
+  bool get isLoading => _isLoading;
+
   List<SurveyValuePlusAccount> get surveyDatas =>
       _statisticsResponse?.surveyValuePlusAccount;
 
@@ -49,6 +51,11 @@ class DashboardDetailViewModel extends BaseModel {
       {@required String orgId, @required String projectId}) {
     this._orgId = orgId;
     this._projectId = projectId;
+    notifyListeners();
+  }
+
+  void setLoading(bool val) {
+    _isLoading = val;
     notifyListeners();
   }
 

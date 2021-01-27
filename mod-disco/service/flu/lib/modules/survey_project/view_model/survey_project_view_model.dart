@@ -15,7 +15,7 @@ import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 
-class SurveyProjectViewModel extends BaseModel {
+class SurveyProjectViewModel extends ChangeNotifier {
   String _projectId;
   Project _project;
   List<SurveyProject> _surveyProjects =

@@ -1,13 +1,14 @@
+import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
-import 'package:mod_disco/core/shared_repositories/disco_project_repo.dart';
-import 'package:mod_disco/core/shared_services/base_model.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/account_repo.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart';
 import 'package:sys_share_sys_account_service/rpc/v2/sys_account_models.pb.dart';
 import 'package:fixnum/fixnum.dart';
 
-class DashboardViewModel extends BaseModel {
+class DashboardViewModel extends ChangeNotifier {
+  int perPageEntriesDefault = 30;
+  List<Org> orgs = List<Org>.empty(growable: true);
   Account _currentAccount = Account();
   Map<int, UserRoles> _mapRoles = Map<int, UserRoles>();
   String _accountId = '';
@@ -145,18 +146,6 @@ class DashboardViewModel extends BaseModel {
       filters: filter,
       matcher: matcher,
     ).then((resp) {
-      resp.orgs.forEach((_org) {
-        _org.projects.forEach((p) async {
-          if (!_isSuperuser && !_subscribedProjects[_org.id].contains(p.id)) {
-          } else {
-            await DiscoProjectRepo.getProjectDetails(accountProjRefId: p.id)
-                .then((details) {
-              projectDetails.add(details);
-              notifyListeners();
-            }).catchError((e) => setErrMsg(e.toString()));
-          }
-        });
-      });
       notifyListeners();
       nextPageFunc(resp.nextPageId, resp.orgs);
     }).catchError((e) {
@@ -276,5 +265,54 @@ class DashboardViewModel extends BaseModel {
   Future<void> onResetSearchOrgs() async {
     _resetOrgs();
     await getInitialAdminOrgs();
+  }
+
+  void setHasMoreItems(bool val) {
+    _hasMoreItems = val;
+    notifyListeners();
+  }
+
+  Project _selectedProject;
+
+  Int64 _nextPageId = Int64(0);
+  List<bool> _selected = [];
+  bool _isLoading = false;
+  bool _isLoggedOn = false;
+
+  List<bool> get selected => _selected;
+
+  bool get isLoading => _isLoading;
+
+
+  bool get isLoggedOn => _isLoggedOn;
+
+  Project get selectedProject => _selectedProject;
+
+  void changeSelection(bool value, int index) {
+    _selected[index] = value;
+    notifyListeners();
+  }
+
+  Future<void> _isLoggedIn() async {
+    final isLoggedOn = await isLoggedIn();
+    _isLoggedOn = isLoggedOn;
+    notifyListeners();
+  }
+
+  Future<void> isUserLoggedIn() async {
+    return await _isLoggedIn();
+  }
+
+  Future<void> fetchExistingOrgsProjects({String oid}) async {
+    if (oid.isNotEmpty) {
+      final _org = await OrgProjRepo.getOrg(id: oid);
+      orgs.add(_org);
+      notifyListeners();
+    }
+  }
+
+  void setLoading(bool val) {
+    _isLoading = val;
+    notifyListeners();
   }
 }
