@@ -5,12 +5,13 @@ import 'package:mod_disco/core/shared_repositories/survey_project_repo.dart';
 import 'package:mod_disco/core/shared_repositories/survey_user_repo.dart';
 import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
-import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
-import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 import 'package:sys_core/sys_core.dart';
+import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
+import 'package:sys_share_sys_account_service/pkg/shared_services/base_model.dart';
+import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 import 'package:sys_share_sys_account_service/view/widgets/view_model/auth_nav_view_model.dart';
 
-class SupportRoleViewModel extends ChangeNotifier {
+class SupportRoleViewModel extends BaseModel {
   Project _project;
   String _accountId = "";
   List<SurveyProject> _surveyProjects;

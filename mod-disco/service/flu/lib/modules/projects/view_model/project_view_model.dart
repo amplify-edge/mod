@@ -1,12 +1,12 @@
 import 'package:fixnum/fixnum.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart';
+import 'package:sys_share_sys_account_service/pkg/shared_services/base_model.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 import 'package:sys_share_sys_account_service/view/widgets/view_model/auth_nav_view_model.dart';
 
-class ProjectViewModel extends ChangeNotifier {
+class ProjectViewModel extends BaseModel {
   int perPageEntriesDefault = 30;
   List<Org> orgs = List<Org>.empty(growable: true);
 

@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mod_disco/core/core.dart';
@@ -6,10 +8,9 @@ import 'package:mod_disco/core/shared_repositories/survey_user_repo.dart';
 import 'package:mod_disco/core/shared_widgets/filter_widget.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
-import 'package:collection/collection.dart';
-import 'package:fixnum/fixnum.dart';
+import 'package:sys_share_sys_account_service/pkg/shared_services/base_model.dart';
 
-class DashboardDetailViewModel extends ChangeNotifier {
+class DashboardDetailViewModel extends BaseModel {
   String _orgId;
   String _projectId;
   String _errMsg;

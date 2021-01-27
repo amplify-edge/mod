@@ -3,9 +3,10 @@ import 'package:meta/meta.dart';
 import 'package:mod_disco/core/shared_repositories/disco_project_repo.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart';
+import 'package:sys_share_sys_account_service/pkg/shared_services/base_model.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 
-class ProjectDetailViewModel extends ChangeNotifier {
+class ProjectDetailViewModel extends BaseModel {
   String projectId;
   Project _proj;
   DiscoProject _discoProject;
