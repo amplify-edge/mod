@@ -25,16 +25,6 @@ class AdminDashboardModule extends ChildModule {
   List<ModularRoute> get routes => [
         /// Admin Dashboard Routes
         ChildRoute(
-          baseRoute,
-          child: (_, args) => DashboardView(
-            key: Key(randomString(32)),
-            id: args.params['id'] ?? '',
-            orgId: args.params['orgId'] ?? '',
-            routePlaceholder: DashboardPaths(this.baseRoute).dashboardId,
-          ),
-          guards: [DashboardGuard()],
-        ),
-        ChildRoute(
           '/orgs',
           child: (_, args) => DashboardView(
             key: Key(randomString(32)),
@@ -90,7 +80,18 @@ class MainAppModule extends ChildModule {
           ),
         ),
         ChildRoute(
-          "/projects/:orgId/:id",
+          "/projects",
+          child: (_, args) => ProjectView(
+            // body: args.data['body'],
+            key: Key(randomString(32)),
+            orgs: args.data ?? List<Org>.empty(),
+            orgId: args.params['orgId'] ?? '',
+            id: args.params['id'] ?? '',
+            routePlaceholder: Paths(this.baseRoute).projectsId,
+          ),
+        ),
+        ChildRoute(
+          '/projects/:orgId/:id',
           child: (_, args) => ProjectView(
             // body: args.data['body'],
             key: Key(randomString(32)),

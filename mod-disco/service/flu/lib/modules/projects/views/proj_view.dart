@@ -15,7 +15,6 @@ class ProjectView extends StatefulWidget {
   final String orgId;
   final String id;
   final String routePlaceholder;
-  final Widget body;
 
   const ProjectView(
       {Key key,
@@ -23,7 +22,6 @@ class ProjectView extends StatefulWidget {
       this.orgId = '',
       this.oid = '',
       this.orgs,
-      this.body,
       this.routePlaceholder})
       : super(key: key);
 
@@ -44,69 +42,66 @@ class _ProjectViewState extends State<ProjectView> {
           await model.fetchExistingOrgsProjects(oid: widget.oid);
         }
       },
-      builder: (context, ProjectViewModel model, child) => Scaffold(
-        body: widget.body != null
-            ? widget.body
-            : GCMasterDetail<Org, Project>(
-                key: widget.key,
-                enableSearchBar: true,
-                parentId: widget.orgId,
-                childId: widget.id,
-                items: model.orgs,
-                labelBuilder: (item) => item.name,
-                imageBuilder: (item) => item.logo,
-                routeWithIdPlaceholder: widget.routePlaceholder,
-                detailsBuilder: (context, parentId, detailsId, isFullScreen) {
-                  // model.getSelectedProjectAndDetails(parentId, detailsId);
-                  return ProjectDetailView(
-                    projectId: detailsId,
-                    showBackButton: isFullScreen,
-                  );
-                },
-                noItemsAvailable: Center(
-                  child: Text(
-                    ModDiscoLocalizations.of(context).translate('noCampaigns'),
-                  ),
-                ),
-                noItemsSelected: Center(
-                    child: Text(ModDiscoLocalizations.of(context).notFound())),
-                disableBackButtonOnNoItemSelected: false,
-                masterAppBarTitle: Text(ModDiscoLocalizations.of(context)
-                    .translate('selectCampaign')),
-                isLoadingMoreItems: model.isLoading,
-                fetchNextItems: model.fetchNextProjects,
-                hasMoreItems: model.hasMoreItems,
-                searchFunction: model.searchProjects,
-                resetSearchFunction: model.onResetSearchProjects,
-                itemChildren: (org) => org.projects,
-                childBuilder: (project, id) => <Widget>[
-                  ...[
-                    SizedBox(width: 16),
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundImage: MemoryImage(
-                        Uint8List.fromList(project.logo),
-                      ),
-                    ),
-                  ],
-                  SizedBox(width: 16),
-                  //logic taken from ListTile
-                  Expanded(
-                    child: Text(
-                      project.name,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.subtitle1.merge(
-                            TextStyle(
-                              color: project.id != id
-                                  ? Theme.of(context).textTheme.subtitle1.color
-                                  : Theme.of(context).accentColor,
-                            ),
-                          ),
-                    ),
-                  ),
-                  SizedBox(width: 30),
-                ],
+      builder: (context, ProjectViewModel model, child) =>
+          GCMasterDetail<Org, Project>(
+        key: widget.key,
+        enableSearchBar: true,
+        parentId: widget.orgId,
+        childId: widget.id,
+        items: model.orgs,
+        labelBuilder: (item) => item.name,
+        imageBuilder: (item) => item.logo,
+        routeWithIdPlaceholder: widget.routePlaceholder,
+        detailsBuilder: (context, parentId, detailsId, isFullScreen) {
+          // model.getSelectedProjectAndDetails(parentId, detailsId);
+          return ProjectDetailView(
+            projectId: detailsId,
+            showBackButton: isFullScreen,
+          );
+        },
+        noItemsAvailable: Center(
+          child: Text(
+            ModDiscoLocalizations.of(context).translate('noCampaigns'),
+          ),
+        ),
+        noItemsSelected:
+            Center(child: Text(ModDiscoLocalizations.of(context).notFound())),
+        disableBackButtonOnNoItemSelected: false,
+        masterAppBarTitle:
+            Text(ModDiscoLocalizations.of(context).translate('selectCampaign')),
+        isLoadingMoreItems: model.isLoading,
+        fetchNextItems: model.fetchNextProjects,
+        hasMoreItems: model.hasMoreItems,
+        searchFunction: model.searchProjects,
+        resetSearchFunction: model.onResetSearchProjects,
+        itemChildren: (org) => org.projects,
+        childBuilder: (project, id) => <Widget>[
+          ...[
+            SizedBox(width: 16),
+            CircleAvatar(
+              radius: 20,
+              backgroundImage: MemoryImage(
+                Uint8List.fromList(project.logo),
               ),
+            ),
+          ],
+          SizedBox(width: 16),
+          //logic taken from ListTile
+          Expanded(
+            child: Text(
+              project.name,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.subtitle1.merge(
+                    TextStyle(
+                      color: project.id != id
+                          ? Theme.of(context).textTheme.subtitle1.color
+                          : Theme.of(context).accentColor,
+                    ),
+                  ),
+            ),
+          ),
+          SizedBox(width: 30),
+        ],
       ),
     );
   }
