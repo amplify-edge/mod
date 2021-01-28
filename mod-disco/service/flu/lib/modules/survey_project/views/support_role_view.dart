@@ -26,8 +26,6 @@ class SurveySupportRoleView extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Modular.to.pop();
-        Modular.to.pop();
         return true;
       },
       child: ViewModelProvider.withConsumer(
@@ -42,6 +40,7 @@ class SurveySupportRoleView extends StatelessWidget {
           appBar: AppBar(
             title: Text(
                 ModDiscoLocalizations.of(context).translate('supportRoles')),
+            automaticallyImplyLeading: false,
           ),
           body: (model.isLoading)
               ? Center(child: Offstage())
