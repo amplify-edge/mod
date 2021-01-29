@@ -23,7 +23,6 @@ class DashboardView extends StatelessWidget {
       viewModelBuilder: () => DashboardViewModel(),
       onModelReady: (DashboardViewModel model) async {
         if (model.orgs == null || model.orgs.isEmpty) {
-          await model.getPermissions();
           await model.getInitialAdminOrgs();
         }
       },

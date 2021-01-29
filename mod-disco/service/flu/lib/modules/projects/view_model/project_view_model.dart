@@ -75,7 +75,7 @@ class ProjectViewModel extends BaseModel {
     _isLoggedIn();
     String _accountId = '';
     if (_isLoggedOn) {
-      _accountId = await getAccountId();
+      _accountId = getAccountId();
     }
     await OrgProjRepo.listNonSubbedOrgs(
       orderBy: 'name',

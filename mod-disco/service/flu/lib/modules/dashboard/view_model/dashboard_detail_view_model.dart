@@ -64,7 +64,7 @@ class DashboardDetailViewModel extends BaseModel {
     List<List<UserNeedsType>> _userNeedsTypeList = [];
     List<List<SupportRoleType>> _supportRoleTypeList = [];
     setLoading(true);
-    await isLoggedIn();
+    isLoggedIn();
     await SurveyProjectRepo.listSurveyProjects(
             sysAccountProjectRefId: _projectId, orderBy: 'name')
         .then((res) {

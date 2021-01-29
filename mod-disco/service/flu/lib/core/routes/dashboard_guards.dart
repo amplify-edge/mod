@@ -14,13 +14,13 @@ class DashboardGuard extends RouteGuard {
   @override
   Future<bool> canActivate(String path, ModularRoute router) async {
     final gmod = Modular.get<GuardianViewModel>();
-    await gmod.getLoginStatus();
+    gmod.getLoginStatus();
     if (gmod.isUserLoggedIn) {
       if (gmod.currentAccount.id.isEmpty) {
-        await gmod.fetchAccountId();
+        gmod.fetchAccountId();
       }
-      await gmod.verifySuperuser();
-      await gmod.verifyAdmin();
+      gmod.verifySuperuser();
+      gmod.verifyAdmin();
       if (gmod.isUserAdmin || gmod.isUserSuperuser) {
         return true;
       }

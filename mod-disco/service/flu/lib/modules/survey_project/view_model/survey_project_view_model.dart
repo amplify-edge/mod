@@ -58,7 +58,7 @@ class SurveyProjectViewModel extends BaseModel {
   }
 
   Future<void> _isLoggedIn() async {
-    final isLoggedOn = await isLoggedIn();
+    final isLoggedOn = isLoggedIn();
     _isLoggedOn = isLoggedOn;
     notifyListeners();
   }
@@ -73,7 +73,7 @@ class SurveyProjectViewModel extends BaseModel {
     _project = _proj;
     await _isLoggedIn();
     if (_isLoggedOn) {
-      _accountId = await getAccountId();
+      _accountId = getAccountId();
     } else {
       _accountId = await SurveyProjectRepo.getNewTempId();
     }
@@ -153,7 +153,7 @@ class SurveyProjectViewModel extends BaseModel {
               isSignIn: false,
               userRole: _userRole,
               callback: () async {
-                _accountId = await getTempAccountId();
+                _accountId = getTempAccountId();
                 _surveyUser.sysAccountUserRefId = _accountId;
                 await SurveyUserRepo.newSurveyUser(
                   surveyProjectId: _surveyUser.surveyProjectRefId,

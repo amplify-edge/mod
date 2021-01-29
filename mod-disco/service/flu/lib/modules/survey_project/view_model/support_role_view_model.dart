@@ -100,7 +100,7 @@ class SupportRoleViewModel extends BaseModel {
           isSignIn: false,
           userRole: _userRole,
           callback: () async {
-            _accountId = await getTempAccountId();
+            _accountId = getTempAccountId();
             _nsuReq.sysAccountUserRefId = _accountId;
             await SurveyUserRepo.newSurveyUser(
               surveyProjectId: _nsuReq.surveyProjectRefId,
