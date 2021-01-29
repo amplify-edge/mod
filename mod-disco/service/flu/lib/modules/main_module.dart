@@ -6,6 +6,7 @@ import 'package:mod_disco/modules/dashboard/views/dashboard_view.dart';
 import 'package:mod_disco/modules/projects/views/proj_view.dart';
 import 'package:mod_disco/modules/survey_project/views/support_role_view.dart';
 import 'package:mod_disco/modules/survey_project/views/survey_project_view.dart';
+import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
 import 'package:random_string/random_string.dart';
 import 'package:sys_share_sys_account_service/pkg/guards/guardian_view_model.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
@@ -112,10 +113,12 @@ class MainAppModule extends ChildModule {
           "/support_roles",
           child: (_, args) => SurveySupportRoleView(
             key: Key(randomString(32)),
-            project: args.data['project'],
-            surveyUserRequest: args.data['surveyUserRequest'],
-            accountId: args.data['accountId'],
-            surveyProjectList: args.data['surveyProjectList'],
+            project: args.data['project'] ?? Project(),
+            surveyUserRequest:
+                args.data['surveyUserRequest'] ?? NewSurveyUserRequest(),
+            accountId: args.data['accountId'] ?? '',
+            surveyProjectList:
+                args.data['surveyProjectList'] ?? List<SurveyProject>.empty(),
           ),
         ),
       ];
