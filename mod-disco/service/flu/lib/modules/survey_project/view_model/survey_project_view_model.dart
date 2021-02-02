@@ -232,8 +232,8 @@ class SurveyProjectViewModel extends BaseModel {
                 questionTypeValues, (UserNeedsType unt) => unt.questionGroup);
             grouped.forEach((k, v) {
               Map<String, String> questionData = {};
-              v.forEach(
-                  (userNeed) => questionData[userNeed.name] = userNeed.id);
+              v.forEach((userNeed) =>
+                  questionData[userNeed.description] = userNeed.id);
               String dropdownOptionKey =
                   generateDropdownKey(questionTypeValues);
               _surveyUser

@@ -257,7 +257,7 @@ class DashboardDetailViewModel extends BaseModel {
                       checkboxVal: _selectedCondData[unt.id],
                       onChanged: (val) async =>
                           await _toggleSelectedCondData(unt.id, val),
-                      description: unt.comment,
+                      description: unt.description,
                     );
                   }).toList(),
                 ),

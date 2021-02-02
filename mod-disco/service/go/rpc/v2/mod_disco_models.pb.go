@@ -827,12 +827,12 @@ type NewUserNeedsType struct {
 	Description string `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty" fake:"{question}" yaml:"description,omitempty"`
 	// @inject_tag: fake:"{randomstring:[days,weeks,months]}" yaml:"unit_of_measures,omitempty"
 	UnitOfMeasures string `protobuf:"bytes,6,opt,name=unit_of_measures,json=unitOfMeasures,proto3" json:"unit_of_measures,omitempty" fake:"{randomstring:[days,weeks,months]}" yaml:"unit_of_measures,omitempty"`
-	// @inject_tag: fake:"{randomstring:[question_group_1,question_group_2,question_group_3,question_group_4,question_group_5,question_group_6]}" yaml:"group,omitempty"
-	QuestionGroup string `protobuf:"bytes,7,opt,name=question_group,json=questionGroup,proto3" json:"question_group,omitempty" fake:"{randomstring:[question_group_1,question_group_2,question_group_3,question_group_4,question_group_5,question_group_6]}" yaml:"group,omitempty"`
-	// @inject_tag: fake:"{randomstring:[dropdown,textfield,singlecheckbox]}" yaml:"questionType,omitempty"
-	QuestionType string `protobuf:"bytes,8,opt,name=question_type,json=questionType,proto3" json:"question_type,omitempty" fake:"{randomstring:[dropdown,textfield,singlecheckbox]}" yaml:"questionType,omitempty"`
-	// @inject_tag: fake:"{question}" yaml:"dropdownQuestion,omitempty"
-	DropdownQuestion string `protobuf:"bytes,9,opt,name=dropdown_question,json=dropdownQuestion,proto3" json:"dropdown_question,omitempty" fake:"{question}" yaml:"dropdownQuestion,omitempty"`
+	// @inject_tag: fake:"{questiongroup}" yaml:"question_group,omitempty"
+	QuestionGroup string `protobuf:"bytes,7,opt,name=question_group,json=questionGroup,proto3" json:"question_group,omitempty" fake:"{questiongroup}" yaml:"question_group,omitempty"`
+	// @inject_tag: fake:"{questiontype}" yaml:"question_type,omitempty"
+	QuestionType string `protobuf:"bytes,8,opt,name=question_type,json=questionType,proto3" json:"question_type,omitempty" fake:"{questiontype}" yaml:"question_type,omitempty"`
+	// @inject_tag: fake:"{dropdownquestion}" yaml:"dropdown_question,omitempty"
+	DropdownQuestion string `protobuf:"bytes,9,opt,name=dropdown_question,json=dropdownQuestion,proto3" json:"dropdown_question,omitempty" fake:"{dropdownquestion}" yaml:"dropdown_question,omitempty"`
 }
 
 func (x *NewUserNeedsType) Reset() {
@@ -1594,12 +1594,12 @@ type NewDiscoProjectRequest struct {
 	ActionTimeNano int64 `protobuf:"varint,5,opt,name=action_time_nano,json=actionTimeNano,proto3" json:"action_time_nano,omitempty" fake:"{randomts}" yaml:"action_time"`
 	// @inject_tag: fake:"{city}" yaml:"action_location"
 	ActionLocation string `protobuf:"bytes,6,opt,name=action_location,json=actionLocation,proto3" json:"action_location,omitempty" fake:"{city}" yaml:"action_location"`
-	// @inject_tag: fake:"{number:1000,10000}" yaml:"min_pioneers"
-	MinPioneers uint64 `protobuf:"varint,7,opt,name=min_pioneers,json=minPioneers,proto3" json:"min_pioneers,omitempty" fake:"{number:1000,10000}" yaml:"min_pioneers"`
-	// @inject_tag: fake:"{number:1000,1500}" yaml:"min_rebels_media"
-	MinRebelsMedia uint64 `protobuf:"varint,8,opt,name=min_rebels_media,json=minRebelsMedia,proto3" json:"min_rebels_media,omitempty" fake:"{number:1000,1500}" yaml:"min_rebels_media"`
-	// @inject_tag: fake:"{number:1000,1500}" yaml:"min_rebels_to_win"
-	MinRebelsToWin uint64 `protobuf:"varint,9,opt,name=min_rebels_to_win,json=minRebelsToWin,proto3" json:"min_rebels_to_win,omitempty" fake:"{number:1000,1500}" yaml:"min_rebels_to_win"`
+	// @inject_tag: fake:"{number:100,1000}" yaml:"min_pioneers"
+	MinPioneers uint64 `protobuf:"varint,7,opt,name=min_pioneers,json=minPioneers,proto3" json:"min_pioneers,omitempty" fake:"{number:100,1000}" yaml:"min_pioneers"`
+	// @inject_tag: fake:"{number:100,150}" yaml:"min_rebels_media"
+	MinRebelsMedia uint64 `protobuf:"varint,8,opt,name=min_rebels_media,json=minRebelsMedia,proto3" json:"min_rebels_media,omitempty" fake:"{number:100,150}" yaml:"min_rebels_media"`
+	// @inject_tag: fake:"{number:100,150}" yaml:"min_rebels_to_win"
+	MinRebelsToWin uint64 `protobuf:"varint,9,opt,name=min_rebels_to_win,json=minRebelsToWin,proto3" json:"min_rebels_to_win,omitempty" fake:"{number:100,150}" yaml:"min_rebels_to_win"`
 	// @inject_tag: fake:"{randomstring:[14 days, 13 weeks, 12 months]}" yaml:"action_length"
 	ActionLength string `protobuf:"bytes,10,opt,name=action_length,json=actionLength,proto3" json:"action_length,omitempty" fake:"{randomstring:[14 days, 13 weeks, 12 months]}" yaml:"action_length"`
 	// @inject_tag: fake:"{randomstring:[environment,global_campaign,poverty]}" yaml:"action_type"
@@ -1620,8 +1620,8 @@ type NewDiscoProjectRequest struct {
 	SysAccountProjectRefName string `protobuf:"bytes,18,opt,name=sys_account_project_ref_name,json=sysAccountProjectRefName,proto3" json:"sys_account_project_ref_name,omitempty" fake:"{nameseq:sys_account_project,true,sys_account_project,true,false}" yaml:"sys_account_project_ref_name"`
 	// @inject_tag: fake:"{nameseq:sys_account_org,true,sys_account_org,false,false}" yaml:"sys_account_org_ref_name,omitempty"
 	SysAccountOrgRefName string `protobuf:"bytes,19,opt,name=sys_account_org_ref_name,json=sysAccountOrgRefName,proto3" json:"sys_account_org_ref_name,omitempty" fake:"{nameseq:sys_account_org,true,sys_account_org,false,false}" yaml:"sys_account_org_ref_name,omitempty"`
-	// @inject_tag: fake:"300" fakesize:"3" yaml:"image_filepath,omitempty"
-	ImageFilepath []string `protobuf:"bytes,20,rep,name=image_filepath,json=imageFilepath,proto3" json:"image_filepath,omitempty" fake:"300" fakesize:"3" yaml:"image_filepath,omitempty"`
+	// @inject_tag: fake:"skip" yaml:"image_filepath,omitempty"
+	ImageFilepath []string `protobuf:"bytes,20,rep,name=image_filepath,json=imageFilepath,proto3" json:"image_filepath,omitempty" fake:"skip" yaml:"image_filepath,omitempty"`
 	// @inject_tag: fake:"{logogen:300}" yaml:"image_upload_arrays,omitempty"
 	ImageUploadArrays []string `protobuf:"bytes,21,rep,name=image_upload_arrays,json=imageUploadArrays,proto3" json:"image_upload_arrays,omitempty" fake:"{logogen:300}" yaml:"image_upload_arrays,omitempty"`
 }

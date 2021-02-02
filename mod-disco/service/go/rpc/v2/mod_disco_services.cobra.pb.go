@@ -607,9 +607,9 @@ func _SurveyServiceNewDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 	cmd.PersistentFlags().Uint64Var(&req.AlreadyPledged, cfg.FlagNamer("AlreadyPledged"), 0, "@inject_tag: fake:\"skip\" yaml:\"already_pledged,omitempty\"")
 	cmd.PersistentFlags().Int64Var(&req.ActionTimeNano, cfg.FlagNamer("ActionTimeNano"), 0, "@inject_tag: fake:\"{randomts}\" yaml:\"action_time\"")
 	cmd.PersistentFlags().StringVar(&req.ActionLocation, cfg.FlagNamer("ActionLocation"), "", "@inject_tag: fake:\"{city}\" yaml:\"action_location\"")
-	cmd.PersistentFlags().Uint64Var(&req.MinPioneers, cfg.FlagNamer("MinPioneers"), 0, "@inject_tag: fake:\"{number:1000,10000}\" yaml:\"min_pioneers\"")
-	cmd.PersistentFlags().Uint64Var(&req.MinRebelsMedia, cfg.FlagNamer("MinRebelsMedia"), 0, "@inject_tag: fake:\"{number:1000,1500}\" yaml:\"min_rebels_media\"")
-	cmd.PersistentFlags().Uint64Var(&req.MinRebelsToWin, cfg.FlagNamer("MinRebelsToWin"), 0, "@inject_tag: fake:\"{number:1000,1500}\" yaml:\"min_rebels_to_win\"")
+	cmd.PersistentFlags().Uint64Var(&req.MinPioneers, cfg.FlagNamer("MinPioneers"), 0, "@inject_tag: fake:\"{number:100,1000}\" yaml:\"min_pioneers\"")
+	cmd.PersistentFlags().Uint64Var(&req.MinRebelsMedia, cfg.FlagNamer("MinRebelsMedia"), 0, "@inject_tag: fake:\"{number:100,150}\" yaml:\"min_rebels_media\"")
+	cmd.PersistentFlags().Uint64Var(&req.MinRebelsToWin, cfg.FlagNamer("MinRebelsToWin"), 0, "@inject_tag: fake:\"{number:100,150}\" yaml:\"min_rebels_to_win\"")
 	cmd.PersistentFlags().StringVar(&req.ActionLength, cfg.FlagNamer("ActionLength"), "", "@inject_tag: fake:\"{randomstring:[14 days, 13 weeks, 12 months]}\" yaml:\"action_length\"")
 	cmd.PersistentFlags().StringVar(&req.ActionType, cfg.FlagNamer("ActionType"), "", "@inject_tag: fake:\"{randomstring:[environment,global_campaign,poverty]}\" yaml:\"action_type\"")
 	cmd.PersistentFlags().StringVar(&req.Category, cfg.FlagNamer("Category"), "", "@inject_tag: fake:\"{randomstring:[environment,global_campaign,poverty]}\" yaml:\"category\"")
@@ -620,7 +620,7 @@ func _SurveyServiceNewDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 	cmd.PersistentFlags().StringVar(&req.UnitOfMeasures, cfg.FlagNamer("UnitOfMeasures"), "", "@inject_tag: fake:\"{randomstring:[days,weeks,months]}\" yaml:\"unit_of_measures\"")
 	cmd.PersistentFlags().StringVar(&req.SysAccountProjectRefName, cfg.FlagNamer("SysAccountProjectRefName"), "", "@inject_tag: fake:\"{nameseq:sys_account_project,true,sys_account_project,true,false}\" yaml:\"sys_account_project_ref_name\"")
 	cmd.PersistentFlags().StringVar(&req.SysAccountOrgRefName, cfg.FlagNamer("SysAccountOrgRefName"), "", "@inject_tag: fake:\"{nameseq:sys_account_org,true,sys_account_org,false,false}\" yaml:\"sys_account_org_ref_name,omitempty\"")
-	cmd.PersistentFlags().StringSliceVar(&req.ImageFilepath, cfg.FlagNamer("ImageFilepath"), nil, "@inject_tag: fake:\"300\" fakesize:\"3\" yaml:\"image_filepath,omitempty\"")
+	cmd.PersistentFlags().StringSliceVar(&req.ImageFilepath, cfg.FlagNamer("ImageFilepath"), nil, "@inject_tag: fake:\"skip\" yaml:\"image_filepath,omitempty\"")
 	cmd.PersistentFlags().StringSliceVar(&req.ImageUploadArrays, cfg.FlagNamer("ImageUploadArrays"), nil, "@inject_tag: fake:\"{logogen:300}\" yaml:\"image_upload_arrays,omitempty\"")
 
 	return cmd

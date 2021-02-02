@@ -114,11 +114,11 @@ message NewUserNeedsType {
   string description = 5;
   // @inject_tag: fake:"{randomstring:[days,weeks,months]}" yaml:"unit_of_measures,omitempty"
   string unit_of_measures = 6;
-  // @inject_tag: fake:"{randomstring:[question_group_1,question_group_2,question_group_3,question_group_4,question_group_5,question_group_6]}" yaml:"group,omitempty"
+  // @inject_tag: fake:"{questiongroup}" yaml:"question_group,omitempty"
   string question_group = 7;
-  // @inject_tag: fake:"{randomstring:[dropdown,textfield,singlecheckbox]}" yaml:"questionType,omitempty"
+  // @inject_tag: fake:"{questiontype}" yaml:"question_type,omitempty"
   string question_type = 8;
-  // @inject_tag: fake:"{question}" yaml:"dropdownQuestion,omitempty"
+  // @inject_tag: fake:"{dropdownquestion}" yaml:"dropdown_question,omitempty"
   string dropdown_question = 9;
 }
 
@@ -209,11 +209,11 @@ message NewDiscoProjectRequest {
   int64 action_time_nano = 5;
   // @inject_tag: fake:"{city}" yaml:"action_location"
   string action_location = 6;
-  // @inject_tag: fake:"{number:1000,10000}" yaml:"min_pioneers"
+  // @inject_tag: fake:"{number:100,1000}" yaml:"min_pioneers"
   uint64 min_pioneers = 7;
-  // @inject_tag: fake:"{number:1000,1500}" yaml:"min_rebels_media"
+  // @inject_tag: fake:"{number:100,150}" yaml:"min_rebels_media"
   uint64 min_rebels_media = 8;
-  // @inject_tag: fake:"{number:1000,1500}" yaml:"min_rebels_to_win"
+  // @inject_tag: fake:"{number:100,150}" yaml:"min_rebels_to_win"
   uint64 min_rebels_to_win = 9;
   // @inject_tag: fake:"{randomstring:[14 days, 13 weeks, 12 months]}" yaml:"action_length"
   string action_length = 10;
@@ -235,7 +235,7 @@ message NewDiscoProjectRequest {
   string sys_account_project_ref_name = 18;
   // @inject_tag: fake:"{nameseq:sys_account_org,true,sys_account_org,false,false}" yaml:"sys_account_org_ref_name,omitempty"
   string sys_account_org_ref_name = 19;
-  // @inject_tag: fake:"300" fakesize:"3" yaml:"image_filepath,omitempty"
+  // @inject_tag: fake:"skip" yaml:"image_filepath,omitempty"
   repeated string image_filepath = 20;
   // @inject_tag: fake:"{logogen:300}" yaml:"image_upload_arrays,omitempty"
   repeated string image_upload_arrays = 21;
