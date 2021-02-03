@@ -2,16 +2,16 @@ package repo
 
 import (
 	"context"
-	service "github.com/getcouragenow/mod/mod-disco/service/go"
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedAccountPkg "github.com/getcouragenow/sys-share/sys-account/service/go/pkg"
-	"github.com/getcouragenow/sys-share/sys-account/service/go/pkg/interceptor"
-	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
-	corebus "github.com/getcouragenow/sys-share/sys-core/service/go/pkg/bus"
-	"github.com/getcouragenow/sys-share/sys-core/service/logging"
-	"github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
-	corefile "github.com/getcouragenow/sys/sys-core/service/go/pkg/filesvc/repo"
+	service "github.com/amplify-cms/mod/mod-disco/service/go"
+	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/dao"
+	discoRpc "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2"
+	sharedAccountPkg "github.com/amplify-cms/sys-share/sys-account/service/go/pkg"
+	"github.com/amplify-cms/sys-share/sys-account/service/go/pkg/interceptor"
+	sharedConfig "github.com/amplify-cms/sys-share/sys-core/service/config"
+	corebus "github.com/amplify-cms/sys-share/sys-core/service/go/pkg/bus"
+	"github.com/amplify-cms/sys-share/sys-core/service/logging"
+	"github.com/amplify-cms/sys/sys-core/service/go/pkg/coredb"
+	corefile "github.com/amplify-cms/sys/sys-core/service/go/pkg/filesvc/repo"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 

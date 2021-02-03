@@ -47,11 +47,11 @@ dependencies:
   carousel_slider: ^2.3.1
   #  sys_core:
   #    git:
-  #      url: git://github.com/getcouragenow/sys-share
+  #      url: git://github.com/amplify-cms/sys-share
   #      path: sys-core/service/flu
   sys_share_sys_account_service:
     #    git:
-    #      url: git://github.com/getcouragenow/sys-share.git
+    #      url: git://github.com/amplify-cms/sys-share.git
     #      path: sys-account/service/flu
     #      ref: 35b645d047ee71de41a99f17d8670b9bbeffd95c
     path: ../../../../sys-share/sys-account/service/flu

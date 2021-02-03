@@ -173,7 +173,7 @@
           }
         ],
         "survey_project_ref_name": "survey_project_0",
-        "sys_account_user_ref_name": "ops_0@getcouragenow.org",
+        "sys_account_user_ref_name": "ops_0@amplify-cms.org",
         "survey_user_name": "survey_user_0"
       },
       {
@@ -212,7 +212,7 @@
           }
         ],
         "survey_project_ref_name": "survey_project_0",
-        "sys_account_user_ref_name": "ops_1@getcouragenow.org",
+        "sys_account_user_ref_name": "ops_1@amplify-cms.org",
         "survey_user_name": "survey_user_1"
       }
     ]

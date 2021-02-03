@@ -20,7 +20,7 @@ WORK
 
 3. Select Campaign, My Campaign, Create Campaign
 What is on HOME:
-- New user sees "Select Campaign: https://maintemplate.ci.getcouragenow.org/#/orgs
-- Existing User sees "My Campaigns": https://maintemplate.ci.getcouragenow.org/#/orgs
+- New user sees "Select Campaign: https://maintemplate.ci.amplify-cms.org/#/orgs
+- Existing User sees "My Campaigns": https://maintemplate.ci.amplify-cms.org/#/orgs
 
 If user. 

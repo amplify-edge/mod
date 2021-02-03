@@ -3,7 +3,7 @@ import "google/protobuf/timestamp.proto";
 
 package v2.mod_disco.services;
 
-option go_package = "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2";
+option go_package = "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2";
 
 message UserInfo {
   string sys_account_ref_id = 1;

@@ -2,13 +2,13 @@ package repo
 
 import (
 	"context"
-	corepkg "github.com/getcouragenow/sys-share/sys-core/service/go/pkg"
+	corepkg "github.com/amplify-cms/sys-share/sys-core/service/go/pkg"
 	"strconv"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
+	sysCoreSvc "github.com/amplify-cms/sys/sys-core/service/go/pkg/coredb"
 )
 
 func (md *ModDiscoRepo) getCursor(currentCursor string) (int64, error) {

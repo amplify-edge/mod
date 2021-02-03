@@ -1,14 +1,14 @@
 package dao_test
 
 import (
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
+	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/dao"
 	"github.com/segmentio/encoding/json"
 	"io/ioutil"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	discoRpc "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2"
 )
 
 var (

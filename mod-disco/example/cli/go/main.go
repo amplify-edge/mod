@@ -1,8 +1,8 @@
 package main
 
 import (
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	"github.com/getcouragenow/sys-share/sys-core/service/logging/zaplog"
+	discoRpc "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2"
+	"github.com/amplify-cms/sys-share/sys-core/service/logging/zaplog"
 )
 
 func main() {

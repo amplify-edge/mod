@@ -2,7 +2,7 @@ package telemetry
 
 import (
 	"github.com/VictoriaMetrics/metrics"
-	"github.com/getcouragenow/sys-share/sys-core/service/logging"
+	"github.com/amplify-cms/sys-share/sys-core/service/logging"
 )
 
 const (

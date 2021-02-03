@@ -2,14 +2,14 @@ package repo
 
 import (
 	"context"
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
-	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
+	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/dao"
+	sysCoreSvc "github.com/amplify-cms/sys/sys-core/service/go/pkg/coredb"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedAuth "github.com/getcouragenow/sys-share/sys-account/service/go/pkg/shared"
+	discoRpc "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2"
+	sharedAuth "github.com/amplify-cms/sys-share/sys-account/service/go/pkg/shared"
 )
 
 func (md *ModDiscoRepo) NewSurveyProject(ctx context.Context, in *discoRpc.NewSurveyProjectRequest) (*discoRpc.SurveyProject, error) {

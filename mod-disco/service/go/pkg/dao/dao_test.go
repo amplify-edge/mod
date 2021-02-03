@@ -1,16 +1,16 @@
 package dao_test
 
 import (
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/fakedata"
-	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
-	"github.com/getcouragenow/sys-share/sys-core/service/logging/zaplog"
+	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/fakedata"
+	sharedConfig "github.com/amplify-cms/sys-share/sys-core/service/config"
+	"github.com/amplify-cms/sys-share/sys-core/service/logging/zaplog"
 
 	"github.com/stretchr/testify/assert"
 	"testing"
 
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
-	corecfg "github.com/getcouragenow/sys/sys-core/service/go"
-	coresvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
+	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/dao"
+	corecfg "github.com/amplify-cms/sys/sys-core/service/go"
+	coresvc "github.com/amplify-cms/sys/sys-core/service/go/pkg/coredb"
 )
 
 var (

@@ -2,19 +2,19 @@ package pkg
 
 import (
 	"fmt"
-	"github.com/getcouragenow/sys-share/sys-core/service/logging"
+	"github.com/amplify-cms/sys-share/sys-core/service/logging"
 	"google.golang.org/grpc"
 
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/telemetry"
-	corefile "github.com/getcouragenow/sys/sys-core/service/go/pkg/filesvc/repo"
+	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/telemetry"
+	corefile "github.com/amplify-cms/sys/sys-core/service/go/pkg/filesvc/repo"
 
-	service "github.com/getcouragenow/mod/mod-disco/service/go"
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/repo"
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedAccountPkg "github.com/getcouragenow/sys-share/sys-account/service/go/pkg"
-	"github.com/getcouragenow/sys-share/sys-account/service/go/pkg/interceptor"
-	sharedBus "github.com/getcouragenow/sys-share/sys-core/service/go/pkg/bus"
-	"github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
+	service "github.com/amplify-cms/mod/mod-disco/service/go"
+	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/repo"
+	discoRpc "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2"
+	sharedAccountPkg "github.com/amplify-cms/sys-share/sys-account/service/go/pkg"
+	"github.com/amplify-cms/sys-share/sys-account/service/go/pkg/interceptor"
+	sharedBus "github.com/amplify-cms/sys-share/sys-core/service/go/pkg/bus"
+	"github.com/amplify-cms/sys/sys-core/service/go/pkg/coredb"
 )
 
 type ModDiscoService struct {
