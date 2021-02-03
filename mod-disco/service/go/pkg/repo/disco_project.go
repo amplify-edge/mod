@@ -26,6 +26,10 @@ func (md *ModDiscoRepo) NewDiscoProject(ctx context.Context, in *discoRpc.NewDis
 		return nil, status.Errorf(codes.InvalidArgument, "cannot insert disco project: non-existent sys-account-project", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
 	in.SysAccountProjectRefId = sysAccountProjectId
+	allowed := md.allowDiscoProject(ctx, "", in.SysAccountProjectRefId)
+	if !allowed {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot insert disco project: permission denied", sharedAuth.Error{Reason: sharedAuth.ErrInsufficientRights})
+	}
 	var imgResourceIds []string
 	if len(in.GetImageFilepath()) != 0 {
 		for _, imgPath := range in.GetImageFilepath() {
@@ -149,6 +153,14 @@ func (md *ModDiscoRepo) UpdateDiscoProject(ctx context.Context, in *discoRpc.Upd
 	if in == nil || in.ProjectId == "" {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot update disco project: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
+	daoDiscoProject, err := md.store.GetDiscoProject(map[string]interface{}{"project_id": in.ProjectId})
+	if err != nil {
+		return nil, err
+	}
+	allowed := md.allowDiscoProject(ctx, "", daoDiscoProject.SysAccountProjectRefId)
+	if !allowed {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot insert disco project: permission denied", sharedAuth.Error{Reason: sharedAuth.ErrInsufficientRights})
+	}
 	if in.GetImageUploads() != nil && len(in.GetImageUploads()) != 0 {
 		for _, imgBytes := range in.GetImageUploads() {
 			res, err := md.frepo.UploadFile("", imgBytes)
@@ -158,10 +170,10 @@ func (md *ModDiscoRepo) UpdateDiscoProject(ctx context.Context, in *discoRpc.Upd
 			in.ImageResourceIds = append(in.ImageResourceIds, res.ResourceId)
 		}
 	}
-	if err := md.store.UpdateDiscoProject(in); err != nil {
+	if err = md.store.UpdateDiscoProject(in); err != nil {
 		return nil, err
 	}
-	daoDiscoProject, err := md.store.GetDiscoProject(map[string]interface{}{"project_id": in.ProjectId})
+	daoDiscoProject, err = md.store.GetDiscoProject(map[string]interface{}{"project_id": in.ProjectId})
 	if err != nil {
 		return nil, err
 	}
@@ -176,7 +188,15 @@ func (md *ModDiscoRepo) DeleteDiscoProject(ctx context.Context, in *discoRpc.IdR
 	if in == nil || (in.DiscoProjectId == "" && in.SysAccountProjectId == "" && in.SysAccountOrgId == "") {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot delete disco project: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
-	err := md.store.DeleteDiscoProject(in.DiscoProjectId, in.SysAccountProjectId, in.SysAccountOrgId)
+	daoDiscoProject, err := md.store.GetDiscoProject(map[string]interface{}{"project_id": in.DiscoProjectId})
+	if err != nil {
+		return nil, err
+	}
+	allowed := md.allowDiscoProject(ctx, "", daoDiscoProject.SysAccountProjectRefId)
+	if !allowed {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot insert disco project: permission denied", sharedAuth.Error{Reason: sharedAuth.ErrInsufficientRights})
+	}
+	err = md.store.DeleteDiscoProject(in.DiscoProjectId, in.SysAccountProjectId, in.SysAccountOrgId)
 	if err != nil {
 		return nil, err
 	}

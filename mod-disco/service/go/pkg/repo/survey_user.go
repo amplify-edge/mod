@@ -143,10 +143,18 @@ func (md *ModDiscoRepo) UpdateSurveyUser(ctx context.Context, in *discoRpc.Updat
 	if in == nil || in.SurveyUserId == "" {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot update survey user: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
+	daoSurveyUser, err := md.store.GetSurveyUser(map[string]interface{}{"survey_user_id": in.SurveyUserId})
+	if err != nil {
+		return nil, err
+	}
+	allowed := md.allowSurveyUser(ctx, daoSurveyUser.SysAccountAccountRefId)
+	if !allowed {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot insert disco project: permission denied", sharedAuth.Error{Reason: sharedAuth.ErrInsufficientRights})
+	}
 	if err := md.store.UpdateSurveyUser(in); err != nil {
 		return nil, err
 	}
-	daoSurveyUser, err := md.store.GetSurveyUser(map[string]interface{}{"survey_user_id": in.SurveyUserId})
+	daoSurveyUser, err = md.store.GetSurveyUser(map[string]interface{}{"survey_user_id": in.SurveyUserId})
 	if err != nil {
 		return nil, err
 	}
@@ -157,7 +165,15 @@ func (md *ModDiscoRepo) DeleteSurveyUser(ctx context.Context, in *discoRpc.IdReq
 	if in == nil || in.SurveyUserId == "" {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot delete survey user: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
-	err := md.store.DeleteSurveyUser(in.SurveyProjectId)
+	daoSurveyUser, err := md.store.GetSurveyUser(map[string]interface{}{"survey_user_id": in.SurveyUserId})
+	if err != nil {
+		return nil, err
+	}
+	allowed := md.allowSurveyUser(ctx, daoSurveyUser.SysAccountAccountRefId)
+	if !allowed {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot insert disco project: permission denied", sharedAuth.Error{Reason: sharedAuth.ErrInsufficientRights})
+	}
+	err = md.store.DeleteSurveyUser(in.SurveyProjectId)
 	if err != nil {
 		return nil, err
 	}

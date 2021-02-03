@@ -2,11 +2,12 @@ package repo
 
 import (
 	"context"
-	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/dao"
-	sysCoreSvc "github.com/amplify-cms/sys/sys-core/service/go/pkg/coredb"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
+
+	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/dao"
+	sysCoreSvc "github.com/amplify-cms/sys/sys-core/service/go/pkg/coredb"
 
 	discoRpc "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2"
 	sharedAuth "github.com/amplify-cms/sys-share/sys-account/service/go/pkg/shared"
@@ -25,6 +26,10 @@ func (md *ModDiscoRepo) NewSurveyProject(ctx context.Context, in *discoRpc.NewSu
 		return nil, status.Errorf(codes.InvalidArgument, "cannot insert disco project: non-existent sys-account-project", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
 	in.SysAccountProjectRefId = sysAccountProjectId
+	allowed := md.allowDiscoProject(ctx, "", in.SysAccountProjectRefId)
+	if !allowed {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot insert disco project: permission denied", sharedAuth.Error{Reason: sharedAuth.ErrInsufficientRights})
+	}
 	md.log.Debugf("SysAccountProjectId: %s", sysAccountProjectId)
 	sp, err := md.store.InsertSurveyProject(in)
 	if err != nil {
@@ -108,10 +113,18 @@ func (md *ModDiscoRepo) UpdateSurveyProject(ctx context.Context, in *discoRpc.Up
 	if in == nil || in.SurveyProjectId == "" {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot update survey project: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
+	daoSurveyProj, err := md.store.GetSurveyProject(map[string]interface{}{"survey_project_id": in.SurveyProjectId})
+	if err != nil {
+		return nil, err
+	}
+	allowed := md.allowDiscoProject(ctx, "", daoSurveyProj.SysAccountProjectRefId)
+	if !allowed {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot insert disco project: permission denied", sharedAuth.Error{Reason: sharedAuth.ErrInsufficientRights})
+	}
 	if err := md.store.UpdateSurveyProject(in); err != nil {
 		return nil, err
 	}
-	daoSurveyProj, err := md.store.GetSurveyProject(map[string]interface{}{"survey_project_id": in.SurveyProjectId})
+	daoSurveyProj, err = md.store.GetSurveyProject(map[string]interface{}{"survey_project_id": in.SurveyProjectId})
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +135,15 @@ func (md *ModDiscoRepo) DeleteSurveyProject(ctx context.Context, in *discoRpc.Id
 	if in == nil || in.SurveyProjectId == "" {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot update survey project: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
-	err := md.store.DeleteSurveyProject(in.SurveyProjectId)
+	daoSurveyProj, err := md.store.GetSurveyProject(map[string]interface{}{"survey_project_id": in.SurveyProjectId})
+	if err != nil {
+		return nil, err
+	}
+	allowed := md.allowDiscoProject(ctx, "", daoSurveyProj.SysAccountProjectRefId)
+	if !allowed {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot insert disco project: permission denied", sharedAuth.Error{Reason: sharedAuth.ErrInsufficientRights})
+	}
+	err = md.store.DeleteSurveyProject(in.SurveyProjectId)
 	if err != nil {
 		return nil, err
 	}
