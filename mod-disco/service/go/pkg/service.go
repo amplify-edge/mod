@@ -50,7 +50,7 @@ func NewModDiscoServiceConfig(l logging.Logger, db *coredb.CoreDB, discoCfg *ser
 
 func NewModDiscoService(cfg *ModDiscoServiceConfig, allDb *coredb.AllDBService) (*ModDiscoService, error) {
 	cfg.logger.Info("Initializing Mod-Disco Service")
-	fileDb, err := coredb.NewCoreDB(cfg.logger, &cfg.Cfg.ModDiscoConfig.SysFileConfig, nil)
+	fileDb, err := coredb.NewCoreDB(cfg.logger, &cfg.Cfg.SysFileConfig, nil)
 	if err != nil {
 		return nil, err
 	}

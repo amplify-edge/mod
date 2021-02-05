@@ -2,8 +2,8 @@ package service
 
 import (
 	"fmt"
-	sharedConfig "github.com/amplify-cms/sys-share/sys-core/service/config"
 	commonCfg "github.com/amplify-cms/sys-share/sys-core/service/config/common"
+	"github.com/amplify-cms/sys-share/sys-core/service/fileutils"
 	"gopkg.in/yaml.v2"
 )
 
@@ -14,14 +14,6 @@ const (
 )
 
 type ModDiscoConfig struct {
-	ModDiscoConfig Config `yaml:"modDiscoConfig" mapstructure:"modDiscoConfig"`
-}
-
-func (m *ModDiscoConfig) Validate() error {
-	return m.ModDiscoConfig.validate()
-}
-
-type Config struct {
 	SysCoreConfig         commonCfg.Config `json:"sysCoreConfig" yaml:"sysCoreConfig" mapstructure:"sysCoreConfig"`
 	SysFileConfig         commonCfg.Config `json:"sysFileConfig" yaml:"sysFileConfig" mapstructure:"sysFileConfig"`
 	UnauthenticatedRoutes []string         `json:"unauthenticatedRoutes" yaml:"unauthenticatedRoutes"`
@@ -29,7 +21,7 @@ type Config struct {
 	BusClientRoutes       []string         `json:"busClientRoutes" yaml:"busClientRoutes"`
 }
 
-func (c Config) validate() error {
+func (c ModDiscoConfig) Validate() error {
 	if len(c.UnauthenticatedRoutes) == 0 {
 		return fmt.Errorf(errNoUnauthenticatedRoutes)
 	}
@@ -62,7 +54,7 @@ func (j JWTConfig) Validate() error {
 
 func NewConfig(filepath string) (*ModDiscoConfig, error) {
 	cfg := &ModDiscoConfig{}
-	f, err := sharedConfig.LoadFile(filepath)
+	f, err := fileutils.LoadFile(filepath)
 	if err != nil {
 		return nil, err
 	}

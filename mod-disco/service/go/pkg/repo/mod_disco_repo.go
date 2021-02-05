@@ -47,8 +47,8 @@ func NewDiscoRepo(
 	mdr := &ModDiscoRepo{
 		store:                 discodb,
 		log:                   l,
-		unauthenticatedRoutes: cfg.ModDiscoConfig.UnauthenticatedRoutes,
-		busClientRoutes:       cfg.ModDiscoConfig.BusClientRoutes,
+		unauthenticatedRoutes: cfg.UnauthenticatedRoutes,
+		busClientRoutes:       cfg.BusClientRoutes,
 		busClient:             busClient,
 		accountClient:         accountClient,
 		frepo:                 frepo,
