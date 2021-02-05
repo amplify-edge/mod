@@ -1,13 +1,13 @@
 package fakedata_test
 
 import (
-	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/fakedata"
+	"go.amplifyedge.org/mod-v2/mod-disco/service/go/pkg/fakedata"
 	"io/ioutil"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 
-	fakeAccount "github.com/amplify-cms/sys-share/sys-account/service/go/pkg/fakedata"
+	fakeAccount "go.amplifyedge.org/sys-share-v2/sys-account/service/go/pkg/fakedata"
 )
 
 func TestBootstrapFakeData(t *testing.T) {

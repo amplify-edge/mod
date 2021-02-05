@@ -1,7 +1,7 @@
 package repo
 //
 // import (
-// 	sharedAuth "github.com/amplify-cms/sys-share/sys-account/service/go/pkg/shared"
+// 	sharedAuth "go.amplifyedge.org/sys-share-v2/sys-account/service/go/pkg/shared"
 // )
 //
 // func (md *ModDiscoRepo) GetUnauthenticatedRoutes() []string {

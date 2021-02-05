@@ -2,8 +2,8 @@ package service
 
 import (
 	"fmt"
-	commonCfg "github.com/amplify-cms/sys-share/sys-core/service/config/common"
-	"github.com/amplify-cms/sys-share/sys-core/service/fileutils"
+	commonCfg "go.amplifyedge.org/sys-share-v2/sys-core/service/config/common"
+	"go.amplifyedge.org/sys-share-v2/sys-core/service/fileutils"
 	"gopkg.in/yaml.v2"
 )
 

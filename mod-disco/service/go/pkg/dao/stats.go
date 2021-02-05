@@ -7,11 +7,11 @@ import (
 	"github.com/genjidb/genji/document"
 	"strconv"
 
-	discoRpc "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2"
-	sharedConfig "github.com/amplify-cms/sys-share/sys-core/service/config"
-	corepkg "github.com/amplify-cms/sys-share/sys-core/service/go/pkg"
-	corebus "github.com/amplify-cms/sys-share/sys-core/service/go/pkg/bus"
-	sysCoreSvc "github.com/amplify-cms/sys/sys-core/service/go/pkg/coredb"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
+	sharedConfig "go.amplifyedge.org/sys-share-v2/sys-core/service/config"
+	corepkg "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg"
+	corebus "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg/bus"
+	sysCoreSvc "go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
 )
 
 func (m *ModDiscoDB) GetStats(ctx context.Context, filters map[string]interface{}, limit, cursor int64, tableName, orderBy string, busClient *corebus.CoreBus) (*discoRpc.StatisticResponse, error) {

@@ -6,11 +6,11 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/dao"
-	discoRpc "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2"
-	sharedAuth "github.com/amplify-cms/sys-share/sys-account/service/go/pkg/shared"
-	sharedConfig "github.com/amplify-cms/sys-share/sys-core/service/config"
-	sysCoreSvc "github.com/amplify-cms/sys/sys-core/service/go/pkg/coredb"
+	"go.amplifyedge.org/mod-v2/mod-disco/service/go/pkg/dao"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
+	sharedAuth "go.amplifyedge.org/sys-share-v2/sys-account/service/go/pkg/shared"
+	sharedConfig "go.amplifyedge.org/sys-share-v2/sys-core/service/config"
+	sysCoreSvc "go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
 )
 
 func (md *ModDiscoRepo) NewDiscoProject(ctx context.Context, in *discoRpc.NewDiscoProjectRequest) (*discoRpc.DiscoProject, error) {

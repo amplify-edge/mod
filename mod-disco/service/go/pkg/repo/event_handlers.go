@@ -3,12 +3,12 @@ package repo
 import (
 	"context"
 	"fmt"
-	discoRpc "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2"
-	"github.com/amplify-cms/sys-share/sys-account/service/go/pkg/interceptor"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
+	"go.amplifyedge.org/sys-share-v2/sys-account/service/go/pkg/interceptor"
 
-	sharedCore "github.com/amplify-cms/sys-share/sys-core/service/go/pkg"
-	sharedBus "github.com/amplify-cms/sys-share/sys-core/service/go/pkg/bus"
-	"github.com/amplify-cms/sys/sys-core/service/go/pkg/coredb"
+	sharedCore "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg"
+	sharedBus "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg/bus"
+	"go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
 )
 
 func (md *ModDiscoRepo) newClientInterceptor(ctx context.Context, in *sharedCore.EventRequest) (map[string]interface{}, error) {

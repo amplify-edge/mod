@@ -2,19 +2,19 @@ package pkg
 
 import (
 	"fmt"
-	"github.com/amplify-cms/sys-share/sys-core/service/logging"
+	"go.amplifyedge.org/sys-share-v2/sys-core/service/logging"
 	"google.golang.org/grpc"
 
-	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/telemetry"
-	corefile "github.com/amplify-cms/sys/sys-core/service/go/pkg/filesvc/repo"
+	"go.amplifyedge.org/mod-v2/mod-disco/service/go/pkg/telemetry"
+	corefile "go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/filesvc/repo"
 
-	service "github.com/amplify-cms/mod/mod-disco/service/go"
-	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/repo"
-	discoRpc "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2"
-	sharedAccountPkg "github.com/amplify-cms/sys-share/sys-account/service/go/pkg"
-	"github.com/amplify-cms/sys-share/sys-account/service/go/pkg/interceptor"
-	sharedBus "github.com/amplify-cms/sys-share/sys-core/service/go/pkg/bus"
-	"github.com/amplify-cms/sys/sys-core/service/go/pkg/coredb"
+	service "go.amplifyedge.org/mod-v2/mod-disco/service/go"
+	"go.amplifyedge.org/mod-v2/mod-disco/service/go/pkg/repo"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
+	sharedAccountPkg "go.amplifyedge.org/sys-share-v2/sys-account/service/go/pkg"
+	"go.amplifyedge.org/sys-share-v2/sys-account/service/go/pkg/interceptor"
+	sharedBus "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg/bus"
+	"go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
 )
 
 type ModDiscoService struct {

@@ -5,9 +5,9 @@ import (
 	"github.com/brianvoe/gofakeit/v5"
 	"math/rand"
 
-	discoRpc "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2"
-	sharedConfig "github.com/amplify-cms/sys-share/sys-core/service/config"
-	"github.com/amplify-cms/sys-share/sys-core/service/fakehelper"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
+	sharedConfig "go.amplifyedge.org/sys-share-v2/sys-core/service/config"
+	"go.amplifyedge.org/sys-share-v2/sys-core/service/fakehelper"
 )
 
 type bootstrapSurveyProject struct {

@@ -6,8 +6,8 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	corepkg "github.com/amplify-cms/sys-share/sys-core/service/go/pkg"
-	sysCoreSvc "github.com/amplify-cms/sys/sys-core/service/go/pkg/coredb"
+	corepkg "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg"
+	sysCoreSvc "go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
 )
 
 // permission check using in-process messaging

@@ -6,11 +6,11 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/dao"
-	sysCoreSvc "github.com/amplify-cms/sys/sys-core/service/go/pkg/coredb"
+	"go.amplifyedge.org/mod-v2/mod-disco/service/go/pkg/dao"
+	sysCoreSvc "go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
 
-	discoRpc "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2"
-	sharedAuth "github.com/amplify-cms/sys-share/sys-account/service/go/pkg/shared"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
+	sharedAuth "go.amplifyedge.org/sys-share-v2/sys-account/service/go/pkg/shared"
 )
 
 func (md *ModDiscoRepo) NewSurveyProject(ctx context.Context, in *discoRpc.NewSurveyProjectRequest) (*discoRpc.SurveyProject, error) {

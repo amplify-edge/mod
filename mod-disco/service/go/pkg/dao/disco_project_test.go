@@ -1,13 +1,13 @@
 package dao_test
 
 import (
-	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/dao"
-	sharedConfig "github.com/amplify-cms/sys-share/sys-core/service/config"
+	"go.amplifyedge.org/mod-v2/mod-disco/service/go/pkg/dao"
+	sharedConfig "go.amplifyedge.org/sys-share-v2/sys-core/service/config"
 
 	"github.com/stretchr/testify/assert"
 	"testing"
 
-	discoRpc "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
 )
 
 var (

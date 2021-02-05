@@ -2,16 +2,16 @@ package repo
 
 import (
 	"context"
-	service "github.com/amplify-cms/mod/mod-disco/service/go"
-	"github.com/amplify-cms/mod/mod-disco/service/go/pkg/dao"
-	discoRpc "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2"
-	sharedAccountPkg "github.com/amplify-cms/sys-share/sys-account/service/go/pkg"
-	"github.com/amplify-cms/sys-share/sys-account/service/go/pkg/interceptor"
-	sharedConfig "github.com/amplify-cms/sys-share/sys-core/service/config"
-	corebus "github.com/amplify-cms/sys-share/sys-core/service/go/pkg/bus"
-	"github.com/amplify-cms/sys-share/sys-core/service/logging"
-	"github.com/amplify-cms/sys/sys-core/service/go/pkg/coredb"
-	corefile "github.com/amplify-cms/sys/sys-core/service/go/pkg/filesvc/repo"
+	service "go.amplifyedge.org/mod-v2/mod-disco/service/go"
+	"go.amplifyedge.org/mod-v2/mod-disco/service/go/pkg/dao"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
+	sharedAccountPkg "go.amplifyedge.org/sys-share-v2/sys-account/service/go/pkg"
+	"go.amplifyedge.org/sys-share-v2/sys-account/service/go/pkg/interceptor"
+	sharedConfig "go.amplifyedge.org/sys-share-v2/sys-core/service/config"
+	corebus "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg/bus"
+	"go.amplifyedge.org/sys-share-v2/sys-core/service/logging"
+	"go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
+	corefile "go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/filesvc/repo"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
