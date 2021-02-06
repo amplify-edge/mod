@@ -3,7 +3,7 @@ syntax = "proto3";
 import "google/protobuf/empty.proto";
 import "mod_disco_models.proto";
 
-option go_package = "github.com/amplify-cms/mod/mod-disco/service/go/rpc/v2";
+option go_package = "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2";
 
 package v2.mod_disco.services;
 
