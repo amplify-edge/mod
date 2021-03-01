@@ -4,106 +4,6 @@ import 'package:intl/intl.dart';
 class Translations {
   Locale locale;
 
-  // USERINFO
-  String country() {
-    return Intl.message(
-      'Country',
-      name: 'country',
-      desc: 'Country',
-      locale: locale.toString(),
-    );
-  }
-
-  String videoUrl() {
-    return Intl.message(
-      'Video Url',
-      name: 'videoUrl',
-      desc: 'Video Url',
-      locale: locale.toString(),
-    );
-  }
-
-  String aboutYou() {
-    return Intl.message(
-      "About you",
-      name: "aboutYou",
-      desc: "About You",
-      locale: locale.toString(),
-    );
-  }
-
-  String newCountrySelected() {
-    return Intl.message(
-      'New Country Selected',
-      name: 'newCountrySelected',
-      desc: 'New Country Selected',
-      locale: locale.toString(),
-    );
-  }
-
-  String zipCode() {
-    return Intl.message(
-      'Zip Code',
-      name: 'zipCode',
-      desc: 'Zip Code',
-      locale: locale.toString(),
-    );
-  }
-
-  String whereAreYou() {
-    return Intl.message(
-      'Where are you?',
-      name: 'whereAreYou',
-      desc: 'Where are you?',
-      locale: locale.toString(),
-    );
-  }
-
-  String travelDistance() {
-    return Intl.message(
-      'How far are you willing to travel?',
-      name: 'travelDistance',
-      desc: 'How far are you willing to travel?',
-      locale: locale.toString(),
-    );
-  }
-
-  String howOldAreYou() {
-    return Intl.message(
-      'How old are you?',
-      name: 'howOldAreYou',
-      desc: 'How old are you?',
-      locale: locale.toString(),
-    );
-  }
-
-  String campaignAffiliation() {
-    return Intl.message(
-      'Do you have a campaign affiliation?',
-      name: 'campaignAffiliation',
-      desc: 'Do you have a campaign affiliation?',
-      locale: locale.toString(),
-    );
-  }
-
-  String distanceInKM() {
-    return Intl.message(
-      'Enter distance in kilometers',
-      name: 'distanceInKM',
-      desc: 'Enter distance in kilometers',
-      locale: locale.toString(),
-    );
-  }
-
-  String noItemsSelected() {
-    return Intl.message(
-      'No items selected.',
-      name: 'noItemsSelected',
-      desc: 'No items selected.',
-      locale: locale.toString(),
-    );
-  }
-
   // ORGS
 
   String category() {
@@ -129,6 +29,15 @@ class Translations {
       'No Campaigns',
       name: 'noCampaigns',
       desc: 'No Campaigns',
+      locale: locale.toString(),
+    );
+  }
+
+  String notFound() {
+    return Intl.message(
+      'Not found',
+      name: 'notFound',
+      desc: 'Not Found',
       locale: locale.toString(),
     );
   }
@@ -442,6 +351,24 @@ class Translations {
       'User Needs',
       name: 'userNeeds',
       desc: 'User Needs',
+      locale: locale.toString(),
+    );
+  }
+
+  String projectDashboard() {
+    return Intl.message(
+      'Project Dashboard',
+      name: 'projectDashboard',
+      desc: 'Project Dashboard',
+      locale: locale.toString(),
+    );
+  }
+
+  String copyLink() {
+    return Intl.message(
+      'Copy Link',
+      name: 'copyLink',
+      desc: 'Copy Link',
       locale: locale.toString(),
     );
   }

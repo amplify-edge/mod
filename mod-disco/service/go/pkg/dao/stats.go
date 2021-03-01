@@ -1,16 +1,20 @@
 package dao
 
 import (
+	"context"
+	"errors"
 	"fmt"
 	"github.com/genjidb/genji/document"
 	"strconv"
 
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
-	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
+	sharedConfig "go.amplifyedge.org/sys-share-v2/sys-core/service/config"
+	corebus "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg/bus"
+	coreRpc "go.amplifyedge.org/sys-share-v2/sys-core/service/go/rpc/v2"
+	sysCoreSvc "go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
 )
 
-func (m *ModDiscoDB) GetStats(filters map[string]interface{}, limit, cursor int64, tableName, orderBy string) (*discoRpc.StatisticResponse, error) {
+func (m *ModDiscoDB) GetStats(ctx context.Context, filters map[string]interface{}, limit, cursor int64, tableName, orderBy string, busClient *corebus.CoreBus) (*discoRpc.StatisticResponse, error) {
 	svpas := []*discoRpc.SurveyValuePlusAccount{}
 	switch tableName {
 	case "user_need_values":
@@ -27,9 +31,13 @@ func (m *ModDiscoDB) GetStats(filters map[string]interface{}, limit, cursor int6
 			if err != nil {
 				return nil, err
 			}
+			userEmail, err := fetchSysAccountEmail(ctx, surveyUser.SysAccountAccountRefId, busClient)
+			if err != nil {
+				return nil, err
+			}
 			svpa := &discoRpc.SurveyValuePlusAccount{
 				Id:                    unv.Id,
-				SysAccountUserRefName: surveyUser.SysAccountAccountRefId,
+				SysAccountUserRefName: userEmail,
 				CreatedAt:             sharedConfig.UnixToUtcTS(surveyUser.CreatedAt),
 				Pledged:               0,
 			}
@@ -61,9 +69,13 @@ func (m *ModDiscoDB) GetStats(filters map[string]interface{}, limit, cursor int6
 			if err != nil {
 				return nil, err
 			}
+			userEmail, err := fetchSysAccountEmail(ctx, surveyUser.SysAccountAccountRefId, busClient)
+			if err != nil {
+				return nil, err
+			}
 			svpa := &discoRpc.SurveyValuePlusAccount{
 				Id:                    srv.Id,
-				SysAccountUserRefName: surveyUser.SysAccountAccountRefId,
+				SysAccountUserRefName: userEmail,
 				Pledged:               srv.Pledged,
 				CreatedAt:             sharedConfig.UnixToUtcTS(srv.CreatedAt),
 			}
@@ -148,4 +160,33 @@ func (m *ModDiscoDB) countValues(filters map[string]interface{}, tableName strin
 	}
 	v := f.V.(int64)
 	return &v, nil
+}
+
+func fetchSysAccountEmail(ctx context.Context, accountId string, busClient *corebus.CoreBus) (string, error) {
+	payload := map[string]interface{}{
+		"sys_account_user_ref_id": accountId,
+	}
+	payloadJson, err := sharedConfig.MarshalPretty(&payload)
+	if err != nil {
+		return "", err
+	}
+	evtResp, err := busClient.Broadcast(
+		ctx,
+		&coreRpc.EventRequest{
+			EventName:   "onGetAccountEmail",
+			Initiator:   "mod-disco",
+			JsonPayload: payloadJson,
+		},
+	)
+	if err != nil {
+		return "", err
+	}
+	acc, err := sysCoreSvc.UnmarshalToMap(evtResp.Reply)
+	if err != nil {
+		return "", err
+	}
+	if acc["email"] == "" {
+		return "", errors.New("user not found")
+	}
+	return acc["email"].(string), nil
 }

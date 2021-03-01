@@ -2,16 +2,16 @@ package repo
 
 import (
 	"context"
-	service "github.com/getcouragenow/mod/mod-disco/service/go"
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedAccountPkg "github.com/getcouragenow/sys-share/sys-account/service/go/pkg"
-	"github.com/getcouragenow/sys-share/sys-account/service/go/pkg/interceptor"
-	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
-	corebus "github.com/getcouragenow/sys-share/sys-core/service/go/pkg/bus"
-	"github.com/getcouragenow/sys-share/sys-core/service/logging"
-	"github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
-	corefile "github.com/getcouragenow/sys/sys-core/service/go/pkg/filesvc/repo"
+	service "go.amplifyedge.org/mod-v2/mod-disco/service/go"
+	"go.amplifyedge.org/mod-v2/mod-disco/service/go/pkg/dao"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
+	"go.amplifyedge.org/sys-share-v2/sys-account/service/go/pkg/interceptor"
+	accountRpc "go.amplifyedge.org/sys-share-v2/sys-account/service/go/rpc/v2"
+	sharedConfig "go.amplifyedge.org/sys-share-v2/sys-core/service/config"
+	corebus "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg/bus"
+	"go.amplifyedge.org/sys-share-v2/sys-core/service/logging"
+	"go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
+	corefile "go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/filesvc/repo"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
@@ -28,8 +28,9 @@ type (
 		busClient             *corebus.CoreBus
 		unauthenticatedRoutes []string
 		busClientRoutes       []string
-		accountClient         *sharedAccountPkg.SysAccountProxyServiceClient
+		accountClient         accountRpc.AuthServiceClient
 		frepo                 *corefile.SysFileRepo
+		*discoRpc.UnimplementedSurveyServiceServer
 	}
 )
 
@@ -37,7 +38,7 @@ func NewDiscoRepo(
 	l logging.Logger, db *coredb.CoreDB,
 	cfg *service.ModDiscoConfig,
 	busClient *corebus.CoreBus,
-	accountClient *sharedAccountPkg.SysAccountProxyServiceClient,
+	accountClient accountRpc.AuthServiceClient,
 	frepo *corefile.SysFileRepo,
 ) (*ModDiscoRepo, error) {
 	discodb, err := dao.NewModDiscoDB(db, l)
@@ -47,8 +48,8 @@ func NewDiscoRepo(
 	mdr := &ModDiscoRepo{
 		store:                 discodb,
 		log:                   l,
-		unauthenticatedRoutes: cfg.ModDiscoConfig.UnauthenticatedRoutes,
-		busClientRoutes:       cfg.ModDiscoConfig.BusClientRoutes,
+		unauthenticatedRoutes: cfg.UnauthenticatedRoutes,
+		busClientRoutes:       cfg.BusClientRoutes,
 		busClient:             busClient,
 		accountClient:         accountClient,
 		frepo:                 frepo,

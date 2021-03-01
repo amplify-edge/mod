@@ -21,30 +21,23 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "aboutYou" : MessageLookupByLibrary.simpleMessage("تمھارے بارے میں"),
     "actionLocation" : MessageLookupByLibrary.simpleMessage("ایکشن لوکیشن"),
     "actionType" : MessageLookupByLibrary.simpleMessage("عمل کی قسم"),
     "backingEndorsingOrganizations" : MessageLookupByLibrary.simpleMessage("تنظیموں کی حمایت / حمایت کرنا"),
-    "campaignAffiliation" : MessageLookupByLibrary.simpleMessage("کیا آپ کی انتخابی مہم وابستگی ہے؟"),
     "campaignDetails" : MessageLookupByLibrary.simpleMessage("مہم کی تفصیلات"),
     "campaignName" : MessageLookupByLibrary.simpleMessage("مہم کا نام"),
     "category" : MessageLookupByLibrary.simpleMessage("قسم"),
     "contactDetails" : MessageLookupByLibrary.simpleMessage("رابطہ کی تفصیلات"),
-    "country" : MessageLookupByLibrary.simpleMessage("ملک"),
-    "distanceInKM" : MessageLookupByLibrary.simpleMessage("کلو میٹر میں فاصلہ درج کریں"),
     "extrapolatedSimilarPastActions" : MessageLookupByLibrary.simpleMessage("مندرجہ ذیل اعداد و شمار ماضی کی اسی طرح کی کارروائیوں سے مایوس کن ہیں جو کامیاب اور ناکام رہے"),
     "goal" : MessageLookupByLibrary.simpleMessage("مقصد"),
     "historicalPrecedents" : MessageLookupByLibrary.simpleMessage("تاریخی نظیر"),
     "hours" : MessageLookupByLibrary.simpleMessage("گھنٹے"),
-    "howOldAreYou" : MessageLookupByLibrary.simpleMessage("آپ کتنے سال کے ہو؟"),
     "lengthOfTheAction" : MessageLookupByLibrary.simpleMessage("ایکشن کی لمبائی"),
     "minimumPledgedTime" : MessageLookupByLibrary.simpleMessage("کم سے کم گروی والا وقت"),
     "needsSatisifiedRequirement" : MessageLookupByLibrary.simpleMessage("براہ کرم اس عمل میں شامل ہونے کے ل as زیادہ سے زیادہ سپورٹ یا ضروریات کا انتخاب کریں جو آپ کو مطمئن درکار ہیں۔"),
-    "newCountrySelected" : MessageLookupByLibrary.simpleMessage("نیا ملک منتخب ہوا"),
     "next" : MessageLookupByLibrary.simpleMessage("اگلے"),
     "no" : MessageLookupByLibrary.simpleMessage("نہیں"),
     "noCampaigns" : MessageLookupByLibrary.simpleMessage("کوئی مہمات نہیں"),
-    "noItemsSelected" : MessageLookupByLibrary.simpleMessage("کوئی آئٹمز منتخب نہیں ہوئے ہیں۔"),
     "notReady" : MessageLookupByLibrary.simpleMessage("تیار نہیں"),
     "peopleAlreadyPledged" : MessageLookupByLibrary.simpleMessage("لوگوں نے پہلے ہی وعدہ کیا تھا"),
     "pioneersToStart" : MessageLookupByLibrary.simpleMessage("سرخیلوں کو شروع کرنے کی ضرورت ہے"),
@@ -60,14 +53,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "supportRole" : MessageLookupByLibrary.simpleMessage("سپورٹ رول"),
     "supportRoles" : MessageLookupByLibrary.simpleMessage("معاون کردار"),
     "time" : MessageLookupByLibrary.simpleMessage("وقت"),
-    "travelDistance" : MessageLookupByLibrary.simpleMessage("آپ کتنا سفر کرنے کے لئے تیار ہیں؟"),
     "typeYourAnswerHere" : MessageLookupByLibrary.simpleMessage("اپنا جواب یہاں ٹیپ کریں"),
     "userNeeds" : MessageLookupByLibrary.simpleMessage("صارف کی ضرورت ہے"),
-    "videoUrl" : MessageLookupByLibrary.simpleMessage("ویڈیو یو آر ایل"),
     "weNeed" : MessageLookupByLibrary.simpleMessage("ہمیں ضرورت ہے"),
-    "whereAreYou" : MessageLookupByLibrary.simpleMessage("اپ کہاں ہیں؟"),
     "yes" : MessageLookupByLibrary.simpleMessage("جی ہاں"),
-    "yourNeeds" : MessageLookupByLibrary.simpleMessage("آپ کی ضروریات"),
-    "zipCode" : MessageLookupByLibrary.simpleMessage("زپ کوڈ")
+    "yourNeeds" : MessageLookupByLibrary.simpleMessage("آپ کی ضروریات")
   };
 }

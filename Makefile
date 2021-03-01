@@ -1,13 +1,21 @@
+# Download Booty
+BOOTY_URL := https://raw.githubusercontent.com/amplify-edge/booty/master/scripts
 
-SHARED_FSPATH=./../shared
-BOILERPLATE_FSPATH=$(SHARED_FSPATH)/boilerplate
+ifeq ($(OS),Windows_NT)
+	BOOTY_URL:=$(BOOTY_URL)/install.ps1
+else
+	BOOTY_URL:=$(BOOTY_URL)/install.sh
+endif
 
-include $(BOILERPLATE_FSPATH)/help.mk
-include $(BOILERPLATE_FSPATH)/os.mk
-include $(BOILERPLATE_FSPATH)/gitr.mk
-include $(BOILERPLATE_FSPATH)/tool.mk
-include $(BOILERPLATE_FSPATH)/flu.mk
-include $(BOILERPLATE_FSPATH)/go.mk
+SHELLCMD :=
+ADD_PATH :=
+ifeq ($(OS),Windows_NT)
+	SHELLCMD:=powershell -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -Command "Invoke-WebRequest -useb $(BOOTY_URL) | Invoke-Expression"
+	ADD_PATH:=export PATH=$$PATH:"/C/booty" # workaround for github CI
+else
+	SHELLCMD:=curl -fsSL $(BOOTY_URL) | bash
+	ADD_PATH:=echo $$PATH
+endif
 
 # remove the "v" prefix
 VERSION ?= $(shell echo $(TAGGED_VERSION) | cut -c 2-)
@@ -15,42 +23,37 @@ VERSION ?= $(shell echo $(TAGGED_VERSION) | cut -c 2-)
 override FLU_SAMPLE_NAME =client
 override FLU_LIB_NAME =client
 
-this-all: this-print this-dep this-build this-print-end
+all: print dep build print-end
 
 ## Print all settings
-this-print: 
+print:
 	@echo
 	@echo "-- MOD : start --"
 	@echo
 
 ## Print all settings
-this-print-all: ## print
-	
-	$(MAKE) os-print
-	
-	$(MAKE) gitr-print
-
-	$(MAKE) go-print
-
-	$(MAKE) tool-print
-	
+print-all: ## print
+	@booty os-print
+	@booty gw-print
 	$(MAKE) flu-print
-
 	$(MAKE) flu-gen-lang-print
 
-this-print-end:
+print-end:
 	@echo
 	@echo "-- MOD : end --"
 	@echo
 	@echo
 	
-this-dep:
-	cd $(SHARED_FSPATH) && $(MAKE) this-all
+dep:
+	$(SHELLCMD)
+	$(ADD_PATH)
+	@booty install-all
+	@booty extract includes
 
-this-build: mod-disco-build
+build: mod-disco-build
 
 mod-disco-build:
-	cd ./mod-disco && $(MAKE) this-build
+	cd ./mod-disco && $(MAKE) all
 
 mod-disco-flu-web-run:
 	cd ./mod-disco && $(MAKE) flu-web-run

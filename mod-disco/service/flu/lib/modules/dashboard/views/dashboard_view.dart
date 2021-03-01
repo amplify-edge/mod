@@ -2,61 +2,45 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:mod_disco/core/core.dart';
-import 'package:mod_disco/modules/projects/view_model/project_view_model.dart';
+import 'package:mod_disco/modules/dashboard/view_model/dashboard_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:sys_core/sys_core.dart';
-import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
+import 'package:sys_share_sys_account_service/rpc/v2/sys_account_models.pb.dart';
 
-import 'proj_detail_view.dart';
+import 'dashboard_detail_view.dart';
 
-class ProjectView extends StatefulWidget {
-  final List<Org> orgs;
-  final String oid;
-  final String orgId;
+class DashboardView extends StatelessWidget {
   final String id;
+  final String orgId;
   final String routePlaceholder;
 
-  const ProjectView(
-      {Key key,
-      this.id = '',
-      this.orgId = '',
-      this.oid = '',
-      this.orgs,
-      this.routePlaceholder})
+  DashboardView({Key key, this.id = '', this.orgId = '', this.routePlaceholder})
       : super(key: key);
 
   @override
-  _ProjectViewState createState() => _ProjectViewState();
-}
-
-class _ProjectViewState extends State<ProjectView> {
-  @override
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
-      // disposeViewModel: false,
-      viewModelBuilder: () => ProjectViewModel(organizations: widget.orgs),
-      onModelReady: (ProjectViewModel model) async {
-        if ((model.orgs == null || model.orgs.isEmpty) && widget.oid.isEmpty) {
-          await model.fetchInitialProjects();
-        } else {
-          await model.fetchExistingOrgsProjects(oid: widget.oid);
+      viewModelBuilder: () => DashboardViewModel(),
+      onModelReady: (DashboardViewModel model) async {
+        if (model.orgs == null || model.orgs.isEmpty) {
+          await model.getInitialAdminOrgs();
         }
       },
-      builder: (context, ProjectViewModel model, child) =>
+      builder: (context, DashboardViewModel model, child) =>
           GCMasterDetail<Org, Project>(
-        key: widget.key,
+            key: key,
         enableSearchBar: true,
-        parentId: widget.orgId,
-        childId: widget.id,
+        parentId: orgId,
+        childId: id,
         items: model.orgs,
         labelBuilder: (item) => item.name,
         imageBuilder: (item) => item.logo,
-        routeWithIdPlaceholder: widget.routePlaceholder,
-        detailsBuilder: (context, parentId, detailsId, isFullScreen) {
-          // model.getSelectedProjectAndDetails(parentId, detailsId);
-          return ProjectDetailView(
-            projectId: detailsId,
-            showBackButton: isFullScreen,
+        routeWithIdPlaceholder: routePlaceholder,
+        detailsBuilder: (context, parentId, childId, isFullScreen) {
+          return DashboardDetailView(
+            orgId: parentId,
+            projectId: childId,
+            isFullScreen: isFullScreen,
           );
         },
         noItemsAvailable: Center(
@@ -68,12 +52,12 @@ class _ProjectViewState extends State<ProjectView> {
             Center(child: Text(ModDiscoLocalizations.of(context).notFound())),
         disableBackButtonOnNoItemSelected: false,
         masterAppBarTitle:
-            Text(ModDiscoLocalizations.of(context).translate('selectCampaign')),
+            Text(ModDiscoLocalizations.of(context).selectCampaign()),
         isLoadingMoreItems: model.isLoading,
-        fetchNextItems: model.fetchNextProjects,
+        fetchNextItems: model.getNextAdminOrgs,
         hasMoreItems: model.hasMoreItems,
-        searchFunction: model.searchProjects,
-        resetSearchFunction: model.onResetSearchProjects,
+        searchFunction: model.searchAdminOrgs,
+        resetSearchFunction: model.onResetSearchOrgs,
         itemChildren: (org) => org.projects,
         childBuilder: (project, id) => <Widget>[
           ...[

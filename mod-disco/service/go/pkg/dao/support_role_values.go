@@ -5,9 +5,9 @@ import (
 	sq "github.com/Masterminds/squirrel"
 	"github.com/genjidb/genji/document"
 
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
-	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
+	sharedConfig "go.amplifyedge.org/sys-share-v2/sys-core/service/config"
+	sysCoreSvc "go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
 )
 
 type SupportRoleValue struct {

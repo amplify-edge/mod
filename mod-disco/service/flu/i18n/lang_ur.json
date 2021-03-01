@@ -1,71 +1,5 @@
 {
-  "@@last_modified": "2020-12-08T20:39:11.949425",
-  "country": "ملک",
-  "@country": {
-    "description": "Country",
-    "placeholders": {},
-    "type": "text"
-  },
-  "videoUrl": "ویڈیو یو آر ایل",
-  "@videoUrl": {
-    "description": "Video Url",
-    "placeholders": {},
-    "type": "text"
-  },
-  "aboutYou": "تمھارے بارے میں",
-  "@aboutYou": {
-    "description": "About You",
-    "placeholders": {},
-    "type": "text"
-  },
-  "newCountrySelected": "نیا ملک منتخب ہوا",
-  "@newCountrySelected": {
-    "description": "New Country Selected",
-    "placeholders": {},
-    "type": "text"
-  },
-  "zipCode": "زپ کوڈ",
-  "@zipCode": {
-    "description": "Zip Code",
-    "placeholders": {},
-    "type": "text"
-  },
-  "whereAreYou": "اپ کہاں ہیں؟",
-  "@whereAreYou": {
-    "description": "Where are you?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "travelDistance": "آپ کتنا سفر کرنے کے لئے تیار ہیں؟",
-  "@travelDistance": {
-    "description": "How far are you willing to travel?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "howOldAreYou": "آپ کتنے سال کے ہو؟",
-  "@howOldAreYou": {
-    "description": "How old are you?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "campaignAffiliation": "کیا آپ کی انتخابی مہم وابستگی ہے؟",
-  "@campaignAffiliation": {
-    "description": "Do you have a campaign affiliation?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "distanceInKM": "کلو میٹر میں فاصلہ درج کریں",
-  "@distanceInKM": {
-    "description": "Enter distance in kilometers",
-    "placeholders": {},
-    "type": "text"
-  },
-  "noItemsSelected": "کوئی آئٹمز منتخب نہیں ہوئے ہیں۔",
-  "@noItemsSelected": {
-    "description": "No items selected.",
-    "placeholders": {},
-    "type": "text"
-  },
+  "@@last_modified": "2021-01-27T05:32:28.139995",
   "category": "قسم",
   "@category": {
     "description": "Category",
@@ -81,6 +15,12 @@
   "noCampaigns": "کوئی مہمات نہیں",
   "@noCampaigns": {
     "description": "No Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "notFound": "نہیں ملا",
+  "@notFound": {
+    "description": "Not Found",
     "placeholders": {},
     "type": "text"
   },
@@ -162,7 +102,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "باغیوں کو جیتنے کی ضرورت تھی",
+  "rebelsWin": "باغیوں کو جیتنے کی ضرورت ہے",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
@@ -228,7 +168,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "provideSupportRole": "اگر ہم آپ کے منتخب کردہ شرائط کو پورا نہیں کرسکتے ہیں ، تو کیا آپ ہڑتال پر جانے کے خواہشمند افراد کو مدد فراہم کرنے پر غور کریں گے؟",
+  "provideSupportRole": "اگر ہم آپ کے منتخب کردہ شرائط کو پورا نہیں کرسکتے ہیں ، تو کیا آپ ہڑتال پر جانے کے خواہشمند افراد کو معاون کردار فراہم کرنے پر غور کریں گے؟",
   "@provideSupportRole": {
     "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
     "placeholders": {},
@@ -285,6 +225,18 @@
   "userNeeds": "صارف کی ضرورت ہے",
   "@userNeeds": {
     "description": "User Needs",
+    "placeholders": {},
+    "type": "text"
+  },
+  "projectDashboard": "پروجیکٹ ڈیش بورڈ",
+  "@projectDashboard": {
+    "description": "Project Dashboard",
+    "placeholders": {},
+    "type": "text"
+  },
+  "copyLink": "لنک کاپی کریں",
+  "@copyLink": {
+    "description": "Copy Link",
     "placeholders": {},
     "type": "text"
   }

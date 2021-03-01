@@ -26,6 +26,7 @@ class _SurveyProjectViewState extends State<SurveyProjectView> {
       builder: (context, SurveyProjectViewModel model, child) => Scaffold(
         appBar: AppBar(
           title: Text(ModDiscoLocalizations.of(context).translate('yourNeeds')),
+          automaticallyImplyLeading: false,
         ),
         body: (model.isLoading)
             ? Center(child: Offstage())

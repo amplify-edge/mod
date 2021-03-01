@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mod_disco/core/core.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_disco/core/shared_repositories/disco_project_repo.dart';
 import 'package:mod_disco/core/shared_repositories/survey_project_repo.dart';
 import 'package:mod_disco/core/shared_repositories/survey_user_repo.dart';
 import 'package:mod_disco/core/shared_services/dynamic_widget_service.dart';
 import 'package:mod_disco/rpc/v2/mod_disco_models.pb.dart';
-import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
-import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 import 'package:sys_core/sys_core.dart';
+import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
+import 'package:sys_share_sys_account_service/pkg/shared_services/base_model.dart';
+import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
+import 'package:sys_share_sys_account_service/view/widgets/view_model/auth_nav_view_model.dart';
 
 class SupportRoleViewModel extends BaseModel {
   Project _project;
@@ -19,17 +21,24 @@ class SupportRoleViewModel extends BaseModel {
   Map<String, double> _minHours = {};
   DynamicWidgetService dwService = DynamicWidgetService();
   bool _isLoading = false;
+  bool _isLoggedOn = false;
 
   Project get project => _project;
 
   NewSurveyUserRequest get nsuReq => _nsuReq;
 
   bool get isLoading => _isLoading;
+  bool get isLoggedOn => _isLoggedOn;
 
   List<SupportRoleType> get supportRoles => _srtList;
 
   Map<String, double> get minHours => _minHours;
   Map<String, NewSupportRoleValue> _supportRoleMap = {};
+
+  void setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
 
   // Constructor
   SupportRoleViewModel(
@@ -43,6 +52,16 @@ class SupportRoleViewModel extends BaseModel {
     _surveyProjects = surveyProjectList;
   }
 
+  void _isLoggedIn() {
+    final isLoggedOn = Modular.get<AuthNavViewModel>().isLoggedIn;
+    _isLoggedOn = isLoggedOn;
+    notifyListeners();
+  }
+
+  void isUserLoggedIn() {
+    return _isLoggedIn();
+  }
+
   // init
   Future<void> initOnReady() async {
     setLoading(true);
@@ -50,7 +69,7 @@ class SupportRoleViewModel extends BaseModel {
       _srtLists.add(element.supportRoleTypes);
     });
     _srtList = _srtLists.expand((i) => i).toList();
-    await isUserLoggedIn();
+    isUserLoggedIn();
     notifyListeners();
     setLoading(false);
   }
@@ -81,7 +100,7 @@ class SupportRoleViewModel extends BaseModel {
           isSignIn: false,
           userRole: _userRole,
           callback: () async {
-            _accountId = await getTempAccountId();
+            _accountId = getTempAccountId();
             _nsuReq.sysAccountUserRefId = _accountId;
             await SurveyUserRepo.newSurveyUser(
               surveyProjectId: _nsuReq.surveyProjectRefId,

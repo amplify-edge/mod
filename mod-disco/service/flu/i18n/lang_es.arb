@@ -1,71 +1,5 @@
 {
-  "@@last_modified": "2020-12-08T20:39:11.949425",
-  "country": "País",
-  "@country": {
-    "description": "Country",
-    "placeholders": {},
-    "type": "text"
-  },
-  "videoUrl": "URL del vídeo",
-  "@videoUrl": {
-    "description": "Video Url",
-    "placeholders": {},
-    "type": "text"
-  },
-  "aboutYou": "Acerca de ti",
-  "@aboutYou": {
-    "description": "About You",
-    "placeholders": {},
-    "type": "text"
-  },
-  "newCountrySelected": "Nuevo país seleccionado",
-  "@newCountrySelected": {
-    "description": "New Country Selected",
-    "placeholders": {},
-    "type": "text"
-  },
-  "zipCode": "Código postal",
-  "@zipCode": {
-    "description": "Zip Code",
-    "placeholders": {},
-    "type": "text"
-  },
-  "whereAreYou": "¿Dónde estás?",
-  "@whereAreYou": {
-    "description": "Where are you?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "travelDistance": "¿Qué tan lejos estás dispuesto a viajar?",
-  "@travelDistance": {
-    "description": "How far are you willing to travel?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "howOldAreYou": "¿Cuantos años tienes?",
-  "@howOldAreYou": {
-    "description": "How old are you?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "campaignAffiliation": "¿Tiene una afiliación a una campaña?",
-  "@campaignAffiliation": {
-    "description": "Do you have a campaign affiliation?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "distanceInKM": "Ingrese la distancia en kilómetros",
-  "@distanceInKM": {
-    "description": "Enter distance in kilometers",
-    "placeholders": {},
-    "type": "text"
-  },
-  "noItemsSelected": "No se seleccionaron elementos.",
-  "@noItemsSelected": {
-    "description": "No items selected.",
-    "placeholders": {},
-    "type": "text"
-  },
+  "@@last_modified": "2021-01-27T05:32:28.139995",
   "category": "Categoría",
   "@category": {
     "description": "Category",
@@ -81,6 +15,12 @@
   "noCampaigns": "Sin campañas",
   "@noCampaigns": {
     "description": "No Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "notFound": "Extraviado",
+  "@notFound": {
+    "description": "Not Found",
     "placeholders": {},
     "type": "text"
   },
@@ -216,7 +156,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "next": "Siguiente",
+  "next": "próximo",
   "@next": {
     "description": "Next",
     "placeholders": {},
@@ -285,6 +225,18 @@
   "userNeeds": "Necesidades del usuario",
   "@userNeeds": {
     "description": "User Needs",
+    "placeholders": {},
+    "type": "text"
+  },
+  "projectDashboard": "Panel de control del proyecto",
+  "@projectDashboard": {
+    "description": "Project Dashboard",
+    "placeholders": {},
+    "type": "text"
+  },
+  "copyLink": "Copiar link",
+  "@copyLink": {
+    "description": "Copy Link",
     "placeholders": {},
     "type": "text"
   }

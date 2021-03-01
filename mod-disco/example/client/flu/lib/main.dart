@@ -10,7 +10,10 @@ import 'package:sys_core/sys_core.dart';
 void main() {
   //using Modular
   Builders.systemInjector(Modular.get);
-  runApp(ModularApp(module: AppModule()));
+  runApp(ModularApp(
+    module: AppModule(),
+    child: App(),
+  ));
 }
 
 class LanguageNotifier extends ChangeNotifier {
@@ -22,7 +25,7 @@ class LanguageNotifier extends ChangeNotifier {
   }
 }
 
-class AppModule extends MainModule {
+class AppModule extends Module {
   @override
   List<Bind> get binds => [Bind.singleton((i) => LanguageNotifier())];
 
@@ -66,7 +69,7 @@ class App extends StatelessWidget {
           supportedLocales:
               Languages.supportedLanguages.keys.map((e) => Locale(e)).toList(),
           localizationsDelegates: [
-            ModDiscoLocalizationsDelegate(value.locale),
+            ModDiscoLocalizationsDelegate(),
             GlobalWidgetsLocalizations.delegate,
             GlobalMaterialLocalizations.delegate
           ]).modular();

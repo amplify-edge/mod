@@ -1,3 +1,4 @@
+includes
 vendor
 .idea
 .vscode
@@ -13,3 +14,4 @@ db
 /mod-disco/service/go/pkg/fakedata/bs-mod-disco.yml
 .DS_Store
 /mod-disco/.idea/
+.nvimlog

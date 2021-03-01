@@ -13,6 +13,7 @@ import 'package:random_string/random_string.dart';
 import 'package:sys_core/sys_core.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/auth_repo.dart';
 import 'package:sys_share_sys_account_service/pkg/shared_repositories/orgproj_repo.dart';
+import 'package:sys_share_sys_account_service/pkg/shared_services/base_model.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 
 class SurveyProjectViewModel extends BaseModel {
@@ -57,7 +58,7 @@ class SurveyProjectViewModel extends BaseModel {
   }
 
   Future<void> _isLoggedIn() async {
-    final isLoggedOn = await isLoggedIn();
+    final isLoggedOn = isLoggedIn();
     _isLoggedOn = isLoggedOn;
     notifyListeners();
   }
@@ -72,7 +73,7 @@ class SurveyProjectViewModel extends BaseModel {
     _project = _proj;
     await _isLoggedIn();
     if (_isLoggedOn) {
-      _accountId = await getAccountId();
+      _accountId = getAccountId();
     } else {
       _accountId = await SurveyProjectRepo.getNewTempId();
     }
@@ -152,7 +153,7 @@ class SurveyProjectViewModel extends BaseModel {
               isSignIn: false,
               userRole: _userRole,
               callback: () async {
-                _accountId = await getTempAccountId();
+                _accountId = getTempAccountId();
                 _surveyUser.sysAccountUserRefId = _accountId;
                 await SurveyUserRepo.newSurveyUser(
                   surveyProjectId: _surveyUser.surveyProjectRefId,
@@ -231,8 +232,8 @@ class SurveyProjectViewModel extends BaseModel {
                 questionTypeValues, (UserNeedsType unt) => unt.questionGroup);
             grouped.forEach((k, v) {
               Map<String, String> questionData = {};
-              v.forEach(
-                  (userNeed) => questionData[userNeed.name] = userNeed.id);
+              v.forEach((userNeed) =>
+                  questionData[userNeed.description] = userNeed.id);
               String dropdownOptionKey =
                   generateDropdownKey(questionTypeValues);
               _surveyUser

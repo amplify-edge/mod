@@ -5,9 +5,9 @@ import (
 	"github.com/brianvoe/gofakeit/v5"
 	"math/rand"
 
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
-	"github.com/getcouragenow/sys-share/sys-core/service/fakehelper"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
+	sharedConfig "go.amplifyedge.org/sys-share-v2/sys-core/service/config"
+	"go.amplifyedge.org/sys-share-v2/sys-core/service/fakehelper"
 )
 
 type bootstrapSurveyProject struct {
@@ -56,13 +56,40 @@ func genFakeSurveyProject(sysAccProjRc *fakehelper.RefCount) (*fakehelper.RefCou
 			return fmt.Sprintf("%s_%d", prefix, rc.Previous), nil
 		},
 	))
+	qGroup := fakehelper.QuestionGroup{
+		GroupAndType: map[string]string{},
+	}
+	var currentUnt string
+	gofakeit.AddFuncLookup(fakehelper.FakeQuestionGroup(
+		func(i int) (interface{}, error) {
+			referralRc := untRc
+			currentUnt = fmt.Sprintf("%d_%d", rand.Intn(referralRc.Sequence), i)
+			if qGroup.GroupAndType[currentUnt] == "" {
+				qGroup.GroupAndType[currentUnt] = []string{"dropdown", "singlecheckbox", "textfield"}[i]
+			}
+			return currentUnt, nil
+		},
+	))
+	gofakeit.AddFuncLookup(fakehelper.FakeQuestionType(
+		func() (interface{}, error) {
+			return qGroup.GroupAndType[currentUnt], nil
+		},
+	))
+	gofakeit.AddFuncLookup(fakehelper.FakeDropdownQuestion(
+		func() (interface{}, error) {
+			if qGroup.GroupAndType[currentUnt] == "dropdown" {
+				return gofakeit.Question(), nil
+			}
+			return "", nil
+		},
+	))
 	var bsp bootstrapSurveyProject
 	gofakeit.Struct(&bsp)
 	return spRc, bsp
 }
 
 type bootstrapSurveyUser struct {
-	NewSurveyUser []*discoRpc.NewSurveyUserRequest `fakesize:"50" json:"new_survey_users" yaml:"new_survey_users"`
+	NewSurveyUser []*discoRpc.NewSurveyUserRequest `fakesize:"10" json:"new_survey_users" yaml:"new_survey_users"`
 }
 
 func genFakeSurveyUser(domain string, sysAccRc, sysAccProjRc, surveyProjectRc *fakehelper.RefCount) bootstrapSurveyUser {

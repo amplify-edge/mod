@@ -24,36 +24,29 @@ class SurveySupportRoleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        Modular.to.pop();
-        Modular.to.pop();
-        return true;
-      },
-      child: ViewModelProvider.withConsumer(
-        viewModelBuilder: () => SupportRoleViewModel(
-          project: this.project,
-          accountId: this.accountId,
-          newSurveyUserRequest: this.surveyUserRequest,
-          surveyProjectList: this.surveyProjectList,
+    return ViewModelProvider.withConsumer(
+      viewModelBuilder: () => SupportRoleViewModel(
+        project: this.project,
+        accountId: this.accountId,
+        newSurveyUserRequest: this.surveyUserRequest,
+        surveyProjectList: this.surveyProjectList,
+      ),
+      onModelReady: (SupportRoleViewModel model) => model.initOnReady(),
+      builder: (context, SupportRoleViewModel model, child) => Scaffold(
+        appBar: AppBar(
+          title: Text(ModDiscoLocalizations.of(context).supportRoles()),
+          automaticallyImplyLeading: false,
         ),
-        onModelReady: (SupportRoleViewModel model) => model.initOnReady(),
-        builder: (context, SupportRoleViewModel model, child) => Scaffold(
-          appBar: AppBar(
-            title: Text(
-                ModDiscoLocalizations.of(context).translate('supportRoles')),
-          ),
-          body: (model.isLoading)
-              ? Center(child: Offstage())
-              : Column(
-                  children: [
-                    ProjectHeader(project: this.project),
-                    Expanded(
-                      child: _buildSupportRolesList(context, model),
-                    ),
-                  ],
-                ),
-        ),
+        body: (model.isLoading)
+            ? Center(child: Offstage())
+            : Column(
+                children: [
+                  ProjectHeader(project: this.project),
+                  Expanded(
+                    child: _buildSupportRolesList(context, model),
+                  ),
+                ],
+              ),
       ),
     );
   }

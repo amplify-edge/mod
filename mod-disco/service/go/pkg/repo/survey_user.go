@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 	"github.com/VictoriaMetrics/metrics"
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/telemetry"
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	sharedAuth "github.com/getcouragenow/sys-share/sys-account/service/go/pkg/shared"
-	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
+	"go.amplifyedge.org/mod-v2/mod-disco/service/go/pkg/dao"
+	"go.amplifyedge.org/mod-v2/mod-disco/service/go/pkg/telemetry"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
+	sharedAuth "go.amplifyedge.org/sys-share-v2/sys-account/service/go/pkg/shared"
+	sysCoreSvc "go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -77,7 +77,7 @@ func (md *ModDiscoRepo) GetSurveyUser(ctx context.Context, in *discoRpc.IdReques
 	if err != nil {
 		return nil, err
 	}
-	return md.store.ToPkgSurveyUser(sp)
+	return md.store.ToRpcSurveyUser(sp)
 }
 
 func (md *ModDiscoRepo) ListSurveyUser(ctx context.Context, in *discoRpc.ListRequest) (*discoRpc.ListResponse, error) {
@@ -127,7 +127,7 @@ func (md *ModDiscoRepo) ListSurveyUser(ctx context.Context, in *discoRpc.ListReq
 	}
 	var pkgSurveyUsers []*discoRpc.SurveyUser
 	for _, su := range daoSurveyUsers {
-		surveyUser, err := md.store.ToPkgSurveyUser(su)
+		surveyUser, err := md.store.ToRpcSurveyUser(su)
 		if err != nil {
 			return nil, err
 		}
@@ -143,21 +143,37 @@ func (md *ModDiscoRepo) UpdateSurveyUser(ctx context.Context, in *discoRpc.Updat
 	if in == nil || in.SurveyUserId == "" {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot update survey user: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
-	if err := md.store.UpdateSurveyUser(in); err != nil {
-		return nil, err
-	}
 	daoSurveyUser, err := md.store.GetSurveyUser(map[string]interface{}{"survey_user_id": in.SurveyUserId})
 	if err != nil {
 		return nil, err
 	}
-	return md.store.ToPkgSurveyUser(daoSurveyUser)
+	allowed := md.allowSurveyUser(ctx, daoSurveyUser.SysAccountAccountRefId)
+	if !allowed {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot insert disco project: permission denied", sharedAuth.Error{Reason: sharedAuth.ErrInsufficientRights})
+	}
+	if err := md.store.UpdateSurveyUser(in); err != nil {
+		return nil, err
+	}
+	daoSurveyUser, err = md.store.GetSurveyUser(map[string]interface{}{"survey_user_id": in.SurveyUserId})
+	if err != nil {
+		return nil, err
+	}
+	return md.store.ToRpcSurveyUser(daoSurveyUser)
 }
 
 func (md *ModDiscoRepo) DeleteSurveyUser(ctx context.Context, in *discoRpc.IdRequest) (*emptypb.Empty, error) {
 	if in == nil || in.SurveyUserId == "" {
 		return nil, status.Errorf(codes.InvalidArgument, "cannot delete survey user: %v", sharedAuth.Error{Reason: sharedAuth.ErrInvalidParameters})
 	}
-	err := md.store.DeleteSurveyUser(in.SurveyProjectId)
+	daoSurveyUser, err := md.store.GetSurveyUser(map[string]interface{}{"survey_user_id": in.SurveyUserId})
+	if err != nil {
+		return nil, err
+	}
+	allowed := md.allowSurveyUser(ctx, daoSurveyUser.SysAccountAccountRefId)
+	if !allowed {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot insert disco project: permission denied", sharedAuth.Error{Reason: sharedAuth.ErrInsufficientRights})
+	}
+	err = md.store.DeleteSurveyUser(in.SurveyProjectId)
 	if err != nil {
 		return nil, err
 	}
@@ -191,5 +207,5 @@ func (md *ModDiscoRepo) GetProjectStatistics(ctx context.Context, in *discoRpc.S
 	if limit == 0 {
 		limit = dao.DefaultLimit
 	}
-	return md.store.GetStats(filter, limit, cursor, in.GetTableName(), orderBy)
+	return md.store.GetStats(ctx, filter, limit, cursor, in.GetTableName(), orderBy, md.busClient)
 }

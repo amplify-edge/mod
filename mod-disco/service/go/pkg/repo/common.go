@@ -2,13 +2,13 @@ package repo
 
 import (
 	"context"
-	corepkg "github.com/getcouragenow/sys-share/sys-core/service/go/pkg"
 	"strconv"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	sysCoreSvc "github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
+	coreRpc "go.amplifyedge.org/sys-share-v2/sys-core/service/go/rpc/v2"
+	sysCoreSvc "go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
 )
 
 func (md *ModDiscoRepo) getCursor(currentCursor string) (int64, error) {
@@ -82,7 +82,7 @@ func (md *ModDiscoRepo) checkExists(ctx context.Context, in *sysExistsInput) (bo
 	if err != nil {
 		return false, "", err
 	}
-	resp, err := md.busClient.Broadcast(ctx, &corepkg.EventRequest{
+	resp, err := md.busClient.Broadcast(ctx, &coreRpc.EventRequest{
 		EventName:   in.eventName,
 		Initiator:   moduleName,
 		JsonPayload: payloadBytes,

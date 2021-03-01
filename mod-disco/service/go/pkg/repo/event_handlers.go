@@ -3,15 +3,15 @@ package repo
 import (
 	"context"
 	"fmt"
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
-	"github.com/getcouragenow/sys-share/sys-account/service/go/pkg/interceptor"
+	"go.amplifyedge.org/sys-share-v2/sys-account/service/go/pkg/interceptor"
 
-	sharedCore "github.com/getcouragenow/sys-share/sys-core/service/go/pkg"
-	sharedBus "github.com/getcouragenow/sys-share/sys-core/service/go/pkg/bus"
-	"github.com/getcouragenow/sys/sys-core/service/go/pkg/coredb"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
+	sharedBus "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg/bus"
+	coreRpc "go.amplifyedge.org/sys-share-v2/sys-core/service/go/rpc/v2"
+	"go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
 )
 
-func (md *ModDiscoRepo) newClientInterceptor(ctx context.Context, in *sharedCore.EventRequest) (map[string]interface{}, error) {
+func (md *ModDiscoRepo) newClientInterceptor(ctx context.Context, in *coreRpc.EventRequest) (map[string]interface{}, error) {
 	const accessKey = "accessToken"
 	const refreshKey = "refreshToken"
 	rmap, err := coredb.UnmarshalToMap(in.JsonPayload)
@@ -37,7 +37,7 @@ func (md *ModDiscoRepo) newClientInterceptor(ctx context.Context, in *sharedCore
 	}, nil
 }
 
-func (md *ModDiscoRepo) removeClientInterceptor(_ context.Context, _ *sharedCore.EventRequest) (map[string]interface{}, error) {
+func (md *ModDiscoRepo) removeClientInterceptor(_ context.Context, _ *coreRpc.EventRequest) (map[string]interface{}, error) {
 	md.ClientInterceptor = nil
 	return map[string]interface{}{
 		"success":    true,
@@ -45,7 +45,7 @@ func (md *ModDiscoRepo) removeClientInterceptor(_ context.Context, _ *sharedCore
 	}, nil
 }
 
-func (md *ModDiscoRepo) onDeleteDiscoProject(ctx context.Context, in *sharedCore.EventRequest) (map[string]interface{}, error) {
+func (md *ModDiscoRepo) onDeleteDiscoProject(ctx context.Context, in *coreRpc.EventRequest) (map[string]interface{}, error) {
 	const sysAccountProjectIdKey = "sys_account_project_ref_id"
 	const discoProjectIdKey = "project_id"
 	requestMap := make(chan map[string]string, 1)
@@ -102,7 +102,7 @@ func (md *ModDiscoRepo) onDeleteDiscoProject(ctx context.Context, in *sharedCore
 	}, nil
 }
 
-func (md *ModDiscoRepo) onDeleteSurveyProject(ctx context.Context, in *sharedCore.EventRequest) (map[string]interface{}, error) {
+func (md *ModDiscoRepo) onDeleteSurveyProject(ctx context.Context, in *coreRpc.EventRequest) (map[string]interface{}, error) {
 	const sysAccountProjectIdKey = "sys_account_project_ref_id"
 	const surveyProjectIdKey = "survey_project_id"
 	requestMap := make(chan map[string]string, 1)
@@ -159,7 +159,7 @@ func (md *ModDiscoRepo) onDeleteSurveyProject(ctx context.Context, in *sharedCor
 	}, nil
 }
 
-func (md *ModDiscoRepo) onDeleteSurveyUser(ctx context.Context, in *sharedCore.EventRequest) (map[string]interface{}, error) {
+func (md *ModDiscoRepo) onDeleteSurveyUser(ctx context.Context, in *coreRpc.EventRequest) (map[string]interface{}, error) {
 	const sysAccountAccountIdKey = "sys_account_project_ref_id"
 	const surveyUserIdKey = "survey_user_id"
 	requestMap := make(chan map[string]string, 1)
@@ -216,7 +216,7 @@ func (md *ModDiscoRepo) onDeleteSurveyUser(ctx context.Context, in *sharedCore.E
 	}, nil
 }
 
-func (md *ModDiscoRepo) onResetAllModDisco(ctx context.Context, in *sharedCore.EventRequest) (map[string]interface{}, error) {
+func (md *ModDiscoRepo) onResetAllModDisco(ctx context.Context, in *coreRpc.EventRequest) (map[string]interface{}, error) {
 	err := md.store.ResetAll()
 	if err != nil {
 		return nil, err

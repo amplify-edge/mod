@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mod_disco/modules/dashboard/view_model/dashboard_detail_view_model.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class FilterPane extends StatelessWidget {

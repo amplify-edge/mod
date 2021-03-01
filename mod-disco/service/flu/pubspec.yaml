@@ -35,7 +35,7 @@ dependencies:
   flutter_modular: ^3.0.0-0
   intl: ^0.17.0-nullsafety.2
   #  intl_translation: ^0.17.10+1
-  data_tables: ^1.0.3
+  data_tables: ^1.1.0-0
   random_string: ^2.2.0-0
   flutter_platform_widgets: ^1.0.0-nullsafety.0
   cupertino_icons: ^1.0.0
@@ -47,11 +47,11 @@ dependencies:
   carousel_slider: ^2.3.1
   #  sys_core:
   #    git:
-  #      url: git://github.com/getcouragenow/sys-share
+  #      url: git://github.com/amplify-edge/sys-share
   #      path: sys-core/service/flu
   sys_share_sys_account_service:
     #    git:
-    #      url: git://github.com/getcouragenow/sys-share.git
+    #      url: git://github.com/amplify-edge/sys-share.git
     #      path: sys-account/service/flu
     #      ref: 35b645d047ee71de41a99f17d8670b9bbeffd95c
     path: ../../../../sys-share/sys-account/service/flu
@@ -69,7 +69,8 @@ dev_dependencies:
   intl_translation:
     git:
       url: https://github.com/gutterbacon/intl_translation
-      ref: 4c5e4638bf23444ab7d5d60f00f4319f37dee98c
+      ref: 248adfbd76ad3d3be702fb376cfa28112fa1a5b4
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

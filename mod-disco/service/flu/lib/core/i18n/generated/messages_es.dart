@@ -21,30 +21,23 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "aboutYou" : MessageLookupByLibrary.simpleMessage("Acerca de ti"),
     "actionLocation" : MessageLookupByLibrary.simpleMessage("Ubicación de la acción"),
     "actionType" : MessageLookupByLibrary.simpleMessage("Tipo de acción"),
     "backingEndorsingOrganizations" : MessageLookupByLibrary.simpleMessage("Organizaciones de respaldo / respaldo"),
-    "campaignAffiliation" : MessageLookupByLibrary.simpleMessage("¿Tiene una afiliación a una campaña?"),
     "campaignDetails" : MessageLookupByLibrary.simpleMessage("Detalles de la campaña"),
     "campaignName" : MessageLookupByLibrary.simpleMessage("Nombre de campaña"),
     "category" : MessageLookupByLibrary.simpleMessage("Categoría"),
     "contactDetails" : MessageLookupByLibrary.simpleMessage("Detalles de contacto"),
-    "country" : MessageLookupByLibrary.simpleMessage("País"),
-    "distanceInKM" : MessageLookupByLibrary.simpleMessage("Ingrese la distancia en kilómetros"),
     "extrapolatedSimilarPastActions" : MessageLookupByLibrary.simpleMessage("Las siguientes cifras se extrapolan de acciones anteriores similares que tuvieron éxito y fallaron"),
     "goal" : MessageLookupByLibrary.simpleMessage("Objetivo"),
     "historicalPrecedents" : MessageLookupByLibrary.simpleMessage("Precedentes históricos"),
     "hours" : MessageLookupByLibrary.simpleMessage("horas"),
-    "howOldAreYou" : MessageLookupByLibrary.simpleMessage("¿Cuantos años tienes?"),
     "lengthOfTheAction" : MessageLookupByLibrary.simpleMessage("Duración de la acción"),
     "minimumPledgedTime" : MessageLookupByLibrary.simpleMessage("Tiempo mínimo comprometido"),
     "needsSatisifiedRequirement" : MessageLookupByLibrary.simpleMessage("Elija tantos apoyos o necesidades que necesite para unirse a la acción."),
-    "newCountrySelected" : MessageLookupByLibrary.simpleMessage("Nuevo país seleccionado"),
     "next" : MessageLookupByLibrary.simpleMessage("Siguiente"),
     "no" : MessageLookupByLibrary.simpleMessage("No"),
     "noCampaigns" : MessageLookupByLibrary.simpleMessage("Sin campañas"),
-    "noItemsSelected" : MessageLookupByLibrary.simpleMessage("No se seleccionaron elementos."),
     "notReady" : MessageLookupByLibrary.simpleMessage("No está listo"),
     "peopleAlreadyPledged" : MessageLookupByLibrary.simpleMessage("La gente ya se comprometió"),
     "pioneersToStart" : MessageLookupByLibrary.simpleMessage("Se necesitan pioneros para empezar"),
@@ -60,14 +53,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "supportRole" : MessageLookupByLibrary.simpleMessage("Rol de apoyo"),
     "supportRoles" : MessageLookupByLibrary.simpleMessage("Roles de apoyo"),
     "time" : MessageLookupByLibrary.simpleMessage("Hora"),
-    "travelDistance" : MessageLookupByLibrary.simpleMessage("¿Qué tan lejos estás dispuesto a viajar?"),
     "typeYourAnswerHere" : MessageLookupByLibrary.simpleMessage("Toca tu respuesta aquí"),
     "userNeeds" : MessageLookupByLibrary.simpleMessage("Necesidades del usuario"),
-    "videoUrl" : MessageLookupByLibrary.simpleMessage("URL del vídeo"),
     "weNeed" : MessageLookupByLibrary.simpleMessage("Nosotros necesitamos"),
-    "whereAreYou" : MessageLookupByLibrary.simpleMessage("¿Dónde estás?"),
     "yes" : MessageLookupByLibrary.simpleMessage("si"),
-    "yourNeeds" : MessageLookupByLibrary.simpleMessage("Tus necesidades"),
-    "zipCode" : MessageLookupByLibrary.simpleMessage("Código postal")
+    "yourNeeds" : MessageLookupByLibrary.simpleMessage("Tus necesidades")
   };
 }

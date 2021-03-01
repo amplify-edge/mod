@@ -1,13 +1,13 @@
 package dao_test
 
 import (
-	"github.com/getcouragenow/mod/mod-disco/service/go/pkg/dao"
-	sharedConfig "github.com/getcouragenow/sys-share/sys-core/service/config"
+	"go.amplifyedge.org/mod-v2/mod-disco/service/go/pkg/dao"
+	sharedConfig "go.amplifyedge.org/sys-share-v2/sys-core/service/config"
 
 	"github.com/stretchr/testify/assert"
 	"testing"
 
-	discoRpc "github.com/getcouragenow/mod/mod-disco/service/go/rpc/v2"
+	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
 )
 
 var (
@@ -77,7 +77,7 @@ func testGetDiscoProject(t *testing.T) {
 
 func testListDiscoProject(t *testing.T) {
 	t.Log("on listing disco project")
-	listDiscoProjects, _, err := mdb.ListDiscoProject(map[string]interface{}{}, dao.DefaultCursor, dao.DefaultLimit, 0)
+	listDiscoProjects, _, err := mdb.ListDiscoProject(map[string]interface{}{}, dao.DefaultCursor, dao.DefaultLimit, 0, "")
 	assert.NoError(t, err)
 	assert.Equal(t, len(discoProjects), len(listDiscoProjects))
 }

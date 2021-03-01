@@ -1,5 +1,5 @@
-local dbcfg = import "vendor/github.com/getcouragenow/sys-share/sys-core/service/config/mixins/mixin.db.libsonnet";
-local tokencfg = import "vendor/github.com/getcouragenow/sys-share/sys-core/service/config/mixins/mixin.jwt.libsonnet";
+local dbcfg = import "vendor/github.com/amplify-edge/sys-share/sys-core/service/config/mixins/mixin.db.libsonnet";
+local tokencfg = import "vendor/github.com/amplify-edge/sys-share/sys-core/service/config/mixins/mixin.jwt.libsonnet";
 {
     local cfg = self,
     UnauthenticatedRoutes:: [
