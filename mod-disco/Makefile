@@ -17,7 +17,7 @@ EXAMPLE_SRC_DIR = ./example
 SERVER_DIR = $(EXAMPLE_SRC_DIR)/server/go
 CLI_DIR =  $(EXAMPLE_SRC_DIR)/cli/go
 
-all: print gen config-gen build
+all: print build
 
 ## Print all settings
 print: ## print
