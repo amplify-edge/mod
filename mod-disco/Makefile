@@ -29,6 +29,7 @@ print: ## print
 	$(MAKE) flu-gen-lang-print
 
 build: build-delete
+	$(MAKE) flu-config
 	@echo 'Building example golang binaries (CLI and Server)'
 	@mkdir -p bin-all/{cli,client,server}/{go,flu}
 	@echo 'Building Golang binaries'

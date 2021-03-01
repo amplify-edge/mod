@@ -49,7 +49,6 @@ dep:
 	$(ADD_PATH)
 	@booty install-all
 	@booty extract includes
-	$(MAKE) flu-config
 
 build: mod-disco-build
 
