@@ -77,7 +77,7 @@ func testGetDiscoProject(t *testing.T) {
 
 func testListDiscoProject(t *testing.T) {
 	t.Log("on listing disco project")
-	listDiscoProjects, _, err := mdb.ListDiscoProject(map[string]interface{}{}, dao.DefaultCursor, dao.DefaultLimit, 0)
+	listDiscoProjects, _, err := mdb.ListDiscoProject(map[string]interface{}{}, dao.DefaultCursor, dao.DefaultLimit, 0, "")
 	assert.NoError(t, err)
 	assert.Equal(t, len(discoProjects), len(listDiscoProjects))
 }

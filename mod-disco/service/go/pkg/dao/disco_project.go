@@ -38,7 +38,7 @@ var (
 	discoProjectUniqueKey1 = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_sys_account_ref ON %s(sys_account_project_ref_id)", DiscoProjectTableName, DiscoProjectTableName)
 )
 
-func (m *ModDiscoDB) FromPkgDiscoProject(dp *discoRpc.DiscoProject) (*DiscoProject, error) {
+func (m *ModDiscoDB) FromRpcDiscoProject(dp *discoRpc.DiscoProject) (*DiscoProject, error) {
 	projectId := dp.ProjectId
 	if projectId == "" {
 		projectId = sharedConfig.NewID()
@@ -71,7 +71,7 @@ func (m *ModDiscoDB) FromPkgDiscoProject(dp *discoRpc.DiscoProject) (*DiscoProje
 	}, nil
 }
 
-func (m *ModDiscoDB) FromNewPkgDiscoProject(dp *discoRpc.NewDiscoProjectRequest, imageResourceIds []string) (*DiscoProject, error) {
+func (m *ModDiscoDB) FromNewRpcDiscoProject(dp *discoRpc.NewDiscoProjectRequest, imageResourceIds []string) (*DiscoProject, error) {
 	vidUrl := []string{}
 	if dp.GetVideoUrl() == nil {
 		dp.VideoUrl = vidUrl
@@ -105,7 +105,7 @@ func (m *ModDiscoDB) FromNewPkgDiscoProject(dp *discoRpc.NewDiscoProjectRequest,
 	}, nil
 }
 
-func (dp *DiscoProject) ToPkgDiscoProject() (*discoRpc.DiscoProject, error) {
+func (dp *DiscoProject) ToRpcDiscoProject() (*discoRpc.DiscoProject, error) {
 	return &discoRpc.DiscoProject{
 		ProjectId:              dp.ProjectId,
 		SysAccountProjectRefId: dp.SysAccountProjectRefId,
@@ -197,11 +197,11 @@ func (m *ModDiscoDB) ListDiscoProject(filters map[string]interface{}, orderBy st
 }
 
 func (m *ModDiscoDB) InsertDiscoProject(dp *discoRpc.NewDiscoProjectRequest, imageResourceIds []string) (*discoRpc.DiscoProject, error) {
-	newPkgDiscoReq, err := m.FromNewPkgDiscoProject(dp, imageResourceIds)
+	newRpcDiscoReq, err := m.FromNewRpcDiscoProject(dp, imageResourceIds)
 	if err != nil {
 		return nil, err
 	}
-	queryParam, err := sysCoreSvc.AnyToQueryParam(newPkgDiscoReq, true)
+	queryParam, err := sysCoreSvc.AnyToQueryParam(newRpcDiscoReq, true)
 	if err != nil {
 		return nil, err
 	}
@@ -224,11 +224,11 @@ func (m *ModDiscoDB) InsertDiscoProject(dp *discoRpc.NewDiscoProjectRequest, ima
 	if err != nil {
 		return nil, err
 	}
-	daoDP, err := m.GetDiscoProject(map[string]interface{}{"project_id": newPkgDiscoReq.ProjectId})
+	daoDP, err := m.GetDiscoProject(map[string]interface{}{"project_id": newRpcDiscoReq.ProjectId})
 	if err != nil {
 		return nil, err
 	}
-	return daoDP.ToPkgDiscoProject()
+	return daoDP.ToRpcDiscoProject()
 }
 
 func (m *ModDiscoDB) UpdateDiscoProject(udp *discoRpc.UpdateDiscoProjectRequest) error {

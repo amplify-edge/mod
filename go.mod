@@ -20,6 +20,6 @@ require (
 	gopkg.in/yaml.v2 v2.4.0
 )
 
-replace go.amplifyedge.org/sys-share-v2 => ../sys-share/
-
 replace go.amplifyedge.org/sys-v2 => ../sys/
+
+replace go.amplifyedge.org/sys-share-v2 => ../sys-share

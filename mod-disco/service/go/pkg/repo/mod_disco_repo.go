@@ -5,8 +5,8 @@ import (
 	service "go.amplifyedge.org/mod-v2/mod-disco/service/go"
 	"go.amplifyedge.org/mod-v2/mod-disco/service/go/pkg/dao"
 	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
-	sharedAccountPkg "go.amplifyedge.org/sys-share-v2/sys-account/service/go/pkg"
 	"go.amplifyedge.org/sys-share-v2/sys-account/service/go/pkg/interceptor"
+	accountRpc "go.amplifyedge.org/sys-share-v2/sys-account/service/go/rpc/v2"
 	sharedConfig "go.amplifyedge.org/sys-share-v2/sys-core/service/config"
 	corebus "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg/bus"
 	"go.amplifyedge.org/sys-share-v2/sys-core/service/logging"
@@ -28,8 +28,9 @@ type (
 		busClient             *corebus.CoreBus
 		unauthenticatedRoutes []string
 		busClientRoutes       []string
-		accountClient         *sharedAccountPkg.SysAccountProxyServiceClient
+		accountClient         accountRpc.AuthServiceClient
 		frepo                 *corefile.SysFileRepo
+		*discoRpc.UnimplementedSurveyServiceServer
 	}
 )
 
@@ -37,7 +38,7 @@ func NewDiscoRepo(
 	l logging.Logger, db *coredb.CoreDB,
 	cfg *service.ModDiscoConfig,
 	busClient *corebus.CoreBus,
-	accountClient *sharedAccountPkg.SysAccountProxyServiceClient,
+	accountClient accountRpc.AuthServiceClient,
 	frepo *corefile.SysFileRepo,
 ) (*ModDiscoRepo, error) {
 	discodb, err := dao.NewModDiscoDB(db, l)

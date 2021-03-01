@@ -6,7 +6,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	corepkg "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg"
+	coreRpc "go.amplifyedge.org/sys-share-v2/sys-core/service/go/rpc/v2"
 	sysCoreSvc "go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
 )
 
@@ -25,7 +25,7 @@ func (md *ModDiscoRepo) checkAllow(ctx context.Context, in *sysAllowInput) (bool
 	if err != nil {
 		return false, err
 	}
-	resp, err := md.busClient.Broadcast(ctx, &corepkg.EventRequest{
+	resp, err := md.busClient.Broadcast(ctx, &coreRpc.EventRequest{
 		EventName:   in.EventName,
 		Initiator:   moduleName,
 		JsonPayload: payloadBytes,

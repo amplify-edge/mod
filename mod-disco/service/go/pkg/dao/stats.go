@@ -9,8 +9,8 @@ import (
 
 	discoRpc "go.amplifyedge.org/mod-v2/mod-disco/service/go/rpc/v2"
 	sharedConfig "go.amplifyedge.org/sys-share-v2/sys-core/service/config"
-	corepkg "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg"
 	corebus "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg/bus"
+	coreRpc "go.amplifyedge.org/sys-share-v2/sys-core/service/go/rpc/v2"
 	sysCoreSvc "go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
 )
 
@@ -172,7 +172,7 @@ func fetchSysAccountEmail(ctx context.Context, accountId string, busClient *core
 	}
 	evtResp, err := busClient.Broadcast(
 		ctx,
-		&corepkg.EventRequest{
+		&coreRpc.EventRequest{
 			EventName:   "onGetAccountEmail",
 			Initiator:   "mod-disco",
 			JsonPayload: payloadJson,

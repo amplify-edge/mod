@@ -45,12 +45,15 @@ print-end:
 	@echo
 	
 dep:
-	cd $(SHARED_FSPATH) && $(MAKE) all
+	$(SHELLCMD)
+	$(ADD_PATH)
+	@booty install-all
+	@booty extract includes
 
 build: mod-disco-build
 
 mod-disco-build:
-	cd ./mod-disco && $(MAKE) build
+	cd ./mod-disco && $(MAKE) all
 
 mod-disco-flu-web-run:
 	cd ./mod-disco && $(MAKE) flu-web-run

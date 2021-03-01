@@ -4,14 +4,15 @@ package v2
 
 import (
 	context "context"
-	empty "github.com/golang/protobuf/ptypes/empty"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
+// Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
 // SurveyServiceClient is the client API for SurveyService service.
@@ -23,22 +24,22 @@ type SurveyServiceClient interface {
 	GetSurveyProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SurveyProject, error)
 	ListSurveyProject(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
 	UpdateSurveyProject(ctx context.Context, in *UpdateSurveyProjectRequest, opts ...grpc.CallOption) (*SurveyProject, error)
-	DeleteSurveyProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	DeleteSurveyProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// Users
 	NewSurveyUser(ctx context.Context, in *NewSurveyUserRequest, opts ...grpc.CallOption) (*SurveyUser, error)
 	GetSurveyUser(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SurveyUser, error)
 	ListSurveyUser(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
 	UpdateSurveyUser(ctx context.Context, in *UpdateSurveyUserRequest, opts ...grpc.CallOption) (*SurveyUser, error)
-	DeleteSurveyUser(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	DeleteSurveyUser(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetProjectStatistics(ctx context.Context, in *StatisticRequest, opts ...grpc.CallOption) (*StatisticResponse, error)
 	// DiscoProjects
 	NewDiscoProject(ctx context.Context, in *NewDiscoProjectRequest, opts ...grpc.CallOption) (*DiscoProject, error)
 	GetDiscoProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*DiscoProject, error)
 	ListDiscoProject(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
 	UpdateDiscoProject(ctx context.Context, in *UpdateDiscoProjectRequest, opts ...grpc.CallOption) (*DiscoProject, error)
-	DeleteDiscoProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	DeleteDiscoProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// TempIdRequest
-	GenTempId(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*GenIdResponse, error)
+	GenTempId(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GenIdResponse, error)
 }
 
 type surveyServiceClient struct {
@@ -47,10 +48,6 @@ type surveyServiceClient struct {
 
 func NewSurveyServiceClient(cc grpc.ClientConnInterface) SurveyServiceClient {
 	return &surveyServiceClient{cc}
-}
-
-var surveyServiceNewSurveyProjectStreamDesc = &grpc.StreamDesc{
-	StreamName: "NewSurveyProject",
 }
 
 func (c *surveyServiceClient) NewSurveyProject(ctx context.Context, in *NewSurveyProjectRequest, opts ...grpc.CallOption) (*SurveyProject, error) {
@@ -62,10 +59,6 @@ func (c *surveyServiceClient) NewSurveyProject(ctx context.Context, in *NewSurve
 	return out, nil
 }
 
-var surveyServiceGetSurveyProjectStreamDesc = &grpc.StreamDesc{
-	StreamName: "GetSurveyProject",
-}
-
 func (c *surveyServiceClient) GetSurveyProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SurveyProject, error) {
 	out := new(SurveyProject)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/GetSurveyProject", in, out, opts...)
@@ -73,10 +66,6 @@ func (c *surveyServiceClient) GetSurveyProject(ctx context.Context, in *IdReques
 		return nil, err
 	}
 	return out, nil
-}
-
-var surveyServiceListSurveyProjectStreamDesc = &grpc.StreamDesc{
-	StreamName: "ListSurveyProject",
 }
 
 func (c *surveyServiceClient) ListSurveyProject(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error) {
@@ -88,10 +77,6 @@ func (c *surveyServiceClient) ListSurveyProject(ctx context.Context, in *ListReq
 	return out, nil
 }
 
-var surveyServiceUpdateSurveyProjectStreamDesc = &grpc.StreamDesc{
-	StreamName: "UpdateSurveyProject",
-}
-
 func (c *surveyServiceClient) UpdateSurveyProject(ctx context.Context, in *UpdateSurveyProjectRequest, opts ...grpc.CallOption) (*SurveyProject, error) {
 	out := new(SurveyProject)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/UpdateSurveyProject", in, out, opts...)
@@ -101,21 +86,13 @@ func (c *surveyServiceClient) UpdateSurveyProject(ctx context.Context, in *Updat
 	return out, nil
 }
 
-var surveyServiceDeleteSurveyProjectStreamDesc = &grpc.StreamDesc{
-	StreamName: "DeleteSurveyProject",
-}
-
-func (c *surveyServiceClient) DeleteSurveyProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
-	out := new(empty.Empty)
+func (c *surveyServiceClient) DeleteSurveyProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/DeleteSurveyProject", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
-}
-
-var surveyServiceNewSurveyUserStreamDesc = &grpc.StreamDesc{
-	StreamName: "NewSurveyUser",
 }
 
 func (c *surveyServiceClient) NewSurveyUser(ctx context.Context, in *NewSurveyUserRequest, opts ...grpc.CallOption) (*SurveyUser, error) {
@@ -127,10 +104,6 @@ func (c *surveyServiceClient) NewSurveyUser(ctx context.Context, in *NewSurveyUs
 	return out, nil
 }
 
-var surveyServiceGetSurveyUserStreamDesc = &grpc.StreamDesc{
-	StreamName: "GetSurveyUser",
-}
-
 func (c *surveyServiceClient) GetSurveyUser(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SurveyUser, error) {
 	out := new(SurveyUser)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/GetSurveyUser", in, out, opts...)
@@ -138,10 +111,6 @@ func (c *surveyServiceClient) GetSurveyUser(ctx context.Context, in *IdRequest, 
 		return nil, err
 	}
 	return out, nil
-}
-
-var surveyServiceListSurveyUserStreamDesc = &grpc.StreamDesc{
-	StreamName: "ListSurveyUser",
 }
 
 func (c *surveyServiceClient) ListSurveyUser(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error) {
@@ -153,10 +122,6 @@ func (c *surveyServiceClient) ListSurveyUser(ctx context.Context, in *ListReques
 	return out, nil
 }
 
-var surveyServiceUpdateSurveyUserStreamDesc = &grpc.StreamDesc{
-	StreamName: "UpdateSurveyUser",
-}
-
 func (c *surveyServiceClient) UpdateSurveyUser(ctx context.Context, in *UpdateSurveyUserRequest, opts ...grpc.CallOption) (*SurveyUser, error) {
 	out := new(SurveyUser)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/UpdateSurveyUser", in, out, opts...)
@@ -166,21 +131,13 @@ func (c *surveyServiceClient) UpdateSurveyUser(ctx context.Context, in *UpdateSu
 	return out, nil
 }
 
-var surveyServiceDeleteSurveyUserStreamDesc = &grpc.StreamDesc{
-	StreamName: "DeleteSurveyUser",
-}
-
-func (c *surveyServiceClient) DeleteSurveyUser(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
-	out := new(empty.Empty)
+func (c *surveyServiceClient) DeleteSurveyUser(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/DeleteSurveyUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
-}
-
-var surveyServiceGetProjectStatisticsStreamDesc = &grpc.StreamDesc{
-	StreamName: "GetProjectStatistics",
 }
 
 func (c *surveyServiceClient) GetProjectStatistics(ctx context.Context, in *StatisticRequest, opts ...grpc.CallOption) (*StatisticResponse, error) {
@@ -192,10 +149,6 @@ func (c *surveyServiceClient) GetProjectStatistics(ctx context.Context, in *Stat
 	return out, nil
 }
 
-var surveyServiceNewDiscoProjectStreamDesc = &grpc.StreamDesc{
-	StreamName: "NewDiscoProject",
-}
-
 func (c *surveyServiceClient) NewDiscoProject(ctx context.Context, in *NewDiscoProjectRequest, opts ...grpc.CallOption) (*DiscoProject, error) {
 	out := new(DiscoProject)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/NewDiscoProject", in, out, opts...)
@@ -203,10 +156,6 @@ func (c *surveyServiceClient) NewDiscoProject(ctx context.Context, in *NewDiscoP
 		return nil, err
 	}
 	return out, nil
-}
-
-var surveyServiceGetDiscoProjectStreamDesc = &grpc.StreamDesc{
-	StreamName: "GetDiscoProject",
 }
 
 func (c *surveyServiceClient) GetDiscoProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*DiscoProject, error) {
@@ -218,10 +167,6 @@ func (c *surveyServiceClient) GetDiscoProject(ctx context.Context, in *IdRequest
 	return out, nil
 }
 
-var surveyServiceListDiscoProjectStreamDesc = &grpc.StreamDesc{
-	StreamName: "ListDiscoProject",
-}
-
 func (c *surveyServiceClient) ListDiscoProject(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error) {
 	out := new(ListResponse)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/ListDiscoProject", in, out, opts...)
@@ -229,10 +174,6 @@ func (c *surveyServiceClient) ListDiscoProject(ctx context.Context, in *ListRequ
 		return nil, err
 	}
 	return out, nil
-}
-
-var surveyServiceUpdateDiscoProjectStreamDesc = &grpc.StreamDesc{
-	StreamName: "UpdateDiscoProject",
 }
 
 func (c *surveyServiceClient) UpdateDiscoProject(ctx context.Context, in *UpdateDiscoProjectRequest, opts ...grpc.CallOption) (*DiscoProject, error) {
@@ -244,12 +185,8 @@ func (c *surveyServiceClient) UpdateDiscoProject(ctx context.Context, in *Update
 	return out, nil
 }
 
-var surveyServiceDeleteDiscoProjectStreamDesc = &grpc.StreamDesc{
-	StreamName: "DeleteDiscoProject",
-}
-
-func (c *surveyServiceClient) DeleteDiscoProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
-	out := new(empty.Empty)
+func (c *surveyServiceClient) DeleteDiscoProject(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/DeleteDiscoProject", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -257,11 +194,7 @@ func (c *surveyServiceClient) DeleteDiscoProject(ctx context.Context, in *IdRequ
 	return out, nil
 }
 
-var surveyServiceGenTempIdStreamDesc = &grpc.StreamDesc{
-	StreamName: "GenTempId",
-}
-
-func (c *surveyServiceClient) GenTempId(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*GenIdResponse, error) {
+func (c *surveyServiceClient) GenTempId(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GenIdResponse, error) {
 	out := new(GenIdResponse)
 	err := c.cc.Invoke(ctx, "/v2.mod_disco.services.SurveyService/GenTempId", in, out, opts...)
 	if err != nil {
@@ -270,576 +203,484 @@ func (c *surveyServiceClient) GenTempId(ctx context.Context, in *empty.Empty, op
 	return out, nil
 }
 
-// SurveyServiceService is the service API for SurveyService service.
-// Fields should be assigned to their respective handler implementations only before
-// RegisterSurveyServiceService is called.  Any unassigned fields will result in the
-// handler for that method returning an Unimplemented error.
-type SurveyServiceService struct {
-	// Projects
-	NewSurveyProject    func(context.Context, *NewSurveyProjectRequest) (*SurveyProject, error)
-	GetSurveyProject    func(context.Context, *IdRequest) (*SurveyProject, error)
-	ListSurveyProject   func(context.Context, *ListRequest) (*ListResponse, error)
-	UpdateSurveyProject func(context.Context, *UpdateSurveyProjectRequest) (*SurveyProject, error)
-	DeleteSurveyProject func(context.Context, *IdRequest) (*empty.Empty, error)
-	// Users
-	NewSurveyUser        func(context.Context, *NewSurveyUserRequest) (*SurveyUser, error)
-	GetSurveyUser        func(context.Context, *IdRequest) (*SurveyUser, error)
-	ListSurveyUser       func(context.Context, *ListRequest) (*ListResponse, error)
-	UpdateSurveyUser     func(context.Context, *UpdateSurveyUserRequest) (*SurveyUser, error)
-	DeleteSurveyUser     func(context.Context, *IdRequest) (*empty.Empty, error)
-	GetProjectStatistics func(context.Context, *StatisticRequest) (*StatisticResponse, error)
-	// DiscoProjects
-	NewDiscoProject    func(context.Context, *NewDiscoProjectRequest) (*DiscoProject, error)
-	GetDiscoProject    func(context.Context, *IdRequest) (*DiscoProject, error)
-	ListDiscoProject   func(context.Context, *ListRequest) (*ListResponse, error)
-	UpdateDiscoProject func(context.Context, *UpdateDiscoProjectRequest) (*DiscoProject, error)
-	DeleteDiscoProject func(context.Context, *IdRequest) (*empty.Empty, error)
-	// TempIdRequest
-	GenTempId func(context.Context, *empty.Empty) (*GenIdResponse, error)
-}
-
-func (s *SurveyServiceService) newSurveyProject(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.NewSurveyProject == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method NewSurveyProject not implemented")
-	}
-	in := new(NewSurveyProjectRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.NewSurveyProject(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/NewSurveyProject",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.NewSurveyProject(ctx, req.(*NewSurveyProjectRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) getSurveyProject(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.GetSurveyProject == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method GetSurveyProject not implemented")
-	}
-	in := new(IdRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.GetSurveyProject(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/GetSurveyProject",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.GetSurveyProject(ctx, req.(*IdRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) listSurveyProject(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.ListSurveyProject == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method ListSurveyProject not implemented")
-	}
-	in := new(ListRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.ListSurveyProject(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/ListSurveyProject",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.ListSurveyProject(ctx, req.(*ListRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) updateSurveyProject(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.UpdateSurveyProject == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method UpdateSurveyProject not implemented")
-	}
-	in := new(UpdateSurveyProjectRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.UpdateSurveyProject(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/UpdateSurveyProject",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.UpdateSurveyProject(ctx, req.(*UpdateSurveyProjectRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) deleteSurveyProject(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.DeleteSurveyProject == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method DeleteSurveyProject not implemented")
-	}
-	in := new(IdRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.DeleteSurveyProject(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/DeleteSurveyProject",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.DeleteSurveyProject(ctx, req.(*IdRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) newSurveyUser(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.NewSurveyUser == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method NewSurveyUser not implemented")
-	}
-	in := new(NewSurveyUserRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.NewSurveyUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/NewSurveyUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.NewSurveyUser(ctx, req.(*NewSurveyUserRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) getSurveyUser(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.GetSurveyUser == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method GetSurveyUser not implemented")
-	}
-	in := new(IdRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.GetSurveyUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/GetSurveyUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.GetSurveyUser(ctx, req.(*IdRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) listSurveyUser(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.ListSurveyUser == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method ListSurveyUser not implemented")
-	}
-	in := new(ListRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.ListSurveyUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/ListSurveyUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.ListSurveyUser(ctx, req.(*ListRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) updateSurveyUser(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.UpdateSurveyUser == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method UpdateSurveyUser not implemented")
-	}
-	in := new(UpdateSurveyUserRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.UpdateSurveyUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/UpdateSurveyUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.UpdateSurveyUser(ctx, req.(*UpdateSurveyUserRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) deleteSurveyUser(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.DeleteSurveyUser == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method DeleteSurveyUser not implemented")
-	}
-	in := new(IdRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.DeleteSurveyUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/DeleteSurveyUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.DeleteSurveyUser(ctx, req.(*IdRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) getProjectStatistics(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.GetProjectStatistics == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method GetProjectStatistics not implemented")
-	}
-	in := new(StatisticRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.GetProjectStatistics(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/GetProjectStatistics",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.GetProjectStatistics(ctx, req.(*StatisticRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) newDiscoProject(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.NewDiscoProject == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method NewDiscoProject not implemented")
-	}
-	in := new(NewDiscoProjectRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.NewDiscoProject(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/NewDiscoProject",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.NewDiscoProject(ctx, req.(*NewDiscoProjectRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) getDiscoProject(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.GetDiscoProject == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method GetDiscoProject not implemented")
-	}
-	in := new(IdRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.GetDiscoProject(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/GetDiscoProject",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.GetDiscoProject(ctx, req.(*IdRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) listDiscoProject(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.ListDiscoProject == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method ListDiscoProject not implemented")
-	}
-	in := new(ListRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.ListDiscoProject(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/ListDiscoProject",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.ListDiscoProject(ctx, req.(*ListRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) updateDiscoProject(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.UpdateDiscoProject == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method UpdateDiscoProject not implemented")
-	}
-	in := new(UpdateDiscoProjectRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.UpdateDiscoProject(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/UpdateDiscoProject",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.UpdateDiscoProject(ctx, req.(*UpdateDiscoProjectRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) deleteDiscoProject(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.DeleteDiscoProject == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method DeleteDiscoProject not implemented")
-	}
-	in := new(IdRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.DeleteDiscoProject(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/DeleteDiscoProject",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.DeleteDiscoProject(ctx, req.(*IdRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-func (s *SurveyServiceService) genTempId(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	if s.GenTempId == nil {
-		return nil, status.Errorf(codes.Unimplemented, "method GenTempId not implemented")
-	}
-	in := new(empty.Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return s.GenTempId(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     s,
-		FullMethod: "/v2.mod_disco.services.SurveyService/GenTempId",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.GenTempId(ctx, req.(*empty.Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-// RegisterSurveyServiceService registers a service implementation with a gRPC server.
-func RegisterSurveyServiceService(s grpc.ServiceRegistrar, srv *SurveyServiceService) {
-	sd := grpc.ServiceDesc{
-		ServiceName: "v2.mod_disco.services.SurveyService",
-		Methods: []grpc.MethodDesc{
-			{
-				MethodName: "NewSurveyProject",
-				Handler:    srv.newSurveyProject,
-			},
-			{
-				MethodName: "GetSurveyProject",
-				Handler:    srv.getSurveyProject,
-			},
-			{
-				MethodName: "ListSurveyProject",
-				Handler:    srv.listSurveyProject,
-			},
-			{
-				MethodName: "UpdateSurveyProject",
-				Handler:    srv.updateSurveyProject,
-			},
-			{
-				MethodName: "DeleteSurveyProject",
-				Handler:    srv.deleteSurveyProject,
-			},
-			{
-				MethodName: "NewSurveyUser",
-				Handler:    srv.newSurveyUser,
-			},
-			{
-				MethodName: "GetSurveyUser",
-				Handler:    srv.getSurveyUser,
-			},
-			{
-				MethodName: "ListSurveyUser",
-				Handler:    srv.listSurveyUser,
-			},
-			{
-				MethodName: "UpdateSurveyUser",
-				Handler:    srv.updateSurveyUser,
-			},
-			{
-				MethodName: "DeleteSurveyUser",
-				Handler:    srv.deleteSurveyUser,
-			},
-			{
-				MethodName: "GetProjectStatistics",
-				Handler:    srv.getProjectStatistics,
-			},
-			{
-				MethodName: "NewDiscoProject",
-				Handler:    srv.newDiscoProject,
-			},
-			{
-				MethodName: "GetDiscoProject",
-				Handler:    srv.getDiscoProject,
-			},
-			{
-				MethodName: "ListDiscoProject",
-				Handler:    srv.listDiscoProject,
-			},
-			{
-				MethodName: "UpdateDiscoProject",
-				Handler:    srv.updateDiscoProject,
-			},
-			{
-				MethodName: "DeleteDiscoProject",
-				Handler:    srv.deleteDiscoProject,
-			},
-			{
-				MethodName: "GenTempId",
-				Handler:    srv.genTempId,
-			},
-		},
-		Streams:  []grpc.StreamDesc{},
-		Metadata: "mod_disco_services.proto",
-	}
-
-	s.RegisterService(&sd, nil)
-}
-
-// NewSurveyServiceService creates a new SurveyServiceService containing the
-// implemented methods of the SurveyService service in s.  Any unimplemented
-// methods will result in the gRPC server returning an UNIMPLEMENTED status to the client.
-// This includes situations where the method handler is misspelled or has the wrong
-// signature.  For this reason, this function should be used with great care and
-// is not recommended to be used by most users.
-func NewSurveyServiceService(s interface{}) *SurveyServiceService {
-	ns := &SurveyServiceService{}
-	if h, ok := s.(interface {
-		NewSurveyProject(context.Context, *NewSurveyProjectRequest) (*SurveyProject, error)
-	}); ok {
-		ns.NewSurveyProject = h.NewSurveyProject
-	}
-	if h, ok := s.(interface {
-		GetSurveyProject(context.Context, *IdRequest) (*SurveyProject, error)
-	}); ok {
-		ns.GetSurveyProject = h.GetSurveyProject
-	}
-	if h, ok := s.(interface {
-		ListSurveyProject(context.Context, *ListRequest) (*ListResponse, error)
-	}); ok {
-		ns.ListSurveyProject = h.ListSurveyProject
-	}
-	if h, ok := s.(interface {
-		UpdateSurveyProject(context.Context, *UpdateSurveyProjectRequest) (*SurveyProject, error)
-	}); ok {
-		ns.UpdateSurveyProject = h.UpdateSurveyProject
-	}
-	if h, ok := s.(interface {
-		DeleteSurveyProject(context.Context, *IdRequest) (*empty.Empty, error)
-	}); ok {
-		ns.DeleteSurveyProject = h.DeleteSurveyProject
-	}
-	if h, ok := s.(interface {
-		NewSurveyUser(context.Context, *NewSurveyUserRequest) (*SurveyUser, error)
-	}); ok {
-		ns.NewSurveyUser = h.NewSurveyUser
-	}
-	if h, ok := s.(interface {
-		GetSurveyUser(context.Context, *IdRequest) (*SurveyUser, error)
-	}); ok {
-		ns.GetSurveyUser = h.GetSurveyUser
-	}
-	if h, ok := s.(interface {
-		ListSurveyUser(context.Context, *ListRequest) (*ListResponse, error)
-	}); ok {
-		ns.ListSurveyUser = h.ListSurveyUser
-	}
-	if h, ok := s.(interface {
-		UpdateSurveyUser(context.Context, *UpdateSurveyUserRequest) (*SurveyUser, error)
-	}); ok {
-		ns.UpdateSurveyUser = h.UpdateSurveyUser
-	}
-	if h, ok := s.(interface {
-		DeleteSurveyUser(context.Context, *IdRequest) (*empty.Empty, error)
-	}); ok {
-		ns.DeleteSurveyUser = h.DeleteSurveyUser
-	}
-	if h, ok := s.(interface {
-		GetProjectStatistics(context.Context, *StatisticRequest) (*StatisticResponse, error)
-	}); ok {
-		ns.GetProjectStatistics = h.GetProjectStatistics
-	}
-	if h, ok := s.(interface {
-		NewDiscoProject(context.Context, *NewDiscoProjectRequest) (*DiscoProject, error)
-	}); ok {
-		ns.NewDiscoProject = h.NewDiscoProject
-	}
-	if h, ok := s.(interface {
-		GetDiscoProject(context.Context, *IdRequest) (*DiscoProject, error)
-	}); ok {
-		ns.GetDiscoProject = h.GetDiscoProject
-	}
-	if h, ok := s.(interface {
-		ListDiscoProject(context.Context, *ListRequest) (*ListResponse, error)
-	}); ok {
-		ns.ListDiscoProject = h.ListDiscoProject
-	}
-	if h, ok := s.(interface {
-		UpdateDiscoProject(context.Context, *UpdateDiscoProjectRequest) (*DiscoProject, error)
-	}); ok {
-		ns.UpdateDiscoProject = h.UpdateDiscoProject
-	}
-	if h, ok := s.(interface {
-		DeleteDiscoProject(context.Context, *IdRequest) (*empty.Empty, error)
-	}); ok {
-		ns.DeleteDiscoProject = h.DeleteDiscoProject
-	}
-	if h, ok := s.(interface {
-		GenTempId(context.Context, *empty.Empty) (*GenIdResponse, error)
-	}); ok {
-		ns.GenTempId = h.GenTempId
-	}
-	return ns
-}
-
-// UnstableSurveyServiceService is the service API for SurveyService service.
-// New methods may be added to this interface if they are added to the service
-// definition, which is not a backward-compatible change.  For this reason,
-// use of this type is not recommended.
-type UnstableSurveyServiceService interface {
+// SurveyServiceServer is the server API for SurveyService service.
+// All implementations must embed UnimplementedSurveyServiceServer
+// for forward compatibility
+type SurveyServiceServer interface {
 	// Projects
 	NewSurveyProject(context.Context, *NewSurveyProjectRequest) (*SurveyProject, error)
 	GetSurveyProject(context.Context, *IdRequest) (*SurveyProject, error)
 	ListSurveyProject(context.Context, *ListRequest) (*ListResponse, error)
 	UpdateSurveyProject(context.Context, *UpdateSurveyProjectRequest) (*SurveyProject, error)
-	DeleteSurveyProject(context.Context, *IdRequest) (*empty.Empty, error)
+	DeleteSurveyProject(context.Context, *IdRequest) (*emptypb.Empty, error)
 	// Users
 	NewSurveyUser(context.Context, *NewSurveyUserRequest) (*SurveyUser, error)
 	GetSurveyUser(context.Context, *IdRequest) (*SurveyUser, error)
 	ListSurveyUser(context.Context, *ListRequest) (*ListResponse, error)
 	UpdateSurveyUser(context.Context, *UpdateSurveyUserRequest) (*SurveyUser, error)
-	DeleteSurveyUser(context.Context, *IdRequest) (*empty.Empty, error)
+	DeleteSurveyUser(context.Context, *IdRequest) (*emptypb.Empty, error)
 	GetProjectStatistics(context.Context, *StatisticRequest) (*StatisticResponse, error)
 	// DiscoProjects
 	NewDiscoProject(context.Context, *NewDiscoProjectRequest) (*DiscoProject, error)
 	GetDiscoProject(context.Context, *IdRequest) (*DiscoProject, error)
 	ListDiscoProject(context.Context, *ListRequest) (*ListResponse, error)
 	UpdateDiscoProject(context.Context, *UpdateDiscoProjectRequest) (*DiscoProject, error)
-	DeleteDiscoProject(context.Context, *IdRequest) (*empty.Empty, error)
+	DeleteDiscoProject(context.Context, *IdRequest) (*emptypb.Empty, error)
 	// TempIdRequest
-	GenTempId(context.Context, *empty.Empty) (*GenIdResponse, error)
+	GenTempId(context.Context, *emptypb.Empty) (*GenIdResponse, error)
+	mustEmbedUnimplementedSurveyServiceServer()
+}
+
+// UnimplementedSurveyServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedSurveyServiceServer struct {
+}
+
+func (UnimplementedSurveyServiceServer) NewSurveyProject(context.Context, *NewSurveyProjectRequest) (*SurveyProject, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NewSurveyProject not implemented")
+}
+func (UnimplementedSurveyServiceServer) GetSurveyProject(context.Context, *IdRequest) (*SurveyProject, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSurveyProject not implemented")
+}
+func (UnimplementedSurveyServiceServer) ListSurveyProject(context.Context, *ListRequest) (*ListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSurveyProject not implemented")
+}
+func (UnimplementedSurveyServiceServer) UpdateSurveyProject(context.Context, *UpdateSurveyProjectRequest) (*SurveyProject, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSurveyProject not implemented")
+}
+func (UnimplementedSurveyServiceServer) DeleteSurveyProject(context.Context, *IdRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSurveyProject not implemented")
+}
+func (UnimplementedSurveyServiceServer) NewSurveyUser(context.Context, *NewSurveyUserRequest) (*SurveyUser, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NewSurveyUser not implemented")
+}
+func (UnimplementedSurveyServiceServer) GetSurveyUser(context.Context, *IdRequest) (*SurveyUser, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSurveyUser not implemented")
+}
+func (UnimplementedSurveyServiceServer) ListSurveyUser(context.Context, *ListRequest) (*ListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSurveyUser not implemented")
+}
+func (UnimplementedSurveyServiceServer) UpdateSurveyUser(context.Context, *UpdateSurveyUserRequest) (*SurveyUser, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSurveyUser not implemented")
+}
+func (UnimplementedSurveyServiceServer) DeleteSurveyUser(context.Context, *IdRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSurveyUser not implemented")
+}
+func (UnimplementedSurveyServiceServer) GetProjectStatistics(context.Context, *StatisticRequest) (*StatisticResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProjectStatistics not implemented")
+}
+func (UnimplementedSurveyServiceServer) NewDiscoProject(context.Context, *NewDiscoProjectRequest) (*DiscoProject, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NewDiscoProject not implemented")
+}
+func (UnimplementedSurveyServiceServer) GetDiscoProject(context.Context, *IdRequest) (*DiscoProject, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDiscoProject not implemented")
+}
+func (UnimplementedSurveyServiceServer) ListDiscoProject(context.Context, *ListRequest) (*ListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListDiscoProject not implemented")
+}
+func (UnimplementedSurveyServiceServer) UpdateDiscoProject(context.Context, *UpdateDiscoProjectRequest) (*DiscoProject, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDiscoProject not implemented")
+}
+func (UnimplementedSurveyServiceServer) DeleteDiscoProject(context.Context, *IdRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDiscoProject not implemented")
+}
+func (UnimplementedSurveyServiceServer) GenTempId(context.Context, *emptypb.Empty) (*GenIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenTempId not implemented")
+}
+func (UnimplementedSurveyServiceServer) mustEmbedUnimplementedSurveyServiceServer() {}
+
+// UnsafeSurveyServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to SurveyServiceServer will
+// result in compilation errors.
+type UnsafeSurveyServiceServer interface {
+	mustEmbedUnimplementedSurveyServiceServer()
+}
+
+func RegisterSurveyServiceServer(s grpc.ServiceRegistrar, srv SurveyServiceServer) {
+	s.RegisterService(&SurveyService_ServiceDesc, srv)
+}
+
+func _SurveyService_NewSurveyProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NewSurveyProjectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).NewSurveyProject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/NewSurveyProject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).NewSurveyProject(ctx, req.(*NewSurveyProjectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_GetSurveyProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).GetSurveyProject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/GetSurveyProject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).GetSurveyProject(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_ListSurveyProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).ListSurveyProject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/ListSurveyProject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).ListSurveyProject(ctx, req.(*ListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_UpdateSurveyProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateSurveyProjectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).UpdateSurveyProject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/UpdateSurveyProject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).UpdateSurveyProject(ctx, req.(*UpdateSurveyProjectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_DeleteSurveyProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).DeleteSurveyProject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/DeleteSurveyProject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).DeleteSurveyProject(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_NewSurveyUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NewSurveyUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).NewSurveyUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/NewSurveyUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).NewSurveyUser(ctx, req.(*NewSurveyUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_GetSurveyUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).GetSurveyUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/GetSurveyUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).GetSurveyUser(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_ListSurveyUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).ListSurveyUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/ListSurveyUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).ListSurveyUser(ctx, req.(*ListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_UpdateSurveyUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateSurveyUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).UpdateSurveyUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/UpdateSurveyUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).UpdateSurveyUser(ctx, req.(*UpdateSurveyUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_DeleteSurveyUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).DeleteSurveyUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/DeleteSurveyUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).DeleteSurveyUser(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_GetProjectStatistics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StatisticRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).GetProjectStatistics(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/GetProjectStatistics",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).GetProjectStatistics(ctx, req.(*StatisticRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_NewDiscoProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NewDiscoProjectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).NewDiscoProject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/NewDiscoProject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).NewDiscoProject(ctx, req.(*NewDiscoProjectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_GetDiscoProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).GetDiscoProject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/GetDiscoProject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).GetDiscoProject(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_ListDiscoProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).ListDiscoProject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/ListDiscoProject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).ListDiscoProject(ctx, req.(*ListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_UpdateDiscoProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateDiscoProjectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).UpdateDiscoProject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/UpdateDiscoProject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).UpdateDiscoProject(ctx, req.(*UpdateDiscoProjectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_DeleteDiscoProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).DeleteDiscoProject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/DeleteDiscoProject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).DeleteDiscoProject(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SurveyService_GenTempId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SurveyServiceServer).GenTempId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v2.mod_disco.services.SurveyService/GenTempId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SurveyServiceServer).GenTempId(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// SurveyService_ServiceDesc is the grpc.ServiceDesc for SurveyService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var SurveyService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "v2.mod_disco.services.SurveyService",
+	HandlerType: (*SurveyServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "NewSurveyProject",
+			Handler:    _SurveyService_NewSurveyProject_Handler,
+		},
+		{
+			MethodName: "GetSurveyProject",
+			Handler:    _SurveyService_GetSurveyProject_Handler,
+		},
+		{
+			MethodName: "ListSurveyProject",
+			Handler:    _SurveyService_ListSurveyProject_Handler,
+		},
+		{
+			MethodName: "UpdateSurveyProject",
+			Handler:    _SurveyService_UpdateSurveyProject_Handler,
+		},
+		{
+			MethodName: "DeleteSurveyProject",
+			Handler:    _SurveyService_DeleteSurveyProject_Handler,
+		},
+		{
+			MethodName: "NewSurveyUser",
+			Handler:    _SurveyService_NewSurveyUser_Handler,
+		},
+		{
+			MethodName: "GetSurveyUser",
+			Handler:    _SurveyService_GetSurveyUser_Handler,
+		},
+		{
+			MethodName: "ListSurveyUser",
+			Handler:    _SurveyService_ListSurveyUser_Handler,
+		},
+		{
+			MethodName: "UpdateSurveyUser",
+			Handler:    _SurveyService_UpdateSurveyUser_Handler,
+		},
+		{
+			MethodName: "DeleteSurveyUser",
+			Handler:    _SurveyService_DeleteSurveyUser_Handler,
+		},
+		{
+			MethodName: "GetProjectStatistics",
+			Handler:    _SurveyService_GetProjectStatistics_Handler,
+		},
+		{
+			MethodName: "NewDiscoProject",
+			Handler:    _SurveyService_NewDiscoProject_Handler,
+		},
+		{
+			MethodName: "GetDiscoProject",
+			Handler:    _SurveyService_GetDiscoProject_Handler,
+		},
+		{
+			MethodName: "ListDiscoProject",
+			Handler:    _SurveyService_ListDiscoProject_Handler,
+		},
+		{
+			MethodName: "UpdateDiscoProject",
+			Handler:    _SurveyService_UpdateDiscoProject_Handler,
+		},
+		{
+			MethodName: "DeleteDiscoProject",
+			Handler:    _SurveyService_DeleteDiscoProject_Handler,
+		},
+		{
+			MethodName: "GenTempId",
+			Handler:    _SurveyService_GenTempId_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "mod_disco_services.proto",
 }

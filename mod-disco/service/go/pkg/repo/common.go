@@ -4,11 +4,10 @@ import (
 	"context"
 	"strconv"
 
-	corepkg "go.amplifyedge.org/sys-share-v2/sys-core/service/go/pkg"
-
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
+	coreRpc "go.amplifyedge.org/sys-share-v2/sys-core/service/go/rpc/v2"
 	sysCoreSvc "go.amplifyedge.org/sys-v2/sys-core/service/go/pkg/coredb"
 )
 
@@ -83,7 +82,7 @@ func (md *ModDiscoRepo) checkExists(ctx context.Context, in *sysExistsInput) (bo
 	if err != nil {
 		return false, "", err
 	}
-	resp, err := md.busClient.Broadcast(ctx, &corepkg.EventRequest{
+	resp, err := md.busClient.Broadcast(ctx, &coreRpc.EventRequest{
 		EventName:   in.eventName,
 		Initiator:   moduleName,
 		JsonPayload: payloadBytes,
@@ -100,5 +99,3 @@ func (md *ModDiscoRepo) checkExists(ctx context.Context, in *sysExistsInput) (bo
 	}
 	return true, replyResp[in.idKey].(string), nil
 }
-
-

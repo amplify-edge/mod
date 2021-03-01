@@ -88,7 +88,7 @@ func (md *ModDiscoRepo) GetDiscoProject(ctx context.Context, in *discoRpc.IdRequ
 	if err != nil {
 		return nil, err
 	}
-	dproj, err := dp.ToPkgDiscoProject()
+	dproj, err := dp.ToRpcDiscoProject()
 	if err != nil {
 		return nil, err
 	}
@@ -133,7 +133,7 @@ func (md *ModDiscoRepo) ListDiscoProject(ctx context.Context, in *discoRpc.ListR
 	}
 	var pkgDiscoProjects []*discoRpc.DiscoProject
 	for _, su := range daoDiscoProjects {
-		dp, err := su.ToPkgDiscoProject()
+		dp, err := su.ToRpcDiscoProject()
 		if err != nil {
 			return nil, err
 		}
@@ -177,7 +177,7 @@ func (md *ModDiscoRepo) UpdateDiscoProject(ctx context.Context, in *discoRpc.Upd
 	if err != nil {
 		return nil, err
 	}
-	dp, err := daoDiscoProject.ToPkgDiscoProject()
+	dp, err := daoDiscoProject.ToRpcDiscoProject()
 	if err != nil {
 		return nil, err
 	}

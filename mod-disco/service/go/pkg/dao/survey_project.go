@@ -26,7 +26,7 @@ var (
 	surveyProjectNameUniqueIdx = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_name ON %s(survey_project_name)", SurveyProjectTableName, SurveyProjectTableName)
 )
 
-func (m *ModDiscoDB) FromPkgSurveyProject(sp *discoRpc.SurveyProject) (*SurveyProject, error) {
+func (m *ModDiscoDB) FromRpcSurveyProject(sp *discoRpc.SurveyProject) (*SurveyProject, error) {
 	surveyProjectId := sp.SurveyProjectId
 	if surveyProjectId == "" {
 		surveyProjectId = sharedConfig.NewID()
@@ -40,7 +40,7 @@ func (m *ModDiscoDB) FromPkgSurveyProject(sp *discoRpc.SurveyProject) (*SurveyPr
 	}, nil
 }
 
-func (m *ModDiscoDB) FromNewPkgSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (*SurveyProject, error) {
+func (m *ModDiscoDB) FromNewRpcSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (*SurveyProject, error) {
 	return &SurveyProject{
 		SurveyProjectId:        sharedConfig.NewID(),
 		SurveyProjectName:      sp.SurveyProjectName,
@@ -50,7 +50,7 @@ func (m *ModDiscoDB) FromNewPkgSurveyProject(sp *discoRpc.NewSurveyProjectReques
 	}, nil
 }
 
-func (m *ModDiscoDB) ToPkgSurveyProject(sp *SurveyProject) (*discoRpc.SurveyProject, error) {
+func (m *ModDiscoDB) ToRpcSurveyProject(sp *SurveyProject) (*discoRpc.SurveyProject, error) {
 	supportRoleTypes, err := m.ListSupportRoleType(map[string]interface{}{"survey_project_ref_id": sp.SurveyProjectId})
 	if err != nil {
 		return nil, err
@@ -155,7 +155,7 @@ func (m *ModDiscoDB) ListSurveyProject(filters map[string]interface{}, orderBy s
 }
 
 func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (*discoRpc.SurveyProject, error) {
-	sproj, err := m.FromNewPkgSurveyProject(sp)
+	sproj, err := m.FromNewRpcSurveyProject(sp)
 	if err != nil {
 		return nil, err
 	}
@@ -204,7 +204,7 @@ func (m *ModDiscoDB) InsertSurveyProject(sp *discoRpc.NewSurveyProjectRequest) (
 	if err != nil {
 		return nil, err
 	}
-	surveyProj, err := m.ToPkgSurveyProject(dsp)
+	surveyProj, err := m.ToRpcSurveyProject(dsp)
 	if err != nil {
 		return nil, err
 	}

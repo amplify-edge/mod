@@ -11,7 +11,7 @@ import 'package:random_string/random_string.dart';
 import 'package:sys_share_sys_account_service/pkg/guards/guardian_view_model.dart';
 import 'package:sys_share_sys_account_service/sys_share_sys_account_service.dart';
 
-class AdminDashboardModule extends ChildModule {
+class AdminDashboardModule extends Module {
   final String baseRoute;
 
   AdminDashboardModule({this.baseRoute = '/dashboard'});
@@ -48,7 +48,7 @@ class AdminDashboardModule extends ChildModule {
       ];
 }
 
-class MainAppModule extends ChildModule {
+class MainAppModule extends Module {
   final String baseRoute;
   final String url;
   final String urlNative;

@@ -12,7 +12,7 @@ package main
 //go:generate /usr/bin/env bash -c "echo 'Generating protobuf and grpc services golang'"
 //go:generate booty protoc -I./proto/v2/ -I. --go_out=./service/go/rpc/v2 --go_opt=paths=source_relative ./proto/v2/mod_disco_models.proto
 //go:generate booty protoc -I./proto/v2/ -I. --go-grpc_out=./service/go/rpc/v2/ --cobra_out=./service/go/rpc/v2 --go-grpc_opt=paths=source_relative --cobra_opt=paths=source_relative ./proto/v2/mod_disco_services.proto
-//go:generate protoc-go-inject-tag -input ./service/go/rpc/v2/mod_disco_models.pb.go
+//go:generate protoc-gen-inject-tag -input ./service/go/rpc/v2/mod_disco_models.pb.go
 
 // ============================================================================
 // Flutter

@@ -3,14 +3,13 @@
 package v2
 
 import (
-	empty "github.com/golang/protobuf/ptypes/empty"
-	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	cobra "github.com/spf13/cobra"
 	client "go.amplifyedge.org/protoc-gen-cobra/client"
 	flag "go.amplifyedge.org/protoc-gen-cobra/flag"
 	iocodec "go.amplifyedge.org/protoc-gen-cobra/iocodec"
 	grpc "google.golang.org/grpc"
 	proto "google.golang.org/protobuf/proto"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 func SurveyServiceClientCommand(options ...client.Option) *cobra.Command {
@@ -744,9 +743,7 @@ func _SurveyServiceListDiscoProjectCommand(cfg *client.Config) *cobra.Command {
 }
 
 func _SurveyServiceUpdateDiscoProjectCommand(cfg *client.Config) *cobra.Command {
-	req := &UpdateDiscoProjectRequest{
-		ActionTime: &timestamp.Timestamp{},
-	}
+	req := &UpdateDiscoProjectRequest{}
 
 	cmd := &cobra.Command{
 		Use:    cfg.CommandNamer("UpdateDiscoProject"),
@@ -786,8 +783,7 @@ func _SurveyServiceUpdateDiscoProjectCommand(cfg *client.Config) *cobra.Command 
 	cmd.PersistentFlags().StringVar(&req.ProjectId, cfg.FlagNamer("ProjectId"), "", "")
 	cmd.PersistentFlags().StringVar(&req.Goal, cfg.FlagNamer("Goal"), "", "")
 	cmd.PersistentFlags().Uint64Var(&req.AlreadyPledged, cfg.FlagNamer("AlreadyPledged"), 0, "")
-	cmd.PersistentFlags().Int64Var(&req.ActionTime.Seconds, cfg.FlagNamer("ActionTime Seconds"), 0, "Represents seconds of UTC time since Unix epoch\n 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to\n 9999-12-31T23:59:59Z inclusive.")
-	cmd.PersistentFlags().Int32Var(&req.ActionTime.Nanos, cfg.FlagNamer("ActionTime Nanos"), 0, "Non-negative fractions of a second at nanosecond resolution. Negative\n second values with fractions must still have non-negative nanos values\n that count forward in time. Must be from 0 to 999,999,999\n inclusive.")
+	flag.TimestampVar(cmd.PersistentFlags(), &req.ActionTime, cfg.FlagNamer("ActionTime"), "")
 	cmd.PersistentFlags().StringVar(&req.ActionLocation, cfg.FlagNamer("ActionLocation"), "", "")
 	cmd.PersistentFlags().Uint64Var(&req.MinPioneers, cfg.FlagNamer("MinPioneers"), 0, "")
 	cmd.PersistentFlags().Uint64Var(&req.MinRebelsMedia, cfg.FlagNamer("MinRebelsMedia"), 0, "")
@@ -855,7 +851,7 @@ func _SurveyServiceDeleteDiscoProjectCommand(cfg *client.Config) *cobra.Command 
 }
 
 func _SurveyServiceGenTempIdCommand(cfg *client.Config) *cobra.Command {
-	req := &empty.Empty{}
+	req := &emptypb.Empty{}
 
 	cmd := &cobra.Command{
 		Use:    cfg.CommandNamer("GenTempId"),
@@ -873,7 +869,7 @@ func _SurveyServiceGenTempIdCommand(cfg *client.Config) *cobra.Command {
 			}
 			return client.RoundTrip(cmd.Context(), cfg, func(cc grpc.ClientConnInterface, in iocodec.Decoder, out iocodec.Encoder) error {
 				cli := NewSurveyServiceClient(cc)
-				v := &empty.Empty{}
+				v := &emptypb.Empty{}
 
 				if err := in(v); err != nil {
 					return err

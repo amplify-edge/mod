@@ -26,7 +26,7 @@ var (
 	surveyUserUniqueIdx = fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_%s_name ON %s(survey_user_name)", SurveyUsersTableName, SurveyUsersTableName)
 )
 
-func (m *ModDiscoDB) FromPkgSurveyUser(sp *discoRpc.SurveyUser) (*SurveyUser, error) {
+func (m *ModDiscoDB) FromRpcSurveyUser(sp *discoRpc.SurveyUser) (*SurveyUser, error) {
 	surveyUserId := sp.SurveyUserId
 	if surveyUserId == "" {
 		surveyUserId = sharedConfig.NewID()
@@ -41,7 +41,7 @@ func (m *ModDiscoDB) FromPkgSurveyUser(sp *discoRpc.SurveyUser) (*SurveyUser, er
 	}, nil
 }
 
-func (m *ModDiscoDB) FromNewPkgSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*SurveyUser, error) {
+func (m *ModDiscoDB) FromNewRpcSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*SurveyUser, error) {
 	return &SurveyUser{
 		SurveyUserId:           sharedConfig.NewID(),
 		SurveyUserName:         sp.GetSurveyUserName(),
@@ -52,7 +52,7 @@ func (m *ModDiscoDB) FromNewPkgSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*S
 	}, nil
 }
 
-func (m *ModDiscoDB) ToPkgSurveyUser(sp *SurveyUser) (*discoRpc.SurveyUser, error) {
+func (m *ModDiscoDB) ToRpcSurveyUser(sp *SurveyUser) (*discoRpc.SurveyUser, error) {
 	supportRoleValues, err := m.ListSupportRoleValue(map[string]interface{}{"survey_user_ref_id": sp.SurveyUserId})
 	if err != nil {
 		return nil, err
@@ -144,7 +144,7 @@ func (m *ModDiscoDB) ListSurveyUser(filters map[string]interface{}, orderBy stri
 }
 
 func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*discoRpc.SurveyUser, error) {
-	suser, err := m.FromNewPkgSurveyUser(sp)
+	suser, err := m.FromNewRpcSurveyUser(sp)
 	if err != nil {
 		return nil, err
 	}
@@ -200,7 +200,7 @@ func (m *ModDiscoDB) InsertSurveyUser(sp *discoRpc.NewSurveyUserRequest) (*disco
 	if err != nil {
 		return nil, err
 	}
-	surveyUser, err := m.ToPkgSurveyUser(daoSurvey)
+	surveyUser, err := m.ToRpcSurveyUser(daoSurvey)
 	if err != nil {
 		return nil, err
 	}

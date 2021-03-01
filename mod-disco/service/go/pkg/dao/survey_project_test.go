@@ -28,10 +28,10 @@ func testInsertSurveyProjects(t *testing.T) {
 
 func testListSurveyProjects(t *testing.T) {
 	t.Log("on listing survey projects")
-	sps, _, err := mdb.ListSurveyProject(map[string]interface{}{}, dao.DefaultCursor, 10, 0)
+	sps, _, err := mdb.ListSurveyProject(map[string]interface{}{}, dao.DefaultCursor, 10, 0, "")
 	assert.NoError(t, err)
 	for _, sp := range sps {
-		surveyProject, err := mdb.ToPkgSurveyProject(sp)
+		surveyProject, err := mdb.ToRpcSurveyProject(sp)
 		assert.NoError(t, err)
 		surveyProjects = append(surveyProjects, surveyProject)
 	}
@@ -65,7 +65,7 @@ func testUpdateSurveyProject(t *testing.T) {
 	sp, err := mdb.GetSurveyProject(map[string]interface{}{"survey_project_id": surveyProjects[0].SurveyProjectId})
 	assert.NoError(t, err)
 	t.Logf("Survey Project: %v", sp)
-	surveyProject, err := mdb.ToPkgSurveyProject(sp)
+	surveyProject, err := mdb.ToRpcSurveyProject(sp)
 	assert.NoError(t, err)
 	t.Logf("Survey Project Becomes: %v", surveyProject)
 	// assert.Equal(t, [][]byte{condBytes}, surveyProject.SupportRoleTypes)
@@ -88,7 +88,7 @@ func testInsertSurveyUser(t *testing.T) {
 
 func testListSurveyUsers(t *testing.T) {
 	t.Log("on listing survey users")
-	sps, _, err := mdb.ListSurveyUser(map[string]interface{}{}, dao.DefaultCursor, 10, 0)
+	sps, _, err := mdb.ListSurveyUser(map[string]interface{}{}, dao.DefaultCursor, 10, 0, "")
 	assert.NoError(t, err)
 	for _, sp := range sps {
 		surveyUser, err := mdb.ToPkgSurveyUser(sp)
