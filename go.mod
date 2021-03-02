@@ -1,6 +1,6 @@
 module go.amplifyedge.org/mod-v2
 
-go 1.15
+go 1.16
 
 require (
 	github.com/Masterminds/squirrel v1.5.0
