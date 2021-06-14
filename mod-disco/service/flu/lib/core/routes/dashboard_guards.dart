@@ -3,6 +3,8 @@ import 'package:mod_disco/core/routes/paths.dart';
 import 'package:sys_share_sys_account_service/pkg/guards/guardian_view_model.dart';
 
 class SplashGuard extends RouteGuard {
+  SplashGuard({String guardedRoute}) : super(guardedRoute);
+
   @override
   Future<bool> canActivate(String path, ModularRoute router) async {
     Modular.to.pushReplacementNamed(Modular.get<Paths>().projects);
@@ -11,6 +13,8 @@ class SplashGuard extends RouteGuard {
 }
 
 class DashboardGuard extends RouteGuard {
+  DashboardGuard({String guardedRoute}) : super(guardedRoute);
+
   @override
   Future<bool> canActivate(String path, ModularRoute router) async {
     final gmod = Modular.get<GuardianViewModel>();
